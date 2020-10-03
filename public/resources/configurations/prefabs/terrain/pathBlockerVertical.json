@@ -1,0 +1,37 @@
+{
+  "name": "pathBlockerVertical",
+  "children": [],
+  "components": [
+    {
+      "name": "transform",
+      "config": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "rigidBody",
+      "config": {
+        "type": "static",
+        "mass": 1,
+        "useGravity": false,
+        "isPermeable": false,
+        "ghost": false,
+        "drag": 0
+      }
+    },
+    {
+      "name": "colliderContainer",
+      "config": {
+        "type": "boxCollider",
+        "collider": {
+          "sizeX": 32,
+          "sizeY": 600,
+          "centerX": 0,
+          "centerY": 0
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "projectSettings": {},
+  "scenes": {
+    "game": "resources/configurations/scenes/game.json",
+    "mainMenu": "resources/configurations/scenes/mainMenu.json"
+  },
+  "prefabs": [
+    {
+      "src": "resources/configurations/prefabs/units/player.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/terrain/island.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/terrain/sea.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/terrain/pathBlockerVertical.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/terrain/pathBlockerHorizontal.json"
+    }
+  ],
+  "startScene": "mainMenu"
+}

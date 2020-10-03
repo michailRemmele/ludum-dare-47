@@ -1,0 +1,8 @@
+/node_modules
+/.idea
+
+/build
+stats.json
+
+.DS_Store
+npm-debug.log*
