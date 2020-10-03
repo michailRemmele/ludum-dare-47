@@ -17,6 +17,7 @@ const HEALTH_COMPONENT_NAME = 'health';
 const HITBOX_COMPONENT_NAME = 'hitBox';
 
 const ACCELERATION_DURATION = 10;
+const FETTER_DURATION = 250;
 const PUSH_FORCE = 35000;
 
 const HIT_LIFETIME = 500;
@@ -28,6 +29,12 @@ const LIFETIME_EFFECT = {
   applicatorOptions: {
     timer: 800,
   },
+};
+
+const FETTER_EFFECT = {
+  name: 'weaponFetter',
+  effect: 'fetter',
+  effectType: 'timeLimited',
 };
 
 class FightProcessor extends Processor {
@@ -78,6 +85,15 @@ class FightProcessor extends Processor {
           id: targetId,
           gameObject: target,
           value: damage,
+        });
+        messageBus.send({
+          type: ADD_EFFECT_MSG,
+          id: targetId,
+          gameObject: target,
+          ...FETTER_EFFECT,
+          applicatorOptions: {
+            duration: FETTER_DURATION,
+          },
         });
 
         this._pushTarget(target, directionVector.clone(), messageBus);
