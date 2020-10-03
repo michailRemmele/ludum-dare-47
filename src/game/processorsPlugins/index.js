@@ -4,6 +4,8 @@ import GameOverProcessorPlugin from './gameOverProcessorPlugin/gameOverProcessor
 import ReaperPlugin from './reaperPlugin/reaperPlugin';
 import FightProcessorPlugin from './fightProcessorPlugin/fightProcessorPlugin';
 import EnemySpawnerPlugin from './enemySpawnerPlugin/enemySpawnerPlugin';
+import AiProcessorPlugin from './aiProcessorPlugin/aiProcessorPlugin';
+import EnemiesDetectorPlugin from './enemiesDetectorPlugin/enemiesDetectorPlugin';
 
 export default {
   damageProcessor: DamageProcessorPlugin,
@@ -12,4 +14,6 @@ export default {
   reaper: ReaperPlugin,
   fightProcessor: FightProcessorPlugin,
   enemySpawner: EnemySpawnerPlugin,
+  aiProcessor: AiProcessorPlugin,
+  enemiesDetector: EnemiesDetectorPlugin,
 };

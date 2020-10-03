@@ -49,6 +49,15 @@
       }
     },
     {
+      "name": "meleeWeapon",
+      "config": {
+        "name": "sword",
+        "damage": 5,
+        "range": 30,
+        "cooldown": 500
+      }
+    },
+    {
       "name": "rigidBody",
       "config": {
         "type": "dynamic",
@@ -75,6 +84,12 @@
       "name": "movement",
       "config": {
         "speed": 100
+      }
+    },
+    {
+      "name": "ai",
+      "config": {
+        "strategy": "enemy"
       }
     },
     {

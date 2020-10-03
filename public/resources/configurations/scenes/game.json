@@ -235,6 +235,17 @@
       "options": {}
     },
     {
+      "name": "aiProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "ai",
+          "colliderContainer"
+        ]
+      },
+      "options": {}
+    },
+    {
       "name": "scriptProcessor",
       "section": "gameStateUpdateSection",
       "filter": {
@@ -310,6 +321,15 @@
         "windowNodeId": "root",
         "initialCamera": "1.2"
       }
+    },
+    {
+      "name": "enemiesDetector",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "type": "unit",
+        "components": []
+      },
+      "options": {}
     },
     {
       "name": "physicsProcessor",
