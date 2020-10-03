@@ -15,8 +15,8 @@
       "config": {
         "type": "static",
         "src": "terrain/grass-tile",
-        "width": 600,
-        "height": 600,
+        "width": 400,
+        "height": 400,
         "rotation": 0,
         "origin": [ 0, 0 ],
         "flipX": false,

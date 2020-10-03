@@ -15,10 +15,28 @@
       "src": "resources/configurations/prefabs/terrain/sea.json"
     },
     {
-      "src": "resources/configurations/prefabs/terrain/pathBlockerVertical.json"
+      "src": "resources/configurations/prefabs/terrain/pathBlockerTop.json"
     },
     {
-      "src": "resources/configurations/prefabs/terrain/pathBlockerHorizontal.json"
+      "src": "resources/configurations/prefabs/terrain/pathBlockerBottom.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/terrain/pathBlockerLeft.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/terrain/pathBlockerRight.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/terrain/pathBlockerTopLeft.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/terrain/pathBlockerTopRight.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/terrain/pathBlockerBottomRight.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/terrain/pathBlockerBottomLeft.json"
     },
     {
       "src": "resources/configurations/prefabs/effects/hit.json"

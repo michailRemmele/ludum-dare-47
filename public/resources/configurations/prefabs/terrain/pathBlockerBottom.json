@@ -1,5 +1,5 @@
 {
-  "name": "pathBlockerHorizontal",
+  "name": "pathBlockerBottom",
   "children": [],
   "components": [
     {
@@ -26,11 +26,25 @@
       "config": {
         "type": "boxCollider",
         "collider": {
-          "sizeX": 600,
-          "sizeY": 32,
+          "sizeX": 400,
+          "sizeY": 16,
           "centerX": 0,
           "centerY": 0
         }
+      }
+    },
+    {
+      "name": "renderable",
+      "config": {
+        "type": "static",
+        "src": "terrain/grass-tile-side-h",
+        "width": 400,
+        "height": 16,
+        "rotation": 0,
+        "origin": [ 0, 0 ],
+        "flipX": false,
+        "flipY": true,
+        "sortingLayer": "terrain"
       }
     }
   ]

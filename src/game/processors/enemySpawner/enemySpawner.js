@@ -13,10 +13,10 @@ class EnemySpawner extends Processor {
     this._gameObjectSpawner = options.gameObjectSpawner;
 
     this._islandSize = {
-      minX: -300,
-      maxX: 300,
-      minY: -300,
-      maxY: 300,
+      minX: -200,
+      maxX: 200,
+      minY: -200,
+      maxY: 200,
     };
     this._cooldown = 0;
   }

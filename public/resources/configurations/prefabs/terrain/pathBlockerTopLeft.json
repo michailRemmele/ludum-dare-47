@@ -1,0 +1,51 @@
+{
+  "name": "pathBlockerTopLeft",
+  "children": [],
+  "components": [
+    {
+      "name": "transform",
+      "config": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "rigidBody",
+      "config": {
+        "type": "static",
+        "mass": 1,
+        "useGravity": false,
+        "isPermeable": false,
+        "ghost": false,
+        "drag": 0
+      }
+    },
+    {
+      "name": "colliderContainer",
+      "config": {
+        "type": "boxCollider",
+        "collider": {
+          "sizeX": 16,
+          "sizeY": 16,
+          "centerX": 0,
+          "centerY": 0
+        }
+      }
+    },
+    {
+      "name": "renderable",
+      "config": {
+        "type": "static",
+        "src": "terrain/grass-tile-corner",
+        "width": 16,
+        "height": 16,
+        "rotation": 0,
+        "origin": [ 0, 0 ],
+        "flipX": false,
+        "flipY": false,
+        "sortingLayer": "terrain"
+      }
+    }
+  ]
+}

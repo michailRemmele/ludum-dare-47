@@ -12,7 +12,7 @@ const TRANSFORM_COMPONENT_NAME = 'transform';
 const WEAPON_COMPONENT_NAME = 'meleeWeapon';
 
 const COOLDOWN = 1000;
-const MELEE_RADIUS = 40;
+const MELEE_RADIUS = 20;
 
 class EnemyAIStrategy extends AIStrategy{
   constructor(player, store) {

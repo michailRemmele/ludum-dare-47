@@ -37,15 +37,15 @@
     },
     {
       "id": "300",
-      "name": "pathBlockerVertical1",
+      "name": "pathBlockerRight",
       "fromPrefab": true,
-      "prefabName": "pathBlockerVertical",
+      "prefabName": "pathBlockerRight",
       "children": [],
       "components": [
         {
           "name": "transform",
           "config": {
-            "offsetX": 316,
+            "offsetX": 208,
             "offsetY": 0,
             "rotation": 0
           }
@@ -54,15 +54,15 @@
     },
     {
       "id": "301",
-      "name": "pathBlockerVertical2",
+      "name": "pathBlockerLeft",
       "fromPrefab": true,
-      "prefabName": "pathBlockerVertical",
+      "prefabName": "pathBlockerLeft",
       "children": [],
       "components": [
         {
           "name": "transform",
           "config": {
-            "offsetX": -316,
+            "offsetX": -208,
             "offsetY": 0,
             "rotation": 0
           }
@@ -71,16 +71,16 @@
     },
     {
       "id": "303",
-      "name": "pathBlockerHorizontal1",
+      "name": "pathBlockerTop",
       "fromPrefab": true,
-      "prefabName": "pathBlockerHorizontal",
+      "prefabName": "pathBlockerTop",
       "children": [],
       "components": [
         {
           "name": "transform",
           "config": {
             "offsetX": 0,
-            "offsetY": -316,
+            "offsetY": -208,
             "rotation": 0
           }
         }
@@ -88,16 +88,84 @@
     },
     {
       "id": "304",
-      "name": "pathBlockerHorizontal2",
+      "name": "pathBlockerBottom",
       "fromPrefab": true,
-      "prefabName": "pathBlockerHorizontal",
+      "prefabName": "pathBlockerBottom",
       "children": [],
       "components": [
         {
           "name": "transform",
           "config": {
             "offsetX": 0,
-            "offsetY": 316,
+            "offsetY": 208,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "305",
+      "name": "pathBlockerTopLeft",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerTopLeft",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": -208,
+            "offsetY": -208,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "306",
+      "name": "pathBlockerTopRight",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerTopRight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 208,
+            "offsetY": -208,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "307",
+      "name": "pathBlockerBottomRight",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerBottomRight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 208,
+            "offsetY": 208,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "308",
+      "name": "pathBlockerBottomLeft",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerBottomLeft",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": -208,
+            "offsetY": 208,
             "rotation": 0
           }
         }
@@ -135,7 +203,7 @@
             {
               "name": "camera",
               "config": {
-                "zoom": 2
+                "zoom": 4
               }
             }
           ]
