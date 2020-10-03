@@ -6,6 +6,7 @@ import FightProcessorPlugin from './fightProcessorPlugin/fightProcessorPlugin';
 import EnemySpawnerPlugin from './enemySpawnerPlugin/enemySpawnerPlugin';
 import AiProcessorPlugin from './aiProcessorPlugin/aiProcessorPlugin';
 import EnemiesDetectorPlugin from './enemiesDetectorPlugin/enemiesDetectorPlugin';
+import RenderProcessorPlugin from './renderProcessorPlugin/renderProcessorPlugin';
 
 export default {
   damageProcessor: DamageProcessorPlugin,
@@ -16,4 +17,5 @@ export default {
   enemySpawner: EnemySpawnerPlugin,
   aiProcessor: AiProcessorPlugin,
   enemiesDetector: EnemiesDetectorPlugin,
+  customRenderer: RenderProcessorPlugin,
 };

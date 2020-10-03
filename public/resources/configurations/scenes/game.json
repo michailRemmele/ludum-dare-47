@@ -484,7 +484,7 @@
       "options": {}
     },
     {
-      "name": "renderProcessor",
+      "name": "customRenderer",
       "section": "renderingSection",
       "filter": {
         "components": [
