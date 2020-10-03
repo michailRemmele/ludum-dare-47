@@ -1,0 +1,42 @@
+{
+  "name": "hit",
+  "children": [],
+  "components": [
+    {
+      "name": "transform",
+      "config": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "health",
+      "config": {
+        "points": 1
+      }
+    },
+    {
+      "name": "rigidBody",
+      "config": {
+        "type": "dynamic",
+        "mass": 1.75,
+        "useGravity": false,
+        "isPermeable": true,
+        "ghost": false,
+        "drag": 0
+      }
+    },
+    {
+      "name": "colliderContainer",
+      "config": {
+        "type": "circleCollider",
+        "collider": {
+          "radius": 0,
+          "centerX": 0,
+          "centerY": 0
+        }
+      }
+    }
+  ]
+}

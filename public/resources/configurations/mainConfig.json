@@ -19,6 +19,12 @@
     },
     {
       "src": "resources/configurations/prefabs/terrain/pathBlockerHorizontal.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/effects/hit.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/units/enemy.json"
     }
   ],
   "startScene": "mainMenu"

@@ -186,10 +186,62 @@
           "config": {
             "inputEventBindings": {
               "MOUSE_LEFT_BUTTON_PRESS": {
-                "messageType": "SHOT",
+                "messageType": "HIT",
                 "attrs": {}
               }
             }
+          }
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "enemy1",
+      "fromPrefab": true,
+      "prefabName": "enemy",
+      "children": [
+        {
+          "id": "2.1",
+          "name": "enemyHitBox",
+          "fromPrefab": true,
+          "prefabName": "enemyHitBox",
+          "children": [],
+          "components": []
+        }
+      ],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 100,
+            "offsetY": 0,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "enemy1",
+      "fromPrefab": true,
+      "prefabName": "enemy",
+      "children": [
+        {
+          "id": "3.1",
+          "name": "enemyHitBox",
+          "fromPrefab": true,
+          "prefabName": "enemyHitBox",
+          "children": [],
+          "components": []
+        }
+      ],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 100,
+            "offsetY": 35,
+            "rotation": 0
           }
         }
       ]
@@ -251,6 +303,16 @@
         "components": [
           "movement",
           "transform"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "fightProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "meleeWeapon"
         ]
       },
       "options": {}

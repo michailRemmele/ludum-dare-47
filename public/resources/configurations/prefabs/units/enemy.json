@@ -1,0 +1,175 @@
+{
+  "name": "enemy",
+  "type": "unit",
+  "children": [
+    {
+      "name": "enemyHitBox",
+      "children": [],
+      "components": [
+        {
+          "name": "hitBox",
+          "config": {}
+        },
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 24,
+              "sizeY": 32,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "components": [
+    {
+      "name": "transform",
+      "config": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "health",
+      "config": {
+        "points": 100
+      }
+    },
+    {
+      "name": "rigidBody",
+      "config": {
+        "type": "dynamic",
+        "mass": 3,
+        "useGravity": false,
+        "isPermeable": false,
+        "ghost": false,
+        "drag": 0.5
+      }
+    },
+    {
+      "name": "colliderContainer",
+      "config": {
+        "type": "boxCollider",
+        "collider": {
+          "sizeX": 24,
+          "sizeY": 32,
+          "centerX": 0,
+          "centerY": 0
+        }
+      }
+    },
+    {
+      "name": "movement",
+      "config": {
+        "speed": 100
+      }
+    },
+    {
+      "name": "animatable",
+      "config": {
+        "defaultState": "idle",
+        "states": [
+          {
+            "name": "idle",
+            "speed": 1,
+            "frames": [
+              {
+                "index": 0,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "looped": true,
+            "transitions": [
+              {
+                "state": "void",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "KILL"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "damage",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "DAMAGE"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "damage",
+            "speed": 1,
+            "frames": [
+              {
+                "index": 1,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "transitions": [
+              {
+                "state": "void",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "KILL"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "void",
+            "speed": 1,
+            "frames": [
+              {
+                "disabled": true
+              }
+            ],
+            "looped": true,
+            "transitions": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "renderable",
+      "config": {
+        "type": "sprite",
+        "src": "units/enemy",
+        "width": 24,
+        "height": 32,
+        "slice": 2,
+        "rotation": 0,
+        "origin": [ 0, 0 ],
+        "flipX": false,
+        "flipY": false,
+        "sortingLayer": "units"
+      }
+    }
+  ]
+}
