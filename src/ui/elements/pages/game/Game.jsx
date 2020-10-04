@@ -5,17 +5,22 @@ import withGame from '../../hocs/withGame/withGame';
 
 import HealthBar from '../../components/healthBar/HealthBar';
 import ActionBar from '../../components/actionBar/ActionBar';
+import InventoryBar from '../../components/inventoryBar/InventoryBar';
+import Inventory from '../../components/inventory/Inventory';
 import Button from '../../atoms/button/Button';
 
 import './style.css';
 
 const VICTORY_MSG = 'VICTORY';
 const DEFEAT_MSG = 'DEFEAT';
+const TOGGLE_INVENTORY_MSG = 'TOGGLE_INVENTORY';
 const LOAD_SCENE_MSG = 'LOAD_SCENE';
+const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
 const GAME_SCENE_NAME = 'game';
 const MAIN_MENU_SCENE_NAME = 'mainMenu';
 
 const CAN_GRAB_KEY = 'canGrab';
+const INVENTORY_KEY = 'inventory';
 
 const PLAYER_ID = '1';
 const HEALTH_COMPONENT_NAME = 'health';
@@ -24,6 +29,7 @@ const PAGE_STATE = {
   GAME: 'game',
   VICTORY: 'victory',
   DEFEAT: 'defeat',
+  INVENTORY: 'inventory',
 };
 
 class Game extends React.Component {
@@ -49,6 +55,20 @@ class Game extends React.Component {
           {this.renderHud()}
           <div className='game__overlay'>
             {this.renderDefeatDialog()}
+          </div>
+        </>
+      ),
+      [PAGE_STATE.INVENTORY]: () => (
+        <>
+          {this.renderHud()}
+          <div className='game__overlay'>
+            <Inventory
+              className='game__inventory'
+              healGrass={this.state.healGrass}
+              ogreGrass={this.state.ogreGrass}
+              boomGrass={this.state.boomGrass}
+              onCraft={this.onCraft.bind(this)}
+            />
           </div>
         </>
       ),
@@ -80,6 +100,20 @@ class Game extends React.Component {
         canGrab: !!canGrabSet.size,
       });
     }
+
+    const { healGrass, ogreGrass, boomGrass } = store.get(INVENTORY_KEY);
+
+    if (
+      healGrass !== this.state.healGrass
+      || ogreGrass !== this.state.ogreGrass
+      || boomGrass !== this.state.boomGrass
+    ) {
+      this.setState({
+        healGrass,
+        ogreGrass,
+        boomGrass,
+      });
+    }
   }
 
   onMessageBusUpdate(messageBus) {
@@ -87,6 +121,13 @@ class Game extends React.Component {
       this.setState({ pageState: PAGE_STATE.VICTORY });
     } else if (messageBus.get(DEFEAT_MSG)) {
       this.setState({ pageState: PAGE_STATE.DEFEAT });
+    }
+
+    const pageState = this.state.pageState;
+    if (messageBus.get(TOGGLE_INVENTORY_MSG) && pageState === PAGE_STATE.GAME) {
+      this.setState({ pageState: PAGE_STATE.INVENTORY });
+    } else if (messageBus.get(TOGGLE_INVENTORY_MSG) && pageState === PAGE_STATE.INVENTORY) {
+      this.setState({ pageState: PAGE_STATE.GAME });
     }
   }
 
@@ -109,6 +150,13 @@ class Game extends React.Component {
     if (Object.keys(newState).length) {
       this.setState(newState);
     }
+  }
+
+  onCraft(name) {
+    this.props.pushMessage({
+      type: CRAFT_RECIPE_MSG,
+      name,
+    });
   }
 
   onRestart() {
@@ -158,7 +206,10 @@ class Game extends React.Component {
   renderHud() {
     return (
       <>
-        <HealthBar health={this.state.health}/>
+        <header className='game__header'>
+          <HealthBar health={this.state.health}/>
+          <InventoryBar />
+        </header>
         {this.renderActionBar()}
       </>
     );

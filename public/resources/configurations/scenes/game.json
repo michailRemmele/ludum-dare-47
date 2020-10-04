@@ -249,6 +249,10 @@
               "E_RELEASED": {
                 "messageType": "GRAB",
                 "attrs": {}
+              },
+              "I_RELEASED": {
+                "messageType": "TOGGLE_INVENTORY",
+                "attrs": {}
               }
             }
           }

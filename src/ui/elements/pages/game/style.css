@@ -11,6 +11,12 @@
   font-family: sans-serif;
 }
 
+.game__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .game__action-bar {
   align-self: flex-end;
 }

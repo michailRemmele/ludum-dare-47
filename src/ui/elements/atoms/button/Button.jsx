@@ -9,6 +9,7 @@ class Button extends React.Component {
       <button
         className={`button ${this.props.className}`}
         onClick={this.props.onClick}
+        disabled={this.props.disabled}
       >
         {this.props.title}
       </button>
@@ -20,12 +21,14 @@ Button.defaultProps = {
   className: '',
   title: '',
   onClick: () => {},
+  disabled: false,
 };
 
 Button.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default Button;

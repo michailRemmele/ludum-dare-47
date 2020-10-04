@@ -24,7 +24,6 @@ ActionBar.defaultProps = {
 
 ActionBar.propTypes = {
   className: PropTypes.string,
-  health: PropTypes.number,
 };
 
 export default ActionBar;
