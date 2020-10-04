@@ -9,6 +9,9 @@
 }
 
 .items-bar__item {
+  display: flex;
+  align-items: center;
+
   font-family: sans-serif;
   font-size: 24px;
   font-weight: bold;
@@ -53,4 +56,26 @@
 
 .items-bar__count_power {
   background-image: url('./images/power-potion.png');
+}
+
+@media screen and (max-width: 480px) {
+  .items-bar {
+    padding: 15px;
+  }
+
+  .items-bar__key {
+    width: 20px;
+    height: 20px;
+  }
+
+  .items-bar__item {
+    font-size: 18px;
+  }
+
+  .items-bar__count {
+    height: 24px;
+    padding-left: 30px;
+
+    background-size: 24px 24px;
+  }
 }
