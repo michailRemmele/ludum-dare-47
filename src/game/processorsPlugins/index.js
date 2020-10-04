@@ -9,6 +9,7 @@ import EnemiesDetectorPlugin from './enemiesDetectorPlugin/enemiesDetectorPlugin
 import RenderProcessorPlugin from './renderProcessorPlugin/renderProcessorPlugin';
 import DayNightSimulatorPlugin from './dayNightSimulatorPlugin/dayNightSimulatorPlugin';
 import GrassSpawnerPlugin from './grassSpawnerPlugin/grassSpawnerPlugin';
+import CollectProcessorPlugin from './collectProcessorPlugin/collectProcessorPlugin';
 
 export default {
   damageProcessor: DamageProcessorPlugin,
@@ -22,4 +23,5 @@ export default {
   customRenderer: RenderProcessorPlugin,
   dayNightSimulator: DayNightSimulatorPlugin,
   grassSpawner: GrassSpawnerPlugin,
+  collectProcessor: CollectProcessorPlugin,
 };

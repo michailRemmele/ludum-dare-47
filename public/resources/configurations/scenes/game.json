@@ -245,6 +245,10 @@
                 "attrs": {
                   "directionAngle": 0
                 }
+              },
+              "E_RELEASED": {
+                "messageType": "GRAB",
+                "attrs": {}
               }
             }
           }
@@ -368,6 +372,17 @@
       "filter": {
         "components": [
           "meleeWeapon"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "collectProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "keyboardControl",
+          "mouseControl"
         ]
       },
       "options": {}
