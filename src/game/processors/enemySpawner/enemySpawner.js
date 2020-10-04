@@ -6,6 +6,7 @@ const ENEMY_PREFAB_NAME = 'enemy';
 const RANGE_ENEMY_PREFAB_NAME = 'rangeEnemy';
 const TRANSFORM_COMPONENT_NAME = 'transform';
 const MELEE_WEAPON_COMPONENT_NAME = 'meleeWeapon';
+const RANGE_WEAPON_COMPONENT_NAME = 'rangeWeapon';
 const HEALTH_COMPONENT_NAME = 'health';
 
 const ENEMY_SPAWN_COOLDOWN = 2000;
@@ -14,8 +15,11 @@ const START_SPAWN_HOUR = 0;
 const END_SPAWN_HOUR = 9;
 const END_SPAWN_DAMAGE = 10000;
 
-const DAMAGE_MAGNIFIER = 3;
-const HP_MAGNIFIER = 5;
+const MELEE_DAMAGE_MAGNIFIER = 2;
+const MELEE_HP_MAGNIFIER = 5;
+
+const RANGE_DAMAGE_MAGNIFIER = 4;
+const RANGE_HP_MAGNIFIER = 2;
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
 
@@ -49,10 +53,10 @@ class EnemySpawner extends Processor {
       const enemyWeapon = enemy.getComponent(MELEE_WEAPON_COMPONENT_NAME);
       const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
 
-      enemyWeapon.damage += days * DAMAGE_MAGNIFIER;
+      enemyWeapon.damage += days * MELEE_DAMAGE_MAGNIFIER;
 
-      enemyHealth.maxPoints += days * HP_MAGNIFIER;
-      enemyHealth.points += days * HP_MAGNIFIER;
+      enemyHealth.maxPoints += days * MELEE_HP_MAGNIFIER;
+      enemyHealth.points += days * MELEE_HP_MAGNIFIER;
 
       enemyTransform.offsetX = MathOps.random(this._islandSize.minX, this._islandSize.maxX);
       enemyTransform.offsetY = MathOps.random(this._islandSize.minY, this._islandSize.maxY);
@@ -61,7 +65,7 @@ class EnemySpawner extends Processor {
     }
   }
 
-  _spawnRangeEnemies(deltaTime, hour, _days) {
+  _spawnRangeEnemies(deltaTime, hour, days) {
     if (this._rangeEnemyCooldown > 0) {
       this._rangeEnemyCooldown -= deltaTime;
       return;
@@ -70,6 +74,13 @@ class EnemySpawner extends Processor {
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
       const enemy = this._gameObjectSpawner.spawn(RANGE_ENEMY_PREFAB_NAME);
       const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
+      const enemyWeapon = enemy.getComponent(RANGE_WEAPON_COMPONENT_NAME);
+      const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
+
+      enemyWeapon.damage += days * RANGE_DAMAGE_MAGNIFIER;
+
+      enemyHealth.maxPoints += days * RANGE_HP_MAGNIFIER;
+      enemyHealth.points += days * RANGE_HP_MAGNIFIER;
 
       enemyTransform.offsetX = MathOps.random(this._islandSize.minX, this._islandSize.maxX);
       enemyTransform.offsetY = MathOps.random(this._islandSize.minY, this._islandSize.maxY);

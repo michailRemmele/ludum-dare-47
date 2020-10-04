@@ -53,7 +53,7 @@
       "config": {
         "name": "staff",
         "bullet": "energyBall",
-        "damage": 5,
+        "damage": 10,
         "fetterDuration": 300,
         "speed": 150,
         "range": 150,
