@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import withGame from '../../hocs/withGame/withGame';
 
 import HealthBar from '../../components/healthBar/HealthBar';
+import ActionBar from '../../components/actionBar/ActionBar';
 import Button from '../../atoms/button/Button';
 
 import './style.css';
@@ -13,6 +14,8 @@ const DEFEAT_MSG = 'DEFEAT';
 const LOAD_SCENE_MSG = 'LOAD_SCENE';
 const GAME_SCENE_NAME = 'game';
 const MAIN_MENU_SCENE_NAME = 'mainMenu';
+
+const CAN_GRAB_KEY = 'canGrab';
 
 const PLAYER_ID = '1';
 const HEALTH_COMPONENT_NAME = 'health';
@@ -51,17 +54,32 @@ class Game extends React.Component {
       ),
     };
     this.messageBusSubscription = this.onMessageBusUpdate.bind(this);
+    this.storeSubscription = this.onStoreUpdate.bind(this);
     this.playerSubscription = this.onPlayerUpdate.bind(this);
   }
 
   componentDidMount() {
     this.props.messageBusObserver.subscribe(this.messageBusSubscription);
+    this.props.storeObserver.subscribe(this.storeSubscription);
     this.props.gameObjects.subscribe(this.playerSubscription, PLAYER_ID);
   }
 
   componentWillUnmount() {
     this.props.messageBusObserver.unsubscribe(this.messageBusSubscription);
+    this.props.storeObserver.unsubscribe(this.storeSubscription);
     this.props.gameObjects.unsubscribe(this.playerSubscription, PLAYER_ID);
+  }
+
+  onStoreUpdate(store) {
+    const canGrabSet = store.get(CAN_GRAB_KEY);
+
+    const canGrab = !!canGrabSet.size;
+
+    if (canGrab !== this.state.canGrab) {
+      this.setState({
+        canGrab: !!canGrabSet.size,
+      });
+    }
   }
 
   onMessageBusUpdate(messageBus) {
@@ -107,6 +125,16 @@ class Game extends React.Component {
     });
   }
 
+  renderActionBar() {
+    if (!this.state.canGrab) {
+      return;
+    }
+
+    return (
+      <ActionBar className='game__action-bar'/>
+    );
+  }
+
   renderDialog(title) {
     return (
       <div className='game__dialog dialog'>
@@ -131,6 +159,7 @@ class Game extends React.Component {
     return (
       <>
         <HealthBar health={this.state.health}/>
+        {this.renderActionBar()}
       </>
     );
   }
@@ -146,6 +175,7 @@ class Game extends React.Component {
 
 Game.propTypes = {
   messageBusObserver: PropTypes.any,
+  storeObserver: PropTypes.any,
   pushMessage: PropTypes.func,
   gameObjects: PropTypes.any,
 };

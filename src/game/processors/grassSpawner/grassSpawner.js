@@ -26,10 +26,10 @@ class GrassSpawner extends Processor {
     this._store = options.store;
 
     this._islandSize = {
-      minX: -200,
-      maxX: 200,
-      minY: -200,
-      maxY: 200,
+      minX: -180,
+      maxX: 180,
+      minY: -180,
+      maxY: 180,
     };
     this._cooldown = 0;
   }

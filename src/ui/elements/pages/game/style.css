@@ -11,6 +11,10 @@
   font-family: sans-serif;
 }
 
+.game__action-bar {
+  align-self: flex-end;
+}
+
 .game__overlay {
   position: absolute;
 

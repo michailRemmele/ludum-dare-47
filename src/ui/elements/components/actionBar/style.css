@@ -1,4 +1,4 @@
-.health-bar {
+.action-bar {
   font-family: sans-serif;
   font-size: 32px;
   font-weight: bold;
@@ -11,6 +11,20 @@
   padding: 30px;
 
   user-select: none;
+}
+
+.action-bar__key {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  text-align: center;
+
+  border: 2px solid #fff;
+  border-radius: 3px;
+
+  margin-right: 10px;
+
+  box-shadow: 2px 2px 0px #000;
 }
 
 @media screen and (max-width: 480px) {
