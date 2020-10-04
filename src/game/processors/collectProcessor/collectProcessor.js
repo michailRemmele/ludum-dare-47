@@ -68,7 +68,13 @@ class CollectProcessor extends Processor {
         }
 
         const item = this._canGrab.values().next().value;
-        const { name } = item.getComponent(COLLECTABLE_COMPONENT_NAME);
+        const collectable = item.getComponent(COLLECTABLE_COMPONENT_NAME);
+
+        if (!collectable) {
+          return;
+        }
+
+        const name = collectable.name;
 
         this._inventory[name] = this._inventory[name] || 0;
         this._inventory[name] += 1;
