@@ -27,7 +27,7 @@ class MainMenu extends React.Component {
         <main className='main-menu__main'>
           <header className='main-menu__header'>
             <h1 className='main-menu__title'>
-              Ludum Dare 47
+              Infinite Battle
             </h1>
           </header>
           <nav className='main-menu__menu menu'>
