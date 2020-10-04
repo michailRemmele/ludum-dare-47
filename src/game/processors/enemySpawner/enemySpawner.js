@@ -4,11 +4,16 @@ const DAMAGE_MSG = 'DAMAGE';
 
 const ENEMY_PREFAB_NAME = 'enemy';
 const TRANSFORM_COMPONENT_NAME = 'transform';
+const MELEE_WEAPON_COMPONENT_NAME = 'meleeWeapon';
+const HEALTH_COMPONENT_NAME = 'health';
 
 const SPAWN_COOLDOWN = 2000;
 const START_SPAWN_HOUR = 0;
 const END_SPAWN_HOUR = 9;
 const END_SPAWN_DAMAGE = 10000;
+
+const DAMAGE_MAGNIFIER = 3;
+const HP_MAGNIFIER = 5;
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
 
@@ -39,10 +44,18 @@ class EnemySpawner extends Processor {
 
     const time = this._store.get(TIME_OF_DAY_KEY);
     const hour = time.getHours();
+    const days = time.getDays() - 1;
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
       const enemy = this._gameObjectSpawner.spawn(ENEMY_PREFAB_NAME);
       const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
+      const enemyWeapon = enemy.getComponent(MELEE_WEAPON_COMPONENT_NAME);
+      const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
+
+      enemyWeapon.damage += days * DAMAGE_MAGNIFIER;
+
+      enemyHealth.maxPoints += days * HP_MAGNIFIER;
+      enemyHealth.points += days * HP_MAGNIFIER;
 
       enemyTransform.offsetX = MathOps.random(this._islandSize.minX, this._islandSize.maxX);
       enemyTransform.offsetY = MathOps.random(this._islandSize.minY, this._islandSize.maxY);
