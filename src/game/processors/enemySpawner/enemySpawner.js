@@ -6,7 +6,7 @@ const ENEMY_PREFAB_NAME = 'enemy';
 const RANGE_ENEMY_PREFAB_NAME = 'rangeEnemy';
 const TRANSFORM_COMPONENT_NAME = 'transform';
 const MELEE_WEAPON_COMPONENT_NAME = 'meleeWeapon';
-const RANGE_WEAPON_COMPONENT_NAME = 'rangeWeapon';
+const RANGE_WEAPON_COMPONENT_NAME = 'weapon';
 const HEALTH_COMPONENT_NAME = 'health';
 
 const ENEMY_SPAWN_COOLDOWN = 2000;
