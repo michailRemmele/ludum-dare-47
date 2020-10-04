@@ -335,7 +335,11 @@
     {
       "name": "enemySpawner",
       "section": "gameStateUpdateSection",
-      "filter": {},
+      "filter": {
+        "components": [
+          "ai"
+        ]
+      },
       "options": {}
     },
     {

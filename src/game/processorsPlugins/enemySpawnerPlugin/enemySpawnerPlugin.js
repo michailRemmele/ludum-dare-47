@@ -7,6 +7,7 @@ class EnemySpawnerPlugin extends ProcessorPlugin {
     return new EnemySpawner({
       gameObjectSpawner: options.gameObjectSpawner,
       gameObjectObserver: options.gameObjectObserver,
+      store: options.store,
     });
   }
 }
