@@ -1,0 +1,28 @@
+{
+  "name": "sea",
+  "children": [],
+  "components": [
+    {
+      "name": "transform",
+      "config": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "renderable",
+      "config": {
+        "type": "static",
+        "src": "terrain/water-tile",
+        "width": 2500,
+        "height": 2500,
+        "rotation": 0,
+        "origin": [ 0, 0 ],
+        "flipX": false,
+        "flipY": false,
+        "sortingLayer": "background"
+      }
+    }
+  ]
+}

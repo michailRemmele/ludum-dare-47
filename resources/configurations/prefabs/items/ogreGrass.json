@@ -1,0 +1,92 @@
+
+{
+  "name": "ogreGrass",
+  "type": "item",
+  "children": [],
+  "components": [
+    {
+      "name": "transform",
+      "config": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "colliderContainer",
+      "config": {
+        "type": "circleCollider",
+        "collider": {
+          "radius": 15,
+          "centerX": 0,
+          "centerY": 0
+        }
+      }
+    },
+    {
+      "name": "collectable",
+      "config": {
+        "name": "ogreGrass"
+      }
+    },
+    {
+      "name": "animatable",
+      "config": {
+        "defaultState": "idle",
+        "states": [
+          {
+            "name": "idle",
+            "speed": 1,
+            "frames": [
+              {
+                "index": 0,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "looped": true,
+            "transitions": [
+              {
+                "state": "void",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "KILL"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "void",
+            "speed": 1,
+            "frames": [
+              {
+                "disabled": true
+              }
+            ],
+            "looped": true,
+            "transitions": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "renderable",
+      "config": {
+        "type": "sprite",
+        "src": "items/ogre-grass",
+        "width": 16,
+        "height": 16,
+        "slice": 1,
+        "rotation": 0,
+        "origin": [ 0, -2 ],
+        "flipX": false,
+        "flipY": false,
+        "sortingLayer": "units"
+      }
+    }
+  ]
+}
