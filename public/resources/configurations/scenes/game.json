@@ -1,0 +1,606 @@
+{
+  "name": "game",
+  "gameObjects": [
+    {
+      "id": "100",
+      "name": "sea",
+      "fromPrefab": true,
+      "prefabName": "sea",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "200",
+      "name": "island",
+      "fromPrefab": true,
+      "prefabName": "island",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "300",
+      "name": "pathBlockerRight",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerRight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 208,
+            "offsetY": 0,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "301",
+      "name": "pathBlockerLeft",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerLeft",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": -208,
+            "offsetY": 0,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "303",
+      "name": "pathBlockerTop",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerTop",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": -208,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "304",
+      "name": "pathBlockerBottom",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerBottom",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 208,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "305",
+      "name": "pathBlockerTopLeft",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerTopLeft",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": -208,
+            "offsetY": -208,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "306",
+      "name": "pathBlockerTopRight",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerTopRight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 208,
+            "offsetY": -208,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "307",
+      "name": "pathBlockerBottomRight",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerBottomRight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 208,
+            "offsetY": 208,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "308",
+      "name": "pathBlockerBottomLeft",
+      "fromPrefab": true,
+      "prefabName": "pathBlockerBottomLeft",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": -208,
+            "offsetY": 208,
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "player",
+      "fromPrefab": true,
+      "prefabName": "player",
+      "children": [
+        {
+          "id": "1.1",
+          "name": "playerHitBox",
+          "fromPrefab": true,
+          "prefabName": "playerHitBox",
+          "children": [],
+          "components": []
+        },
+        {
+          "id": "1.2",
+          "name": "mainCamera",
+          "fromPrefab": false,
+          "prefabName": "",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "camera",
+              "config": {
+                "zoom": 4
+              }
+            }
+          ]
+        }
+      ],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "keyboardControl",
+          "config": {
+            "inputEventBindings": {
+              "W_PRESSED": {
+                "messageType": "MOVEMENT",
+                "attrs": {
+                  "directionAngle": 270
+                }
+              },
+              "A_PRESSED": {
+                "messageType": "MOVEMENT",
+                "attrs": {
+                  "directionAngle": 180
+                }
+              },
+              "S_PRESSED": {
+                "messageType": "MOVEMENT",
+                "attrs": {
+                  "directionAngle": 90
+                }
+              },
+              "D_PRESSED": {
+                "messageType": "MOVEMENT",
+                "attrs": {
+                  "directionAngle": 0
+                }
+              },
+              "E_RELEASED": {
+                "messageType": "GRAB",
+                "attrs": {}
+              },
+              "I_RELEASED": {
+                "messageType": "TOGGLE_INVENTORY",
+                "attrs": {}
+              },
+              "Q_RELEASED": {
+                "messageType": "USE_ITEM",
+                "attrs": {
+                  "item": "powerPotion"
+                }
+              },
+              "R_RELEASED": {
+                "messageType": "USE_ITEM",
+                "attrs": {
+                  "item": "healPotion"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "mouseControl",
+          "config": {
+            "inputEventBindings": {
+              "MOUSE_LEFT_BUTTON_PRESS": {
+                "messageType": "HIT",
+                "attrs": {}
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "processors": [
+    {
+      "name": "keyboardInputProcessor",
+      "section": "eventProcessSection",
+      "filter": {},
+      "options": {}
+    },
+    {
+      "name": "mouseInputProcessor",
+      "section": "eventProcessSection",
+      "filter": {},
+      "options": {}
+    },
+    {
+      "name": "mouseInputCoordinatesProjector",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {}
+    },
+    {
+      "name": "keyboardControlProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "keyboardControl"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "mouseControlProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "mouseControl"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "dayNightSimulator",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {
+        "dayLength": 60000,
+        "startTime": 32400000
+      }
+    },
+    {
+      "name": "aiProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "ai",
+          "colliderContainer"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "scriptProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "script"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "itemsActivator",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {}
+    },
+    {
+      "name": "enemySpawner",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "ai"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "grassSpawner",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "type": "item",
+        "components": []
+      },
+      "options": {}
+    },
+    {
+      "name": "movementProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "movement",
+          "transform"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "shootingProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "weapon"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "fightProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "meleeWeapon"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "collectProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "keyboardControl",
+          "mouseControl"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "craftProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {}
+    },
+    {
+      "name": "effectsProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {}
+    },
+    {
+      "name": "damageProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {}
+    },
+    {
+      "name": "reaper",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {
+        "allowedComponents": [
+          "transform",
+          "animatable",
+          "renderable",
+          "camera"
+        ],
+        "lifetime": 5000
+      }
+    },
+    {
+      "name": "cameraProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "camera",
+          "transform"
+        ]
+      },
+      "options": {
+        "windowNodeId": "root",
+        "initialCamera": "1.2"
+      }
+    },
+    {
+      "name": "enemiesDetector",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "type": "unit",
+        "components": []
+      },
+      "options": {}
+    },
+    {
+      "name": "gameOverProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "type": "unit"
+      },
+      "options": {}
+    },
+    {
+      "name": "physicsProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "rigidBody",
+          "transform"
+        ]
+      },
+      "options": {
+        "gravitationalAcceleration": 450
+      }
+    },
+    {
+      "name": "jammer",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {
+        "messages": [
+          "COLLISION_ENTER",
+          "COLLISION_STAY",
+          "COLLISION_LEAVE"
+        ]
+      }
+    },
+    {
+      "name": "collisionDetectionProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "colliderContainer",
+          "transform"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "collisionBroadcastProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "colliderContainer"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "collisionSolver",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "rigidBody"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "constraintSolver",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "rigidBody",
+          "transform"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "sceneLoadProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {}
+    },
+    {
+      "name": "animateProcessor",
+      "section": "renderingSection",
+      "filter": {
+        "components": [
+          "animatable",
+          "renderable"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "customRenderer",
+      "section": "renderingSection",
+      "filter": {
+        "components": [
+          "renderable",
+          "transform"
+        ]
+      },
+      "options": {
+        "windowNodeId": "root",
+        "textureAtlas": "resources/textureAtlas.png",
+        "textureAtlasDescriptor": "resources/textureAtlasMap.json",
+        "backgroundColor": "#000",
+        "sortingLayers": [
+          "default",
+          "background",
+          "space",
+          "terrain",
+          "decorations",
+          "units"
+        ],
+        "scaleSensitivity": 50
+      }
+    },
+    {
+      "name": "uiBridge",
+      "section": "renderingSection",
+      "filter": {
+        "components": [
+          "keyboardControl",
+          "mouseControl"
+        ]
+      },
+      "options": {}
+    }
+  ]
+}

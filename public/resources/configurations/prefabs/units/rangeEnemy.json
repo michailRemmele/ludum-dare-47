@@ -1,0 +1,646 @@
+{
+  "name": "rangeEnemy",
+  "type": "unit",
+  "children": [
+    {
+      "name": "enemyHitBox",
+      "children": [],
+      "components": [
+        {
+          "name": "hitBox",
+          "config": {}
+        },
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 12,
+              "sizeY": 16,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "components": [
+    {
+      "name": "transform",
+      "config": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "health",
+      "config": {
+        "points": 50
+      }
+    },
+    {
+      "name": "weapon",
+      "config": {
+        "name": "staff",
+        "bullet": "energyBall",
+        "damage": 10,
+        "fetterDuration": 300,
+        "speed": 150,
+        "range": 150,
+        "cooldown": 2000
+      }
+    },
+    {
+      "name": "rigidBody",
+      "config": {
+        "type": "dynamic",
+        "mass": 3,
+        "useGravity": false,
+        "isPermeable": false,
+        "ghost": false,
+        "drag": 0.5
+      }
+    },
+    {
+      "name": "colliderContainer",
+      "config": {
+        "type": "boxCollider",
+        "collider": {
+          "sizeX": 12,
+          "sizeY": 16,
+          "centerX": 0,
+          "centerY": 0
+        }
+      }
+    },
+    {
+      "name": "movement",
+      "config": {
+        "speed": 50
+      }
+    },
+    {
+      "name": "ai",
+      "config": {
+        "strategy": "rangeEnemy"
+      }
+    },
+    {
+      "name": "animatable",
+      "config": {
+        "defaultState": "idle",
+        "states": [
+          {
+            "name": "idle",
+            "speed": 0.5,
+            "frames": [
+              {
+                "index": 0,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 1,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 2,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "looped": true,
+            "transitions": [
+              {
+                "state": "death",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "KILL"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "damage",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "DAMAGE"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "attack",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "HIT"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "runRight",
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "movement.vector.x"
+                      },
+                      "operation": "greater",
+                      "arg2": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "runLeft",
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "movement.vector.x"
+                      },
+                      "operation": "less",
+                      "arg2": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "runVertical",
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "movement.vector.y"
+                      },
+                      "operation": "notEquals",
+                      "arg2": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "runRight",
+            "speed": 1,
+            "frames": [
+              {
+                "index": 3,
+                "flipX": false,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 4,
+                "flipX": false,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 5,
+                "flipX": false,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "looped": true,
+            "transitions": [
+              {
+                "state": "death",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "KILL"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "damage",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "DAMAGE"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "idle",
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "movement.vector.x"
+                      },
+                      "operation": "equals",
+                      "arg2": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "runLeft",
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "movement.vector.x"
+                      },
+                      "operation": "less",
+                      "arg2": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "attack",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "HIT"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "runLeft",
+            "speed": 1,
+            "frames": [
+              {
+                "index": 3,
+                "flipX": true,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 4,
+                "flipX": true,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 5,
+                "flipX": true,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "looped": true,
+            "transitions": [
+              {
+                "state": "death",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "KILL"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "damage",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "DAMAGE"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "idle",
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "movement.vector.x"
+                      },
+                      "operation": "equals",
+                      "arg2": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "runRight",
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "movement.vector.x"
+                      },
+                      "operation": "greater",
+                      "arg2": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "attack",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "HIT"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "runVertical",
+            "speed": 1,
+            "frames": [
+              {
+                "index": 3,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 4,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 5,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "looped": true,
+            "transitions": [
+              {
+                "state": "death",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "KILL"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "damage",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "DAMAGE"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "runRight",
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "movement.vector.x"
+                      },
+                      "operation": "greater",
+                      "arg2": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "runLeft",
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "movement.vector.x"
+                      },
+                      "operation": "less",
+                      "arg2": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "idle",
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "movement.vector.y"
+                      },
+                      "operation": "equals",
+                      "arg2": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "attack",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "HIT"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "attack",
+            "speed": 1.5,
+            "frames": [
+              {
+                "index": 6,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 7,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "transitions": [
+              {
+                "state": "death",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "KILL"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "damage",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "DAMAGE"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "damage",
+            "speed": 1,
+            "frames": [
+              {
+                "index": 11,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "transitions": [
+              {
+                "state": "death",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "KILL"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "death",
+            "speed": 1,
+            "frames": [
+              {
+                "index": 8,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 9,
+                "flipY": false,
+                "rotation": 0
+              },
+              {
+                "index": 10,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "fallbackState": "deadBody",
+            "transitions": []
+          },
+          {
+            "name": "deadBody",
+            "speed": 1,
+            "frames": [
+              {
+                "index": 10,
+                "flipY": false,
+                "rotation": 0
+              }
+            ],
+            "looped": true,
+            "transitions": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "renderable",
+      "config": {
+        "type": "sprite",
+        "src": "units/range-enemy",
+        "width": 26,
+        "height": 26,
+        "slice": 12,
+        "rotation": 0,
+        "origin": [ 0, 0 ],
+        "flipX": false,
+        "flipY": false,
+        "sortingLayer": "units"
+      }
+    }
+  ]
+}
