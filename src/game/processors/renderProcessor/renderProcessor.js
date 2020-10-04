@@ -29,6 +29,8 @@ const TRANSFORM_COMPONENT_NAME = 'transform';
 const CAMERA_COMPONENT_NAME = 'camera';
 const CURRENT_CAMERA_NAME = 'currentCamera';
 
+const SET_COLOR_FILTER_MSG = 'SET_COLOR_FILTER';
+
 class RenderProcessor extends Processor {
   constructor(options) {
     super();
@@ -197,6 +199,7 @@ class RenderProcessor extends Processor {
       aGameObjectSize: this.gl.getAttribLocation(this.program, 'a_gameObjectSize'),
       uViewMatrix: this.gl.getUniformLocation(this.program, 'u_viewMatrix'),
       uTexAtlasSize: this.gl.getUniformLocation(this.program, 'u_texAtlasSize'),
+      uColorFilterMatrix: this.gl.getUniformLocation(this.program, 'u_colorFilterMatrix'),
     };
 
     this._buffer = this.gl.createBuffer();
@@ -514,7 +517,21 @@ class RenderProcessor extends Processor {
     });
   }
 
-  process() {
+  _processColorFilters(messageBus) {
+    const messages = messageBus.get(SET_COLOR_FILTER_MSG) || [];
+
+    if (messages.length) {
+      this.gl.uniformMatrix4fv(
+        this._variables.uColorFilterMatrix,
+        false,
+        messages[messages.length - 1].filter,
+      );
+    }
+  }
+
+  process(options) {
+    const { messageBus } = options;
+
     const canvas = this.gl.canvas;
 
     this._resizeCanvas(canvas);
@@ -522,6 +539,8 @@ class RenderProcessor extends Processor {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
     this._processRemovedGameObjects();
+
+    this._processColorFilters(messageBus);
 
     this._updateViewMatrix();
     this._allocateVertexData();

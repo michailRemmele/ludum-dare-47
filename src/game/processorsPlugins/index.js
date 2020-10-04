@@ -7,6 +7,7 @@ import EnemySpawnerPlugin from './enemySpawnerPlugin/enemySpawnerPlugin';
 import AiProcessorPlugin from './aiProcessorPlugin/aiProcessorPlugin';
 import EnemiesDetectorPlugin from './enemiesDetectorPlugin/enemiesDetectorPlugin';
 import RenderProcessorPlugin from './renderProcessorPlugin/renderProcessorPlugin';
+import DayNightSimulatorPlugin from './dayNightSimulatorPlugin/dayNightSimulatorPlugin';
 
 export default {
   damageProcessor: DamageProcessorPlugin,
@@ -18,4 +19,5 @@ export default {
   aiProcessor: AiProcessorPlugin,
   enemiesDetector: EnemiesDetectorPlugin,
   customRenderer: RenderProcessorPlugin,
+  dayNightSimulator: DayNightSimulatorPlugin,
 };

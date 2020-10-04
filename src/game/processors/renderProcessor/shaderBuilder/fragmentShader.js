@@ -3,6 +3,7 @@ precision highp float;
 
 uniform sampler2D u_image;
 uniform vec2 u_texAtlasSize;
+uniform mat4 u_colorFilterMatrix;
 
 varying vec2 v_texCoord;
 varying vec2 v_texSize;
@@ -24,7 +25,7 @@ void main() {
     calculateCoord(v_gameObjectSize.y, v_texSize.y, v_texTranslate.y, v_texCoord.y)
   );
 
-  gl_FragColor = texture2D(u_image, texCoord / u_texAtlasSize);
+  gl_FragColor = u_colorFilterMatrix * texture2D(u_image, texCoord / u_texAtlasSize);
 }
 `;
 

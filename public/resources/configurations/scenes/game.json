@@ -303,6 +303,15 @@
       "options": {}
     },
     {
+      "name": "dayNightSimulator",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {
+        "dayLength": 60000,
+        "startTime": 32400000
+      }
+    },
+    {
       "name": "aiProcessor",
       "section": "gameStateUpdateSection",
       "filter": {
