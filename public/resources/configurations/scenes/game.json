@@ -253,6 +253,18 @@
               "I_RELEASED": {
                 "messageType": "TOGGLE_INVENTORY",
                 "attrs": {}
+              },
+              "Q_RELEASED": {
+                "messageType": "USE_ITEM",
+                "attrs": {
+                  "item": "powerPotion"
+                }
+              },
+              "R_RELEASED": {
+                "messageType": "USE_ITEM",
+                "attrs": {
+                  "item": "healPotion"
+                }
               }
             }
           }

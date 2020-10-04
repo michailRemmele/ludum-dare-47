@@ -4,6 +4,7 @@ class Health extends Component {
     super();
 
     this._points = config.points;
+    this._maxPoints = config.points;
   }
 
   set points(points) {
@@ -14,9 +15,18 @@ class Health extends Component {
     return this._points;
   }
 
+  set maxPoints(maxPoints) {
+    this._pmaxPoints = maxPoints;
+  }
+
+  get maxPoints() {
+    return this._maxPoints;
+  }
+
   clone() {
     return new Health({
       points: this.points,
+      maxPoints: this.maxPoints,
     });
   }
 }

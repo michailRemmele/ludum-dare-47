@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 
 import './style.css';
 
-const MODS = {
-  healPotion: 'heal',
-  powerPotion: 'power',
+const ITEMS = {
+  healPotion: {
+    key: 'R',
+    mod: 'heal',
+  },
+  powerPotion: {
+    key: 'Q',
+    mod: 'power',
+  },
 };
 
 class ItemsBar extends React.PureComponent {
-  renderItem(name, index) {
+  renderItem(name) {
     if (!this.props[name]) {
       return;
     }
@@ -17,9 +23,9 @@ class ItemsBar extends React.PureComponent {
     return (
       <li className='items-bar__item' key={name}>
         <span className='items-bar__key'>
-          {index + 1}
+          {ITEMS[name].key}
         </span>
-        <span className={`items-bar__count items-bar__count_${MODS[name]}`}>
+        <span className={`items-bar__count items-bar__count_${ITEMS[name].mod}`}>
           x {this.props[name]}
         </span>
       </li>
@@ -29,8 +35,8 @@ class ItemsBar extends React.PureComponent {
   renderItems() {
     const items = [ 'healPotion', 'powerPotion' ];
 
-    return items.reduce((storage, name, index) => {
-      const item = this.renderItem(name, index);
+    return items.reduce((storage, name) => {
+      const item = this.renderItem(name);
 
       if (!item) {
         return storage;
