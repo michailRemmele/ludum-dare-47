@@ -45,6 +45,9 @@
       "src": "resources/configurations/prefabs/units/enemy.json"
     },
     {
+      "src": "resources/configurations/prefabs/units/rangeEnemy.json"
+    },
+    {
       "src": "resources/configurations/prefabs/items/healGrass.json"
     },
     {
@@ -52,6 +55,9 @@
     },
     {
       "src": "resources/configurations/prefabs/items/boomGrass.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/items/energyBall.json"
     }
   ],
   "startScene": "mainMenu"
