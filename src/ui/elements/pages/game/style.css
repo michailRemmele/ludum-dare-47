@@ -62,6 +62,12 @@
   text-transform: uppercase;
 }
 
+.dialog__description {
+  margin: 0 0 40px 0;
+
+  font-size: 24px;
+}
+
 .dialog__footer {
   display: flex;
   align-items: center;
@@ -80,6 +86,10 @@
 
   .dialog__title {
     font-size: 36px;
+    margin: 0 0 20px 0;
+  }
+
+  .dialog__description {
     margin: 0 0 20px 0;
   }
 

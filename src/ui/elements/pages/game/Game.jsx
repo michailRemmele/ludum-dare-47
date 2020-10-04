@@ -22,6 +22,7 @@ const MAIN_MENU_SCENE_NAME = 'mainMenu';
 
 const CAN_GRAB_KEY = 'canGrab';
 const INVENTORY_KEY = 'inventory';
+const TIME_OF_DAY_KEY = 'timeOfDay';
 
 const PLAYER_ID = '1';
 const HEALTH_COMPONENT_NAME = 'health';
@@ -127,6 +128,15 @@ class Game extends React.Component {
         powerPotion,
       });
     }
+
+    const time = store.get(TIME_OF_DAY_KEY);
+    const days = time.getDays();
+
+    if (days !== this.state.days) {
+      this.setState({
+        days,
+      });
+    }
   }
 
   onMessageBusUpdate(messageBus) {
@@ -200,6 +210,9 @@ class Game extends React.Component {
     return (
       <div className='game__dialog dialog'>
         <h2 className='dialog__title'>{title}</h2>
+        <p className='dialog__description'>
+          You survived {this.state.days} days
+        </p>
         <footer className='dialog__footer'>
           <Button className='dialog__button' title='Restart' onClick={() => this.onRestart()} />
           <Button className='dialog__button' title='Main menu' onClick={() => this.onMainMenu()} />

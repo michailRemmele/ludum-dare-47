@@ -8,10 +8,17 @@ class Time {
     this._factor = DAY_LENGTH_MS / this._dayLength;
 
     this._currentTime = this._startTime / this._factor;
+    this._days = 0;
   }
 
   tick(deltaTime) {
-    this._currentTime = (this._currentTime + deltaTime) % this._dayLength;
+    this._currentTime = this._currentTime + deltaTime;
+
+    if (this._currentTime >= this._dayLength) {
+      this._days += 1;
+    }
+
+    this._currentTime = this._currentTime % this._dayLength;
   }
 
   getTotalSeconds() {
@@ -20,6 +27,10 @@ class Time {
 
   getTotalMilliseconds() {
     return this._currentTime * this._factor;
+  }
+
+  getDays() {
+    return this._days;
   }
 
   getHours() {
