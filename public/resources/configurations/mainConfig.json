@@ -43,6 +43,15 @@
     },
     {
       "src": "resources/configurations/prefabs/units/enemy.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/items/healGrass.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/items/ogreGrass.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/items/boomGrass.json"
     }
   ],
   "startScene": "mainMenu"

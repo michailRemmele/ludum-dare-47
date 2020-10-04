@@ -343,6 +343,15 @@
       "options": {}
     },
     {
+      "name": "grassSpawner",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "type": "item",
+        "components": []
+      },
+      "options": {}
+    },
+    {
       "name": "movementProcessor",
       "section": "gameStateUpdateSection",
       "filter": {
