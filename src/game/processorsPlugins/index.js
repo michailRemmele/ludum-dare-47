@@ -12,6 +12,7 @@ import GrassSpawnerPlugin from './grassSpawnerPlugin/grassSpawnerPlugin';
 import CollectProcessorPlugin from './collectProcessorPlugin/collectProcessorPlugin';
 import CraftProcessorPlugin from './craftProcessorPlugin/craftProcessorPlugin';
 import ItemsActivatorPlugin from './itemsActivatorPlugin/itemsActivatorPlugin';
+import ShootingProcessorPlugin from './shootingProcessorPlugin/shootingProcessorPlugin';
 
 export default {
   damageProcessor: DamageProcessorPlugin,
@@ -28,4 +29,5 @@ export default {
   collectProcessor: CollectProcessorPlugin,
   craftProcessor: CraftProcessorPlugin,
   itemsActivator: ItemsActivatorPlugin,
+  shootingProcessor: ShootingProcessorPlugin,
 };

@@ -389,6 +389,16 @@
       "options": {}
     },
     {
+      "name": "shootingProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "weapon"
+        ]
+      },
+      "options": {}
+    },
+    {
       "name": "fightProcessor",
       "section": "gameStateUpdateSection",
       "filter": {
