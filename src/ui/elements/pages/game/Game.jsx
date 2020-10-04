@@ -152,10 +152,10 @@ class Game extends React.Component {
     }
   }
 
-  onCraft(name) {
+  onCraft(recipe) {
     this.props.pushMessage({
       type: CRAFT_RECIPE_MSG,
-      name,
+      recipe,
     });
   }
 

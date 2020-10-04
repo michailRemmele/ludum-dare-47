@@ -392,6 +392,17 @@
       "options": {}
     },
     {
+      "name": "craftProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "keyboardControl",
+          "mouseControl"
+        ]
+      },
+      "options": {}
+    },
+    {
       "name": "effectsProcessor",
       "section": "gameStateUpdateSection",
       "filter": {},

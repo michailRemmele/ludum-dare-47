@@ -7,6 +7,7 @@ import './style.css';
 
 const CRAFTS = {
   healPotion: {
+    name: 'healPotion',
     title: 'Heal Potion',
     mod: 'heal',
     bonuses: [
@@ -16,6 +17,7 @@ const CRAFTS = {
     cost: 3,
   },
   powerPotion: {
+    name: 'powerPotion',
     title: 'Power Potion',
     mod: 'power',
     bonuses: [
@@ -62,7 +64,7 @@ class Inventory extends React.Component {
         <footer className='craft-card__footer'>
           <Button
             title='Craft'
-            onClick={() => this.props.onCraft(name)}
+            onClick={() => this.props.onCraft(recipe)}
             disabled={disabled}
           />
         </footer>
