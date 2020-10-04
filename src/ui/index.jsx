@@ -7,6 +7,7 @@ import GameProvider from './elements/providers/gameProvider/GameProvider';
 import SceneSwitcher from './elements/components/sceneSwitcher/SceneSwitcher';
 
 import MainMenu from './elements/pages/mainMenu/MainMenu';
+import Game from './elements/pages/game/Game';
 
 export function onInit(options) {
   const {
@@ -31,6 +32,9 @@ export function onInit(options) {
           <Switch>
             <Route path='/mainMenu'>
               <MainMenu/>
+            </Route>
+            <Route path='/game'>
+              <Game/>
             </Route>
           </Switch>
         </SceneSwitcher>

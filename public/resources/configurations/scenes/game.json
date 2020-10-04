@@ -413,6 +413,14 @@
       "options": {}
     },
     {
+      "name": "gameOverProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "type": "unit"
+      },
+      "options": {}
+    },
+    {
       "name": "physicsProcessor",
       "section": "gameStateUpdateSection",
       "filter": {
@@ -520,6 +528,17 @@
         ],
         "scaleSensitivity": 50
       }
+    },
+    {
+      "name": "uiBridge",
+      "section": "renderingSection",
+      "filter": {
+        "components": [
+          "keyboardControl",
+          "mouseControl"
+        ]
+      },
+      "options": {}
     }
   ]
 }
