@@ -32,4 +32,9 @@
     font-size: 20px;
     padding: 15px;
   }
+
+  .inventory-bar__key {
+    width: 20px;
+    height: 20px;
+  }
 }

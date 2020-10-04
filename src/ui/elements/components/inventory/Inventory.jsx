@@ -30,7 +30,7 @@ const CRAFTS = {
   },
 };
 
-class Inventory extends React.Component {
+class Inventory extends React.PureComponent {
   renderCraftBonuses(name) {
     return CRAFTS[name].bonuses.map((bonus) => {
       return (
@@ -63,6 +63,7 @@ class Inventory extends React.Component {
         </div>
         <footer className='craft-card__footer'>
           <Button
+            className='craft-card__button'
             title='Craft'
             onClick={() => this.props.onCraft(recipe)}
             disabled={disabled}

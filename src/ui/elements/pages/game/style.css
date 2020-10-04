@@ -17,6 +17,12 @@
   align-items: center;
 }
 
+.game__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 .game__action-bar {
   align-self: flex-end;
 }

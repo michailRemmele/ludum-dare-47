@@ -8,7 +8,6 @@ class CollectProcessor extends Processor {
   constructor(options) {
     super();
 
-    this._gameObjectObserver = options.gameObjectObserver;
     this._store = options.store;
   }
 

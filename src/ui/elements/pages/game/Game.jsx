@@ -6,6 +6,7 @@ import withGame from '../../hocs/withGame/withGame';
 import HealthBar from '../../components/healthBar/HealthBar';
 import ActionBar from '../../components/actionBar/ActionBar';
 import InventoryBar from '../../components/inventoryBar/InventoryBar';
+import ItemsBar from '../../components/itemsBar/ItemsBar';
 import Inventory from '../../components/inventory/Inventory';
 import Button from '../../atoms/button/Button';
 
@@ -114,6 +115,18 @@ class Game extends React.Component {
         boomGrass,
       });
     }
+
+    const { healPotion, powerPotion } = store.get(INVENTORY_KEY);
+
+    if (
+      healPotion !== this.state.healPotion
+      || powerPotion !== this.state.powerPotion
+    ) {
+      this.setState({
+        healPotion,
+        powerPotion,
+      });
+    }
   }
 
   onMessageBusUpdate(messageBus) {
@@ -210,7 +223,13 @@ class Game extends React.Component {
           <HealthBar health={this.state.health}/>
           <InventoryBar />
         </header>
-        {this.renderActionBar()}
+        <footer className='game__footer'>
+          <ItemsBar
+            healPotion={this.state.healPotion}
+            powerPotion={this.state.powerPotion}
+          />
+          {this.renderActionBar()}
+        </footer>
       </>
     );
   }

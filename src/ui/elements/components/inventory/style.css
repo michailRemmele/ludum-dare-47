@@ -30,6 +30,7 @@
   display: flex;
 
   list-style: none;
+  padding: 0;
   margin: 0;
 
   font-family: sans-serif;
@@ -163,4 +164,52 @@
 .craft-card__footer {
   display: flex;
   margin: auto 10px 10px 10px;
+}
+
+@media screen and (max-width: 480px) {
+  .inventory {  
+    padding: 5px;
+  }
+
+  .inventory__header {
+    padding: 5px 10px;
+  }
+
+  .craft-card__header {
+    padding: 5px;
+  }
+
+  .inventory__title {
+    font-size: 20px;
+  }
+
+  .resources__item {
+    height: 24px;
+    padding-left: 29px;
+    background-size: 24px 24px;
+  }
+
+  .resources {
+    font-size: 14px;
+  }
+
+  .craft-card__title {
+    font-size: 16px;
+
+    background-size: 32px 32px;
+    padding-top: 40px;
+  }
+
+  .craft-card__cost {
+    font-size: 14px;
+  }
+
+  .craft-card__bonus {
+    font-size: 14px;
+  }
+
+  .craft-card__button {
+    font-size: 16px;
+    height: 30px;
+  }
 }

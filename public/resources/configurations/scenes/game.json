@@ -341,6 +341,12 @@
       "options": {}
     },
     {
+      "name": "itemsActivator",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {}
+    },
+    {
       "name": "enemySpawner",
       "section": "gameStateUpdateSection",
       "filter": {
@@ -394,12 +400,7 @@
     {
       "name": "craftProcessor",
       "section": "gameStateUpdateSection",
-      "filter": {
-        "components": [
-          "keyboardControl",
-          "mouseControl"
-        ]
-      },
+      "filter": {},
       "options": {}
     },
     {

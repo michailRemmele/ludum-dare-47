@@ -11,6 +11,7 @@ import DayNightSimulatorPlugin from './dayNightSimulatorPlugin/dayNightSimulator
 import GrassSpawnerPlugin from './grassSpawnerPlugin/grassSpawnerPlugin';
 import CollectProcessorPlugin from './collectProcessorPlugin/collectProcessorPlugin';
 import CraftProcessorPlugin from './craftProcessorPlugin/craftProcessorPlugin';
+import ItemsActivatorPlugin from './itemsActivatorPlugin/itemsActivatorPlugin';
 
 export default {
   damageProcessor: DamageProcessorPlugin,
@@ -26,4 +27,5 @@ export default {
   grassSpawner: GrassSpawnerPlugin,
   collectProcessor: CollectProcessorPlugin,
   craftProcessor: CraftProcessorPlugin,
+  itemsActivator: ItemsActivatorPlugin,
 };

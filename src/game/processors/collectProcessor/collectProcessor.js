@@ -18,9 +18,7 @@ class CollectProcessor extends Processor {
     this._store = options.store;
 
     this._canGrab = new Set();
-    this._inventory = {
-      healGrass: 4,
-    };
+    this._inventory = {};
   }
 
   processorDidMount() {

@@ -28,8 +28,13 @@
 }
 
 @media screen and (max-width: 480px) {
-  .health-bar {
+  .action-bar {
     font-size: 20px;
     padding: 15px;
+  }
+
+  .action-bar__key {
+    width: 20px;
+    height: 20px;
   }
 }
