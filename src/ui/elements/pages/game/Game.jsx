@@ -70,6 +70,7 @@ class Game extends React.Component {
               ogreGrass={this.state.ogreGrass}
               boomGrass={this.state.boomGrass}
               onCraft={this.onCraft.bind(this)}
+              onLeave={this.onInventoryClose.bind(this)}
             />
           </div>
         </>
@@ -173,6 +174,12 @@ class Game extends React.Component {
     if (Object.keys(newState).length) {
       this.setState(newState);
     }
+  }
+
+  onInventoryClose() {
+    this.props.pushMessage({
+      type: TOGGLE_INVENTORY_MSG,
+    });
   }
 
   onCraft(recipe) {
