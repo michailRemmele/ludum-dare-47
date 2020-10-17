@@ -17,6 +17,7 @@ const DEFEAT_MSG = 'DEFEAT';
 const TOGGLE_INVENTORY_MSG = 'TOGGLE_INVENTORY';
 const LOAD_SCENE_MSG = 'LOAD_SCENE';
 const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
+const GRAB_MSG = 'GRAB';
 const GAME_SCENE_NAME = 'game';
 const MAIN_MENU_SCENE_NAME = 'mainMenu';
 
@@ -70,7 +71,7 @@ class Game extends React.Component {
               ogreGrass={this.state.ogreGrass}
               boomGrass={this.state.boomGrass}
               onCraft={this.onCraft.bind(this)}
-              onLeave={this.onInventoryClose.bind(this)}
+              onLeave={this.onInventoryToggle.bind(this)}
             />
           </div>
         </>
@@ -171,12 +172,31 @@ class Game extends React.Component {
       newState.health = health.points;
     }
 
+    const gameObjectId = gameObject.getId();
+
+    if (gameObjectId !== this.state.gameObjectId) {
+      newState.gameObjectId = gameObjectId;
+      newState.gameObject = gameObject;
+    }
+
     if (Object.keys(newState).length) {
       this.setState(newState);
     }
   }
 
-  onInventoryClose() {
+  onCollectItem(event) {
+    event.stopPropagation();
+
+    this.props.pushMessage({
+      type: GRAB_MSG,
+      id: this.state.gameObjectId,
+      gameObject: this.state.gameObject,
+    });
+  }
+
+  onInventoryToggle(event) {
+    event.stopPropagation();
+
     this.props.pushMessage({
       type: TOGGLE_INVENTORY_MSG,
     });
@@ -209,7 +229,7 @@ class Game extends React.Component {
     }
 
     return (
-      <ActionBar className='game__action-bar'/>
+      <ActionBar className='game__action-bar' onClick={this.onCollectItem.bind(this)}/>
     );
   }
 
@@ -241,7 +261,7 @@ class Game extends React.Component {
       <>
         <header className='game__header'>
           <HealthBar health={this.state.health}/>
-          <InventoryBar />
+          <InventoryBar onClick={this.onInventoryToggle.bind(this)} />
         </header>
         <footer className='game__footer'>
           <ItemsBar
