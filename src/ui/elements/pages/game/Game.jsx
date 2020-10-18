@@ -195,7 +195,9 @@ class Game extends React.Component {
   }
 
   onInventoryToggle(event) {
-    event.stopPropagation();
+    if (event) {
+      event.stopPropagation();
+    }
 
     this.props.pushMessage({
       type: TOGGLE_INVENTORY_MSG,
