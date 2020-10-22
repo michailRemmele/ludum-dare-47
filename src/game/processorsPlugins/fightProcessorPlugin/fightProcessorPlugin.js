@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import FightProcessor from 'game/processors/fightProcessor/fightProcessor';
+import FightProcessor from '../../processors/fightProcessor/fightProcessor';
 
 class FightProcessorPlugin extends ProcessorPlugin {
   async load(options) {

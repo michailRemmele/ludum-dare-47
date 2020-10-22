@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import AIProcessor from 'game/processors/aiProcessor/aiProcessor';
+import AIProcessor from '../../processors/aiProcessor/aiProcessor';
 
 class AIProcessorPlugin extends ProcessorPlugin {
   async load(options) {

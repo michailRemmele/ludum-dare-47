@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import CraftProcessor from 'game/processors/craftProcessor/craftProcessor';
+import CraftProcessor from '../../processors/craftProcessor/craftProcessor';
 
 class CraftProcessorPlugin extends ProcessorPlugin {
   async load(options) {

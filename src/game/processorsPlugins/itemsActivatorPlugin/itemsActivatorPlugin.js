@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import ItemsActivator from 'game/processors/itemsActivator/itemsActivator';
+import ItemsActivator from '../../processors/itemsActivator/itemsActivator';
 
 class ItemsActivatorPlugin extends ProcessorPlugin {
   async load(options) {

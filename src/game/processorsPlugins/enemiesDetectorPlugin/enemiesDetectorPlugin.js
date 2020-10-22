@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import EnemiesDetector from 'game/processors/enemiesDetector/enemiesDetector';
+import EnemiesDetector from '../../processors/enemiesDetector/enemiesDetector';
 
 class EnemiesDetectorPlugin extends ProcessorPlugin {
   async load(options) {

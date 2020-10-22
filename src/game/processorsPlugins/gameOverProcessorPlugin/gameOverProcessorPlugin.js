@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import GameOverProcessor from 'game/processors/gameOverProcessor/gameOverProcessor';
+import GameOverProcessor from '../../processors/gameOverProcessor/gameOverProcessor';
 
 class GameOverProcessorPlugin extends ProcessorPlugin {
   async load(options) {

@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import DamageProcessor from 'game/processors/damageProcessor/damageProcessor';
+import DamageProcessor from '../../processors/damageProcessor/damageProcessor';
 
 class DamageProcessorPlugin extends ProcessorPlugin {
   async load() {

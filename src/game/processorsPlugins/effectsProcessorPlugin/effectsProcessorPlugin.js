@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import EffectsProcessor from 'game/processors/effectsProcessor/effectsProcessor';
+import EffectsProcessor from '../../processors/effectsProcessor/effectsProcessor';
 
 class EffectsProcessorPlugin extends ProcessorPlugin {
   async load(options) {
