@@ -1,4 +1,5 @@
 import { Component } from '@flyer-engine/core';
+
 class Health extends Component {
   constructor(config) {
     super();
