@@ -2,8 +2,8 @@
 
 name: CI
 
-# Triggers the workflow on push or pull request events
-on: [push, pull_request]
+# Triggered when code is pushed to any branch in a repository
+on: push
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
