@@ -35,7 +35,8 @@
   "scripts": {
     "start": "env NODE_ENV=development webpack-dev-server --hot --config webpack.config.js",
     "build": "env NODE_ENV=production webpack --config webpack.config.js",
-    "analyse": "webpack --config webpack.config.js --profile --json > stats.json && webpack-bundle-analyzer stats.json ./build"
+    "analyse": "webpack --config webpack.config.js --profile --json > stats.json && webpack-bundle-analyzer stats.json ./build",
+    "lint": "eslint src"
   },
   "babel": {
     "presets": [

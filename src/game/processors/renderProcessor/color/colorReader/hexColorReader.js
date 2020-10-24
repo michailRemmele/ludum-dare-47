@@ -18,6 +18,7 @@ class ShortHexColorReader extends ColorReader {
     const value = parseInt(color.replace(SHARP, ''), HEX_RADIX);
 
     return COLORS.reduce((colorInfo, name, index, array) => {
+      // eslint-disable-next-line no-bitwise
       colorInfo[name] = (value >> (BYTE_SHIFT * (array.length - index - 1))) & MAX_COLOR_NUMBER;
       return colorInfo;
     }, {});

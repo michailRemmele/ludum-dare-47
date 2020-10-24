@@ -108,6 +108,7 @@ class RenderProcessor extends Processor {
     this.gl.deleteProgram(this.program);
     this.gl.deleteTexture(this.textures);
 
+    // eslint-disable-next-line no-bitwise
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
     this._buffer = null;
@@ -163,6 +164,7 @@ class RenderProcessor extends Processor {
     this.gl.enable(this.gl.BLEND);
     this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
     this.gl.depthFunc(this.gl.LEQUAL);
+    // eslint-disable-next-line no-bitwise
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
   }
 
@@ -536,6 +538,7 @@ class RenderProcessor extends Processor {
 
     this._resizeCanvas(canvas);
 
+    // eslint-disable-next-line no-bitwise
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
     this._processRemovedGameObjects();
