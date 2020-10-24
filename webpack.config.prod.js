@@ -1,7 +1,3 @@
-'use strict';
-
-process.env.NODE_ENV = 'production';
-
 const webpack = require('webpack');
 const paths = require('./paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
