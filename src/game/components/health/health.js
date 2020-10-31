@@ -1,4 +1,5 @@
 import { Component } from '@flyer-engine/core';
+
 class Health extends Component {
   constructor(config) {
     super();
@@ -16,7 +17,7 @@ class Health extends Component {
   }
 
   set maxPoints(maxPoints) {
-    this._pmaxPoints = maxPoints;
+    this._maxPoints = maxPoints;
   }
 
   get maxPoints() {

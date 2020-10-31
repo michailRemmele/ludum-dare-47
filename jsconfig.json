@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "baseUrl": ".",
+    "paths": {
+      "game": ["./src/game"],
+      "game/*": ["./src/game/*"],
+      "resources/*": ["./public/resources/*"],
+      "pluginHelpers": ["./src/pluginHelpers"],
+      "pluginHelpers/*": ["./src/pluginHelpers/*"],
+    }
+  },
+  "exclude": ["node_modules"]
+}
