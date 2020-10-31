@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import CollectProcessor from '../../processors/collectProcessor/collectProcessor';
+import CollectProcessor from 'game/processors/collectProcessor/collectProcessor';
 
 class CollectProcessorPlugin extends ProcessorPlugin {
   async load(options) {

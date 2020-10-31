@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import DayNightSimulator from '../../processors/dayNightSimulator/dayNightSimulator';
+import DayNightSimulator from 'game/processors/dayNightSimulator/dayNightSimulator';
 
 class DayNightSimulatorPlugin extends ProcessorPlugin {
   async load(options) {

@@ -1,6 +1,6 @@
 import { ProcessorPlugin, IOC, RESOURCES_LOADER_KEY_NAME } from '@flyer-engine/core';
 
-import RenderProcessor from '../../processors/renderProcessor/renderProcessor';
+import RenderProcessor from 'game/processors/renderProcessor/renderProcessor';
 
 class RenderProcessorPlugin extends ProcessorPlugin {
   async load(options) {

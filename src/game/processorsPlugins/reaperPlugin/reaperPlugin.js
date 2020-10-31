@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import Reaper from '../../processors/reaper/reaper';
+import Reaper from 'game/processors/reaper/reaper';
 
 class ReaperPlugin extends ProcessorPlugin {
   async load(options) {

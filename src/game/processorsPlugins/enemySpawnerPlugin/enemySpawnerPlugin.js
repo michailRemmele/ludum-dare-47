@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import EnemySpawner from '../../processors/enemySpawner/enemySpawner';
+import EnemySpawner from 'game/processors/enemySpawner/enemySpawner';
 
 class EnemySpawnerPlugin extends ProcessorPlugin {
   async load(options) {

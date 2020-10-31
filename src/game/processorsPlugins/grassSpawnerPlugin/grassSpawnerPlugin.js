@@ -1,6 +1,6 @@
 import { ProcessorPlugin } from '@flyer-engine/core';
 
-import GrassSpawner from '../../processors/grassSpawner/grassSpawner';
+import GrassSpawner from 'game/processors/grassSpawner/grassSpawner';
 
 class GrassSpawnerPlugin extends ProcessorPlugin {
   async load(options) {
