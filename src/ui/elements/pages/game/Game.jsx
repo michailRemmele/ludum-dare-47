@@ -69,8 +69,8 @@ class Game extends React.Component {
               healGrass={this.state.healGrass}
               ogreGrass={this.state.ogreGrass}
               boomGrass={this.state.boomGrass}
-              onCraft={this.onCraft.bind(this)}
-              onLeave={this.onInventoryToggle.bind(this)}
+              onCraft={this.onCraft}
+              onLeave={this.onInventoryToggle}
             />
           </div>
         </>
@@ -115,18 +115,6 @@ class Game extends React.Component {
         healGrass,
         ogreGrass,
         boomGrass,
-      });
-    }
-
-    const { healPotion, powerPotion } = store.get(INVENTORY_KEY);
-
-    if (
-      healPotion !== this.state.healPotion
-      || powerPotion !== this.state.powerPotion
-    ) {
-      this.setState({
-        healPotion,
-        powerPotion,
       });
     }
 
@@ -183,7 +171,7 @@ class Game extends React.Component {
     }
   }
 
-  onCollectItem(event) {
+  onCollectItem = (event) => {
     event.stopPropagation();
 
     this.props.pushMessage({
@@ -193,7 +181,7 @@ class Game extends React.Component {
     });
   }
 
-  onInventoryToggle(event) {
+  onInventoryToggle = (event) => {
     if (event) {
       event.stopPropagation();
     }
@@ -203,7 +191,7 @@ class Game extends React.Component {
     });
   }
 
-  onCraft(recipe) {
+  onCraft = (recipe) => {
     this.props.pushMessage({
       type: CRAFT_RECIPE_MSG,
       recipe,
@@ -232,7 +220,7 @@ class Game extends React.Component {
     return (
       <ActionBar
         className='game__action-bar'
-        onClick={this.onCollectItem.bind(this)}
+        onClick={this.onCollectItem}
         keyName='E'
         title='Collect'
       />
@@ -268,15 +256,14 @@ class Game extends React.Component {
         <header className='game__header'>
           <HealthBar health={this.state.health}/>
           <ActionBar
-            onClick={this.onInventoryToggle.bind(this)}
+            onClick={this.onInventoryToggle}
             keyName='I'
             title='Inventory'
           />
         </header>
         <footer className='game__footer'>
           <ItemsBar
-            healPotion={this.state.healPotion}
-            powerPotion={this.state.powerPotion}
+            user={this.state.gameObject}
           />
           {this.renderActionBar()}
         </footer>

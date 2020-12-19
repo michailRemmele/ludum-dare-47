@@ -5,30 +5,47 @@ import ActionView from '../../atoms/actionView/ActionView';
 
 import './style.css';
 
-class ActionBar extends React.Component {
-  render() {
-    return (
-      <ActionView
-        className={`action-bar ${this.props.className}`}
-        onClick={this.props.onClick}
-        stopPropagate={true}
-      >
-        <span
-          className='action-bar__key'
-        >
-          {this.props.keyName}
-        </span>
-        {this.props.title}
-      </ActionView>
-    );
-  }
-}
+const SIZE = {
+  MD: 'md',
+  SM: 'sm',
+};
+
+const ActionBar = ({
+  className,
+  onClick,
+  iconSrc,
+  iconDescr,
+  keyName,
+  title,
+  size,
+}) => (
+  <ActionView
+    className={`action-bar action-bar_${size} ${className}`}
+    onClick={onClick}
+    stopPropagate={true}
+  >
+    <span className='action-bar__key'>
+      {keyName}
+    </span>
+    {iconSrc && (
+      <img
+        className='action-bar__icon'
+        src={iconSrc}
+        alt={iconDescr}
+      />
+    )}
+    {title}
+  </ActionView>
+);
 
 ActionBar.defaultProps = {
   className: '',
   onClick: () => {},
   keyName: '',
   title: '',
+  iconSrc: void '',
+  iconDescr: '',
+  size: SIZE.MD,
 };
 
 ActionBar.propTypes = {
@@ -36,6 +53,9 @@ ActionBar.propTypes = {
   onClick: PropTypes.func,
   keyName: PropTypes.string,
   title: PropTypes.string,
+  iconSrc: PropTypes.string,
+  iconDescr: PropTypes.string,
+  size: PropTypes.oneOf([ SIZE.MD, SIZE.SM ]),
 };
 
-export default ActionBar;
+export default React.memo(ActionBar);

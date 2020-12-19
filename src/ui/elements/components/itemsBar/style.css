@@ -9,74 +9,17 @@
   user-select: none;
 }
 
-.items-bar__item {
-  display: flex;
-  align-items: center;
-
-  font-family: sans-serif;
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-
-  text-shadow: 2px 2px 0px #000;
-}
-
 .items-bar__item + .items-bar__item {
   margin-top: 10px;
 }
 
-.items-bar__key {
-  width: 30px;
-  height: 30px;
-  display: inline-block;
-  text-align: center;
-
-  border: 2px solid #fff;
-  border-radius: 2px;
-
-  margin-right: 10px;
-
-  box-shadow: 2px 2px 0px #000;
-}
-
-.items-bar__count {
-  display: inline-block;
-
-  height: 32px;
-  padding-left: 38px;
-
-  image-rendering: pixelated;
-
-  background-size: 32px 32px;
-  background-repeat: no-repeat;
-}
-
-.items-bar__count_heal {
-  background-image: url('./images/heal-potion.png');
-}
-
-.items-bar__count_power {
-  background-image: url('./images/power-potion.png');
+.items-bar__action-bar {
+  padding: 0;
+  text-transform: none;
 }
 
 @media screen and (max-width: 480px) {
   .items-bar {
     padding: 15px;
-  }
-
-  .items-bar__key {
-    width: 20px;
-    height: 20px;
-  }
-
-  .items-bar__item {
-    font-size: 18px;
-  }
-
-  .items-bar__count {
-    height: 24px;
-    padding-left: 30px;
-
-    background-size: 24px 24px;
   }
 }
