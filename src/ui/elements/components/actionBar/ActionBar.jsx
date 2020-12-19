@@ -5,9 +5,7 @@ import ActionView from '../../atoms/actionView/ActionView';
 
 import './style.css';
 
-const ACTION_KEY = 'E';
-
-class ActionBar extends React.PureComponent {
+class ActionBar extends React.Component {
   render() {
     return (
       <ActionView
@@ -15,10 +13,12 @@ class ActionBar extends React.PureComponent {
         onClick={this.props.onClick}
         stopPropagate={true}
       >
-        <span className='action-bar__key'>
-          {ACTION_KEY}
+        <span
+          className='action-bar__key'
+        >
+          {this.props.keyName}
         </span>
-        Collect
+        {this.props.title}
       </ActionView>
     );
   }
@@ -27,11 +27,15 @@ class ActionBar extends React.PureComponent {
 ActionBar.defaultProps = {
   className: '',
   onClick: () => {},
+  keyName: '',
+  title: '',
 };
 
 ActionBar.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
+  keyName: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default ActionBar;

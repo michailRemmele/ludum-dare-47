@@ -5,7 +5,6 @@ import withGame from '../../hocs/withGame/withGame';
 
 import HealthBar from '../../components/healthBar/HealthBar';
 import ActionBar from '../../components/actionBar/ActionBar';
-import InventoryBar from '../../components/inventoryBar/InventoryBar';
 import ItemsBar from '../../components/itemsBar/ItemsBar';
 import Inventory from '../../components/inventory/Inventory';
 import Button from '../../atoms/button/Button';
@@ -231,7 +230,12 @@ class Game extends React.Component {
     }
 
     return (
-      <ActionBar className='game__action-bar' onClick={this.onCollectItem.bind(this)}/>
+      <ActionBar
+        className='game__action-bar'
+        onClick={this.onCollectItem.bind(this)}
+        keyName='E'
+        title='Collect'
+      />
     );
   }
 
@@ -263,7 +267,11 @@ class Game extends React.Component {
       <>
         <header className='game__header'>
           <HealthBar health={this.state.health}/>
-          <InventoryBar onClick={this.onInventoryToggle.bind(this)} />
+          <ActionBar
+            onClick={this.onInventoryToggle.bind(this)}
+            keyName='I'
+            title='Inventory'
+          />
         </header>
         <footer className='game__footer'>
           <ItemsBar
