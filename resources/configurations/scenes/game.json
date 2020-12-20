@@ -254,16 +254,20 @@
                 "messageType": "TOGGLE_INVENTORY",
                 "attrs": {}
               },
-              "Q_RELEASED": {
-                "messageType": "USE_ITEM",
-                "attrs": {
-                  "item": "powerPotion"
-                }
+              "ESCAPE_RELEASED": {
+                "messageType": "CLOSE_INVENTORY",
+                "attrs": {}
               },
-              "R_RELEASED": {
+              "1_RELEASED": {
                 "messageType": "USE_ITEM",
                 "attrs": {
                   "item": "healPotion"
+                }
+              },
+              "2_RELEASED": {
+                "messageType": "USE_ITEM",
+                "attrs": {
+                  "item": "powerPotion"
                 }
               }
             }
