@@ -10,12 +10,12 @@ import './style.css';
 const ITEMS = {
   healPotion: {
     name: 'Heal Potion',
-    key: 'R',
+    key: '1',
     iconSrc: '/images/heal-potion.png',
   },
   powerPotion: {
     name: 'Power Potion',
-    key: 'Q',
+    key: '2',
     iconSrc: '/images/power-potion.png',
   },
 };

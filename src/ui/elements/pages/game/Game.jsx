@@ -14,6 +14,7 @@ import './style.css';
 const VICTORY_MSG = 'VICTORY';
 const DEFEAT_MSG = 'DEFEAT';
 const TOGGLE_INVENTORY_MSG = 'TOGGLE_INVENTORY';
+const CLOSE_INVENTORY_MSG = 'CLOSE_INVENTORY';
 const LOAD_SCENE_MSG = 'LOAD_SCENE';
 const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
 const GRAB_MSG = 'GRAB';
@@ -138,7 +139,10 @@ class Game extends React.Component {
     const pageState = this.state.pageState;
     if (messageBus.get(TOGGLE_INVENTORY_MSG) && pageState === PAGE_STATE.GAME) {
       this.setState({ pageState: PAGE_STATE.INVENTORY });
-    } else if (messageBus.get(TOGGLE_INVENTORY_MSG) && pageState === PAGE_STATE.INVENTORY) {
+    } else if (
+      (messageBus.get(TOGGLE_INVENTORY_MSG) || messageBus.get(CLOSE_INVENTORY_MSG)) &&
+      pageState === PAGE_STATE.INVENTORY
+    ) {
       this.setState({ pageState: PAGE_STATE.GAME });
     }
   }
