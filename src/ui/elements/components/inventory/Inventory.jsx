@@ -48,11 +48,7 @@ class Inventory extends React.PureComponent {
   }
 
   onWindowClick(event) {
-    const isOutClick = event.path.every((item) => {
-      return !item.classList || !item.classList.contains(ROOT_CLASS_NAME);
-    });
-
-    if (isOutClick) {
+    if (!event.target.closest(`.${ROOT_CLASS_NAME}`)) {
       this.props.onLeave();
     }
   }
