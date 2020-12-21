@@ -46,6 +46,7 @@
 }
 
 .action-bar__icon {
+  image-rendering: crisp-edges;
   image-rendering: pixelated;
 
   margin-right: 6px;

@@ -46,6 +46,7 @@
   height: 32px;
   padding-left: 37px;
 
+  image-rendering: crisp-edges;
   image-rendering: pixelated;
 
   background-size: 32px 32px;
@@ -100,6 +101,7 @@
   font-size: 24px;
   color: #fff;
 
+  image-rendering: crisp-edges;
   image-rendering: pixelated;
 
   background-size: 48px 48px;
@@ -140,6 +142,7 @@
 
   padding-left: 30px;
 
+  image-rendering: crisp-edges;
   image-rendering: pixelated;
 
   background-size: 24px 24px;
