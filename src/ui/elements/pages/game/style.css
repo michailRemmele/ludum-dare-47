@@ -17,7 +17,11 @@
   align-items: center;
 }
 
-.game__footer {
+.game__thumb-stick {
+  margin: 0 0 3% 3%;
+}
+
+.game__bars {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;

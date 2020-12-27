@@ -6,7 +6,6 @@
   margin: 0;
 
   list-style: none;
-  user-select: none;
 }
 
 .items-bar__item + .items-bar__item {

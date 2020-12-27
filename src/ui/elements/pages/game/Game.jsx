@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { MathOps } from '@flyer-engine/core';
+
 import withGame from '../../hocs/withGame/withGame';
 
 import HealthBar from '../../components/healthBar/HealthBar';
 import ActionBar from '../../components/actionBar/ActionBar';
 import ItemsBar from '../../components/itemsBar/ItemsBar';
 import Inventory from '../../components/inventory/Inventory';
+import ThumbStick from '../../components/thumbStick/ThumbStick';
 import Button from '../../atoms/button/Button';
 
+import { isTouchDevice } from './utils';
 import './style.css';
 
 const VICTORY_MSG = 'VICTORY';
@@ -18,6 +22,7 @@ const CLOSE_INVENTORY_MSG = 'CLOSE_INVENTORY';
 const LOAD_SCENE_MSG = 'LOAD_SCENE';
 const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
 const GRAB_MSG = 'GRAB';
+const MOVEMENT_MSG = 'MOVEMENT';
 const GAME_SCENE_NAME = 'game';
 const MAIN_MENU_SCENE_NAME = 'mainMenu';
 
@@ -80,6 +85,8 @@ class Game extends React.Component {
     this.messageBusSubscription = this.onMessageBusUpdate.bind(this);
     this.storeSubscription = this.onStoreUpdate.bind(this);
     this.playerSubscription = this.onPlayerUpdate.bind(this);
+
+    this.isTouchDevice = isTouchDevice();
   }
 
   componentDidMount() {
@@ -173,6 +180,17 @@ class Game extends React.Component {
     if (Object.keys(newState).length) {
       this.setState(newState);
     }
+
+    if (this.state.movementDirection == null || this.state.movementDirection === undefined) {
+      return;
+    }
+
+    this.props.pushMessage({
+      type: MOVEMENT_MSG,
+      directionAngle: this.state.movementDirection,
+      id: this.state.gameObjectId,
+      gameObject: this.state.gameObject,
+    });
   }
 
   onCollectItem = (event) => {
@@ -214,6 +232,14 @@ class Game extends React.Component {
       type: LOAD_SCENE_MSG,
       name: MAIN_MENU_SCENE_NAME,
     });
+  }
+
+  onPlayerMove = (x, y) => {
+    const movementDirection = (x || y)
+      ? MathOps.radToDeg(MathOps.getAngleBetweenTwoPoints(x, 0, y, 0))
+      : null;
+
+    this.setState({ movementDirection });
   }
 
   renderActionBar() {
@@ -266,10 +292,19 @@ class Game extends React.Component {
           />
         </header>
         <footer className='game__footer'>
-          <ItemsBar
-            user={this.state.gameObject}
-          />
-          {this.renderActionBar()}
+          <div className='game__bars'>
+            <ItemsBar
+              user={this.state.gameObject}
+            />
+            {this.renderActionBar()}
+          </div>
+          {this.isTouchDevice && (
+            <ThumbStick
+              className='game__thumb-stick'
+              player={this.state.gameObject}
+              onMove={this.onPlayerMove}
+            />
+          )}
         </footer>
       </>
     );
