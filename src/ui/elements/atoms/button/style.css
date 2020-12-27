@@ -8,6 +8,8 @@
 
   font-size: 24px;
   text-transform: uppercase;
+
+  padding: 0;
 }
 
 .button:hover {
