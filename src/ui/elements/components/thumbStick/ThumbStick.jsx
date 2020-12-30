@@ -20,18 +20,10 @@ class ThumbStick extends React.Component {
     this.updateArea();
 
     window.addEventListener('resize', this.updateArea);
-
-    this.areaRef.current.addEventListener('pointerdown', this.onPointerEvent);
-    this.areaRef.current.addEventListener('pointermove', this.onPointerEvent);
-    this.areaRef.current.addEventListener('pointerup', this.onPointerEvent);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateArea);
-
-    this.areaRef.current.removeEventListener('pointerdown', this.onPointerEvent);
-    this.areaRef.current.removeEventListener('pointermove', this.onPointerEvent);
-    this.areaRef.current.removeEventListener('pointerup', this.onPointerEvent);
   }
 
   updateArea = () => {
@@ -73,12 +65,21 @@ class ThumbStick extends React.Component {
     this.props.onMove(0, 0);
   }
 
-  onPointerEvent = (event) => {
-    if (event.type === 'pointerup') {
-      this.resetStick();
-    } else {
-      this.moveStick(event);
-    }
+  onPointerMove = (event) => {
+    this.moveStick(event);
+  }
+
+  onPointerDown = (event) => {
+    this.areaRef.current.setPointerCapture(event.pointerId);
+    this.areaRef.current.addEventListener('pointermove', this.onPointerMove);
+
+    this.moveStick(event);
+  }
+
+  onPointerUp = () => {
+    this.areaRef.current.removeEventListener('pointermove', this.onPointerMove);
+
+    this.resetStick();
   }
 
   render() {
@@ -89,6 +90,8 @@ class ThumbStick extends React.Component {
       <div
         className={`thumb-stick ${className}`}
         ref={this.areaRef}
+        onPointerDown={this.onPointerDown}
+        onPointerUp={this.onPointerUp}
       >
         <div
           className='thumb-stick__control'

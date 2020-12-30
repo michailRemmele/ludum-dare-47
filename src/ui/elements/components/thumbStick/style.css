@@ -13,6 +13,7 @@
     opacity: 75%;
 
     touch-action: none;
+    
 }
 
 .thumb-stick__control {
@@ -27,6 +28,8 @@
     border-radius: 50%;
 
     will-change: transform;
+
+    pointer-events: none;
 }
 
 @media screen and (max-width: 480px) {
