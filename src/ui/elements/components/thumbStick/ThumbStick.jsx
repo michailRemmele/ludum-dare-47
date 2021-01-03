@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 
 import { Vector2 } from '@flyer-engine/core';
 
+import withGame from '../../hocs/withGame/withGame';
+
 import './style.css';
+
+const THUMB_STICK_POSITION_CHANGE_MSG = 'THUMB_STICK_POSITION_CHANGE';
 
 class ThumbStick extends React.Component {
   constructor(props) {
@@ -54,7 +58,7 @@ class ThumbStick extends React.Component {
 
     direction.multiplyNumber(1 / direction.magnitude);
 
-    this.props.onMove(direction.x, direction.y);
+    this.onMove(direction.x, direction.y);
   }
 
   resetStick = () => {
@@ -62,7 +66,7 @@ class ThumbStick extends React.Component {
       controlPosition: {},
     });
 
-    this.props.onMove(0, 0);
+    this.onMove(0, 0);
   }
 
   onPointerMove = (event) => {
@@ -80,6 +84,16 @@ class ThumbStick extends React.Component {
     this.areaRef.current.removeEventListener('pointermove', this.onPointerMove);
 
     this.resetStick();
+  }
+
+  onMove = (x, y) => {
+    this.props.pushMessage({
+      type: THUMB_STICK_POSITION_CHANGE_MSG,
+      x,
+      y,
+    });
+
+    this.props.onMove(x, y);
   }
 
   render() {
@@ -110,6 +124,7 @@ ThumbStick.defaultProps = {
 ThumbStick.propTypes = {
   className: PropTypes.string,
   onMove: PropTypes.func,
+  pushMessage: PropTypes.func,
 };
 
-export default ThumbStick;
+export default withGame(ThumbStick);

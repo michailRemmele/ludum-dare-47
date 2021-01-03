@@ -161,7 +161,7 @@ class RangeEnemyAIStrategy extends AIStrategy{
       type: MOVEMENT_MSG,
       gameObject: this._player,
       id: this._player.getId(),
-      directionAngle: movementAngle,
+      angle: movementAngle,
     });
   }
 

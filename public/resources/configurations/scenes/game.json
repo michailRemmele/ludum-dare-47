@@ -225,25 +225,25 @@
               "W_PRESSED": {
                 "messageType": "MOVEMENT",
                 "attrs": {
-                  "directionAngle": 270
+                  "angle": 270
                 }
               },
               "A_PRESSED": {
                 "messageType": "MOVEMENT",
                 "attrs": {
-                  "directionAngle": 180
+                  "angle": 180
                 }
               },
               "S_PRESSED": {
                 "messageType": "MOVEMENT",
                 "attrs": {
-                  "directionAngle": 90
+                  "angle": 90
                 }
               },
               "D_PRESSED": {
                 "messageType": "MOVEMENT",
                 "attrs": {
-                  "directionAngle": 0
+                  "angle": 0
                 }
               },
               "E_RELEASED": {
@@ -279,6 +279,17 @@
             "inputEventBindings": {
               "MOUSE_LEFT_BUTTON_PRESS": {
                 "messageType": "HIT",
+                "attrs": {}
+              }
+            }
+          }
+        },
+        {
+          "name": "thumbStickControl",
+          "config": {
+            "inputEventBindings": {
+              "THUMB_STICK_POSITION_CHANGE": {
+                "messageType": "MOVEMENT",
                 "attrs": {}
               }
             }
@@ -322,6 +333,16 @@
       "filter": {
         "components": [
           "mouseControl"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "thumbStickController",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "thumbStickControl"
         ]
       },
       "options": {}

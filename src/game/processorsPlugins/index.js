@@ -13,6 +13,8 @@ import CollectProcessorPlugin from './collectProcessorPlugin/collectProcessorPlu
 import CraftProcessorPlugin from './craftProcessorPlugin/craftProcessorPlugin';
 import ItemsActivatorPlugin from './itemsActivatorPlugin/itemsActivatorPlugin';
 import ShootingProcessorPlugin from './shootingProcessorPlugin/shootingProcessorPlugin';
+import MovementProcessorPlugin from './movementProcessorPlugin/movementProcessorPlugin';
+import ThumbStickControllerPlugin from './thumbStickControllerPlugin/thumbStickControllerPlugin';
 
 export default {
   damageProcessor: DamageProcessorPlugin,
@@ -30,4 +32,6 @@ export default {
   craftProcessor: CraftProcessorPlugin,
   itemsActivator: ItemsActivatorPlugin,
   shootingProcessor: ShootingProcessorPlugin,
+  movementProcessor: MovementProcessorPlugin,
+  thumbStickController: ThumbStickControllerPlugin,
 };
