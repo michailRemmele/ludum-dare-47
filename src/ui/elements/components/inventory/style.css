@@ -169,7 +169,7 @@
   margin: auto 10px 10px 10px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .inventory {  
     padding: 5px;
   }

@@ -83,7 +83,7 @@
   margin-left: 25px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .dialog {
     padding: 20px;
   }

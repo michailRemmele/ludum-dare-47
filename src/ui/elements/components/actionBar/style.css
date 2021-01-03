@@ -22,8 +22,9 @@
 }
 
 .action-bar__key {
-  display: inline-block;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   border: 2px solid #fff;
   border-radius: 3px;
@@ -60,17 +61,17 @@
   height: 32px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .action-bar {
     padding: 15px;
   }
 
   .action-bar_md {
-    font-size: 20px;
+    font-size: 16px;
   }
   
   .action-bar_sm {
-    font-size: 18px;
+    font-size: 12px;
   }
 
   .action-bar_md .action-bar__key,

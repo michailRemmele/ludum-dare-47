@@ -11,7 +11,7 @@
   padding: 30px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .health-bar {
     font-size: 20px;
     padding: 15px;
