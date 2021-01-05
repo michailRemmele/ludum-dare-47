@@ -23,10 +23,6 @@ class Fighter {
     }
   }
 
-  onHit() {
-    throw new Error('You should override this function');
-  }
-
   createAttack() {
     throw new Error('You should override this function');
   }

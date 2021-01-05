@@ -12,7 +12,6 @@ const TRANSFORM_COMPONENT_NAME = 'transform';
 const WEAPON_COMPONENT_NAME = 'weapon';
 const HITBOX_COMPONENT_NAME = 'hitBox';
 
-const FETTER_DURATION = 250;
 const ACCELERATION_DURATION = 10;
 
 class FightSystem extends Processor {
@@ -39,7 +38,7 @@ class FightSystem extends Processor {
 
   _processActiveAttacks(messageBus) {
     this._activeAttacks = this._activeAttacks.filter((entry) => {
-      const { shooter, attack, directionVector, damage, fetterDuration } = entry;
+      const { gameObject, attack } = entry;
       const attackId = attack.getId();
 
       const collisionMessages = messageBus.getById(COLLISION_ENTER_MSG, attackId) || [];
@@ -55,13 +54,11 @@ class FightSystem extends Processor {
 
         const targetId = target.getId();
 
-        if (shooter.getId() === targetId || attackId === targetId) {
+        if (gameObject.getId() === targetId || attackId === targetId) {
           return true;
         }
 
-        // onHit
-
-        this._pushTarget(target, directionVector, messageBus);
+        // this._pushTarget(target, directionVector, messageBus);
 
         return false;
       });
