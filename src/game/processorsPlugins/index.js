@@ -2,7 +2,7 @@ import DamageProcessorPlugin from './damageProcessorPlugin/damageProcessorPlugin
 import EffectsProcessorPlugin from './effectsProcessorPlugin/effectsProcessorPlugin';
 import GameOverProcessorPlugin from './gameOverProcessorPlugin/gameOverProcessorPlugin';
 import ReaperPlugin from './reaperPlugin/reaperPlugin';
-import FightProcessorPlugin from './fightProcessorPlugin/fightProcessorPlugin';
+import FightSystemPlugin from './fightSystemPlugin/fightSystemPlugin';
 import EnemySpawnerPlugin from './enemySpawnerPlugin/enemySpawnerPlugin';
 import AiProcessorPlugin from './aiProcessorPlugin/aiProcessorPlugin';
 import EnemiesDetectorPlugin from './enemiesDetectorPlugin/enemiesDetectorPlugin';
@@ -12,7 +12,6 @@ import GrassSpawnerPlugin from './grassSpawnerPlugin/grassSpawnerPlugin';
 import CollectProcessorPlugin from './collectProcessorPlugin/collectProcessorPlugin';
 import CraftProcessorPlugin from './craftProcessorPlugin/craftProcessorPlugin';
 import ItemsActivatorPlugin from './itemsActivatorPlugin/itemsActivatorPlugin';
-import ShootingProcessorPlugin from './shootingProcessorPlugin/shootingProcessorPlugin';
 import MovementProcessorPlugin from './movementProcessorPlugin/movementProcessorPlugin';
 import ThumbStickControllerPlugin from './thumbStickControllerPlugin/thumbStickControllerPlugin';
 
@@ -21,7 +20,7 @@ export default {
   effectsProcessor: EffectsProcessorPlugin,
   gameOverProcessor: GameOverProcessorPlugin,
   reaper: ReaperPlugin,
-  fightProcessor: FightProcessorPlugin,
+  fightSystem: FightSystemPlugin,
   enemySpawner: EnemySpawnerPlugin,
   aiProcessor: AiProcessorPlugin,
   enemiesDetector: EnemiesDetectorPlugin,
@@ -31,7 +30,6 @@ export default {
   collectProcessor: CollectProcessorPlugin,
   craftProcessor: CraftProcessorPlugin,
   itemsActivator: ItemsActivatorPlugin,
-  shootingProcessor: ShootingProcessorPlugin,
   movementProcessor: MovementProcessorPlugin,
   thumbStickController: ThumbStickControllerPlugin,
 };

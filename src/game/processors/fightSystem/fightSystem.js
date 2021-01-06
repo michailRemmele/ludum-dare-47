@@ -1,18 +1,10 @@
-import { Processor, VectorOps, MathOps } from '@flyer-engine/core';
+import { Processor, MathOps } from '@flyer-engine/core';
 
-import fighters from './fighters';
+import { SimpleFighter } from './fighters';
 
 const ATTACK_MSG = 'ATTACK';
-const COLLISION_ENTER_MSG = 'COLLISION_ENTER';
-const ADD_FORCE_MSG = 'ADD_FORCE';
-
-const PUSH_POWER = 'pushPower';
 
 const TRANSFORM_COMPONENT_NAME = 'transform';
-const WEAPON_COMPONENT_NAME = 'weapon';
-const HITBOX_COMPONENT_NAME = 'hitBox';
-
-const ACCELERATION_DURATION = 10;
 
 class FightSystem extends Processor {
   constructor(options) {
@@ -25,43 +17,11 @@ class FightSystem extends Processor {
     this._activeAttacks = [];
   }
 
-  _pushTarget(target, directionVector, messageBus) {
-    messageBus.send({
-      type: ADD_FORCE_MSG,
-      name: PUSH_POWER,
-      value: directionVector,
-      duration: ACCELERATION_DURATION,
-      gameObject: target,
-      id: target.getId(),
-    });
-  }
+  _processActiveAttacks(deltaTime) {
+    this._activeAttacks = this._activeAttacks.filter((attack) => {
+      attack.process(deltaTime);
 
-  _processActiveAttacks(messageBus) {
-    this._activeAttacks = this._activeAttacks.filter((entry) => {
-      const { gameObject, attack } = entry;
-      const attackId = attack.getId();
-
-      const collisionMessages = messageBus.getById(COLLISION_ENTER_MSG, attackId) || [];
-      return collisionMessages.every((message) => {
-        const { gameObject2 } = message;
-
-        const hitBox = gameObject2.getComponent(HITBOX_COMPONENT_NAME);
-        const target = gameObject2.getParent();
-
-        if (!hitBox || !target) {
-          return true;
-        }
-
-        const targetId = target.getId();
-
-        if (gameObject.getId() === targetId || attackId === targetId) {
-          return true;
-        }
-
-        // this._pushTarget(target, directionVector, messageBus);
-
-        return false;
-      });
+      return !attack.isFinished();
     });
   }
 
@@ -78,29 +38,21 @@ class FightSystem extends Processor {
 
     const radAngle = MathOps.getAngleBetweenTwoPoints(targetX, offsetX, targetY, offsetY);
 
-    const attack = fighter.createAttack(radAngle);
+    const attack = fighter.attack(radAngle);
 
-    this._activeAttacks.push({
-      gameObject,
-      attack,
-    });
+    this._activeAttacks.push(attack);
   }
 
-  _updateFighters(deltaTime) {
+  _processFighters(deltaTime, messageBus) {
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
-      const weapon = gameObject.getComponent(WEAPON_COMPONENT_NAME);
 
       if (!this._fighters[gameObjectId]) {
-        const Fighter = fighters[weapon.type];
-
-        if (!Fighter) {
-          throw new Error(`Unsupported weapon's type: ${weapon.type}`);
-        }
-
-        this._fighters[gameObjectId] = new Fighter(gameObject, this._gameObjectSpawner);
+        this._fighters[gameObjectId] = new SimpleFighter(
+          gameObject, this._gameObjectSpawner, messageBus
+        );
       } else {
-        this._fighters[gameObjectId].tick(deltaTime);
+        this._fighters[gameObjectId].process(deltaTime);
       }
     });
   }
@@ -116,8 +68,8 @@ class FightSystem extends Processor {
     const { messageBus, deltaTime } = options;
 
     this._processRemovedFighters();
-    this._updateFighters(deltaTime);
-    this._processActiveAttacks(messageBus);
+    this._processFighters(deltaTime, messageBus);
+    this._processActiveAttacks(deltaTime);
 
     const messages = messageBus.get(ATTACK_MSG) || [];
     messages.forEach((message) => {

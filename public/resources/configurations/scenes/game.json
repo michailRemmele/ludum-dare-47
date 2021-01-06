@@ -278,7 +278,7 @@
           "config": {
             "inputEventBindings": {
               "MOUSE_LEFT_BUTTON_PRESS": {
-                "messageType": "HIT",
+                "messageType": "ATTACK",
                 "attrs": {}
               }
             }
@@ -414,21 +414,11 @@
       "options": {}
     },
     {
-      "name": "shootingProcessor",
+      "name": "fightSystem",
       "section": "gameStateUpdateSection",
       "filter": {
         "components": [
           "weapon"
-        ]
-      },
-      "options": {}
-    },
-    {
-      "name": "fightProcessor",
-      "section": "gameStateUpdateSection",
-      "filter": {
-        "components": [
-          "meleeWeapon"
         ]
       },
       "options": {}

@@ -1,9 +1,5 @@
-class Fighter {
-  isReady() {
-    throw new Error('You should override this function');
-  }
-
-  attack() {
+class Attack {
+  isFinished() {
     throw new Error('You should override this function');
   }
 
@@ -12,4 +8,4 @@ class Fighter {
   }
 }
 
-export default Fighter;
+export default Attack;

@@ -1,7 +1,1 @@
-import MeleeFighter from './meleeFighter';
-import RangeFighter from './rangeFighter';
-
-export default {
-  melee: MeleeFighter,
-  range: RangeFighter,
-};
+export { default as SimpleFighter } from './simpleFighter';

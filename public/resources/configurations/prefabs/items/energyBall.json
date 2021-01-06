@@ -50,7 +50,7 @@
       "name": "rigidBody",
       "config": {
         "type": "dynamic",
-        "mass": 1.75,
+        "mass": 1,
         "useGravity": false,
         "isPermeable": true,
         "ghost": false,
@@ -62,7 +62,7 @@
       "config": {
         "type": "circleCollider",
         "collider": {
-          "radius": 10,
+          "radius": 0,
           "centerX": 0,
           "centerY": 0
         }

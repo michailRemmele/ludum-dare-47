@@ -51,13 +51,15 @@
     {
       "name": "weapon",
       "config": {
-        "name": "staff",
-        "bullet": "energyBall",
-        "damage": 10,
-        "fetterDuration": 300,
-        "speed": 150,
-        "range": 150,
-        "cooldown": 2000
+        "type": "range",
+        "cooldown": 2000,
+        "properties": {
+          "damage": 10,
+          "range": 150,
+          "projectileSpeed": 150,
+          "projectileModel": "energyBall",
+          "projectileRadius": 10
+        }
       }
     },
     {
@@ -150,7 +152,7 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "HIT"
+                      "message": "ATTACK"
                     }
                   }
                 ]
@@ -305,7 +307,7 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "HIT"
+                      "message": "ATTACK"
                     }
                   }
                 ]
@@ -403,7 +405,7 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "HIT"
+                      "message": "ATTACK"
                     }
                   }
                 ]
@@ -517,7 +519,7 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "HIT"
+                      "message": "ATTACK"
                     }
                   }
                 ]

@@ -5,8 +5,7 @@ const DAMAGE_MSG = 'DAMAGE';
 const ENEMY_PREFAB_NAME = 'enemy';
 const RANGE_ENEMY_PREFAB_NAME = 'rangeEnemy';
 const TRANSFORM_COMPONENT_NAME = 'transform';
-const MELEE_WEAPON_COMPONENT_NAME = 'meleeWeapon';
-const RANGE_WEAPON_COMPONENT_NAME = 'weapon';
+const WEAPON_COMPONENT_NAME = 'weapon';
 const HEALTH_COMPONENT_NAME = 'health';
 
 const ENEMY_SPAWN_COOLDOWN = 2000;
@@ -50,10 +49,10 @@ class EnemySpawner extends Processor {
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
       const enemy = this._gameObjectSpawner.spawn(ENEMY_PREFAB_NAME);
       const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
-      const enemyWeapon = enemy.getComponent(MELEE_WEAPON_COMPONENT_NAME);
+      const enemyWeapon = enemy.getComponent(WEAPON_COMPONENT_NAME);
       const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
 
-      enemyWeapon.damage += days * MELEE_DAMAGE_MAGNIFIER;
+      enemyWeapon.properties.damage += days * MELEE_DAMAGE_MAGNIFIER;
 
       enemyHealth.maxPoints += days * MELEE_HP_MAGNIFIER;
       enemyHealth.points += days * MELEE_HP_MAGNIFIER;
@@ -74,10 +73,10 @@ class EnemySpawner extends Processor {
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
       const enemy = this._gameObjectSpawner.spawn(RANGE_ENEMY_PREFAB_NAME);
       const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
-      const enemyWeapon = enemy.getComponent(RANGE_WEAPON_COMPONENT_NAME);
+      const enemyWeapon = enemy.getComponent(WEAPON_COMPONENT_NAME);
       const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
 
-      enemyWeapon.damage += days * RANGE_DAMAGE_MAGNIFIER;
+      enemyWeapon.properties.damage += days * RANGE_DAMAGE_MAGNIFIER;
 
       enemyHealth.maxPoints += days * RANGE_HP_MAGNIFIER;
       enemyHealth.points += days * RANGE_HP_MAGNIFIER;

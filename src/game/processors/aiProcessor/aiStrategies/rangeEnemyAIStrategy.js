@@ -2,7 +2,7 @@ import { MathOps } from '@flyer-engine/core';
 
 import AIStrategy from './aiStrategy';
 
-const SHOT_MSG = 'SHOT';
+const ATTACK_MSG = 'ATTACK';
 const MOVEMENT_MSG = 'MOVEMENT';
 
 const PLAYER_KEY = 'player';
@@ -121,8 +121,9 @@ class RangeEnemyAIStrategy extends AIStrategy{
 
   _attack(messageBus) {
     const weapon = this._player.getComponent(WEAPON_COMPONENT_NAME);
+    const { range } = weapon.properties;
 
-    if (weapon.cooldownRemaining > 0 || !this._enemy || weapon.range < this._distance) {
+    if (weapon.cooldownRemaining > 0 || !this._enemy || range < this._distance) {
       return;
     }
 
@@ -131,7 +132,7 @@ class RangeEnemyAIStrategy extends AIStrategy{
     messageBus.send({
       gameObject: this._player,
       id: this._player.getId(),
-      type: SHOT_MSG,
+      type: ATTACK_MSG,
       x: enemyX,
       y: enemyY,
     });

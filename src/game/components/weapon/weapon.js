@@ -14,6 +14,7 @@ class Weapon extends Component {
 
     this._type = config.type;
     this._cooldown = config.cooldown;
+    this._cooldownRemaining = 0;
 
     if (!this._weapons[this.type]) {
       throw new Error(`Not found weapon with same type: ${this.type}`);
@@ -44,6 +45,14 @@ class Weapon extends Component {
 
   get properties() {
     return this._properties;
+  }
+
+  set cooldownRemaining(cooldownRemaining) {
+    this._cooldownRemaining = cooldownRemaining;
+  }
+
+  get cooldownRemaining() {
+    return this._cooldownRemaining;
   }
 
   clone() {
