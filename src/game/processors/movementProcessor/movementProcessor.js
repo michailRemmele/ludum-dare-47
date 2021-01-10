@@ -4,6 +4,7 @@ const MOVEMENT_MSG = 'MOVEMENT';
 
 const TRANSFORM_COMPONENT_NAME = 'transform';
 const MOVEMENT_COMPONENT_NAME = 'movement';
+const VIEW_DIRECTION_COMPONENT_NAME = 'viewDirection';
 
 class MovementProcessor extends Processor {
   constructor(options) {
@@ -48,6 +49,12 @@ class MovementProcessor extends Processor {
 
       transform.offsetX = transform.offsetX + vector.x;
       transform.offsetY = transform.offsetY + vector.y;
+
+      const viewDirection = gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
+
+      viewDirection.angle = MathOps.radToDeg(MathOps.getAngleBetweenTwoPoints(
+        vector.x, 0, vector.y, 0
+      ));
     });
   }
 }

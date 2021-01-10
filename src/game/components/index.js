@@ -5,6 +5,7 @@ import Collectable from './collectable/collectable';
 import Weapon from './weapon/weapon';
 import ThumbStickControl from './thumbStickControl/thumbStickControl';
 import Movement from './movement/movement';
+import ViewDirection from './viewDirection/viewDirection';
 
 export default {
   health: Health,
@@ -14,4 +15,5 @@ export default {
   weapon: Weapon,
   thumbStickControl: ThumbStickControl,
   movement: Movement,
+  viewDirection: ViewDirection,
 };

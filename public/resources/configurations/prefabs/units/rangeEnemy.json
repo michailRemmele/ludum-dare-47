@@ -43,6 +43,12 @@
       }
     },
     {
+      "name": "viewDirection",
+      "config": {
+        "angle": 0
+      }
+    },
+    {
       "name": "health",
       "config": {
         "points": 50
