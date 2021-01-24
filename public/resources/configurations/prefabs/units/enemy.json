@@ -103,29 +103,145 @@
     {
       "name": "animatable",
       "config": {
-        "defaultState": "idle",
+        "initialState": "idle",
         "states": [
           {
             "name": "idle",
+            "type": "group",
             "speed": 0.5,
-            "frames": [
+            "substates": [
               {
-                "index": 0,
-                "flipY": false,
-                "rotation": 0
+                "name": "idleRight90",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 0,
+                      "flipY": false,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 1,
+                      "flipY": false,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 2,
+                      "flipY": false,
+                      "rotation": 0
+                    }
+                  ],
+                  "looped": true
+                },
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "viewDirection.angle"
+                      },
+                      "operation": "lessOrEqual",
+                      "arg2": {
+                        "type": "number",
+                        "value": 90
+                      }
+                    }
+                  }
+                ]
               },
               {
-                "index": 1,
-                "flipY": false,
-                "rotation": 0
+                "name": "idleRight270",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 0,
+                      "flipY": false,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 1,
+                      "flipY": false,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 2,
+                      "flipY": false,
+                      "rotation": 0
+                    }
+                  ],
+                  "looped": true
+                },
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "viewDirection.angle"
+                      },
+                      "operation": "greaterOrEqual",
+                      "arg2": {
+                        "type": "number",
+                        "value": 270
+                      }
+                    }
+                  }
+                ]
               },
               {
-                "index": 2,
-                "flipY": false,
-                "rotation": 0
+                "name": "idleLeft",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 0,
+                      "flipX": true,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 1,
+                      "flipX": true,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 2,
+                      "flipX": true,
+                      "rotation": 0
+                    }
+                  ],
+                  "looped": true
+                },
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "viewDirection.angle"
+                      },
+                      "operation": "greater",
+                      "arg2": {
+                        "type": "number",
+                        "value": 90
+                      }
+                    }
+                  },
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "viewDirection.angle"
+                      },
+                      "operation": "less",
+                      "arg2": {
+                        "type": "number",
+                        "value": 270
+                      }
+                    }
+                  }
+                ]
               }
             ],
-            "looped": true,
             "transitions": [
               {
                 "state": "death",
@@ -161,7 +277,7 @@
                 ]
               },
               {
-                "state": "runRight",
+                "state": "run",
                 "conditions": [
                   {
                     "type": "comparator",
@@ -170,7 +286,7 @@
                         "type": "componentValue",
                         "value": "movement.vector.x"
                       },
-                      "operation": "greater",
+                      "operation": "notEquals",
                       "arg2": {
                         "type": "number",
                         "value": 0
@@ -180,26 +296,7 @@
                 ]
               },
               {
-                "state": "runLeft",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "less",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "runVertical",
+                "state": "run",
                 "conditions": [
                   {
                     "type": "comparator",
@@ -220,29 +317,151 @@
             ]
           },
           {
-            "name": "runRight",
+            "name": "run",
+            "type": "group",
             "speed": 1,
-            "frames": [
+            "substates": [
               {
-                "index": 3,
-                "flipX": false,
-                "flipY": false,
-                "rotation": 0
+                "name": "runRight90",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 3,
+                      "flipX": false,
+                      "flipY": false,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 4,
+                      "flipX": false,
+                      "flipY": false,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 5,
+                      "flipX": false,
+                      "flipY": false,
+                      "rotation": 0
+                    }
+                  ],
+                  "looped": true
+                },
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "viewDirection.angle"
+                      },
+                      "operation": "lessOrEqual",
+                      "arg2": {
+                        "type": "number",
+                        "value": 90
+                      }
+                    }
+                  }
+                ]
               },
               {
-                "index": 4,
-                "flipX": false,
-                "flipY": false,
-                "rotation": 0
+                "name": "runRight270",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 3,
+                      "flipX": false,
+                      "flipY": false,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 4,
+                      "flipX": false,
+                      "flipY": false,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 5,
+                      "flipX": false,
+                      "flipY": false,
+                      "rotation": 0
+                    }
+                  ],
+                  "looped": true
+                },
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "viewDirection.angle"
+                      },
+                      "operation": "greaterOrEqual",
+                      "arg2": {
+                        "type": "number",
+                        "value": 270
+                      }
+                    }
+                  }
+                ]
               },
               {
-                "index": 5,
-                "flipX": false,
-                "flipY": false,
-                "rotation": 0
+                "name": "runLeft",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 3,
+                      "flipX": true,
+                      "flipY": false,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 4,
+                      "flipX": true,
+                      "flipY": false,
+                      "rotation": 0
+                    },
+                    {
+                      "index": 5,
+                      "flipX": true,
+                      "flipY": false,
+                      "rotation": 0
+                    }
+                  ],
+                  "looped": true
+                },
+                "conditions": [
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "viewDirection.angle"
+                      },
+                      "operation": "greater",
+                      "arg2": {
+                        "type": "number",
+                        "value": 90
+                      }
+                    }
+                  },
+                  {
+                    "type": "comparator",
+                    "props": {
+                      "arg1": {
+                        "type": "componentValue",
+                        "value": "viewDirection.angle"
+                      },
+                      "operation": "less",
+                      "arg2": {
+                        "type": "number",
+                        "value": 270
+                      }
+                    }
+                  }
+                ]
               }
             ],
-            "looped": true,
             "transitions": [
               {
                 "state": "death",
@@ -262,6 +481,17 @@
                     "type": "message",
                     "props": {
                       "message": "DAMAGE"
+                    }
+                  }
+                ]
+              },
+              {
+                "state": "attack",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "ATTACK"
                     }
                   }
                 ]
@@ -282,224 +512,7 @@
                         "value": 0
                       }
                     }
-                  }
-                ]
-              },
-              {
-                "state": "runLeft",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "less",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "attack",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "ATTACK"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "runLeft",
-            "speed": 1,
-            "frames": [
-              {
-                "index": 3,
-                "flipX": true,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 4,
-                "flipX": true,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 5,
-                "flipX": true,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": true,
-            "transitions": [
-              {
-                "state": "death",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "KILL"
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "damage",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "DAMAGE"
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "idle",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "equals",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "runRight",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "greater",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "attack",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "ATTACK"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "runVertical",
-            "speed": 1,
-            "frames": [
-              {
-                "index": 3,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 4,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 5,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": true,
-            "transitions": [
-              {
-                "state": "death",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "KILL"
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "damage",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "DAMAGE"
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "runRight",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "greater",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "runLeft",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "less",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "idle",
-                "conditions": [
+                  },
                   {
                     "type": "comparator",
                     "props": {
@@ -515,35 +528,28 @@
                     }
                   }
                 ]
-              },
-              {
-                "state": "attack",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "ATTACK"
-                    }
-                  }
-                ]
               }
             ]
           },
           {
             "name": "attack",
-            "speed": 1.5,
-            "frames": [
-              {
-                "index": 6,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 7,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
+            "type": "individual",
+            "speed": 1.3,
+            "timeline": {
+              "frames": [
+                {
+                  "index": 6,
+                  "flipY": false,
+                  "rotation": 0
+                },
+                {
+                  "index": 7,
+                  "flipY": false,
+                  "rotation": 0
+                }
+              ],
+              "looped": false
+            },
             "transitions": [
               {
                 "state": "death",
@@ -566,19 +572,28 @@
                     }
                   }
                 ]
+              },
+              {
+                "state": "idle",
+                "time": 1,
+                "conditions": []
               }
             ]
           },
           {
             "name": "damage",
+            "type": "individual",
             "speed": 1,
-            "frames": [
-              {
-                "index": 11,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
+            "timeline": {
+              "frames": [
+                {
+                  "index": 11,
+                  "flipY": false,
+                  "rotation": 0
+                }
+              ],
+              "looped": false
+            },
             "transitions": [
               {
                 "state": "death",
@@ -590,43 +605,38 @@
                     }
                   }
                 ]
+              },
+              {
+                "state": "idle",
+                "time": 1,
+                "conditions": []
               }
             ]
           },
           {
             "name": "death",
+            "type": "individual",
             "speed": 1,
-            "frames": [
-              {
-                "index": 8,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 9,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 10,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "fallbackState": "deadBody",
-            "transitions": []
-          },
-          {
-            "name": "deadBody",
-            "speed": 1,
-            "frames": [
-              {
-                "index": 10,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": true,
+            "timeline": {
+              "frames": [
+                {
+                  "index": 8,
+                  "flipY": false,
+                  "rotation": 0
+                },
+                {
+                  "index": 9,
+                  "flipY": false,
+                  "rotation": 0
+                },
+                {
+                  "index": 10,
+                  "flipY": false,
+                  "rotation": 0
+                }
+              ],
+              "looped": false
+            },
             "transitions": []
           }
         ]

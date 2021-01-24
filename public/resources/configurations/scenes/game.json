@@ -461,7 +461,8 @@
           "transform",
           "animatable",
           "renderable",
-          "camera"
+          "camera",
+          "viewDirection"
         ],
         "lifetime": 5000
       }
