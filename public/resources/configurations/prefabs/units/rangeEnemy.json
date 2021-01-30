@@ -45,7 +45,8 @@
     {
       "name": "viewDirection",
       "config": {
-        "angle": 0
+        "x": 0,
+        "y": 0
       }
     },
     {
@@ -112,9 +113,14 @@
             "name": "idle",
             "type": "group",
             "speed": 0.5,
+            "pickMode": "2D",
+            "pickProps": {
+              "x": "viewDirection.x",
+              "y": "viewDirection.y"
+            },
             "substates": [
               {
-                "name": "idleRight90",
+                "name": "idleRight",
                 "timeline": {
                   "frames": [
                     {
@@ -135,61 +141,8 @@
                   ],
                   "looped": true
                 },
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "viewDirection.angle"
-                      },
-                      "operation": "lessOrEqual",
-                      "arg2": {
-                        "type": "number",
-                        "value": 90
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "name": "idleRight270",
-                "timeline": {
-                  "frames": [
-                    {
-                      "index": 0,
-                      "flipY": false,
-                      "rotation": 0
-                    },
-                    {
-                      "index": 1,
-                      "flipY": false,
-                      "rotation": 0
-                    },
-                    {
-                      "index": 2,
-                      "flipY": false,
-                      "rotation": 0
-                    }
-                  ],
-                  "looped": true
-                },
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "viewDirection.angle"
-                      },
-                      "operation": "greaterOrEqual",
-                      "arg2": {
-                        "type": "number",
-                        "value": 270
-                      }
-                    }
-                  }
-                ]
+                "x": 1,
+                "y": 0
               },
               {
                 "name": "idleLeft",
@@ -213,36 +166,8 @@
                   ],
                   "looped": true
                 },
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "viewDirection.angle"
-                      },
-                      "operation": "greater",
-                      "arg2": {
-                        "type": "number",
-                        "value": 90
-                      }
-                    }
-                  },
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "viewDirection.angle"
-                      },
-                      "operation": "less",
-                      "arg2": {
-                        "type": "number",
-                        "value": 270
-                      }
-                    }
-                  }
-                ]
+                "x": -1,
+                "y": 0
               }
             ],
             "transitions": [
@@ -323,9 +248,14 @@
             "name": "run",
             "type": "group",
             "speed": 1,
+            "pickMode": "2D",
+            "pickProps": {
+              "x": "viewDirection.x",
+              "y": "viewDirection.y"
+            },
             "substates": [
               {
-                "name": "runRight90",
+                "name": "runRight",
                 "timeline": {
                   "frames": [
                     {
@@ -349,64 +279,8 @@
                   ],
                   "looped": true
                 },
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "viewDirection.angle"
-                      },
-                      "operation": "lessOrEqual",
-                      "arg2": {
-                        "type": "number",
-                        "value": 90
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "name": "runRight270",
-                "timeline": {
-                  "frames": [
-                    {
-                      "index": 3,
-                      "flipX": false,
-                      "flipY": false,
-                      "rotation": 0
-                    },
-                    {
-                      "index": 4,
-                      "flipX": false,
-                      "flipY": false,
-                      "rotation": 0
-                    },
-                    {
-                      "index": 5,
-                      "flipX": false,
-                      "flipY": false,
-                      "rotation": 0
-                    }
-                  ],
-                  "looped": true
-                },
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "viewDirection.angle"
-                      },
-                      "operation": "greaterOrEqual",
-                      "arg2": {
-                        "type": "number",
-                        "value": 270
-                      }
-                    }
-                  }
-                ]
+                "x": 1,
+                "y": 0
               },
               {
                 "name": "runLeft",
@@ -433,36 +307,8 @@
                   ],
                   "looped": true
                 },
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "viewDirection.angle"
-                      },
-                      "operation": "greater",
-                      "arg2": {
-                        "type": "number",
-                        "value": 90
-                      }
-                    }
-                  },
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "viewDirection.angle"
-                      },
-                      "operation": "less",
-                      "arg2": {
-                        "type": "number",
-                        "value": 270
-                      }
-                    }
-                  }
-                ]
+                "x": -1,
+                "y": 0
               }
             ],
             "transitions": [
@@ -622,6 +468,11 @@
             "speed": 1,
             "timeline": {
               "frames": [
+                {
+                  "index": 11,
+                  "flipY": false,
+                  "rotation": 0
+                },
                 {
                   "index": 8,
                   "flipY": false,

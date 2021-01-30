@@ -4,20 +4,30 @@ class ViewDirection extends Component {
   constructor(config) {
     super();
 
-    this._angle = config.angle;
+    this._x = config.x;
+    this._y = config.y;
   }
 
-  set angle(angle) {
-    this._angle = angle;
+  set x(x) {
+    this._x = x;
   }
 
-  get angle() {
-    return this._angle;
+  get x() {
+    return this._x;
+  }
+
+  set y(y) {
+    this._y = y;
+  }
+
+  get y() {
+    return this._y;
   }
 
   clone() {
     return new ViewDirection({
-      angle: this.angle,
+      x: this.x,
+      y: this.y,
     });
   }
 }

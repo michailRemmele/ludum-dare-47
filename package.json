@@ -2,7 +2,7 @@
   "name": "roosters-fight",
   "version": "0.6.0",
   "dependencies": {
-    "@flyer-engine/core": "/home/ubuntu/Projects/flyer-engine/flyer-engine-core-0.6.6.tgz",
+    "@flyer-engine/core": "0.6.5",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",

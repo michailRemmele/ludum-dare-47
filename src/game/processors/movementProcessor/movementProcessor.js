@@ -52,9 +52,8 @@ class MovementProcessor extends Processor {
 
       const viewDirection = gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
 
-      viewDirection.angle = MathOps.radToDeg(MathOps.getAngleBetweenTwoPoints(
-        vector.x, 0, vector.y, 0
-      ));
+      viewDirection.x = vector.x;
+      viewDirection.y = vector.y;
     });
   }
 }
