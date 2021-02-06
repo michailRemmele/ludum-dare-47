@@ -420,6 +420,13 @@
                       "flipX": false,
                       "flipY": false,
                       "disabled": false
+                    },
+                    {
+                      "index": 10,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
                     }
                   ],
                   "looped": true
@@ -447,6 +454,13 @@
                     },
                     {
                       "index": 11,
+                      "rotation": 0,
+                      "flipX": true,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 10,
                       "rotation": 0,
                       "flipX": true,
                       "flipY": false,
@@ -482,6 +496,13 @@
                       "flipX": false,
                       "flipY": false,
                       "disabled": false
+                    },
+                    {
+                      "index": 16,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
                     }
                   ],
                   "looped": true
@@ -509,6 +530,13 @@
                     },
                     {
                       "index": 14,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 13,
                       "rotation": 0,
                       "flipX": false,
                       "flipY": false,
@@ -687,7 +715,7 @@
             "timeline": {
               "frames": [
                 {
-                  "index": 11,
+                  "index": 27,
                   "rotation": 0,
                   "flipX": false,
                   "flipY": false,
@@ -705,28 +733,28 @@
             "timeline": {
               "frames": [
                 {
-                  "index": 11,
+                  "index": 27,
                   "rotation": 0,
                   "flipX": false,
                   "flipY": false,
                   "disabled": false
                 },
                 {
-                  "index": 8,
+                  "index": 24,
                   "rotation": 0,
                   "flipX": false,
                   "flipY": false,
                   "disabled": false
                 },
                 {
-                  "index": 9,
+                  "index": 25,
                   "rotation": 0,
                   "flipX": false,
                   "flipY": false,
                   "disabled": false
                 },
                 {
-                  "index": 10,
+                  "index": 26,
                   "rotation": 0,
                   "flipX": false,
                   "flipY": false,
