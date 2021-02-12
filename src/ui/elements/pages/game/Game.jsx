@@ -10,7 +10,7 @@ import Inventory from '../../components/inventory/Inventory';
 import ThumbStick from '../../components/thumbStick/ThumbStick';
 import Button from '../../atoms/button/Button';
 
-import { isTouchDevice } from './utils';
+import { isTouchDevice } from '../../../../utils';
 import './style.css';
 
 const VICTORY_MSG = 'VICTORY';
@@ -269,17 +269,23 @@ class Game extends React.Component {
             title='Inventory'
           />
         </header>
-        <footer className='game__footer'>
-          <div className='game__bars'>
-            <ItemsBar
-              user={this.state.gameObject}
-            />
-            {this.renderActionBar()}
-          </div>
-          {this.isTouchDevice && (
-            <ThumbStick className='game__thumb-stick'/>
-          )}
-        </footer>
+        {!this.isTouchDevice && (
+          <footer className='game__footer'>
+            <div className='game__bars'>
+              <ItemsBar
+                user={this.state.gameObject}
+              />
+              {this.renderActionBar()}
+            </div>
+          </footer>
+        )}
+        {this.isTouchDevice && (
+          <footer className='game__footer'>
+            {this.isTouchDevice && (
+              <ThumbStick className='game__thumb-stick'/>
+            )}
+          </footer>
+        )}
       </>
     );
   }

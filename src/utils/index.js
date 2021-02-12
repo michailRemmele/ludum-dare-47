@@ -1,0 +1,1 @@
+export { isTouchDevice } from './isTouchDevice';
