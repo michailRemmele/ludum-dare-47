@@ -1,7 +1,12 @@
+import { VectorOps } from '@flyer-engine/core';
+
 import Fighter from './fighter';
 import attacks from '../attacks';
 
 const WEAPON_COMPONENT_NAME = 'weapon';
+const VIEW_DIRECTION_COMPONENT_NAME = 'viewDirection';
+
+const TIME_TO_ATTACK = 250;
 
 class SimpleFighter extends Fighter {
   constructor(gameObject, spawner, messageBus) {
@@ -13,6 +18,9 @@ class SimpleFighter extends Fighter {
 
     this._weapon = this._gameObject.getComponent(WEAPON_COMPONENT_NAME);
     this._weapon.cooldownRemaining = 0;
+
+    this._viewDirection = null;
+    this._viewTimer = 0;
   }
 
   isReady() {
@@ -34,11 +42,23 @@ class SimpleFighter extends Fighter {
 
     this._weapon.cooldownRemaining = cooldown;
 
+    this._viewDirection = VectorOps.getVectorByAngle(angle);
+    this._viewTimer = TIME_TO_ATTACK;
+
     return new Attack(this._gameObject, this._spawner, this._messageBus, angle);
   }
 
   process(deltaTime) {
     this._weapon.cooldownRemaining -= deltaTime;
+
+    if (this._viewTimer > 0) {
+      this._viewTimer -= deltaTime;
+
+      const viewDirection = this._gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
+
+      viewDirection.x = this._viewDirection.x;
+      viewDirection.y = this._viewDirection.y;
+    }
   }
 }
 

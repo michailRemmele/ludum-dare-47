@@ -73,7 +73,7 @@
       "name": "rigidBody",
       "config": {
         "type": "dynamic",
-        "mass": 3,
+        "mass": 2,
         "useGravity": false,
         "isPermeable": false,
         "ghost": false,

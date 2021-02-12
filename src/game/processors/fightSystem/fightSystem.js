@@ -5,7 +5,6 @@ import { SimpleFighter } from './fighters';
 const ATTACK_MSG = 'ATTACK';
 
 const TRANSFORM_COMPONENT_NAME = 'transform';
-const VIEW_DIRECTION_COMPONENT_NAME = 'viewDirection';
 
 class FightSystem extends Processor {
   constructor(options) {
@@ -38,11 +37,6 @@ class FightSystem extends Processor {
     }
 
     const radAngle = MathOps.getAngleBetweenTwoPoints(targetX, offsetX, targetY, offsetY);
-
-    const viewDirection = gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
-
-    viewDirection.x = targetX - offsetX;
-    viewDirection.y = targetY - offsetY;
 
     const attack = fighter.attack(radAngle);
 

@@ -5,9 +5,7 @@ import Attack from './attack';
 const DAMAGE_MSG = 'DAMAGE';
 const COLLISION_ENTER_MSG = 'COLLISION_ENTER';
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
-const ADD_FORCE_MSG = 'ADD_FORCE';
-
-const PUSH_POWER = 'pushPower';
+const ADD_IMPULSE_MSG = 'ADD_IMPULSE';
 
 const HIT_PREFAB_NAME = 'hit';
 
@@ -19,8 +17,7 @@ const HITBOX_COMPONENT_NAME = 'hitBox';
 
 const HIT_LIFETIME = 100;
 const FETTER_DURATION = 250;
-const PUSH_FORCE = 35000;
-const ACCELERATION_DURATION = 10;
+const PUSH_IMPULSE = 200;
 
 class MeleeAttack extends Attack {
   constructor(gameObject, spawner, messageBus, angle) {
@@ -52,7 +49,7 @@ class MeleeAttack extends Attack {
     hitTransform.offsetY = hitCenter.y;
 
     const directionVector = VectorOps.getVectorByAngle(this._angle);
-    directionVector.multiplyNumber(PUSH_FORCE);
+    directionVector.multiplyNumber(PUSH_IMPULSE);
 
     this._directionVector = directionVector;
     this._hit = hit;
@@ -108,10 +105,8 @@ class MeleeAttack extends Attack {
         },
       });
       this._messageBus.send({
-        type: ADD_FORCE_MSG,
-        name: PUSH_POWER,
+        type: ADD_IMPULSE_MSG,
         value: this._directionVector.clone(),
-        duration: ACCELERATION_DURATION,
         gameObject: target,
         id: targetId,
       });

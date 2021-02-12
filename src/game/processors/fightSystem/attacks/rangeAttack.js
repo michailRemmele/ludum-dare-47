@@ -5,10 +5,7 @@ import Attack from './attack';
 const DAMAGE_MSG = 'DAMAGE';
 const COLLISION_ENTER_MSG = 'COLLISION_ENTER';
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
-const ADD_FORCE_MSG = 'ADD_FORCE';
-
-const PUSH_POWER = 'pushPower';
-const SHOT_POWER = 'shotPower';
+const ADD_IMPULSE_MSG = 'ADD_IMPULSE';
 
 const WEAPON_COMPONENT_NAME = 'weapon';
 const TRANSFORM_COMPONENT_NAME = 'transform';
@@ -16,8 +13,6 @@ const COLLIDER_CONTAINER_COMPONENT_NAME = 'colliderContainer';
 const HEALTH_COMPONENT_NAME = 'health';
 const HITBOX_COMPONENT_NAME = 'hitBox';
 
-const ACCELERATION_DURATION = 10;
-const ACCELERATION_DURATION_IN_SEC = ACCELERATION_DURATION / 1000;
 const FETTER_DURATION = 250;
 
 class RangeAttack extends Attack {
@@ -51,18 +46,15 @@ class RangeAttack extends Attack {
 
     const directionVector = VectorOps.getVectorByAngle(this._angle);
 
-    const forceValue = projectileSpeed / ACCELERATION_DURATION_IN_SEC;
-    directionVector.multiplyNumber(forceValue);
+    directionVector.multiplyNumber(projectileSpeed);
 
-    const flightTime = (1000 * range / projectileSpeed) + (ACCELERATION_DURATION / 2);
+    const flightTime = 1000 * range / projectileSpeed;
 
     this._messageBus.send({
-      type: ADD_FORCE_MSG,
+      type: ADD_IMPULSE_MSG,
       id: shot.getId(),
       gameObject: shot,
-      name: SHOT_POWER,
       value: directionVector.clone(),
-      duration: ACCELERATION_DURATION,
     });
 
     this._directionVector = directionVector;
@@ -125,10 +117,8 @@ class RangeAttack extends Attack {
         },
       });
       this._messageBus.send({
-        type: ADD_FORCE_MSG,
-        name: PUSH_POWER,
+        type: ADD_IMPULSE_MSG,
         value: this._directionVector.clone(),
-        duration: ACCELERATION_DURATION,
         gameObject: target,
         id: targetId,
       });
