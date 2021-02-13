@@ -17,10 +17,6 @@
   align-items: center;
 }
 
-.game__thumb-stick {
-  margin: 0 0 3% 3%;
-}
-
 .game__bars {
   display: flex;
   justify-content: space-between;
@@ -42,6 +38,14 @@
   height: 100%;
 
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.game__footer_touch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 0 3% 3% 3%;
 }
 
 .dialog {

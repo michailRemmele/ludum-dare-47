@@ -8,6 +8,7 @@ import ActionBar from '../../components/actionBar/ActionBar';
 import ItemsBar from '../../components/itemsBar/ItemsBar';
 import Inventory from '../../components/inventory/Inventory';
 import ThumbStick from '../../components/thumbStick/ThumbStick';
+import AttackButton from '../../components/attackButton/AttackButton';
 import Button from '../../atoms/button/Button';
 
 import { isTouchDevice } from '../../../../utils';
@@ -20,6 +21,7 @@ const CLOSE_INVENTORY_MSG = 'CLOSE_INVENTORY';
 const LOAD_SCENE_MSG = 'LOAD_SCENE';
 const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
 const GRAB_MSG = 'GRAB';
+const ATTACK_MSG = 'ATTACK';
 const GAME_SCENE_NAME = 'game';
 const MAIN_MENU_SCENE_NAME = 'mainMenu';
 
@@ -220,6 +222,15 @@ class Game extends React.Component {
     });
   }
 
+  onAttack = () => {
+    console.log('ON ATTACK');
+    this.props.pushMessage({
+      type: ATTACK_MSG,
+      id: this.state.gameObjectId,
+      gameObject: this.state.gameObject,
+    });
+  }
+
   renderActionBar() {
     if (!this.state.canGrab) {
       return;
@@ -280,10 +291,9 @@ class Game extends React.Component {
           </footer>
         )}
         {this.isTouchDevice && (
-          <footer className='game__footer'>
-            {this.isTouchDevice && (
-              <ThumbStick className='game__thumb-stick'/>
-            )}
+          <footer className='game__footer game__footer_touch'>
+            <ThumbStick className='game__thumb-stick'/>
+            <AttackButton onClick={this.onAttack} />
           </footer>
         )}
       </>
