@@ -14,6 +14,7 @@ import CraftProcessorPlugin from './craftProcessorPlugin/craftProcessorPlugin';
 import ItemsActivatorPlugin from './itemsActivatorPlugin/itemsActivatorPlugin';
 import MovementProcessorPlugin from './movementProcessorPlugin/movementProcessorPlugin';
 import ThumbStickControllerPlugin from './thumbStickControllerPlugin/thumbStickControllerPlugin';
+import TouchDeviceJammerPlugin from './touchDeviceJammerPlugin/touchDeviceJammerPlugin';
 
 export default {
   damageProcessor: DamageProcessorPlugin,
@@ -32,4 +33,5 @@ export default {
   itemsActivator: ItemsActivatorPlugin,
   movementProcessor: MovementProcessorPlugin,
   thumbStickController: ThumbStickControllerPlugin,
+  touchDeviceJammer: TouchDeviceJammerPlugin,
 };

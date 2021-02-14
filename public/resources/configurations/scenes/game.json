@@ -312,6 +312,12 @@
       "options": {}
     },
     {
+      "name": "touchDeviceJammer",
+      "section": "gameStateUpdateSection",
+      "filter": {},
+      "options": {}
+    },
+    {
       "name": "mouseInputCoordinatesProjector",
       "section": "gameStateUpdateSection",
       "filter": {},

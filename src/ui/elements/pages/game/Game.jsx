@@ -223,7 +223,6 @@ class Game extends React.Component {
   }
 
   onAttack = () => {
-    console.log('ON ATTACK');
     this.props.pushMessage({
       type: ATTACK_MSG,
       id: this.state.gameObjectId,
