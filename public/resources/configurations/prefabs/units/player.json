@@ -31,6 +31,35 @@
           }
         }
       ]
+    },
+    {
+      "name": "playerAimRadius",
+      "children": [],
+      "components": [
+        {
+          "name": "aimRadius",
+          "config": {}
+        },
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "circleCollider",
+            "collider": {
+              "radius": 45,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        }
+      ]
     }
   ],
   "components": [

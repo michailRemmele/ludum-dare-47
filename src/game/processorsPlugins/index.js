@@ -1,3 +1,4 @@
+import AutoAimingProcessorPlugin from './autoAimingProcessorPlugin/autoAimingProcessorPlugin';
 import DamageProcessorPlugin from './damageProcessorPlugin/damageProcessorPlugin';
 import EffectsProcessorPlugin from './effectsProcessorPlugin/effectsProcessorPlugin';
 import GameOverProcessorPlugin from './gameOverProcessorPlugin/gameOverProcessorPlugin';
@@ -17,6 +18,7 @@ import ThumbStickControllerPlugin from './thumbStickControllerPlugin/thumbStickC
 import TouchDeviceJammerPlugin from './touchDeviceJammerPlugin/touchDeviceJammerPlugin';
 
 export default {
+  autoAimingProcessor: AutoAimingProcessorPlugin,
   damageProcessor: DamageProcessorPlugin,
   effectsProcessor: EffectsProcessorPlugin,
   gameOverProcessor: GameOverProcessorPlugin,

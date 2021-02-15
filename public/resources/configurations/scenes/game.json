@@ -186,6 +186,14 @@
           "components": []
         },
         {
+          "id": "1.3",
+          "name": "playerAimRadius",
+          "fromPrefab": true,
+          "prefabName": "playerAimRadius",
+          "children": [],
+          "components": []
+        },
+        {
           "id": "1.2",
           "name": "mainCamera",
           "fromPrefab": false,
@@ -349,6 +357,17 @@
       "filter": {
         "components": [
           "thumbStickControl"
+        ]
+      },
+      "options": {}
+    },
+    {
+      "name": "autoAimingProcessor",
+      "section": "gameStateUpdateSection",
+      "filter": {
+        "components": [
+          "mouseControl",
+          "keyboardControl"
         ]
       },
       "options": {}
