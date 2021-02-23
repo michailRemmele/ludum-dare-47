@@ -5,25 +5,32 @@ import ActionView from '../../atoms/actionView/ActionView';
 
 import './style.css';
 
-const AttackButton = ({
+const IconButton = ({
   className,
   onClick,
+  icon,
+  size
 }) => (
   <ActionView
-    className={`attack-button ${className}`}
+    className={`icon-button icon-button_${size} ${className}`}
     onClick={onClick}
     stopPropagate={true}
-  />
+  >
+    <img src={icon} className="icon-button__icon" />
+  </ActionView>
 );
 
-AttackButton.defaultProps = {
+IconButton.defaultProps = {
   className: '',
   onClick: () => {},
+  size: 'lg'
 };
 
-AttackButton.propTypes = {
+IconButton.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
+  icon: PropTypes.string,
+  size: PropTypes.oneOf(['lg'])
 };
 
-export default React.memo(AttackButton);
+export default React.memo(IconButton);

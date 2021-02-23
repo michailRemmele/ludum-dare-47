@@ -1,0 +1,27 @@
+.icon-button {
+  border: 4px solid white;
+  border-radius: 50%;
+
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+
+  opacity: 75%;
+
+  overflow: hidden;
+}
+
+.icon-button_lg {
+  width: 11vw;
+  height: 11vw;
+
+  max-width: 128px;
+  max-height: 128px;
+
+  min-width: 96px;
+  min-height: 96px;
+}
+
+.icon-button__icon {
+  width: 100%;
+  height: 100%;
+}

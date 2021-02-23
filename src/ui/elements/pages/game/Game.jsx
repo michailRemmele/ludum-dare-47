@@ -8,11 +8,13 @@ import ActionBar from '../../components/actionBar/ActionBar';
 import ItemsBar from '../../components/itemsBar/ItemsBar';
 import Inventory from '../../components/inventory/Inventory';
 import ThumbStick from '../../components/thumbStick/ThumbStick';
-import AttackButton from '../../components/attackButton/AttackButton';
+import IconButton from '../../components/iconButton/IconButton';
 import Button from '../../atoms/button/Button';
 
 import { isTouchDevice } from '../../../../utils';
 import './style.css';
+
+import attackIcon from '../../../media/images/attack-icon.png'
 
 const VICTORY_MSG = 'VICTORY';
 const DEFEAT_MSG = 'DEFEAT';
@@ -292,7 +294,7 @@ class Game extends React.Component {
         {this.isTouchDevice && (
           <footer className='game__footer game__footer_touch'>
             <ThumbStick className='game__thumb-stick'/>
-            <AttackButton onClick={this.onAttack} />
+            <IconButton icon={attackIcon} size="lg" onClick={this.onAttack} />
           </footer>
         )}
       </>
