@@ -8,13 +8,16 @@ import ActionBar from '../../components/actionBar/ActionBar';
 import ItemsBar from '../../components/itemsBar/ItemsBar';
 import Inventory from '../../components/inventory/Inventory';
 import ThumbStick from '../../components/thumbStick/ThumbStick';
-import IconButton from '../../components/iconButton/IconButton';
+import MenuButton from '../../components/menuButton/MenuButton';
+import ControlButton from '../../components/controlButton/ControlButton';
 import Button from '../../atoms/button/Button';
 
 import { isTouchDevice } from '../../../../utils';
 import './style.css';
 
-import attackIcon from '../../../media/images/attack-icon.png'
+import attackIcon from '../../../media/images/attack-icon.png';
+import inventoryIcon from '../../../media/images/inventory-icon.png';
+import grabIcon from '../../../media/images/grab-icon.png';
 
 const VICTORY_MSG = 'VICTORY';
 const DEFEAT_MSG = 'DEFEAT';
@@ -271,17 +274,17 @@ class Game extends React.Component {
   }
 
   renderHud() {
-    return (
-      <>
-        <header className='game__header'>
-          <HealthBar health={this.state.health}/>
-          <ActionBar
-            onClick={this.onInventoryToggle}
-            keyName='I'
-            title='Inventory'
-          />
-        </header>
-        {!this.isTouchDevice && (
+    if (!this.isTouchDevice) {
+      return (
+        <>
+          <header className='game__header'>
+            <HealthBar health={this.state.health}/>
+            <ActionBar
+              onClick={this.onInventoryToggle}
+              keyName='I'
+              title='Inventory'
+            />
+          </header>
           <footer className='game__footer'>
             <div className='game__bars'>
               <ItemsBar
@@ -290,15 +293,36 @@ class Game extends React.Component {
               {this.renderActionBar()}
             </div>
           </footer>
-        )}
-        {this.isTouchDevice && (
+        </>
+      );
+    } else {
+      return (
+        <>
+          <header className='game__header game__header_touch'>
+            <HealthBar health={this.state.health}/>
+            <MenuButton icon={inventoryIcon} onClick={this.onInventoryToggle} />
+          </header>
           <footer className='game__footer game__footer_touch'>
             <ThumbStick className='game__thumb-stick'/>
-            <IconButton icon={attackIcon} size="lg" onClick={this.onAttack} />
+            <div className='game__control-bar'>
+              {this.state.canGrab && (
+                <ControlButton
+                  className='control-bar__button control-bar__button_grab'
+                  icon={grabIcon}
+                  onClick={this.onCollectItem}
+                />
+              )}
+              <ControlButton
+                className='control-bar__button control-bar__button_attack'
+                icon={attackIcon}
+                size='lg'
+                onClick={this.onAttack}
+              />
+            </div>
           </footer>
-        )}
-      </>
-    );
+        </>
+      );
+    }
   }
 
   render() {

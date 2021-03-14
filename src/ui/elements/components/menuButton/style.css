@@ -1,0 +1,14 @@
+.menu-button {
+    width: 96px;
+    height: 96px;
+
+    border: 4px solid white;
+    border-radius: 4px;
+}
+
+@media screen and (max-height: 481px) {
+  .menu-button {
+    width: 72px;
+    height: 72px;
+  }
+}

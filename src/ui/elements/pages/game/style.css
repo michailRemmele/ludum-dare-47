@@ -48,6 +48,21 @@
   margin: 0 3% 3% 3%;
 }
 
+.game__header_touch {
+  margin: 3% 3% 0 3%;
+}
+
+.game__control-bar {
+  position: relative;
+}
+
+.control-bar__button_grab {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: -25%;
+  left: -25%;
+}
+
 .dialog {
   display: flex;
   flex-direction: column;

@@ -9,28 +9,25 @@ const IconButton = ({
   className,
   onClick,
   icon,
-  size
 }) => (
   <ActionView
-    className={`icon-button icon-button_${size} ${className}`}
+    className={`icon-button ${className}`}
     onClick={onClick}
     stopPropagate={true}
   >
-    <img src={icon} className="icon-button__icon" />
+    <img src={icon} className='icon-button__icon' />
   </ActionView>
 );
 
 IconButton.defaultProps = {
   className: '',
   onClick: () => {},
-  size: 'lg'
 };
 
 IconButton.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   icon: PropTypes.string,
-  size: PropTypes.oneOf(['lg'])
 };
 
 export default React.memo(IconButton);
