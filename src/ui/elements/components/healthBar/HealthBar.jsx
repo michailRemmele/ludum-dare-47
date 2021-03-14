@@ -5,9 +5,15 @@ import './style.css';
 
 class HealthBar extends React.PureComponent {
   render() {
+    const { health, maxHealth, className } = this.props;
     return (
-      <div className={`health-bar ${this.props.className}`}>
-        Health: {this.props.health || ''}
+      <div
+        className={`health-bar ${className}`}
+      >
+        <div
+          className='health-bar__points'
+          style={{ width: `${maxHealth ? (health / maxHealth * 100) : 0}%` }}
+        />
       </div>
     );
   }
@@ -15,11 +21,14 @@ class HealthBar extends React.PureComponent {
 
 HealthBar.defaultProps = {
   className: '',
+  health: 0,
+  maxHealth: 100,
 };
 
 HealthBar.propTypes = {
   className: PropTypes.string,
   health: PropTypes.number,
+  maxHealth: PropTypes.number,
 };
 
 export default HealthBar;

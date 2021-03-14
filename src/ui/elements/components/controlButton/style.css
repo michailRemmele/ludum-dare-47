@@ -8,7 +8,7 @@
   height: 128px;
 }
 
-@media screen and (max-height: 481px) {
+@media screen and (max-height: 481px), screen and (max-width: 768px) {
   .control-button_md {
     width: 72px;
     height: 72px;

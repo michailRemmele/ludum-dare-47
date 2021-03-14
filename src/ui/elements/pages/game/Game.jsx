@@ -162,6 +162,7 @@ class Game extends React.Component {
     if (!gameObject) {
       this.setState({
         health: 0,
+        maxHealth: 0,
       });
       return;
     }
@@ -170,8 +171,9 @@ class Game extends React.Component {
 
     const newState = {};
 
-    if (health.points !== this.state.health) {
+    if (health.points !== this.state.health || health.maxPoints !== this.state.maxHealth) {
       newState.health = health.points;
+      newState.maxHealth = health.maxPoints;
     }
 
     const gameObjectId = gameObject.getId();
@@ -299,7 +301,7 @@ class Game extends React.Component {
       return (
         <>
           <header className='game__header game__header_touch'>
-            <HealthBar health={this.state.health}/>
+            <HealthBar health={this.state.health} maxHealth={this.state.maxHealth}/>
             <MenuButton icon={inventoryIcon} onClick={this.onInventoryToggle} />
           </header>
           <footer className='game__footer game__footer_touch'>
