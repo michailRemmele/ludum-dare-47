@@ -6,8 +6,6 @@
   font-weight: bold;
   text-transform: uppercase;
 
-  text-shadow: 2px 2px 0px #000;
-
   color: #fff;
 
   padding: 30px;
@@ -30,8 +28,6 @@
   border-radius: 3px;
 
   margin-right: 10px;
-
-  box-shadow: 2px 2px 0px #000;
 }
 
 .action-bar_md .action-bar__key {
