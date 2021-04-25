@@ -1,0 +1,1 @@
+export { withDeviceDetection } from './withDeviceDetection';
