@@ -5,7 +5,6 @@ import withGame from '../../hocs/withGame/withGame';
 
 import HealthBar from '../../components/healthBar/HealthBar';
 import ActionBar from '../../components/actionBar/ActionBar';
-import InventoryBar from '../../components/inventoryBar/InventoryBar';
 import ItemsBar from '../../components/itemsBar/ItemsBar';
 import Inventory from '../../components/inventory/Inventory';
 import Button from '../../atoms/button/Button';
@@ -15,8 +14,10 @@ import './style.css';
 const VICTORY_MSG = 'VICTORY';
 const DEFEAT_MSG = 'DEFEAT';
 const TOGGLE_INVENTORY_MSG = 'TOGGLE_INVENTORY';
+const CLOSE_INVENTORY_MSG = 'CLOSE_INVENTORY';
 const LOAD_SCENE_MSG = 'LOAD_SCENE';
 const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
+const GRAB_MSG = 'GRAB';
 const GAME_SCENE_NAME = 'game';
 const MAIN_MENU_SCENE_NAME = 'mainMenu';
 
@@ -69,7 +70,8 @@ class Game extends React.Component {
               healGrass={this.state.healGrass}
               ogreGrass={this.state.ogreGrass}
               boomGrass={this.state.boomGrass}
-              onCraft={this.onCraft.bind(this)}
+              onCraft={this.onCraft}
+              onLeave={this.onInventoryToggle}
             />
           </div>
         </>
@@ -117,18 +119,6 @@ class Game extends React.Component {
       });
     }
 
-    const { healPotion, powerPotion } = store.get(INVENTORY_KEY);
-
-    if (
-      healPotion !== this.state.healPotion
-      || powerPotion !== this.state.powerPotion
-    ) {
-      this.setState({
-        healPotion,
-        powerPotion,
-      });
-    }
-
     const time = store.get(TIME_OF_DAY_KEY);
     const days = time.getDays();
 
@@ -149,7 +139,10 @@ class Game extends React.Component {
     const pageState = this.state.pageState;
     if (messageBus.get(TOGGLE_INVENTORY_MSG) && pageState === PAGE_STATE.GAME) {
       this.setState({ pageState: PAGE_STATE.INVENTORY });
-    } else if (messageBus.get(TOGGLE_INVENTORY_MSG) && pageState === PAGE_STATE.INVENTORY) {
+    } else if (
+      (messageBus.get(TOGGLE_INVENTORY_MSG) || messageBus.get(CLOSE_INVENTORY_MSG)) &&
+      pageState === PAGE_STATE.INVENTORY
+    ) {
       this.setState({ pageState: PAGE_STATE.GAME });
     }
   }
@@ -170,12 +163,39 @@ class Game extends React.Component {
       newState.health = health.points;
     }
 
+    const gameObjectId = gameObject.getId();
+
+    if (gameObjectId !== this.state.gameObjectId) {
+      newState.gameObjectId = gameObjectId;
+      newState.gameObject = gameObject;
+    }
+
     if (Object.keys(newState).length) {
       this.setState(newState);
     }
   }
 
-  onCraft(recipe) {
+  onCollectItem = (event) => {
+    event.stopPropagation();
+
+    this.props.pushMessage({
+      type: GRAB_MSG,
+      id: this.state.gameObjectId,
+      gameObject: this.state.gameObject,
+    });
+  }
+
+  onInventoryToggle = (event) => {
+    if (event) {
+      event.stopPropagation();
+    }
+
+    this.props.pushMessage({
+      type: TOGGLE_INVENTORY_MSG,
+    });
+  }
+
+  onCraft = (recipe) => {
     this.props.pushMessage({
       type: CRAFT_RECIPE_MSG,
       recipe,
@@ -202,7 +222,12 @@ class Game extends React.Component {
     }
 
     return (
-      <ActionBar className='game__action-bar'/>
+      <ActionBar
+        className='game__action-bar'
+        onClick={this.onCollectItem}
+        keyName='E'
+        title='Collect'
+      />
     );
   }
 
@@ -234,12 +259,15 @@ class Game extends React.Component {
       <>
         <header className='game__header'>
           <HealthBar health={this.state.health}/>
-          <InventoryBar />
+          <ActionBar
+            onClick={this.onInventoryToggle}
+            keyName='I'
+            title='Inventory'
+          />
         </header>
         <footer className='game__footer'>
           <ItemsBar
-            healPotion={this.state.healPotion}
-            powerPotion={this.state.powerPotion}
+            user={this.state.gameObject}
           />
           {this.renderActionBar()}
         </footer>

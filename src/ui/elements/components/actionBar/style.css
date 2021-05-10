@@ -1,6 +1,8 @@
 .action-bar {
+  display: flex;
+  align-items: center;
+
   font-family: sans-serif;
-  font-size: 32px;
   font-weight: bold;
   text-transform: uppercase;
 
@@ -13,9 +15,15 @@
   user-select: none;
 }
 
+.action-bar_md {
+  font-size: 32px;
+}
+
+.action-bar_sm {
+  font-size: 24px;
+}
+
 .action-bar__key {
-  width: 40px;
-  height: 40px;
   display: inline-block;
   text-align: center;
 
@@ -27,14 +35,59 @@
   box-shadow: 2px 2px 0px #000;
 }
 
+.action-bar_md .action-bar__key {
+  width: 36px;
+  height: 36px;
+}
+
+.action-bar_sm .action-bar__key {
+  width: 30px;
+  height: 30px;
+}
+
+.action-bar__icon {
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+
+  margin-right: 6px;
+}
+
+.action-bar_md .action-bar__icon {
+  width: 40px;
+  height: 40px;
+}
+
+.action-bar_sm .action-bar__icon {
+  width: 32px;
+  height: 32px;
+}
+
 @media screen and (max-width: 480px) {
   .action-bar {
-    font-size: 20px;
     padding: 15px;
   }
 
-  .action-bar__key {
+  .action-bar_md {
+    font-size: 20px;
+  }
+  
+  .action-bar_sm {
+    font-size: 18px;
+  }
+
+  .action-bar_md .action-bar__key,
+  .action-bar_sm .action-bar__key {
     width: 20px;
     height: 20px;
+  }
+
+  .action-bar_md .action-bar__icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .action-bar_sm .action-bar__icon {
+    width: 24px;
+    height: 24px;
   }
 }

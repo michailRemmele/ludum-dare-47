@@ -5,6 +5,8 @@ import Button from '../../atoms/button/Button';
 
 import './style.css';
 
+const ROOT_CLASS_NAME = 'inventory';
+
 const CRAFTS = {
   healPotion: {
     name: 'healPotion',
@@ -31,6 +33,26 @@ const CRAFTS = {
 };
 
 class Inventory extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.onWindowClickBind = this.onWindowClick.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('click', this.onWindowClickBind);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.onWindowClickBind);
+  }
+
+  onWindowClick(event) {
+    if (!event.target.closest(`.${ROOT_CLASS_NAME}`)) {
+      this.props.onLeave();
+    }
+  }
+
   renderCraftBonuses(name) {
     return CRAFTS[name].bonuses.map((bonus) => {
       return (
@@ -75,7 +97,7 @@ class Inventory extends React.PureComponent {
 
   render() {
     return (
-      <div className={`inventory ${this.props.className}`}>
+      <div className={`${ROOT_CLASS_NAME} ${this.props.className}`}>
         <header className='inventory__header'>
           <h2 className='inventory__title'>Inventory</h2>
           <ul className='inventory__resources resources'>
@@ -112,6 +134,7 @@ Inventory.propTypes = {
   ogreGrass: PropTypes.number,
   boomGrass: PropTypes.number,
   onCraft: PropTypes.func,
+  onLeave: PropTypes.func,
 };
 
 export default Inventory;
