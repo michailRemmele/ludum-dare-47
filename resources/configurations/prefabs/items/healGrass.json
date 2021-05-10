@@ -32,19 +32,22 @@
     {
       "name": "animatable",
       "config": {
-        "defaultState": "idle",
+        "initialState": "idle",
         "states": [
           {
             "name": "idle",
+            "type": "individual",
             "speed": 1,
-            "frames": [
-              {
-                "index": 0,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": true,
+            "timeline": {
+              "frames": [
+                {
+                  "index": 0,
+                  "flipY": false,
+                  "rotation": 0
+                }
+              ],
+              "looped": false
+            },
             "transitions": [
               {
                 "state": "void",
@@ -61,13 +64,16 @@
           },
           {
             "name": "void",
+            "type": "individual",
             "speed": 1,
-            "frames": [
-              {
-                "disabled": true
-              }
-            ],
-            "looped": true,
+            "timeline": {
+              "frames": [
+                {
+                  "disabled": true
+                }
+              ],
+              "looped": false
+            },
             "transitions": []
           }
         ]

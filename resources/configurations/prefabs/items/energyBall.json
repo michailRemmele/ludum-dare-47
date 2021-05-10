@@ -50,7 +50,7 @@
       "name": "rigidBody",
       "config": {
         "type": "dynamic",
-        "mass": 1.75,
+        "mass": 1,
         "useGravity": false,
         "isPermeable": true,
         "ghost": false,
@@ -62,7 +62,7 @@
       "config": {
         "type": "circleCollider",
         "collider": {
-          "radius": 10,
+          "radius": 0,
           "centerX": 0,
           "centerY": 0
         }
@@ -71,19 +71,22 @@
     {
       "name": "animatable",
       "config": {
-        "defaultState": "idle",
+        "initialState": "idle",
         "states": [
           {
             "name": "idle",
+            "type": "individual",
             "speed": 1,
-            "frames": [
-              {
-                "index": 0,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": true,
+            "timeline": {
+              "frames": [
+                {
+                  "index": 0,
+                  "flipY": false,
+                  "rotation": 0
+                }
+              ],
+              "looped": false
+            },
             "transitions": [
               {
                 "state": "death",
@@ -100,47 +103,41 @@
           },
           {
             "name": "death",
+            "type": "individual",
             "speed": 1,
-            "frames": [
-              {
-                "index": 1,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 2,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 3,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 4,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 5,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": false,
-            "fallbackState": "void",
-            "transitions": []
-          },
-          {
-            "name": "void",
-            "speed": 1,
-            "frames": [
-              {
-                "disabled": true
-              }
-            ],
-            "looped": true,
+            "timeline": {
+              "frames": [
+                {
+                  "index": 1,
+                  "flipY": false,
+                  "rotation": 0
+                },
+                {
+                  "index": 2,
+                  "flipY": false,
+                  "rotation": 0
+                },
+                {
+                  "index": 3,
+                  "flipY": false,
+                  "rotation": 0
+                },
+                {
+                  "index": 4,
+                  "flipY": false,
+                  "rotation": 0
+                },
+                {
+                  "index": 5,
+                  "flipY": false,
+                  "rotation": 0
+                },
+                {
+                  "disabled": true
+                }
+              ],
+              "looped": false
+            },
             "transitions": []
           }
         ]
