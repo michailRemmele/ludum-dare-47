@@ -6,8 +6,8 @@ import {
   Button,
 } from '../../elements/common';
 
-import GithubIcon from './images/github.svg';
-import TelegramIcon from './images/telegram.svg';
+import GithubIcon from '../../media/images/github.svg';
+import TelegramIcon from '../../media/images/telegram.svg';
 
 import './style.css';
 
