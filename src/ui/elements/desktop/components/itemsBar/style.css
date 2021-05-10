@@ -1,4 +1,4 @@
-.items-bar {
+.items-bar-desktop {
   display: flex;
   flex-direction: column;
 
@@ -8,17 +8,17 @@
   list-style: none;
 }
 
-.items-bar__item + .items-bar__item {
+.items-bar-desktop__item + .items-bar-desktop__item {
   margin-top: 10px;
 }
 
-.items-bar__action-bar {
+.items-bar-desktop__action-bar {
   padding: 0;
   text-transform: none;
 }
 
 @media screen and (max-width: 768px) {
-  .items-bar {
+  .items-bar-desktop {
     padding: 15px;
   }
 }

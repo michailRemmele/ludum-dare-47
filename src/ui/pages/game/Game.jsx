@@ -7,6 +7,7 @@ import {
   HealthBar,
   Inventory,
   Button,
+  ItemsBarContainer,
 } from '../../elements/common';
 import {
   ThumbStick,
@@ -15,7 +16,6 @@ import {
 } from '../../elements/touch';
 import {
   ActionBar,
-  ItemsBar,
 } from '../../elements/desktop';
 
 import './style.css';
@@ -286,6 +286,11 @@ export class Game extends React.Component {
             <HealthBar health={this.state.health} maxHealth={this.state.maxHealth}/>
             <MenuButton icon={inventoryIcon} onClick={this.onInventoryToggle} />
           </header>
+          <div className='game__main'>
+            <ItemsBarContainer
+              user={this.state.gameObject}
+            />
+          </div>
           <footer className='game__footer game__footer_touch'>
             <ThumbStick className='game__thumb-stick'/>
             <div className='game__control-bar'>
@@ -319,7 +324,7 @@ export class Game extends React.Component {
           </header>
           <footer className='game__footer'>
             <div className='game__bars'>
-              <ItemsBar
+              <ItemsBarContainer
                 user={this.state.gameObject}
               />
               {this.renderActionBar()}

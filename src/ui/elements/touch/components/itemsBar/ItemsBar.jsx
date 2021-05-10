@@ -1,20 +1,18 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { ActionBar } from '../actionBar';
+import { IconButton } from '../../../common';
+import healPotionIcon from '../../../../media/images/heal-potion.png';
+import powerPotionIcon from '../../../../media/images/power-potion.png';
 
 import './style.css';
 
 const ITEMS = {
   healPotion: {
-    name: 'Heal Potion',
-    key: '1',
-    iconSrc: '/images/heal-potion.png',
+    icon: healPotionIcon,
   },
   powerPotion: {
-    name: 'Power Potion',
-    key: '2',
-    iconSrc: '/images/power-potion.png',
+    icon: powerPotionIcon,
   },
 };
 
@@ -29,16 +27,13 @@ export const ItemsBar = ({
     }
 
     return (
-      <li className='items-bar-desktop__item' key={name}>
-        <ActionBar
-          className='items-bar-desktop__action-bar'
+      <li className='items-bar-touch__item' key={name}>
+        <IconButton
+          className='items-bar-touch__icon-button'
           onClick={(event) => onUseItem(event, name)}
-          keyName={ITEMS[name].key}
-          title={`x ${items[name]}`}
-          iconSrc={ITEMS[name].iconSrc}
-          iconDescr={ITEMS[name].name}
-          size='sm'
+          icon={ITEMS[name].icon}
         />
+        <span className='items-bar-touch__counter'>{items[name]}</span>
       </li>
     );
   }, [ items, onUseItem ]);
@@ -58,7 +53,7 @@ export const ItemsBar = ({
   }, [ renderItem ]);
 
   return (
-    <ul className={`items-bar-desktop ${className}`}>
+    <ul className={`items-bar-touch ${className}`}>
       {renderItems()}
     </ul>
   );

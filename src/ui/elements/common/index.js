@@ -7,4 +7,5 @@ export {
   IconButton,
   Inventory,
   SceneSwitcher,
+  ItemsBarContainer,
 } from './components';
