@@ -31,6 +31,35 @@
           }
         }
       ]
+    },
+    {
+      "name": "playerAimRadius",
+      "children": [],
+      "components": [
+        {
+          "name": "aimRadius",
+          "config": {}
+        },
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "circleCollider",
+            "collider": {
+              "radius": 45,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        }
+      ]
     }
   ],
   "components": [
@@ -43,25 +72,34 @@
       }
     },
     {
+      "name": "viewDirection",
+      "config": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
       "name": "health",
       "config": {
         "points": 100
       }
     },
     {
-      "name": "meleeWeapon",
+      "name": "weapon",
       "config": {
-        "name": "sword",
-        "damage": 25,
-        "range": 30,
-        "cooldown": 500
+        "type": "melee",
+        "cooldown": 500,
+        "properties": {
+          "damage": 25,
+          "range": 30
+        }
       }
     },
     {
       "name": "rigidBody",
       "config": {
         "type": "dynamic",
-        "mass": 3,
+        "mass": 2,
         "useGravity": false,
         "isPermeable": false,
         "ghost": false,
@@ -89,29 +127,11 @@
     {
       "name": "animatable",
       "config": {
-        "defaultState": "idle",
+        "initialState": "idle",
         "states": [
           {
             "name": "idle",
             "speed": 0.5,
-            "frames": [
-              {
-                "index": 0,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 1,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 2,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": true,
             "transitions": [
               {
                 "state": "death",
@@ -122,7 +142,8 @@
                       "message": "KILL"
                     }
                   }
-                ]
+                ],
+                "time": 0
               },
               {
                 "state": "damage",
@@ -133,7 +154,8 @@
                       "message": "DAMAGE"
                     }
                   }
-                ]
+                ],
+                "time": 0
               },
               {
                 "state": "attack",
@@ -141,13 +163,14 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "HIT"
+                      "message": "ATTACK"
                     }
                   }
-                ]
+                ],
+                "time": 0
               },
               {
-                "state": "runRight",
+                "state": "run",
                 "conditions": [
                   {
                     "type": "comparator",
@@ -156,36 +179,18 @@
                         "type": "componentValue",
                         "value": "movement.vector.x"
                       },
-                      "operation": "greater",
+                      "operation": "notEquals",
                       "arg2": {
                         "type": "number",
                         "value": 0
                       }
                     }
                   }
-                ]
+                ],
+                "time": 0
               },
               {
-                "state": "runLeft",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "less",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "runVertical",
+                "state": "run",
                 "conditions": [
                   {
                     "type": "comparator",
@@ -201,34 +206,146 @@
                       }
                     }
                   }
-                ]
+                ],
+                "time": 0
+              }
+            ],
+            "type": "group",
+            "pickMode": "2D",
+            "pickProps": {
+              "x": "viewDirection.x",
+              "y": "viewDirection.y"
+            },
+            "substates": [
+              {
+                "name": "idleRight",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 0,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 1,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 2,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": true
+                },
+                "x": 1,
+                "y": 0
+              },
+              {
+                "name": "idleLeft",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 0,
+                      "rotation": 0,
+                      "flipX": true,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 1,
+                      "rotation": 0,
+                      "flipX": true,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 2,
+                      "rotation": 0,
+                      "flipX": true,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": true
+                },
+                "x": -1,
+                "y": 0
+              },
+              {
+                "name": "idleTop",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 6,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 7,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 8,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": true
+                },
+                "x": 0,
+                "y": -1
+              },
+              {
+                "name": "idleBottom",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 3,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 4,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 5,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": true
+                },
+                "x": 0,
+                "y": 1
               }
             ]
           },
           {
-            "name": "runRight",
+            "name": "run",
             "speed": 1,
-            "frames": [
-              {
-                "index": 3,
-                "flipX": false,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 4,
-                "flipX": false,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 5,
-                "flipX": false,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": true,
             "transitions": [
               {
                 "state": "death",
@@ -239,7 +356,8 @@
                       "message": "KILL"
                     }
                   }
-                ]
+                ],
+                "time": 0
               },
               {
                 "state": "damage",
@@ -250,7 +368,20 @@
                       "message": "DAMAGE"
                     }
                   }
-                ]
+                ],
+                "time": 0
+              },
+              {
+                "state": "attack",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "ATTACK"
+                    }
+                  }
+                ],
+                "time": 0
               },
               {
                 "state": "idle",
@@ -268,224 +399,7 @@
                         "value": 0
                       }
                     }
-                  }
-                ]
-              },
-              {
-                "state": "runLeft",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "less",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "attack",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "HIT"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "runLeft",
-            "speed": 1,
-            "frames": [
-              {
-                "index": 3,
-                "flipX": true,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 4,
-                "flipX": true,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 5,
-                "flipX": true,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": true,
-            "transitions": [
-              {
-                "state": "death",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "KILL"
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "damage",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "DAMAGE"
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "idle",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "equals",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "runRight",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "greater",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "attack",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "HIT"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "runVertical",
-            "speed": 1,
-            "frames": [
-              {
-                "index": 3,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 4,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 5,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": true,
-            "transitions": [
-              {
-                "state": "death",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "KILL"
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "damage",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "DAMAGE"
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "runRight",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "greater",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "runLeft",
-                "conditions": [
-                  {
-                    "type": "comparator",
-                    "props": {
-                      "arg1": {
-                        "type": "componentValue",
-                        "value": "movement.vector.x"
-                      },
-                      "operation": "less",
-                      "arg2": {
-                        "type": "number",
-                        "value": 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "state": "idle",
-                "conditions": [
+                  },
                   {
                     "type": "comparator",
                     "props": {
@@ -500,36 +414,174 @@
                       }
                     }
                   }
-                ]
+                ],
+                "time": 0
+              }
+            ],
+            "type": "group",
+            "pickMode": "2D",
+            "pickProps": {
+              "x": "viewDirection.x",
+              "y": "viewDirection.y"
+            },
+            "substates": [
+              {
+                "name": "runRight",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 9,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 10,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 11,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 10,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": true
+                },
+                "x": 1,
+                "y": 0
               },
               {
-                "state": "attack",
-                "conditions": [
-                  {
-                    "type": "message",
-                    "props": {
-                      "message": "HIT"
+                "name": "runLeft",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 9,
+                      "rotation": 0,
+                      "flipX": true,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 10,
+                      "rotation": 0,
+                      "flipX": true,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 11,
+                      "rotation": 0,
+                      "flipX": true,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 10,
+                      "rotation": 0,
+                      "flipX": true,
+                      "flipY": false,
+                      "disabled": false
                     }
-                  }
-                ]
+                  ],
+                  "looped": true
+                },
+                "x": -1,
+                "y": 0
+              },
+              {
+                "name": "runTop",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 15,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 16,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 17,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 16,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": true
+                },
+                "x": 0,
+                "y": -1
+              },
+              {
+                "name": "runBottom",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 12,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 13,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 14,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 13,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": true
+                },
+                "x": 0,
+                "y": 1
               }
             ]
           },
           {
             "name": "attack",
-            "speed": 1.5,
-            "frames": [
-              {
-                "index": 6,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 7,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
+            "speed": 1.3,
             "transitions": [
               {
                 "state": "death",
@@ -540,7 +592,8 @@
                       "message": "KILL"
                     }
                   }
-                ]
+                ],
+                "time": 0
               },
               {
                 "state": "damage",
@@ -551,20 +604,123 @@
                       "message": "DAMAGE"
                     }
                   }
-                ]
+                ],
+                "time": 0
+              },
+              {
+                "state": "idle",
+                "conditions": [],
+                "time": 1
               }
-            ]
+            ],
+            "type": "group",
+            "substates": [
+              {
+                "name": "attackRight",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 18,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 19,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": false
+                },
+                "x": 1,
+                "y": 0
+              },
+              {
+                "name": "attackLeft",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 18,
+                      "rotation": 0,
+                      "flipX": true,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 19,
+                      "rotation": 0,
+                      "flipX": true,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": false
+                },
+                "x": -1,
+                "y": 0
+              },
+              {
+                "name": "attackTop",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 22,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 23,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": false
+                },
+                "x": 0,
+                "y": -1
+              },
+              {
+                "name": "attackBottom",
+                "timeline": {
+                  "frames": [
+                    {
+                      "index": 20,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    },
+                    {
+                      "index": 21,
+                      "rotation": 0,
+                      "flipX": false,
+                      "flipY": false,
+                      "disabled": false
+                    }
+                  ],
+                  "looped": false
+                },
+                "x": 0,
+                "y": 1
+              }
+            ],
+            "pickMode": "2D",
+            "pickProps": {
+              "x": "viewDirection.x",
+              "y": "viewDirection.y"
+            }
           },
           {
             "name": "damage",
             "speed": 1,
-            "frames": [
-              {
-                "index": 11,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
             "transitions": [
               {
                 "state": "death",
@@ -575,45 +731,67 @@
                       "message": "KILL"
                     }
                   }
-                ]
+                ],
+                "time": 0
+              },
+              {
+                "state": "idle",
+                "conditions": [],
+                "time": 1
               }
-            ]
+            ],
+            "type": "individual",
+            "timeline": {
+              "frames": [
+                {
+                  "index": 27,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                }
+              ],
+              "looped": false
+            }
           },
           {
             "name": "death",
             "speed": 1,
-            "frames": [
-              {
-                "index": 8,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 9,
-                "flipY": false,
-                "rotation": 0
-              },
-              {
-                "index": 10,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "fallbackState": "deadBody",
-            "transitions": []
-          },
-          {
-            "name": "deadBody",
-            "speed": 1,
-            "frames": [
-              {
-                "index": 10,
-                "flipY": false,
-                "rotation": 0
-              }
-            ],
-            "looped": true,
-            "transitions": []
+            "transitions": [],
+            "type": "individual",
+            "timeline": {
+              "frames": [
+                {
+                  "index": 27,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 24,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 25,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 26,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                }
+              ],
+              "looped": false
+            }
           }
         ]
       }
@@ -625,7 +803,7 @@
         "src": "units/player",
         "width": 26,
         "height": 26,
-        "slice": 12,
+        "slice": 28,
         "rotation": 0,
         "origin": [ 0, 0 ],
         "flipX": false,

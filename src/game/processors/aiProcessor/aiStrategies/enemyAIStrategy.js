@@ -3,13 +3,13 @@ import { MathOps } from '@flyer-engine/core';
 
 import AIStrategy from './aiStrategy';
 
-const HIT_MSG = 'HIT';
+const ATTACK_MSG = 'ATTACK';
 const MOVEMENT_MSG = 'MOVEMENT';
 
 const PLAYER_KEY = 'player';
 
 const TRANSFORM_COMPONENT_NAME = 'transform';
-const WEAPON_COMPONENT_NAME = 'meleeWeapon';
+const WEAPON_COMPONENT_NAME = 'weapon';
 
 const COOLDOWN = 1000;
 const MELEE_RADIUS = 20;
@@ -67,7 +67,7 @@ class EnemyAIStrategy extends AIStrategy{
     messageBus.send({
       gameObject: this._player,
       id: this._player.getId(),
-      type: HIT_MSG,
+      type: ATTACK_MSG,
       x: enemyX,
       y: enemyY,
     });
@@ -98,7 +98,7 @@ class EnemyAIStrategy extends AIStrategy{
       type: MOVEMENT_MSG,
       gameObject: this._player,
       id: this._player.getId(),
-      directionAngle: movementAngle,
+      angle: movementAngle,
     });
   }
 

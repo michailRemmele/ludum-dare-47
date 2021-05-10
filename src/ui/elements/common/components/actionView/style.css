@@ -1,0 +1,8 @@
+.action-view {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 0;
+
+  cursor: pointer;
+}

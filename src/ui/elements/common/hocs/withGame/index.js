@@ -1,0 +1,1 @@
+export { withGame } from './withGame';

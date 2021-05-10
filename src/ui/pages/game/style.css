@@ -1,0 +1,137 @@
+.game {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 100%;
+
+  font-family: sans-serif;
+}
+
+.game__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-left: 30px;
+}
+
+.game__bars {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.game__action-bar {
+  align-self: flex-end;
+}
+
+.game__overlay {
+  position: absolute;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.game__footer_touch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 0 2% 2% 2%;
+}
+
+.game__header_touch {
+  margin: 2% 2% 0 2%;
+
+  align-items: flex-start;
+}
+
+.game__control-bar {
+  position: relative;
+}
+
+.control-bar__button_grab {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: -25%;
+  left: -25%;
+}
+
+.game__main {
+  display: flex;
+  justify-content: flex-end;
+
+  margin: 0 2%;
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 75%;
+  max-width: 400px;
+
+  padding: 30px;
+
+  background-color: #000;
+  color: #fff;
+}
+
+.dialog__title {
+  margin: 0 0 30px 0;
+  font-size: 48px;
+
+  text-transform: uppercase;
+}
+
+.dialog__description {
+  margin: 0 0 40px 0;
+
+  font-size: 24px;
+}
+
+.dialog__footer {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+}
+
+.dialog__button + .dialog__button {
+  margin-left: 25px;
+}
+
+@media screen and (max-width: 768px) {
+  .dialog {
+    padding: 20px;
+  }
+
+  .dialog__title {
+    font-size: 36px;
+    margin: 0 0 20px 0;
+  }
+
+  .dialog__description {
+    margin: 0 0 20px 0;
+  }
+
+  .dialog__footer {
+    flex-direction: column;
+  }
+
+  .dialog__button + .dialog__button {
+    margin: 15px 0 0 0;
+  }
+}

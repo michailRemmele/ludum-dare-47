@@ -1,6 +1,6 @@
 import Effect from './effect';
 
-const MELEE_WEAPON_COMPONENT_NAME = 'meleeWeapon';
+const WEAPON_COMPONENT_NAME = 'weapon';
 
 class Heal extends Effect {
   constructor(gameObject, _messageBus, options) {
@@ -12,25 +12,25 @@ class Heal extends Effect {
   }
 
   apply() {
-    const weapon = this._gameObject.getComponent(MELEE_WEAPON_COMPONENT_NAME);
+    const weapon = this._gameObject.getComponent(WEAPON_COMPONENT_NAME);
 
     if (!weapon) {
       return;
     }
 
-    weapon.damage += this._damage;
-    weapon.range += this._range;
+    weapon.properties.damage += this._damage;
+    weapon.properties.range += this._range;
   }
 
   onCancel() {
-    const weapon = this._gameObject.getComponent(MELEE_WEAPON_COMPONENT_NAME);
+    const weapon = this._gameObject.getComponent(WEAPON_COMPONENT_NAME);
 
     if (!weapon) {
       return;
     }
 
-    weapon.damage -= this._damage;
-    weapon.range -= this._range;
+    weapon.properties.damage -= this._damage;
+    weapon.properties.range -= this._range;
   }
 }
 

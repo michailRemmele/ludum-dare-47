@@ -1,0 +1,24 @@
+.items-bar-desktop {
+  display: flex;
+  flex-direction: column;
+
+  padding: 30px;
+  margin: 0;
+
+  list-style: none;
+}
+
+.items-bar-desktop__item + .items-bar-desktop__item {
+  margin-top: 10px;
+}
+
+.items-bar-desktop__action-bar {
+  padding: 0;
+  text-transform: none;
+}
+
+@media screen and (max-width: 768px) {
+  .items-bar-desktop {
+    padding: 15px;
+  }
+}

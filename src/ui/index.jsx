@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MemoryRouter, Switch, Route } from 'react-router';
 
-import GameProvider from './elements/providers/gameProvider/GameProvider';
-
-import SceneSwitcher from './elements/components/sceneSwitcher/SceneSwitcher';
-
-import MainMenu from './elements/pages/mainMenu/MainMenu';
-import Game from './elements/pages/game/Game';
+import {
+  GameProvider,
+  SceneSwitcher,
+} from './elements/common';
+import { MainMenu } from './pages/mainMenu';
+import { Game } from './pages/game';
 
 export function onInit(options) {
   const {

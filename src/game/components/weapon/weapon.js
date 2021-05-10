@@ -1,65 +1,34 @@
 import { Component } from '@flyer-engine/core';
 
+import MeleeWeapon from './meleeWeapon';
+import RangeWeapon from './rangeWeapon';
+
 class Weapon extends Component {
   constructor(config) {
     super();
 
-    this._name = config.name;
-    this._bullet = config.bullet;
-    this._damage = config.damage;
-    this._fetterDuration = config.fetterDuration;
-    this._speed = config.speed;
-    this._range = config.range;
+    this._weapons = {
+      melee: MeleeWeapon,
+      range: RangeWeapon,
+    };
+
+    this._type = config.type;
     this._cooldown = config.cooldown;
     this._cooldownRemaining = 0;
+
+    if (!this._weapons[this.type]) {
+      throw new Error(`Not found weapon with same type: ${this.type}`);
+    }
+
+    this._properties = new this._weapons[this.type](config.properties);
   }
 
-  set name(name) {
-    this._name = name;
+  set type(type) {
+    this._type = type;
   }
 
-  get name() {
-    return this._name;
-  }
-
-  set bullet(bullet) {
-    this._bullet = bullet;
-  }
-
-  get bullet() {
-    return this._bullet;
-  }
-
-  set damage(damage) {
-    this._damage = damage;
-  }
-
-  get damage() {
-    return this._damage;
-  }
-
-  set fetterDuration(fetterDuration) {
-    this._fetterDuration = fetterDuration;
-  }
-
-  get fetterDuration() {
-    return this._fetterDuration;
-  }
-
-  set speed(speed) {
-    this._speed = speed;
-  }
-
-  get speed() {
-    return this._speed;
-  }
-
-  set range(range) {
-    this._range = range;
-  }
-
-  get range() {
-    return this._range;
+  get type() {
+    return this._type;
   }
 
   set cooldown(cooldown) {
@@ -68,6 +37,14 @@ class Weapon extends Component {
 
   get cooldown() {
     return this._cooldown;
+  }
+
+  set properties(properties) {
+    this._properties = properties;
+  }
+
+  get properties() {
+    return this._properties;
   }
 
   set cooldownRemaining(cooldownRemaining) {
@@ -80,13 +57,9 @@ class Weapon extends Component {
 
   clone() {
     return new Weapon({
-      name: this.name,
-      bullet: this.bullet,
-      damage: this.damage,
-      fetterDuration: this.fetterDuration,
-      speed: this.speed,
-      range: this.range,
+      type: this.type,
       cooldown: this.cooldown,
+      properties: this.properties.clone(),
     });
   }
 }
