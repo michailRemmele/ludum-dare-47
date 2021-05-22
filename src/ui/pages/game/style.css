@@ -9,14 +9,18 @@
   height: 100%;
 
   font-family: sans-serif;
+
+  box-sizing: border-box;
+  padding: 30px;
+}
+
+.game_touch {
+  padding: 2% max(2%, env(safe-area-inset-right)) 2% max(2%, env(safe-area-inset-left));
 }
 
 .game__header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-
-  margin-left: 30px;
 }
 
 .game__bars {
@@ -31,6 +35,8 @@
 
 .game__overlay {
   position: absolute;
+  top: 0;
+  left: 0;
 
   display: flex;
   justify-content: center;
@@ -46,14 +52,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin: 0 2% 2% 2%;
-}
-
-.game__header_touch {
-  margin: 2% 2% 0 2%;
-
-  align-items: flex-start;
 }
 
 .game__control-bar {
@@ -70,8 +68,6 @@
 .game__main {
   display: flex;
   justify-content: flex-end;
-
-  margin: 0 2%;
 }
 
 .dialog {
@@ -114,6 +110,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .game:not(.game_touch) {
+    padding: 20px;
+  }
+
   .dialog {
     padding: 20px;
   }

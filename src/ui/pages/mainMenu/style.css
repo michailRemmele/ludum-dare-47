@@ -8,6 +8,9 @@
   background-color: #000;
 
   font-family: sans-serif;
+
+  box-sizing: border-box;
+  padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
 }
 
 .main-menu__main {

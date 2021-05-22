@@ -282,7 +282,7 @@ export class Game extends React.Component {
     if (this.props.touchDevice) {
       return (
         <>
-          <header className='game__header game__header_touch'>
+          <header className='game__header'>
             <HealthBar health={this.state.health} maxHealth={this.state.maxHealth}/>
             <MenuButton icon={inventoryIcon} onClick={this.onInventoryToggle} />
           </header>
@@ -337,7 +337,7 @@ export class Game extends React.Component {
 
   render() {
     return (
-      <div className='game'>
+      <div className={`game${this.props.touchDevice ? ' game_touch' : ''}`}>
         {this.renderStateStrategy[this.state.pageState]()}
       </div>
     );
