@@ -30,7 +30,7 @@ export const ItemsBar = ({
       <li className='items-bar-touch__item' key={name}>
         <IconButton
           className='items-bar-touch__icon-button'
-          onClick={(event) => onUseItem(event, name)}
+          onPointerUp={(event) => onUseItem(event, name)}
           icon={ITEMS[name].icon}
         />
         <span className='items-bar-touch__counter'>{items[name]}</span>

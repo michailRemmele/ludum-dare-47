@@ -12,7 +12,7 @@ export const MenuButton = ({
 }) => (
   <IconButton
     className={`menu-button ${className}`}
-    onClick={onClick}
+    onPointerUp={onClick}
     icon={icon}
   />
 );
