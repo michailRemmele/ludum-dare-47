@@ -13,7 +13,7 @@ const ControlButton = ({
 }) => (
   <IconButton
     className={`control-button control-button_${size} ${className}`}
-    onClick={onClick}
+    onPointerUp={onClick}
     icon={icon}
   />
 );

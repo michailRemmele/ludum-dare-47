@@ -52,6 +52,14 @@ export class ActionView extends React.Component {
     }
   }
 
+  onPointerUp = (event) => {
+    if (!this.props.onPointerUp) {
+      this.stopPropagate(event);
+    } else {
+      this.props.onPointerUp(event);
+    }
+  }
+
   render() {
     return (
       <button
@@ -60,6 +68,7 @@ export class ActionView extends React.Component {
         onMouseUp={this.onMouseUp}
         onContextMenu={this.onContextMenu}
         onDoubleClick={this.onDoubleClick}
+        onPointerUp={this.onPointerUp}
         onClick={this.onClick}
         disabled={this.props.disabled}
       >
@@ -83,6 +92,7 @@ ActionView.propTypes = {
   onContextMenu: PropTypes.func,
   onDoubleClick: PropTypes.func,
   onClick: PropTypes.func,
+  onPointerUp: PropTypes.func,
   disabled: PropTypes.bool,
   stopPropagate: PropTypes.bool,
 };
