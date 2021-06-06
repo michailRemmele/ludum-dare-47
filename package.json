@@ -2,7 +2,7 @@
   "name": "roosters-fight",
   "version": "0.6.0",
   "dependencies": {
-    "@flyer-engine/core": "0.6.6",
+    "@flyer-engine/core": "0.6.8",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
