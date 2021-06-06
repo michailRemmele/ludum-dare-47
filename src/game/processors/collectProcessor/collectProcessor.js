@@ -51,13 +51,9 @@ class CollectProcessor extends Processor {
       leaveMessages.forEach((message) => {
         const { gameObject2 } = message;
 
-        const collectable = gameObject2.getComponent(COLLECTABLE_COMPONENT_NAME);
-
-        if (!collectable) {
-          return;
+        if (this._canGrab.has(gameObject2)) {
+          this._canGrab.delete(gameObject2);
         }
-
-        this._canGrab.delete(gameObject2);
       });
 
       const grabMessages = messageBus.getById(GRAB_MSG, gameObjectId) || [];
