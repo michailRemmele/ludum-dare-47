@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '../button';
@@ -32,38 +32,66 @@ const CRAFTS = {
   },
 };
 
-export class Inventory extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const CRAFT_RECIPES = [
+  {
+    name: 'healPotion',
+    title: 'Heal Potion',
+    mod: 'heal',
+    bonuses: [
+      'HP: +50',
+    ],
+    resource: 'healGrass',
+    cost: 3,
+  },
+  {
+    name: 'powerPotion',
+    title: 'Power Potion',
+    mod: 'power',
+    bonuses: [
+      'Damage: +25',
+      'Range: +15',
+      'Duration: 5 sec',
+    ],
+    resource: 'ogreGrass',
+    cost: 3,
+  },
+];
 
-    this.onWindowClickBind = this.onWindowClick.bind(this);
-  }
+export const Inventory = ({
+  className,
+  healGrass,
+  ogreGrass,
+  boomGrass,
+  onCraft,
+  onLeave,
+}) => {
+  const [ selectedRecipe, setSelectedRecipe ] = useState(CRAFT_RECIPES[0].name);
 
-  componentDidMount() {
-    window.addEventListener('click', this.onWindowClickBind);
-  }
+  useEffect(() => {
+    window.addEventListener('click', onWindowClick);
 
-  componentWillUnmount() {
-    window.removeEventListener('click', this.onWindowClickBind);
-  }
+    return () => window.removeEventListener('click', onWindowClick);
+  }, []);
 
-  onWindowClick(event) {
+  const onWindowClick = (event) => {
     if (!event.target.closest(`.${ROOT_CLASS_NAME}`)) {
-      this.props.onLeave();
+      onLeave();
     }
-  }
+  };
 
-  renderCraftBonuses(name) {
+  const renderCraftBonuses = (name) => {
     return CRAFTS[name].bonuses.map((bonus) => {
       return (
         <p className='craft-card__bonus' key={bonus}>{bonus}</p>
       );
     });
-  }
+  };
 
-  renderCraftCard(name) {
+  const renderCraftCard = (name) => {
+    const resources = { healGrass, ogreGrass, boomGrass };
+
     const recipe = CRAFTS[name];
-    const disabled = this.props[recipe.resource] < recipe.cost;
+    const disabled = resources[recipe.resource] < recipe.cost;
 
     return (
       <div className='inventory__craft-card craft-card'>
@@ -73,7 +101,7 @@ export class Inventory extends React.PureComponent {
           </h3>
         </header>
         <div className='craft-card__description'>
-          {this.renderCraftBonuses(name)}
+          {renderCraftBonuses(name)}
         </div>
         <div
           className={`craft-card__cost ${disabled ? 'craft-card__cost_disabled' : ''}`}
@@ -87,39 +115,51 @@ export class Inventory extends React.PureComponent {
           <Button
             className='craft-card__button'
             title='Craft'
-            onClick={() => this.props.onCraft(recipe)}
+            onClick={() => onCraft(recipe)}
             disabled={disabled}
           />
         </footer>
       </div>
     );
-  }
+  };
 
-  render() {
-    return (
-      <div className={`${ROOT_CLASS_NAME} ${this.props.className}`}>
-        <header className='inventory__header'>
-          <h2 className='inventory__title'>Inventory</h2>
-          <ul className='inventory__resources resources'>
-            <li className='resources__item resources__item_heal'>
-              x {this.props.healGrass || 0}
+  return (
+    <div className={`${ROOT_CLASS_NAME} ${className}`}>
+      <header className='inventory__header'>
+        <h2 className='inventory__title'>Inventory</h2>
+        <ul className='inventory__resources resources'>
+          <li className='resources__item resources__item_heal'>
+            x {healGrass || 0}
+          </li>
+          <li className='resources__item resources__item_ogre'>
+            x {ogreGrass || 0}
+          </li>
+          <li className='resources__item resources__item_boom'>
+            x {boomGrass || 0}
+          </li>
+        </ul>
+      </header>
+      <div className='inventory__content'>
+        <ul className='inventory__recipes recipes'>
+          {CRAFT_RECIPES.map((recipe) => (
+            <li
+              key={recipe.name}
+              className={
+                `recipes__item${selectedRecipe === recipe.name ? ' recipes__item_selected' : ''}`
+              }
+              onClick={() => setSelectedRecipe(recipe.name)}
+            >
+              {recipe.title}
             </li>
-            <li className='resources__item resources__item_ogre'>
-              x {this.props.ogreGrass || 0}
-            </li>
-            <li className='resources__item resources__item_boom'>
-              x {this.props.boomGrass || 0}
-            </li>
-          </ul>
-        </header>
-        <div className='inventory__craft-list'>
-          {this.renderCraftCard('healPotion')}
-          {this.renderCraftCard('powerPotion')}
+          ))}
+        </ul>
+        <div className='inventory__recipe'>
+          {renderCraftCard(selectedRecipe)}
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Inventory.defaultProps = {
   className: '',

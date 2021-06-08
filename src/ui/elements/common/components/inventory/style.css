@@ -69,14 +69,8 @@
   background-image: url('../../../../media/images/boom-grass.png');
 }
 
-.inventory__craft-list {
-  display: flex;
-}
-
 .inventory__craft-card {
   flex: 1;
-
-  margin-top: 10px;
 }
 
 .inventory__craft-card + .inventory__craft-card {
@@ -167,6 +161,48 @@
 .craft-card__footer {
   display: flex;
   margin: auto 10px 10px 10px;
+}
+
+.recipes {
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+.recipes__item {
+  color: #fff;
+
+  font-size: 24px;
+
+  padding: 10px 15px;
+
+  border: 2px solid white;
+
+  cursor: pointer;
+}
+
+.recipes__item_selected {
+  color: black;
+  background-color: white;
+}
+
+.recipes__item + .recipes__item {
+  border-top: none;
+}
+
+.inventory__content {
+  display: flex;
+
+  margin-top: 10px;
+}
+
+.inventory__recipes {
+  margin-right: 10px;
+}
+
+.inventory__recipes, .inventory__recipe {
+  flex: 1;
 }
 
 @media screen and (max-width: 768px) {
