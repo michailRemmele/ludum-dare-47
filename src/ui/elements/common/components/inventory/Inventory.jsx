@@ -126,18 +126,25 @@ export const Inventory = ({
   return (
     <div className={`${ROOT_CLASS_NAME} ${className}`}>
       <header className='inventory__header'>
-        <h2 className='inventory__title'>Inventory</h2>
-        <ul className='inventory__resources resources'>
-          <li className='resources__item resources__item_heal'>
-            x {healGrass || 0}
-          </li>
-          <li className='resources__item resources__item_ogre'>
-            x {ogreGrass || 0}
-          </li>
-          <li className='resources__item resources__item_boom'>
-            x {boomGrass || 0}
-          </li>
-        </ul>
+        <div className='inventory__heading'>
+          <h2 className='inventory__title'>Inventory</h2>
+          <ul className='inventory__resources resources'>
+            <li className='resources__item resources__item_heal'>
+              x {healGrass || 0}
+            </li>
+            <li className='resources__item resources__item_ogre'>
+              x {ogreGrass || 0}
+            </li>
+            <li className='resources__item resources__item_boom'>
+              x {boomGrass || 0}
+            </li>
+          </ul>
+        </div>
+        <Button
+          className='inventory__close-button'
+          title='x'
+          onClick={onLeave}
+        />
       </header>
       <div className='inventory__content'>
         <ul className='inventory__recipes recipes'>
@@ -153,9 +160,7 @@ export const Inventory = ({
             </li>
           ))}
         </ul>
-        <div className='inventory__recipe'>
-          {renderCraftCard(selectedRecipe)}
-        </div>
+        {renderCraftCard(selectedRecipe)}
       </div>
     </div>
   );
