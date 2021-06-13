@@ -232,6 +232,10 @@
     padding: 5px max(5px, env(safe-area-inset-right)) max(5px, env(safe-area-inset-bottom)) max(5px, env(safe-area-inset-left));
   }
 
+  .inventory__header {
+    height: 38px;
+  }
+
   .inventory__heading {
     padding: 5px 10px;
   }
