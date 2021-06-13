@@ -32,31 +32,6 @@ const CRAFTS = {
   },
 };
 
-const CRAFT_RECIPES = [
-  {
-    name: 'healPotion',
-    title: 'Heal Potion',
-    mod: 'heal',
-    bonuses: [
-      'HP: +50',
-    ],
-    resource: 'healGrass',
-    cost: 3,
-  },
-  {
-    name: 'powerPotion',
-    title: 'Power Potion',
-    mod: 'power',
-    bonuses: [
-      'Damage: +25',
-      'Range: +15',
-      'Duration: 5 sec',
-    ],
-    resource: 'ogreGrass',
-    cost: 3,
-  },
-];
-
 export const Inventory = ({
   className,
   healGrass,
@@ -65,7 +40,7 @@ export const Inventory = ({
   onCraft,
   onLeave,
 }) => {
-  const [ selectedRecipe, setSelectedRecipe ] = useState(CRAFT_RECIPES[0].name);
+  const [ selectedRecipe, setSelectedRecipe ] = useState(CRAFTS[Object.keys(CRAFTS)[0]].name);
 
   useEffect(() => {
     window.addEventListener('click', onWindowClick);
@@ -148,15 +123,15 @@ export const Inventory = ({
       </header>
       <div className='inventory__content'>
         <ul className='inventory__recipes recipes'>
-          {CRAFT_RECIPES.map((recipe) => (
+          {Object.keys(CRAFTS).map((key) => (
             <li
-              key={recipe.name}
+              key={CRAFTS[key].name}
               className={
-                `recipes__item${selectedRecipe === recipe.name ? ' recipes__item_selected' : ''}`
+                `recipes__item${selectedRecipe === CRAFTS[key].name ? ' recipes__item_selected' : ''}`
               }
-              onClick={() => setSelectedRecipe(recipe.name)}
+              onClick={() => setSelectedRecipe(CRAFTS[key].name)}
             >
-              {recipe.title}
+              {CRAFTS[key].title}
             </li>
           ))}
         </ul>
