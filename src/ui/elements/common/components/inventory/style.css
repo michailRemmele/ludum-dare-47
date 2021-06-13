@@ -1,16 +1,27 @@
 .inventory {
+  display: flex;
+  flex-direction: column;
+
   background-color: #000;
 
   width: 100%;
   max-width: 600px;
+  box-sizing: border-box;
 
-  padding: 10px;
+  padding: 10px max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
 }
 
 .inventory__header {
   display: flex;
+
+  height: 60px;
+}
+
+.inventory__heading {
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  flex: 1;
 
   border: 2px solid #fff;
 
@@ -69,23 +80,66 @@
   background-image: url('../../../../media/images/boom-grass.png');
 }
 
-.inventory__craft-list {
-  display: flex;
+.inventory__close-button {
+  width: 60px;
+  height: 60px;
+
+  margin-left: 10px;
 }
 
 .inventory__craft-card {
+  flex: 1;
+}
+
+.inventory__content {
+  display: flex;
   flex: 1;
 
   margin-top: 10px;
 }
 
-.inventory__craft-card + .inventory__craft-card {
-  margin-left: 10px;
+.recipes {
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+.recipes__item {
+  color: #fff;
+
+  font-size: 24px;
+
+  padding: 10px 15px;
+
+  border: 2px solid white;
+
+  cursor: pointer;
+}
+
+.recipes__item_selected {
+  color: black;
+  background-color: white;
+}
+
+.recipes__item + .recipes__item {
+  border-top: none;
+}
+
+.inventory__recipes {
+  margin-right: 10px;
+}
+
+.inventory__recipes {
+  flex: 1;
 }
 
 .craft-card {
   display: flex;
   flex-direction: column;
+  flex: 1;
+
+  min-height: 360px;
 
   border: 2px solid #fff;
 }
@@ -169,17 +223,21 @@
   margin: auto 10px 10px 10px;
 }
 
-@media screen and (max-width: 768px) {
-  .inventory {  
-    padding: 5px;
+@media screen and (max-height: 481px), screen and (max-width: 768px) {
+  .inventory {
+    width: 100%;
+    height: 100%;
+    max-width: unset;
+
+    padding: 5px max(5px, env(safe-area-inset-right)) max(5px, env(safe-area-inset-bottom)) max(5px, env(safe-area-inset-left));
   }
 
   .inventory__header {
-    padding: 5px 10px;
+    height: 38px;
   }
 
-  .craft-card__header {
-    padding: 5px;
+  .inventory__heading {
+    padding: 5px 10px;
   }
 
   .inventory__title {
@@ -196,6 +254,33 @@
     font-size: 14px;
   }
 
+  .inventory__close-button {
+    height: 38px;
+    width: 38px;
+
+    margin-left: 5px;
+  }
+
+  .inventory__content {
+    margin-top: 5px;
+  }
+
+  .inventory__recipes {
+    margin-right: 5px;
+  }
+
+  .recipes__item {
+    font-size: 16px;;
+  }
+
+  .craft-card {
+    min-height: unset;
+  }
+
+  .craft-card__header {
+    padding: 0;
+  }
+
   .craft-card__title {
     font-size: 16px;
 
@@ -203,7 +288,13 @@
     padding-top: 40px;
   }
 
+  .craft-card__description {
+    margin: 10px;
+  }
+
   .craft-card__cost {
+    margin: 0 10px 10px 10px;
+
     font-size: 14px;
   }
 
@@ -214,5 +305,17 @@
   .craft-card__button {
     font-size: 16px;
     height: 30px;
+  }
+}
+
+@media screen and (max-height:300px), screen and (max-width: 768px) {
+  .craft-card__title {
+    display: flex;
+    align-items: center;
+
+    height: 32px;
+
+    background-position: left;
+    padding: 0 0 0 38px;
   }
 }

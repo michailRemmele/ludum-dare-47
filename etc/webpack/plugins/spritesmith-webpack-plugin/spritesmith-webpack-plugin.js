@@ -32,9 +32,9 @@ class SpriteSmithWebpackPlugin {
             name: output.sourceMapFilename,
             source: () => {
               const source = Object.keys(result.coordinates).reduce((source, itemKey) => {
-                const parentDir = path.dirname(itemKey).split(path.sep).pop();
-                const filenameWithoutExt = path.basename(itemKey, path.extname(itemKey));
-                const newKey = `${parentDir}${path.sep}${filenameWithoutExt}`;
+                const parentDir = path.posix.dirname(itemKey).split(path.posix.sep).pop();
+                const filenameWithoutExt = path.posix.basename(itemKey, path.posix.extname(itemKey));
+                const newKey = `${parentDir}${path.posix.sep}${filenameWithoutExt}`;
                 source[newKey] = result.coordinates[itemKey];
                 return source;
               }, {});

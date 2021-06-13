@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '../button';
@@ -32,38 +32,41 @@ const CRAFTS = {
   },
 };
 
-export class Inventory extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export const Inventory = ({
+  className,
+  healGrass,
+  ogreGrass,
+  boomGrass,
+  onCraft,
+  onLeave,
+}) => {
+  const [ selectedRecipe, setSelectedRecipe ] = useState(CRAFTS[Object.keys(CRAFTS)[0]].name);
 
-    this.onWindowClickBind = this.onWindowClick.bind(this);
-  }
+  useEffect(() => {
+    window.addEventListener('click', onWindowClick);
 
-  componentDidMount() {
-    window.addEventListener('click', this.onWindowClickBind);
-  }
+    return () => window.removeEventListener('click', onWindowClick);
+  }, []);
 
-  componentWillUnmount() {
-    window.removeEventListener('click', this.onWindowClickBind);
-  }
-
-  onWindowClick(event) {
+  const onWindowClick = (event) => {
     if (!event.target.closest(`.${ROOT_CLASS_NAME}`)) {
-      this.props.onLeave();
+      onLeave();
     }
-  }
+  };
 
-  renderCraftBonuses(name) {
+  const renderCraftBonuses = (name) => {
     return CRAFTS[name].bonuses.map((bonus) => {
       return (
         <p className='craft-card__bonus' key={bonus}>{bonus}</p>
       );
     });
-  }
+  };
 
-  renderCraftCard(name) {
+  const renderCraftCard = (name) => {
+    const resources = { healGrass, ogreGrass, boomGrass };
+
     const recipe = CRAFTS[name];
-    const disabled = this.props[recipe.resource] < recipe.cost;
+    const disabled = resources[recipe.resource] < recipe.cost;
 
     return (
       <div className='inventory__craft-card craft-card'>
@@ -73,7 +76,7 @@ export class Inventory extends React.PureComponent {
           </h3>
         </header>
         <div className='craft-card__description'>
-          {this.renderCraftBonuses(name)}
+          {renderCraftBonuses(name)}
         </div>
         <div
           className={`craft-card__cost ${disabled ? 'craft-card__cost_disabled' : ''}`}
@@ -87,39 +90,56 @@ export class Inventory extends React.PureComponent {
           <Button
             className='craft-card__button'
             title='Craft'
-            onClick={() => this.props.onCraft(recipe)}
+            onClick={() => onCraft(recipe)}
             disabled={disabled}
           />
         </footer>
       </div>
     );
-  }
+  };
 
-  render() {
-    return (
-      <div className={`${ROOT_CLASS_NAME} ${this.props.className}`}>
-        <header className='inventory__header'>
+  return (
+    <div className={`${ROOT_CLASS_NAME} ${className}`}>
+      <header className='inventory__header'>
+        <div className='inventory__heading'>
           <h2 className='inventory__title'>Inventory</h2>
           <ul className='inventory__resources resources'>
             <li className='resources__item resources__item_heal'>
-              x {this.props.healGrass || 0}
+              x {healGrass || 0}
             </li>
             <li className='resources__item resources__item_ogre'>
-              x {this.props.ogreGrass || 0}
+              x {ogreGrass || 0}
             </li>
             <li className='resources__item resources__item_boom'>
-              x {this.props.boomGrass || 0}
+              x {boomGrass || 0}
             </li>
           </ul>
-        </header>
-        <div className='inventory__craft-list'>
-          {this.renderCraftCard('healPotion')}
-          {this.renderCraftCard('powerPotion')}
         </div>
+        <Button
+          className='inventory__close-button'
+          title='x'
+          onClick={onLeave}
+        />
+      </header>
+      <div className='inventory__content'>
+        <ul className='inventory__recipes recipes'>
+          {Object.keys(CRAFTS).map((key) => (
+            <li
+              key={CRAFTS[key].name}
+              className={
+                `recipes__item${selectedRecipe === CRAFTS[key].name ? ' recipes__item_selected' : ''}`
+              }
+              onClick={() => setSelectedRecipe(CRAFTS[key].name)}
+            >
+              {CRAFTS[key].title}
+            </li>
+          ))}
+        </ul>
+        {renderCraftCard(selectedRecipe)}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Inventory.defaultProps = {
   className: '',
