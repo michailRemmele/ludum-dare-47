@@ -19,4 +19,15 @@
     height: 96px;
   }
 }
- 
+
+@media screen and (max-height: 350px) {
+  .control-button_md {
+    width: 64px;
+    height: 64px;
+  }
+
+  .control-button_lg {
+    width: 80px;
+    height: 80px;
+  }
+}

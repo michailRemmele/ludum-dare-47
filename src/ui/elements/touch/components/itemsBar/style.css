@@ -57,3 +57,10 @@
     font-size: 14px;
   }
 }
+
+@media screen and (max-height: 350px) {
+  .items-bar-touch__icon-button {
+    width: 42px;
+    height: 42px;
+  }
+}

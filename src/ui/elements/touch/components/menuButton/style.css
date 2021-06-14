@@ -12,3 +12,10 @@
     height: 72px;
   }
 }
+
+@media screen and (max-height: 350px) {
+  .menu-button {
+    width: 64px;
+    height: 64px;
+  }
+}

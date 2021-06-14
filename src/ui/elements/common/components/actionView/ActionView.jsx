@@ -22,6 +22,7 @@ export class ActionView extends React.Component {
 
   onContextMenu = (event) => {
     if (!this.props.onContextMenu) {
+      event.preventDefault();
       this.stopPropagate(event);
     } else {
       this.props.onContextMenu(event);

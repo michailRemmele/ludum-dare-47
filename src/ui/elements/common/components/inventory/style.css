@@ -308,7 +308,7 @@
   }
 }
 
-@media screen and (max-height:300px), screen and (max-width: 768px) {
+@media screen and (max-height: 350px) {
   .craft-card__title {
     display: flex;
     align-items: center;

@@ -18,6 +18,10 @@
   padding: 2% max(2%, env(safe-area-inset-right)) 2% max(2%, env(safe-area-inset-left));
 }
 
+.game_touch * {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .game__header {
   display: flex;
   justify-content: space-between;
@@ -50,8 +54,17 @@
 
 .game__footer_touch {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+
+  position: relative;
+}
+
+.game__thumb-stick {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
 }
 
 .game__control-bar {
@@ -133,5 +146,11 @@
 
   .dialog__button + .dialog__button {
     margin: 15px 0 0 0;
+  }
+}
+
+@media screen and (max-height: 350px) {
+  .dialog {
+    height: 100%;
   }
 }
