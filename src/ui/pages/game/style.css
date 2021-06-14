@@ -18,6 +18,10 @@
   padding: 2% max(2%, env(safe-area-inset-right)) 2% max(2%, env(safe-area-inset-left));
 }
 
+.game_touch * {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .game__header {
   display: flex;
   justify-content: space-between;
