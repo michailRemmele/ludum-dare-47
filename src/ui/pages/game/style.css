@@ -144,3 +144,9 @@
     margin: 15px 0 0 0;
   }
 }
+
+@media screen and (max-height: 350px) {
+  .dialog {
+    height: 100%;
+  }
+}
