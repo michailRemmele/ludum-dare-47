@@ -50,8 +50,17 @@
 
 .game__footer_touch {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+
+  position: relative;
+}
+
+.game__thumb-stick {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
 }
 
 .game__control-bar {

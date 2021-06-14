@@ -33,3 +33,13 @@
 
     pointer-events: none;
 }
+
+@media screen and (max-height: 350px) {
+    .thumb-stick {
+        width: 110px;
+        height: 110px;
+
+        min-width: unset;
+        min-height: unset;
+    }
+}
