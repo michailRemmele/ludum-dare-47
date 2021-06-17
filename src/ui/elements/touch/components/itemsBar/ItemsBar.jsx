@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { IconButton } from '../../../common';
+import { TouchButton } from '../touchButton';
 import healPotionIcon from '../../../../media/images/heal-potion.png';
 import powerPotionIcon from '../../../../media/images/power-potion.png';
 
@@ -28,9 +28,9 @@ export const ItemsBar = ({
 
     return (
       <li className='items-bar-touch__item' key={name}>
-        <IconButton
+        <TouchButton
           className='items-bar-touch__icon-button'
-          onPointerUp={(event) => onUseItem(event, name)}
+          onClick={(event) => onUseItem(event, name)}
           icon={ITEMS[name].icon}
         />
         <span className='items-bar-touch__counter'>{items[name]}</span>

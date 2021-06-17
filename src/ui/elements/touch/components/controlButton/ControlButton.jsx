@@ -1,33 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { IconButton } from '../../../common';
+import { TouchButton } from '../touchButton';
 
 import './style.css';
 
 const ControlButton = ({
   className,
-  onClick,
-  icon,
   size,
+  ...props
 }) => (
-  <IconButton
+  <TouchButton
+    {...props}
     className={`control-button control-button_${size} ${className}`}
-    onPointerUp={onClick}
-    icon={icon}
   />
 );
 
 ControlButton.defaultProps = {
   className: '',
-  onClick: () => {},
   size: 'md',
 };
 
 ControlButton.propTypes = {
   className: PropTypes.string,
-  onClick: PropTypes.func,
-  icon: PropTypes.string,
   size: PropTypes.oneOf([ 'md', 'lg' ]),
 };
 

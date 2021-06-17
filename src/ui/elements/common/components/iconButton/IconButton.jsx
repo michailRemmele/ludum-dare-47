@@ -9,12 +9,14 @@ export const IconButton = ({
   className,
   onClick,
   onPointerUp,
+  onPointerDown,
   icon,
 }) => (
   <ActionView
     className={`icon-button ${className}`}
     onClick={onClick}
     onPointerUp={onPointerUp}
+    onPointerDown={onPointerDown}
     stopPropagate={true}
   >
     <img src={icon} className='icon-button__icon' />
@@ -31,6 +33,7 @@ IconButton.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   onPointerUp: PropTypes.func,
+  onPointerDown: PropTypes.func,
   icon: PropTypes.string,
 };
 
