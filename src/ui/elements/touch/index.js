@@ -3,4 +3,5 @@ export {
   ControlButton,
   MenuButton,
   ItemsBar,
+  TouchButton,
 } from './components';
