@@ -34,9 +34,9 @@
     "webpack-dev-server": "3.8.2"
   },
   "scripts": {
-    "start": "webpack-dev-server --hot --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.prod.js",
-    "analyse": "webpack --config webpack.config.prod.js --profile --json > stats.json && webpack-bundle-analyzer stats.json ./build"
+    "start": "env NODE_ENV=development webpack-dev-server --hot --config webpack.config.js",
+    "build": "env NODE_ENV=production webpack --config webpack.config.js",
+    "analyse": "webpack --config webpack.config.js --profile --json > stats.json && webpack-bundle-analyzer stats.json ./build"
   },
   "babel": {
     "presets": [
