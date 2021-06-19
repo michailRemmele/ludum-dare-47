@@ -7,6 +7,7 @@ import { withGame } from '../../../common';
 import './style.css';
 
 const THUMB_STICK_POSITION_CHANGE_MSG = 'THUMB_STICK_POSITION_CHANGE';
+const ANIMATION_STEP_FACTOR = 0.1;
 
 export class ThumbStick extends React.Component {
   constructor(props) {
@@ -16,6 +17,8 @@ export class ThumbStick extends React.Component {
 
     this.state = {
       controlPosition: {},
+      directionX: 0,
+      directionY: 0,
     };
   }
 
@@ -36,11 +39,12 @@ export class ThumbStick extends React.Component {
       areaRadius: width / 2,
       areaX: (left + right) / 2,
       areaY: (top + bottom) / 2,
+      animationStep: width * ANIMATION_STEP_FACTOR,
     });
   }
 
   moveStick = (event) => {
-    const { areaRadius, areaX, areaY } = this.state;
+    const { areaRadius, areaX, areaY, animationStep } = this.state;
 
     const direction = new Vector2(event.clientX - areaX, event.clientY - areaY);
     const magnitude = direction.magnitude;
@@ -49,11 +53,17 @@ export class ThumbStick extends React.Component {
       direction.multiplyNumber(areaRadius / magnitude);
     }
 
-    this.setState({
-      controlPosition: {
-        transform: `translateX(${direction.x}px) translateY(${direction.y}px)`,
-      },
-    });
+    const deltaX = Math.abs(this.state.directionX - direction.x);
+    const deltaY = Math.abs(this.state.directionY - direction.y);
+    if (deltaX > animationStep || deltaY > animationStep) {
+      this.setState({
+        controlPosition: {
+          transform: `translateX(${direction.x}px) translateY(${direction.y}px)`,
+        },
+        directionX: direction.x,
+        directionY: direction.y,
+      });
+    }
 
     direction.multiplyNumber(1 / direction.magnitude);
 
