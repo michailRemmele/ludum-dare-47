@@ -25,25 +25,7 @@ export class MainMenu extends React.Component {
   render() {
     return (
       <div className='main-menu'>
-        <main className='main-menu__main'>
-          <header className='main-menu__header'>
-            <h1 className='main-menu__title'>
-              Infinite Battle
-            </h1>
-          </header>
-          <nav className='main-menu__menu menu'>
-            <ul className='menu__list'>
-              <li className='menu__item'>
-                <Button
-                  className='menu__button'
-                  title='Play'
-                  onClick={() => this.onPlay()}
-                />
-              </li>
-            </ul>
-          </nav>
-        </main>
-        <footer className='main-menu__footer'>
+        <header className='main-menu__header'>
           <ul className='main-menu__socials socials'>
             <li className='socials__item'>
               <a
@@ -66,7 +48,25 @@ export class MainMenu extends React.Component {
               </a>
             </li>
           </ul>
-        </footer>
+        </header>
+        <main className='main-menu__main'>
+          <header className='main__header'>
+            <h1 className='main-menu__title'>
+              Infinite Battle
+            </h1>
+          </header>
+          <nav className='main-menu__menu menu'>
+            <ul className='menu__list'>
+              <li className='menu__item'>
+                <Button
+                  className='menu__button'
+                  title='Play'
+                  onClick={() => this.onPlay()}
+                />
+              </li>
+            </ul>
+          </nav>
+        </main>
       </div>
     );
   }
