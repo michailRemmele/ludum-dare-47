@@ -22,7 +22,7 @@
   justify-content: center;
 }
 
-.main-menu__header {
+.main__header {
   margin-bottom: 40px;
 }
 
@@ -47,7 +47,7 @@
   width: 200px;
 }
 
-.main-menu__footer {
+.main-menu__header {
   margin: 15px 20px;
 }
 
