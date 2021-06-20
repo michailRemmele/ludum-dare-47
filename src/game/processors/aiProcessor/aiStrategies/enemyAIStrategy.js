@@ -11,7 +11,8 @@ const PLAYER_KEY = 'player';
 const TRANSFORM_COMPONENT_NAME = 'transform';
 const WEAPON_COMPONENT_NAME = 'weapon';
 
-const COOLDOWN = 1000;
+const SPAWN_COOLDOWN = 1000;
+const PREPARE_TO_ATTACK_COOLDOWN = 500;
 const MELEE_RADIUS = 20;
 
 class EnemyAIStrategy extends AIStrategy{
@@ -22,13 +23,18 @@ class EnemyAIStrategy extends AIStrategy{
     this._store = store;
 
     this._playerId = this._player.getId();
-    this._cooldown = MathOps.random(0, COOLDOWN);
+    this._cooldown = SPAWN_COOLDOWN;
 
     this._distance = null;
     this._isMeleeEnemy = false;
+    this._prepareToAttack = false;
   }
 
   _updateDistances() {
+    if (this._prepareToAttack) {
+      return;
+    }
+
     const enemy = this._store.get(PLAYER_KEY);
 
     if (!enemy) {
@@ -42,11 +48,22 @@ class EnemyAIStrategy extends AIStrategy{
   }
 
   _updateMeleeEnemies() {
+    const weapon = this._player.getComponent(WEAPON_COMPONENT_NAME);
+
+    if (this._prepareToAttack || weapon.cooldownRemaining > 0) {
+      return;
+    }
+
     this._isMeleeEnemy = this._distance <= MELEE_RADIUS;
+
+    if (this._isMeleeEnemy) {
+      this._cooldown = PREPARE_TO_ATTACK_COOLDOWN;
+      this._prepareToAttack = true;
+    }
   }
 
   _attack(messageBus) {
-    if (!this._isMeleeEnemy) {
+    if (!this._isMeleeEnemy || this._cooldown > 0) {
       return;
     }
 
@@ -71,10 +88,12 @@ class EnemyAIStrategy extends AIStrategy{
       x: enemyX,
       y: enemyY,
     });
+
+    this._prepareToAttack = false;
   }
 
   _move(messageBus) {
-    if (this._isMeleeEnemy) {
+    if (this._isMeleeEnemy || this._prepareToAttack || this._cooldown > 0) {
       return;
     }
 
@@ -103,12 +122,7 @@ class EnemyAIStrategy extends AIStrategy{
   }
 
   update(messageBus, deltaTime) {
-    // this._cooldown -= deltaTime;
-
-    // if (this._cooldown <= 0) {
-
-    //   this._cooldown += COOLDOWN;
-    // }
+    this._cooldown -= deltaTime;
 
     this._updateDistances();
     this._updateMeleeEnemies();
