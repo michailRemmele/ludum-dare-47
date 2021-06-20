@@ -56,15 +56,13 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
-  position: relative;
 }
 
 .game__thumb-stick {
   position: absolute;
 
-  left: 0;
-  bottom: 0;
+  left: max(2%, env(safe-area-inset-left));
+  bottom: 2%;
 }
 
 .game__control-bar {
