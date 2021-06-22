@@ -66,7 +66,7 @@ export class ThumbStick extends React.Component {
       });
     }
 
-    direction.multiplyNumber(1 / direction.magnitude);
+    direction.multiplyNumber(1 / areaRadius);
 
     this.onMove(direction.x, direction.y);
   }
