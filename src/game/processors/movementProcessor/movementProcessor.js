@@ -17,24 +17,25 @@ class MovementProcessor extends Processor {
     const deltaTimeInSeconds = options.deltaTime / 1000;
     const messageBus = options.messageBus;
 
-    const messages = messageBus.get(MOVEMENT_MSG) || [];
-    const movementVectors = messages.reduce((storage, message) => {
-      const { gameObject, angle } = message;
-      const gameObjectId = gameObject.getId();
-
-      storage[gameObjectId] = storage[gameObjectId] || new Vector2(0, 0);
-      storage[gameObjectId].add(VectorOps.getVectorByAngle(MathOps.degToRad(angle)));
-
-      return storage;
-    }, {});
-
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
 
       const { vector, speed, penalty } = gameObject.getComponent(MOVEMENT_COMPONENT_NAME);
       vector.multiplyNumber(0);
 
-      const movementVector = movementVectors[gameObjectId];
+      const messages = messageBus.getById(MOVEMENT_MSG, gameObjectId) || [];
+      const { movementVector, intension } = messages.reduce((storage, message) => {
+        const { angle, x, y } = message;
+
+        if (x && y) {
+          storage.intension = MathOps.getDistanceBetweenTwoPoints(0, x, 0, y);
+        }
+
+        storage.movementVector.add(VectorOps.getVectorByAngle(MathOps.degToRad(angle)));
+
+        return storage;
+      }, { movementVector: new Vector2(0, 0), intension: 1 });
+
       if (!movementVector || (movementVector.x === 0 && movementVector.y === 0)) {
         return;
       }
@@ -43,7 +44,7 @@ class MovementProcessor extends Processor {
       const resultingSpeed = penalty < speed ? speed - penalty : 0;
 
       movementVector.multiplyNumber(
-        resultingSpeed * deltaTimeInSeconds * (1 / movementVector.magnitude)
+        resultingSpeed * deltaTimeInSeconds * (1 / movementVector.magnitude) * intension
       );
       vector.add(movementVector);
 
