@@ -6,6 +6,10 @@ const TRANSFORM_COMPONENT_NAME = 'transform';
 const MOVEMENT_COMPONENT_NAME = 'movement';
 const VIEW_DIRECTION_COMPONENT_NAME = 'viewDirection';
 
+const SPEED_DIVIDER = 0.4;
+const MIN_SPEED = 0.5;
+const MAX_SPEED = 1;
+
 class MovementProcessor extends Processor {
   constructor(options) {
     super();
@@ -28,7 +32,8 @@ class MovementProcessor extends Processor {
         const { angle, x, y } = message;
 
         if (x && y) {
-          storage.intension = MathOps.getDistanceBetweenTwoPoints(0, x, 0, y);
+          const controlIntension = MathOps.getDistanceBetweenTwoPoints(0, x, 0, y);
+          storage.intension = controlIntension < SPEED_DIVIDER ? MIN_SPEED : MAX_SPEED;
         }
 
         storage.movementVector.add(VectorOps.getVectorByAngle(MathOps.degToRad(angle)));
