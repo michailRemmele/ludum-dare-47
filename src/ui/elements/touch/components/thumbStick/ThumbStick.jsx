@@ -7,7 +7,6 @@ import { withGame } from '../../../common';
 import './style.css';
 
 const THUMB_STICK_POSITION_CHANGE_MSG = 'THUMB_STICK_POSITION_CHANGE';
-const ANIMATION_STEP_FACTOR = 0.1;
 
 const CONTROL_RADIUS = 0.4;
 
@@ -19,8 +18,6 @@ export class ThumbStick extends React.Component {
 
     this.state = {
       areaPosition: {},
-      directionX: 0,
-      directionY: 0,
     };
   }
 
@@ -43,10 +40,10 @@ export class ThumbStick extends React.Component {
   resizeCanvas = () => {
     const { areaRadius } = this.state;
 
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = Math.floor(window.devicePixelRatio || 1);
     const canvasPadding = areaRadius * CONTROL_RADIUS;
     const size = (areaRadius + canvasPadding) * 2;
-    const actualSize = size * dpr;
+    const actualSize = Math.floor(size * dpr);
 
     this.canvas.width = actualSize;
     this.canvas.height = actualSize;
@@ -69,9 +66,9 @@ export class ThumbStick extends React.Component {
 
     this.canvasCtx.beginPath();
     this.canvasCtx.arc(
-      x + areaRadius + controlRadius,
-      y + areaRadius + controlRadius,
-      controlRadius,
+      Math.floor(x + areaRadius + controlRadius),
+      Math.floor(y + areaRadius + controlRadius),
+      Math.floor(controlRadius),
       0,
       360
     );
@@ -85,7 +82,6 @@ export class ThumbStick extends React.Component {
       areaRadius: width / 2,
       areaX: (left + right) / 2,
       areaY: (top + bottom) / 2,
-      animationStep: width * ANIMATION_STEP_FACTOR,
     }, () => {
       this.resizeCanvas();
       this.updateCanvas();
