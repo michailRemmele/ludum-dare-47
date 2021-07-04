@@ -42,14 +42,21 @@ export class ThumbStick extends React.Component {
 
   resizeCanvas = () => {
     const { areaRadius } = this.state;
+
+    const dpr = window.devicePixelRatio || 1;
     const canvasPadding = areaRadius * CONTROL_RADIUS;
     const size = (areaRadius + canvasPadding) * 2;
+    const actualSize = size * dpr;
 
-    this.canvas.width = size;
-    this.canvas.height = size;
+    this.canvas.width = actualSize;
+    this.canvas.height = actualSize;
 
     this.canvas.style.top = `${-canvasPadding}px`;
     this.canvas.style.left = `${-canvasPadding}px`;
+    this.canvas.style.width = `${size}px`;
+    this.canvas.style.height = `${size}px`;
+
+    this.canvasCtx.scale(dpr, dpr);
   }
 
   updateCanvas = (x = 0, y = 0) => {
