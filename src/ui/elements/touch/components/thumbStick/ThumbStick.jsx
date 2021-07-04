@@ -8,13 +8,12 @@ import './style.css';
 
 const THUMB_STICK_POSITION_CHANGE_MSG = 'THUMB_STICK_POSITION_CHANGE';
 
-const CONTROL_RADIUS = 0.4;
-
 export class ThumbStick extends React.Component {
   constructor(props) {
     super(props);
 
     this.areaRef = React.createRef();
+    this.controlRef = React.createRef();
 
     this.state = {
       areaPosition: {},
@@ -22,7 +21,6 @@ export class ThumbStick extends React.Component {
   }
 
   componentDidMount() {
-    this.initCanvas();
     this.updateArea();
 
     window.addEventListener('resize', this.updateArea);
@@ -32,49 +30,6 @@ export class ThumbStick extends React.Component {
     window.removeEventListener('resize', this.updateArea);
   }
 
-  initCanvas = () => {
-    this.canvas = document.getElementById('thumb-stick__control');
-    this.canvasCtx = this.canvas.getContext('2d');
-  }
-
-  resizeCanvas = () => {
-    const { areaRadius } = this.state;
-
-    const dpr = Math.floor(window.devicePixelRatio || 1);
-    const canvasPadding = areaRadius * CONTROL_RADIUS;
-    const size = (areaRadius + canvasPadding) * 2;
-    const actualSize = Math.floor(size * dpr);
-
-    this.canvas.width = actualSize;
-    this.canvas.height = actualSize;
-
-    this.canvas.style.top = `${-canvasPadding}px`;
-    this.canvas.style.left = `${-canvasPadding}px`;
-    this.canvas.style.width = `${size}px`;
-    this.canvas.style.height = `${size}px`;
-
-    this.canvasCtx.scale(dpr, dpr);
-  }
-
-  updateCanvas = (x = 0, y = 0) => {
-    const { areaRadius } = this.state;
-    const controlRadius = areaRadius * CONTROL_RADIUS;
-
-    this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    this.canvasCtx.fillStyle = 'white';
-
-    this.canvasCtx.beginPath();
-    this.canvasCtx.arc(
-      Math.floor(x + areaRadius + controlRadius),
-      Math.floor(y + areaRadius + controlRadius),
-      Math.floor(controlRadius),
-      0,
-      360
-    );
-    this.canvasCtx.fill();
-  }
-
   updateArea = () => {
     const { left, right, top, bottom, width } = this.areaRef.current.getBoundingClientRect();
 
@@ -82,9 +37,6 @@ export class ThumbStick extends React.Component {
       areaRadius: width / 2,
       areaX: (left + right) / 2,
       areaY: (top + bottom) / 2,
-    }, () => {
-      this.resizeCanvas();
-      this.updateCanvas();
     });
   }
 
@@ -98,7 +50,8 @@ export class ThumbStick extends React.Component {
       direction.multiplyNumber(areaRadius / magnitude);
     }
 
-    this.updateCanvas(direction.x, direction.y);
+    this.controlRef.current.style.transform =
+      `translateX(${Math.floor(direction.x)}px) translateY(${Math.floor(direction.y)}px)`;
 
     direction.multiplyNumber(1 / areaRadius);
 
@@ -109,6 +62,8 @@ export class ThumbStick extends React.Component {
     this.setState({
       areaPosition: {},
     }, this.updateArea);
+
+    this.controlRef.current.style.transform = '';
 
     this.onMove(0, 0);
   }
@@ -174,7 +129,10 @@ export class ThumbStick extends React.Component {
         onPointerUp={this.onPointerUp}
         style={areaPosition}
       >
-        <canvas id='thumb-stick__control' ></canvas>
+        <div
+          ref={this.controlRef}
+          className='thumb-stick__control'
+        />
         <div
           className='thumb-stick__observer'
           onPointerDown={this.onObserverPointerDown}

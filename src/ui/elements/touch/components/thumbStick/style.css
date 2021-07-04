@@ -18,10 +18,20 @@
     
 }
 
-#thumb-stick__control {
+.thumb-stick__control {
     position: absolute;
+    top: 30%;
+    left: 30%;
 
-    transform: translate(-4px, -4px);
+    width: 40%;
+    height: 40%;
+
+    background-color: #fff;
+    border-radius: 50%;
+
+    will-change: transform;
+
+    pointer-events: none;
 }
 
 .thumb-stick__observer {
