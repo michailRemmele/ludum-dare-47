@@ -8,6 +8,7 @@ import {
   Inventory,
   Button,
   ItemsBarContainer,
+  FpsMeter,
 } from '../../elements/common';
 import {
   ThumbStick,
@@ -41,6 +42,8 @@ const TIME_OF_DAY_KEY = 'timeOfDay';
 
 const PLAYER_ID = '1';
 const HEALTH_COMPONENT_NAME = 'health';
+
+const DEV_MODE = 'development';
 
 const PAGE_STATE = {
   GAME: 'game',
@@ -283,7 +286,10 @@ export class Game extends React.Component {
       return (
         <>
           <header className='game__header'>
-            <HealthBar health={this.state.health} maxHealth={this.state.maxHealth}/>
+            <div className='game__left-bar'>
+              <HealthBar health={this.state.health} maxHealth={this.state.maxHealth}/>
+              {NODE_ENV === DEV_MODE && <FpsMeter/>}
+            </div>
             <MenuButton icon={inventoryIcon} onClick={this.onInventoryToggle} />
           </header>
           <div className='game__main'>
@@ -315,7 +321,10 @@ export class Game extends React.Component {
       return (
         <>
           <header className='game__header'>
-            <HealthBar health={this.state.health}/>
+            <div className='game__left-bar'>
+              <HealthBar health={this.state.health}/>
+              {NODE_ENV === DEV_MODE && <FpsMeter/>}
+            </div>
             <ActionBar
               onClick={this.onInventoryToggle}
               keyName='I'

@@ -1,0 +1,14 @@
+.fps-meter {
+  color: white;
+
+  font-size: 32px;
+  font-weight: 700;
+
+  padding-top: 10px;
+}
+
+@media screen and (max-height: 481px), screen and (max-width: 768px) {
+  .fps-meter {
+    font-size: 24px;
+  }
+}

@@ -8,4 +8,5 @@ export {
   Inventory,
   SceneSwitcher,
   ItemsBarContainer,
+  FpsMeter,
 } from './components';
