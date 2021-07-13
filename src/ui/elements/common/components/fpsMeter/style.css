@@ -1,0 +1,31 @@
+.fps-meter {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 10px;
+}
+
+.fps-meter__title {
+  color: white;
+
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.fps-meter__chart {
+  width: 200px;
+  height: 60px;
+
+  padding-top: 5px;
+}
+
+@media screen and (max-height: 481px), screen and (max-width: 768px) {
+  .fps-meter__title {
+    font-size: 24px;
+  }
+
+  .fps-meter__chart {
+    width: 150px;
+    height: 45px;
+  }  
+}

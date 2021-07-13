@@ -25,6 +25,11 @@
 .game__header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+}
+
+.game__left-bar {
+  flex: 1;
 }
 
 .game__bars {
