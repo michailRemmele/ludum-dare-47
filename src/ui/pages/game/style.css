@@ -15,7 +15,11 @@
 }
 
 .game_touch {
-  padding: 2% max(2%, env(safe-area-inset-right)) 2% max(2%, env(safe-area-inset-left));
+  padding: 15px max(15px, env(safe-area-inset-right)) max(15px, env(safe-area-inset-bottom)) max(15px, env(safe-area-inset-left));
+}
+
+.ui-root_deadzone .game_touch {
+  padding-bottom: 50px;
 }
 
 .game_touch * {
@@ -30,6 +34,10 @@
 
 .game__left-bar {
   flex: 1;
+}
+
+.game__fps-meter {
+  position: absolute;
 }
 
 .game__bars {
@@ -66,8 +74,12 @@
 .game__thumb-stick {
   position: absolute;
 
-  left: max(2%, env(safe-area-inset-left));
-  bottom: 2%;
+  left: max(15px, env(safe-area-inset-left));
+  bottom: max(15px, env(safe-area-inset-bottom));
+}
+
+.ui-root_deadzone .game__thumb-stick {
+  bottom: 50px;
 }
 
 .game__control-bar {
@@ -125,7 +137,7 @@
   margin-left: 25px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-height: 481px), screen and (max-width: 768px) {
   .game:not(.game_touch) {
     padding: 20px;
   }
@@ -153,6 +165,15 @@
 }
 
 @media screen and (max-height: 350px) {
+  .game_touch {
+    padding: 10px max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+  }
+
+  .game__thumb-stick {
+    left: max(10px, env(safe-area-inset-left));
+    bottom: max(10px, env(safe-area-inset-bottom));
+  }
+
   .dialog {
     height: 100%;
   }

@@ -1,6 +1,10 @@
+const UI_ROOT_DEADZONE_MOD = 'ui-root_deadzone';
+
 export const applyIosSafariScreenFix = () => {
   let oldWidth = window.innerWidth;
   let oldHeight = window.innerHeight;
+
+  const uiRoot = document.getElementById('ui-root');
 
   /**
    * This hack fixes interaction with app via control buttons
@@ -14,6 +18,8 @@ export const applyIosSafariScreenFix = () => {
     ) {
       document.body.style.height = '100vh';
       document.body.style.position = 'static';
+
+      uiRoot.classList.remove(UI_ROOT_DEADZONE_MOD);
 
       setTimeout(() => {
         document.body.style = '';
@@ -55,8 +61,12 @@ export const applyIosSafariScreenFix = () => {
 
         window.dispatchEvent(new Event('resize'));
       }, 500);
+
+      uiRoot.classList.add(UI_ROOT_DEADZONE_MOD);
     } else {
       document.body.style = '';
+
+      uiRoot.classList.remove(UI_ROOT_DEADZONE_MOD);
     }
   });
 };
