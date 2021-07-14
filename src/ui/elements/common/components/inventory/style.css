@@ -11,6 +11,10 @@
   padding: 10px max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
 }
 
+.ui-root_deadzone .inventory {
+  padding-bottom: 40px;
+}
+
 .inventory__header {
   display: flex;
 
