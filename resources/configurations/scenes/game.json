@@ -633,6 +633,12 @@
       }
     },
     {
+      "name": "fpsMeter",
+      "section": "renderingSection",
+      "filter": {},
+      "options": {}
+    },
+    {
       "name": "uiBridge",
       "section": "renderingSection",
       "filter": {
