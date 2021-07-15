@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Vector2, MathOps } from '@flyer-engine/core';
+import { Vector2 } from '@flyer-engine/core';
 
 import { withGame } from '../../../common';
 
@@ -14,10 +14,13 @@ export class ThumbStick extends React.Component {
 
     this.areaRef = React.createRef();
     this.controlRef = React.createRef();
+    this.observerRef = React.createRef();
 
     this.state = {
       areaPosition: {},
     };
+
+    this.pointerId = null;
   }
 
   componentDidMount() {
@@ -73,13 +76,27 @@ export class ThumbStick extends React.Component {
   }
 
   onPointerDown = (event) => {
+    if (this.pointerId) {
+      return;
+    }
+
+    this.observerRef.current.style.width = '100%';
+    this.pointerId = event.pointerId;
+
     this.areaRef.current.setPointerCapture(event.pointerId);
     this.areaRef.current.addEventListener('pointermove', this.onPointerMove);
 
     this.moveStick(event);
   }
 
-  onPointerUp = () => {
+  onPointerUp = (event) => {
+    if (this.pointerId !== event.pointerId) {
+      return;
+    }
+
+    this.observerRef.current.style = '';
+    this.pointerId = false;
+
     this.areaRef.current.removeEventListener('pointermove', this.onPointerMove);
 
     this.resetStick();
@@ -99,7 +116,7 @@ export class ThumbStick extends React.Component {
     const { areaX, areaY, areaRadius } = this.state;
     const { clientX, clientY } = event;
 
-    if (MathOps.getDistanceBetweenTwoPoints(clientX, areaX, clientY, areaY) <= areaRadius) {
+    if (this.pointerId) {
       return;
     }
 
@@ -134,6 +151,7 @@ export class ThumbStick extends React.Component {
           className='thumb-stick__control'
         />
         <div
+          ref={this.observerRef}
           className='thumb-stick__observer'
           onPointerDown={this.onObserverPointerDown}
         />
