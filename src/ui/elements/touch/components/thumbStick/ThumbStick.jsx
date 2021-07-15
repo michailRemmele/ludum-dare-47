@@ -144,6 +144,8 @@ export class ThumbStick extends React.Component {
         ref={this.areaRef}
         onPointerDown={this.onPointerDown}
         onPointerUp={this.onPointerUp}
+        onPointerLeave={this.onPointerUp}
+        onPointerCancel={this.onPointerUp}
         style={areaPosition}
       >
         <div
