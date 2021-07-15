@@ -95,7 +95,7 @@ export class ThumbStick extends React.Component {
     }
 
     this.observerRef.current.style = '';
-    this.pointerId = false;
+    this.pointerId = null;
 
     this.areaRef.current.removeEventListener('pointermove', this.onPointerMove);
 
