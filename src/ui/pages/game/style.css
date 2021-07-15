@@ -18,10 +18,6 @@
   padding: 15px max(15px, env(safe-area-inset-right)) max(15px, env(safe-area-inset-bottom)) max(15px, env(safe-area-inset-left));
 }
 
-.ui-root_deadzone .game_touch {
-  padding-bottom: 50px;
-}
-
 .game_touch * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -76,10 +72,6 @@
 
   left: max(15px, env(safe-area-inset-left));
   bottom: max(15px, env(safe-area-inset-bottom));
-}
-
-.ui-root_deadzone .game__thumb-stick {
-  bottom: 50px;
 }
 
 .game__control-bar {

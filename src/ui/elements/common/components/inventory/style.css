@@ -8,11 +8,7 @@
   max-width: 600px;
   box-sizing: border-box;
 
-  padding: 10px max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
-}
-
-.ui-root_deadzone .inventory {
-  padding-bottom: 40px;
+  padding: max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
 }
 
 .inventory__header {
@@ -233,7 +229,7 @@
     height: 100%;
     max-width: unset;
 
-    padding: 5px max(5px, env(safe-area-inset-right)) max(5px, env(safe-area-inset-bottom)) max(5px, env(safe-area-inset-left));
+    padding: max(5px, env(safe-area-inset-bottom)) max(5px, env(safe-area-inset-right)) max(5px, env(safe-area-inset-bottom)) max(5px, env(safe-area-inset-left));
   }
 
   .inventory__header {

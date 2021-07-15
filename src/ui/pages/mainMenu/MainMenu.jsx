@@ -26,7 +26,7 @@ export class MainMenu extends React.Component {
     return (
       <div className='main-menu'>
         <header className='main-menu__header'>
-          <ul className='main-menu__socials socials'>
+          <ul className='main-menu__socials'>
             <li className='socials__item'>
               <a
                 className='socials__link socials__link_github'
