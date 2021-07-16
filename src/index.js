@@ -33,6 +33,7 @@ const options = {
 const engine = new Engine(options);
 engine.start();
 
+// eslint-disable-next-line no-console
 console.log('Hello! You can contact the author via email: mikhail.remmele@gmail.com');
 
 if (isIosSafari()) {
