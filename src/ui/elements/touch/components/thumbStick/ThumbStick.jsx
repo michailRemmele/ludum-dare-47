@@ -16,9 +16,7 @@ export class ThumbStick extends React.Component {
     this.controlRef = React.createRef();
     this.observerRef = React.createRef();
 
-    this.state = {
-      areaPosition: {},
-    };
+    this.state = {};
 
     this.pointerId = null;
   }
@@ -38,11 +36,14 @@ export class ThumbStick extends React.Component {
 
   updateArea = () => {
     const { left, right, top, bottom, width } = this.areaRef.current.getBoundingClientRect();
+    const { left: observerX, top: observerY } = this.observerRef.current.getBoundingClientRect();
 
     this.setState({
       areaRadius: width / 2,
       areaX: (left + right) / 2,
       areaY: (top + bottom) / 2,
+      observerX,
+      observerY,
     });
   }
 
@@ -65,29 +66,45 @@ export class ThumbStick extends React.Component {
   }
 
   resetStick = () => {
-    this.setState({
-      areaPosition: {},
-    }, this.updateArea);
+    this.areaRef.current.style = '';
+    this.controlRef.current.style = '';
 
-    this.controlRef.current.style.transform = '';
+    this.updateArea();
 
     this.onMove(0, 0);
   }
 
   onPointerMove = (event) => {
+    if (this.pointerId !== event.pointerId) {
+      return;
+    }
+
     this.moveStick(event);
   }
 
   onPointerDown = (event) => {
+    const { areaX, areaY, areaRadius, observerX, observerY } = this.state;
+    const { clientX, clientY } = event;
+
     if (this.pointerId) {
       return;
     }
 
-    this.observerRef.current.style.width = '100%';
     this.pointerId = event.pointerId;
 
-    this.areaRef.current.setPointerCapture(event.pointerId);
-    this.areaRef.current.addEventListener('pointermove', this.onPointerMove);
+    const left = clientX - observerX - areaRadius;
+    const top = clientY - observerY - areaRadius;
+
+    event.clientX = areaX;
+    event.clientY = areaY;
+
+    this.areaRef.current.style.left = `${left}px`;
+    this.areaRef.current.style.top = `${top}px`;
+
+    this.updateArea();
+
+    this.observerRef.current.setPointerCapture(event.pointerId);
+    this.observerRef.current.addEventListener('pointermove', this.onPointerMove);
 
     this.moveStick(event);
   }
@@ -97,7 +114,6 @@ export class ThumbStick extends React.Component {
       return;
     }
 
-    this.observerRef.current.style = '';
     this.pointerId = null;
 
     this.areaRef.current.removeEventListener('pointermove', this.onPointerMove);
@@ -115,51 +131,27 @@ export class ThumbStick extends React.Component {
     this.props.onMove(x, y);
   }
 
-  onObserverPointerDown = (event) => {
-    const { areaX, areaY, areaRadius } = this.state;
-    const { clientX, clientY } = event;
-
-    if (this.pointerId) {
-      return;
-    }
-
-    const left = clientX - areaRadius;
-    const right = clientY - areaRadius;
-
-    event.clientX = areaX;
-    event.clientY = areaY;
-
-    this.setState({
-      areaPosition: {
-        left: `${left}px`,
-        top: `${right}px`,
-      },
-    }, this.updateArea);
-  }
-
   render() {
     const { className } = this.props;
-    const { areaPosition } = this.state;
 
     return (
       <div
-        className={`thumb-stick ${className}`}
-        ref={this.areaRef}
+        ref={this.observerRef}
+        className={`thumb-stick-observer ${className}`}
         onPointerDown={this.onPointerDown}
         onPointerUp={this.onPointerUp}
         onPointerLeave={this.onPointerUp}
         onPointerCancel={this.onPointerUp}
-        style={areaPosition}
       >
         <div
-          ref={this.controlRef}
-          className='thumb-stick__control'
-        />
-        <div
-          ref={this.observerRef}
-          className='thumb-stick__observer'
-          onPointerDown={this.onObserverPointerDown}
-        />
+          ref={this.areaRef}
+          className='thumb-stick'
+        >
+          <div
+            ref={this.controlRef}
+            className='thumb-stick__control'
+          />
+        </div>
       </div>
     );
   }

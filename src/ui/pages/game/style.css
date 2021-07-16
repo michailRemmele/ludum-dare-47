@@ -72,6 +72,9 @@
 
   left: max(15px, env(safe-area-inset-left));
   bottom: max(15px, env(safe-area-inset-bottom));
+
+  width: calc(50% - max(15px, env(safe-area-inset-left)));
+  height: calc(70% - max(15px, env(safe-area-inset-bottom)));
 }
 
 .game__control-bar {
