@@ -5,14 +5,17 @@ import { ActionView } from '../actionView';
 
 import './style.css';
 
-export const IconButton = ({
+export const IconButton = React.forwardRef(({
   className,
   onClick,
   onPointerUp,
   onPointerDown,
   icon,
-}) => (
+  ...props
+}, ref) => (
   <ActionView
+    {...props}
+    ref={ref}
     className={`icon-button ${className}`}
     onClick={onClick}
     onPointerUp={onPointerUp}
@@ -21,7 +24,7 @@ export const IconButton = ({
   >
     <img src={icon} className='icon-button__icon' />
   </ActionView>
-);
+));
 
 IconButton.defaultProps = {
   className: '',
@@ -36,5 +39,7 @@ IconButton.propTypes = {
   onPointerDown: PropTypes.func,
   icon: PropTypes.string,
 };
+
+IconButton.displayName = 'IconButton';
 
 export const IconButtonMemoized = React.memo(IconButton);

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { IconButton } from '../../../common';
@@ -10,7 +10,20 @@ const TouchButton = ({
   onClick,
   ...props
 }) => {
+  const buttonRef = useRef(null);
+
   const [ active, setActive ] = useState(false);
+
+  useEffect(() => {
+    if (!buttonRef.current) {
+      return;
+    }
+
+    const handleTouchStart = (event) => event.preventDefault();
+
+    buttonRef.current.addEventListener('touchstart', handleTouchStart, { passive: false });
+    return () => buttonRef.current.removeEventListener('touchstart', handleTouchStart);
+  }, [ buttonRef ]);
 
   const handlePointerUp = useCallback((event) => {
     setActive(false);
@@ -22,6 +35,7 @@ const TouchButton = ({
   return (
     <IconButton
       {...props}
+      ref={buttonRef}
       className={`${className} ${active ? 'touch-button_active' : ''}`}
       onPointerUp={handlePointerUp}
       onPointerDown={handlePointerDown}
