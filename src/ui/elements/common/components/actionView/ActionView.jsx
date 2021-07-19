@@ -1,96 +1,105 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import './style.css';
 
-export class ActionView extends React.Component {
-  stopPropagate = (event) => {
-    if (!this.props.stopPropagate) {
+export const ActionView = React.forwardRef(({
+  className,
+  stopPropagate,
+  onDoubleClick,
+  onContextMenu,
+  onMouseUp,
+  onMouseDown,
+  onClick,
+  onPointerUp,
+  onPointerDown,
+  children,
+  ...props
+}, ref) => {
+  const handleStopPropagate = useCallback((event) => {
+    if (!stopPropagate) {
       return;
     }
-
     event.stopPropagation();
-  }
+  }, [ stopPropagate ]);
 
-  onDoubleClick = (event) => {
-    if (!this.props.onDoubleClick) {
-      this.stopPropagate(event);
+  const handleDoubleClick = useCallback((event) => {
+    if (!onDoubleClick) {
+      handleStopPropagate(event);
     } else {
-      this.props.onDoubleClick(event);
+      onDoubleClick(event);
     }
-  }
+  }, [ onDoubleClick ]);
 
-  onContextMenu = (event) => {
-    if (!this.props.onContextMenu) {
+  const handleContextMenu = useCallback((event) => {
+    if (!onContextMenu) {
       event.preventDefault();
-      this.stopPropagate(event);
+      handleStopPropagate(event);
     } else {
-      this.props.onContextMenu(event);
+      onContextMenu(event);
     }
-  }
+  }, [ onContextMenu ]);
 
-  onMouseUp = (event) => {
-    if (!this.props.onMouseUp) {
-      this.stopPropagate(event);
+  const handleMouseUp = useCallback((event) => {
+    if (!onMouseUp) {
+      handleStopPropagate(event);
     } else {
-      this.props.onMouseUp(event);
+      onMouseUp(event);
     }
-  }
+  }, [ onMouseUp ]);
 
-  onMouseDown = (event) => {
-    if (!this.props.onMouseDown) {
-      this.stopPropagate(event);
+  const handleMouseDown = useCallback((event) => {
+    if (!onMouseDown) {
+      handleStopPropagate(event);
     } else {
-      this.props.onMouseDown(event);
+      onMouseDown(event);
     }
-  }
+  }, [ onMouseDown ]);
 
-  onClick = (event) => {
-    if (!this.props.onClick) {
-      this.stopPropagate(event);
+  const handleClick = useCallback((event) => {
+    if (!onClick) {
+      handleStopPropagate(event);
     } else {
-      this.props.onClick(event);
+      onClick(event);
     }
-  }
+  }, [ onClick ]);
 
-  onPointerUp = (event) => {
-    if (!this.props.onPointerUp) {
-      this.stopPropagate(event);
+  const handlePointerUp = useCallback((event) => {
+    if (!onPointerUp) {
+      handleStopPropagate(event);
     } else {
-      this.props.onPointerUp(event);
+      onPointerUp(event);
     }
-  }
+  }, [ onPointerUp ]);
 
-  onPointerDown = (event) => {
-    if (!this.props.onPointerDown) {
-      this.stopPropagate(event);
+  const handlePointerDown = useCallback((event) => {
+    if (!onPointerDown) {
+      handleStopPropagate(event);
     } else {
-      this.props.onPointerDown(event);
+      onPointerDown(event);
     }
-  }
+  }, [ onPointerDown ]);
 
-  render() {
-    return (
-      <button
-        className={`action-view ${this.props.className}`}
-        onMouseDown={this.onMouseDown}
-        onMouseUp={this.onMouseUp}
-        onContextMenu={this.onContextMenu}
-        onDoubleClick={this.onDoubleClick}
-        onPointerUp={this.onPointerUp}
-        onPointerDown={this.onPointerDown}
-        onClick={this.onClick}
-        disabled={this.props.disabled}
-      >
-        {this.props.children}
-      </button>
-    );
-  }
-}
+  return (
+    <button
+      {...props}
+      ref={ref}
+      className={`action-view ${className}`}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onContextMenu={handleContextMenu}
+      onDoubleClick={handleDoubleClick}
+      onPointerUp={handlePointerUp}
+      onPointerDown={handlePointerDown}
+      onClick={handleClick}
+    >
+      {children}
+    </button>
+  );
+});
 
 ActionView.defaultProps = {
   className: '',
-  disabled: false,
   stopPropagate: false,
 };
 
@@ -104,6 +113,7 @@ ActionView.propTypes = {
   onClick: PropTypes.func,
   onPointerUp: PropTypes.func,
   onPointerDown: PropTypes.func,
-  disabled: PropTypes.bool,
   stopPropagate: PropTypes.bool,
 };
+
+ActionView.displayName = 'ActionView';
