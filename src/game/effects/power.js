@@ -1,4 +1,4 @@
-import Effect from './effect';
+import { Effect } from '../processors/effectsProcessor';
 
 const WEAPON_COMPONENT_NAME = 'weapon';
 

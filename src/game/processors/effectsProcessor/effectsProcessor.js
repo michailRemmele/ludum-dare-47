@@ -1,16 +1,16 @@
 import { Processor } from '@flyer-engine/core';
 
 import effectApplicators from './effectApplicators';
-import effects from './effects';
 
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
 const REMOVE_EFFECT_MSG = 'REMOVE_EFFECT';
 
-class EffectsProcessor extends Processor {
+export class EffectsProcessor extends Processor {
   constructor(options) {
     super();
 
     this._gameObjectObserver = options.gameObjectObserver;
+    this._effects = options.effects;
 
     this._activeEffectsMap = {};
     this._activeEffects = [];
@@ -43,7 +43,7 @@ class EffectsProcessor extends Processor {
 
       const gameObjectId = gameObject.getId();
 
-      const effect = new effects[effectName](gameObject, messageBus, effectOptions);
+      const effect = new this._effects[effectName](gameObject, messageBus, effectOptions);
       const effectApplicator = new effectApplicators[effectType](effect, applicatorOptions);
 
       this._activeEffectsMap[gameObjectId] = this._activeEffectsMap[gameObjectId] || {};
@@ -102,5 +102,3 @@ class EffectsProcessor extends Processor {
     });
   }
 }
-
-export default EffectsProcessor;
