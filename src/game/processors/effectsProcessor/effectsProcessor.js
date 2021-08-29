@@ -5,11 +5,14 @@ import effectApplicators from './effectApplicators';
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
 const REMOVE_EFFECT_MSG = 'REMOVE_EFFECT';
 
+const EFFECT_COMPONENT_NAME = 'effect';
+
 export class EffectsProcessor extends Processor {
   constructor(options) {
     super();
 
     this._gameObjectObserver = options.gameObjectObserver;
+    this._gameObjectSpawner = options.gameObjectSpawner;
     this._effects = options.effects;
 
     this._activeEffectsMap = {};
@@ -34,17 +37,24 @@ export class EffectsProcessor extends Processor {
     newEffects.forEach((message) => {
       const {
         name,
-        effectType,
-        effect: effectName,
-        applicatorOptions,
-        effectOptions,
+        options,
         gameObject,
       } = message;
 
-      const gameObjectId = gameObject.getId();
+      const effectGameObject = this._gameObjectSpawner.spawn(name);
+      const {
+        name: effectName,
+        type,
+        applicatorOptions,
+        options: constOptions,
+      } = effectGameObject.getComponent(EFFECT_COMPONENT_NAME);
 
-      const effect = new this._effects[effectName](gameObject, messageBus, effectOptions);
-      const effectApplicator = new effectApplicators[effectType](effect, applicatorOptions);
+      const Effect = this._effects[effectName];
+
+      const effect = new Effect(gameObject, messageBus, { ...constOptions, ...options });
+      const effectApplicator = new effectApplicators[type](effect, applicatorOptions);
+
+      const gameObjectId = gameObject.getId();
 
       this._activeEffectsMap[gameObjectId] = this._activeEffectsMap[gameObjectId] || {};
 

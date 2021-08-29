@@ -1,0 +1,21 @@
+{
+  "name": "heal",
+  "children": [],
+  "components": [
+    {
+      "name": "transform",
+      "config": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "effect",
+      "config": {
+        "name": "heal",
+        "type": "instant"
+      }
+    }
+  ]
+}

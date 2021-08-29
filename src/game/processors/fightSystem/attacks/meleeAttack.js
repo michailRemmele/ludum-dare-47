@@ -16,7 +16,6 @@ const HEALTH_COMPONENT_NAME = 'health';
 const HITBOX_COMPONENT_NAME = 'hitBox';
 
 const HIT_LIFETIME = 100;
-const FETTER_DURATION = 250;
 const PUSH_IMPULSE = 200;
 
 class MeleeAttack extends Attack {
@@ -97,12 +96,7 @@ class MeleeAttack extends Attack {
         type: ADD_EFFECT_MSG,
         id: targetId,
         gameObject: target,
-        name: 'weaponFetter',
-        effect: 'fetter',
-        effectType: 'timeLimited',
-        applicatorOptions: {
-          duration: FETTER_DURATION,
-        },
+        name: 'fetter',
       });
       this._messageBus.send({
         type: ADD_IMPULSE_MSG,

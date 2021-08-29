@@ -1,0 +1,24 @@
+{
+  "name": "fetter",
+  "children": [],
+  "components": [
+    {
+      "name": "transform",
+      "config": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "effect",
+      "config": {
+        "name": "fetter",
+        "type": "timeLimited",
+        "applicatorOptions": {
+          "duration": 250
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "power",
+  "children": [],
+  "components": [
+    {
+      "name": "transform",
+      "config": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "effect",
+      "config": {
+        "name": "power",
+        "type": "timeLimited",
+        "applicatorOptions": {
+          "duration": 5000
+        }
+      }
+    }
+  ]
+}

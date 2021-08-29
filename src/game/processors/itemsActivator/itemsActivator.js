@@ -7,21 +7,14 @@ const INVENTORY_KEY = 'inventory';
 
 const HEAL_EFFECT = {
   name: 'heal',
-  effect: 'heal',
-  effectType: 'instant',
-  effectOptions: {
+  options: {
     value: 50,
   },
 };
 
 const POWER_EFFECT = {
   name: 'power',
-  effect: 'power',
-  effectType: 'timeLimited',
-  applicatorOptions: {
-    duration: 5000,
-  },
-  effectOptions: {
+  options: {
     damage: 25,
     range: 15,
   },

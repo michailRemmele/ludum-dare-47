@@ -7,12 +7,14 @@ class EffectsProcessorPlugin extends ProcessorPlugin {
     const {
       helpers,
       gameObjectObserver,
+      gameObjectSpawner,
     } = options;
 
     const { effects } = await helpers.loadEffects();
 
     return new EffectsProcessor({
       gameObjectObserver,
+      gameObjectSpawner,
       effects,
     });
   }
