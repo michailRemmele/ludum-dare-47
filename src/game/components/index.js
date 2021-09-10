@@ -1,5 +1,6 @@
 import AimRadius from './aimRadius/AimRadius';
 import { Effect } from './effect';
+import { ActiveEffects } from './activeEffects';
 import Health from './health/health';
 import HitBox from './hitBox/hitBox';
 import AI from './ai/ai';
@@ -12,6 +13,7 @@ import ViewDirection from './viewDirection/viewDirection';
 export default {
   aimRadius: AimRadius,
   effect: Effect,
+  activeEffects: ActiveEffects,
   health: Health,
   hitBox: HitBox,
   ai: AI,

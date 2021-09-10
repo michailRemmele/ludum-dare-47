@@ -6,7 +6,7 @@ export class Effect extends Component {
   constructor(config) {
     super();
 
-    this._name = config.name;
+    this._action = config.action;
     this._type = config.type;
     this._options = { ...config.options };
 
@@ -17,12 +17,12 @@ export class Effect extends Component {
     }
   }
 
-  set name(name) {
-    this._name = name;
+  set action(action) {
+    this._action = action;
   }
 
-  get name() {
-    return this._name;
+  get action() {
+    return this._action;
   }
 
   set type(type) {
@@ -51,7 +51,7 @@ export class Effect extends Component {
 
   clone() {
     return new Effect({
-      name: this.name,
+      action: this.action,
       type: this.type,
       options: this.options,
       applicatorOptions: this.applicatorOptions,

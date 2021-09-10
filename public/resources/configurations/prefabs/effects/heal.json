@@ -13,7 +13,7 @@
     {
       "name": "effect",
       "config": {
-        "name": "heal",
+        "action": "heal",
         "type": "instant"
       }
     }

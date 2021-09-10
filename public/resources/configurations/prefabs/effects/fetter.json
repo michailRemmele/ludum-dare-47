@@ -13,7 +13,7 @@
     {
       "name": "effect",
       "config": {
-        "name": "fetter",
+        "action": "fetter",
         "type": "timeLimited",
         "applicatorOptions": {
           "duration": 250

@@ -13,7 +13,7 @@
     {
       "name": "effect",
       "config": {
-        "name": "power",
+        "action": "power",
         "type": "timeLimited",
         "applicatorOptions": {
           "duration": 5000

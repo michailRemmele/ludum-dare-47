@@ -468,7 +468,11 @@
     {
       "name": "effectsProcessor",
       "section": "gameStateUpdateSection",
-      "filter": {},
+      "filter": {
+        "components": [
+          "activeEffects"
+        ]
+      },
       "options": {}
     },
     {

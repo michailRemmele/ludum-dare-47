@@ -1,11 +1,15 @@
 import { Processor } from '@flyer-engine/core';
 
+import { ActiveEffects } from '../../components/activeEffects';
+
 import effectApplicators from './effectApplicators';
 
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
 const REMOVE_EFFECT_MSG = 'REMOVE_EFFECT';
+const KILL_MSG = 'KILL';
 
 const EFFECT_COMPONENT_NAME = 'effect';
+const ACTIVE_EFFECTS_COMPONENT_NAME = 'activeEffects';
 
 export class EffectsProcessor extends Processor {
   constructor(options) {
@@ -13,23 +17,75 @@ export class EffectsProcessor extends Processor {
 
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
-    this._effects = options.effects;
+    this._actions = options.effects;
 
-    this._activeEffectsMap = {};
-    this._activeEffects = [];
+    this._applicatorsMap = {};
   }
 
-  _removeEffect(name, gameObjectId) {
-    if (!this._activeEffectsMap[gameObjectId] || !this._activeEffectsMap[gameObjectId][name]) {
+  _killEffect(effect, messageBus) {
+    messageBus.send({
+      type: KILL_MSG,
+      id: effect.getId(),
+      gameObject: effect,
+    });
+  }
+
+  _cancelEffect(name, gameObject, messageBus) {
+    const gameObjectId = gameObject.getId();
+
+    if (!this._applicatorsMap[gameObjectId] || !this._applicatorsMap[gameObjectId][name]) {
       return;
     }
 
-    this._activeEffectsMap[gameObjectId][name].cancel();
-    this._activeEffectsMap[gameObjectId][name] = null;
+    this._applicatorsMap[gameObjectId][name].cancel();
+    this._applicatorsMap[gameObjectId][name] = null;
 
-    this._activeEffects = this._activeEffects.filter((entry) => {
-      return entry.name !== name || entry.gameObjectId !== gameObjectId;
+    const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
+
+    activeEffects.list = activeEffects.list.filter((activeEffectName) => {
+      if (name !== activeEffectName) {
+        return true;
+      }
+
+      this._killEffect(activeEffects.map[activeEffectName], messageBus);
+
+      activeEffects.map[activeEffectName] = null;
+
+      return false;
     });
+  }
+
+  _addEffect(name, gameObject, options, messageBus) {
+    const gameObjectId = gameObject.getId();
+
+    const effect = this._gameObjectSpawner.spawn(name);
+    gameObject.appendChild(effect);
+
+    const {
+      action,
+      type,
+      applicatorOptions,
+      options: constOptions,
+    } = effect.getComponent(EFFECT_COMPONENT_NAME);
+
+    if (!gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME)) {
+      gameObject.setComponent(ACTIVE_EFFECTS_COMPONENT_NAME, new ActiveEffects());
+    }
+
+    const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
+    activeEffects.list.push(name);
+    activeEffects.map[name] = effect;
+
+    const EffectAction = this._actions[action];
+    const EffectApplicator = effectApplicators[type];
+
+    const effectApplicator = new EffectApplicator(
+      new EffectAction(gameObject, messageBus, { ...constOptions, ...options }),
+      applicatorOptions
+    );
+
+    this._applicatorsMap[gameObjectId] = this._applicatorsMap[gameObjectId] || {};
+    this._applicatorsMap[gameObjectId][name] = effectApplicator;
   }
 
   _processNewEffects(messageBus) {
@@ -41,31 +97,8 @@ export class EffectsProcessor extends Processor {
         gameObject,
       } = message;
 
-      const effectGameObject = this._gameObjectSpawner.spawn(name);
-      const {
-        name: effectName,
-        type,
-        applicatorOptions,
-        options: constOptions,
-      } = effectGameObject.getComponent(EFFECT_COMPONENT_NAME);
-
-      const Effect = this._effects[effectName];
-
-      const effect = new Effect(gameObject, messageBus, { ...constOptions, ...options });
-      const effectApplicator = new effectApplicators[type](effect, applicatorOptions);
-
-      const gameObjectId = gameObject.getId();
-
-      this._activeEffectsMap[gameObjectId] = this._activeEffectsMap[gameObjectId] || {};
-
-      this._removeEffect(name, gameObjectId);
-
-      this._activeEffectsMap[gameObjectId][name] = effectApplicator;
-      this._activeEffects.push({
-        name: name,
-        gameObjectId: gameObjectId,
-        effectApplicator: effectApplicator,
-      });
+      this._cancelEffect(name, gameObject, messageBus);
+      this._addEffect(name, gameObject, options, messageBus);
     });
   }
 
@@ -73,7 +106,7 @@ export class EffectsProcessor extends Processor {
     const cancelledEffects = messageBus.get(REMOVE_EFFECT_MSG) || [];
     cancelledEffects.forEach((message) => {
       const { name, gameObject } = message;
-      this._removeEffect(name, gameObject.getId());
+      this._cancelEffect(name, gameObject, messageBus);
     });
   }
 
@@ -81,9 +114,9 @@ export class EffectsProcessor extends Processor {
     this._gameObjectObserver.getLastRemoved().forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
 
-      const activeEffectNames = Object.keys(this._activeEffectsMap[gameObjectId] || {});
-      activeEffectNames.forEach((name) => {
-        this._removeEffect(name, gameObjectId);
+      const applicatorsNames = Object.keys(this._applicatorsMap[gameObjectId] || {});
+      applicatorsNames.forEach((name) => {
+        this._applicatorsMap[gameObjectId][name] = null;
       });
     });
   }
@@ -96,19 +129,28 @@ export class EffectsProcessor extends Processor {
     this._processNewEffects(messageBus);
     this._processEffectsCancellation(messageBus);
 
-    this._activeEffects = this._activeEffects.filter((entry) => {
-      const { name, gameObjectId, effectApplicator } = entry;
+    this._gameObjectObserver.forEach((gameObject) => {
+      const gameObjectId = gameObject.getId();
+      const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
 
-      effectApplicator.update(deltaTime);
+      activeEffects.list = activeEffects.list.filter((name) => {
+        const effectApplicator = this._applicatorsMap[gameObjectId][name];
 
-      if (effectApplicator.isFinished()) {
-        this._activeEffectsMap[gameObjectId][name].cancel();
-        this._activeEffectsMap[gameObjectId][name] = null;
+        effectApplicator.update(deltaTime);
 
-        return false;
-      }
+        if (effectApplicator.isFinished()) {
+          effectApplicator.cancel();
 
-      return true;
+          this._killEffect(activeEffects.map[name], messageBus);
+
+          activeEffects.map[name] = null;
+          this._applicatorsMap[gameObjectId][name] = null;
+
+          return false;
+        }
+
+        return true;
+      });
     });
   }
 }
