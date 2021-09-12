@@ -1,15 +1,12 @@
 import EffectApplicator from './effectApplicator';
 
+import { EFFECT_COMPONENT_NAME } from '../consts';
+
 class PeriodicalEffectApplicator extends EffectApplicator {
-  constructor(effect, options) {
-    super();
+  constructor(...args) {
+    super(...args);
 
-    this._effect = effect;
     this._isFinished = false;
-    this._frequency = options.frequency;
-    this._duration = options.duration;
-
-    this._cooldown = this._frequency;
   }
 
   update(deltaTime) {
@@ -17,19 +14,26 @@ class PeriodicalEffectApplicator extends EffectApplicator {
       return;
     }
 
-    this._cooldown -= deltaTime;
+    const { applicatorOptions } = this._effect.getComponent(EFFECT_COMPONENT_NAME);
 
-    while (this._cooldown <= 0) {
-      this._effect.apply();
-      this._cooldown += this._frequency;
+    applicatorOptions.cooldown -= deltaTime;
+
+    while (applicatorOptions.cooldown <= 0) {
+      this._action.apply();
+      this._handleApply();
+      applicatorOptions.cooldown += applicatorOptions.frequency;
     }
 
-    if (this._duration) {
-      this._duration -= deltaTime;
-      if (this._duration <= 0) {
+    if (applicatorOptions.duration) {
+      applicatorOptions.duration -= deltaTime;
+      if (applicatorOptions.duration <= 0) {
         this._isFinished = true;
       }
     }
+  }
+
+  cancel() {
+    this._handleCancel();
   }
 
   isFinished() {

@@ -2,6 +2,7 @@ export class PeriodicalEffectOptions {
   constructor(options) {
     this._frequency = options.frequency;
     this._duration = options.duration;
+    this._cooldown = options.frequency;
   }
 
   set frequency(frequency) {
@@ -18,5 +19,13 @@ export class PeriodicalEffectOptions {
 
   get duration() {
     return this._duration;
+  }
+
+  set cooldown(cooldown) {
+    this._cooldown = cooldown;
+  }
+
+  get cooldown() {
+    return this._cooldown;
   }
 }
