@@ -631,7 +631,8 @@
           "space",
           "terrain",
           "decorations",
-          "units"
+          "units",
+          "effects"
         ],
         "scaleSensitivity": 50
       }
