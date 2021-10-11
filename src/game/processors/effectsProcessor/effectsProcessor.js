@@ -58,13 +58,6 @@ export class EffectsProcessor extends Processor {
 
     const effect = this._gameObjectSpawner.spawn(name);
     gameObject.appendChild(effect);
-    effect.setParent(gameObject);
-
-    console.log(effect.getComponent('transform').offsetX);
-    console.log(effect.getComponent('transform').offsetY);
-    console.log(effect.getParent());
-    console.log(effect.getParent().getComponent('transform').offsetX);
-    console.log(effect.getParent().getComponent('transform').offsetY);
 
     const {
       action,

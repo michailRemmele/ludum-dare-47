@@ -3,8 +3,8 @@ import { Component } from '@flyer-engine/core';
 import { applicatorOptions } from './applicatorOptions';
 
 export class Effect extends Component {
-  constructor(config) {
-    super();
+  constructor(componentName, config) {
+    super(componentName, config);
 
     this._action = config.action;
     this._type = config.type;
@@ -50,7 +50,7 @@ export class Effect extends Component {
   }
 
   clone() {
-    return new Effect({
+    return new Effect(this.componentName, {
       action: this.action,
       type: this.type,
       options: this.options,

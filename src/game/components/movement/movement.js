@@ -1,8 +1,8 @@
 import { Component, Vector2 } from '@flyer-engine/core';
 
 class Movement extends Component {
-  constructor(config) {
-    super();
+  constructor(componentName, config) {
+    super(componentName, config);
 
     this._speed = config.speed;
     this._vector = new Vector2(0, 0);
@@ -34,7 +34,7 @@ class Movement extends Component {
   }
 
   clone() {
-    return new Movement({
+    return new Movement(this.componentName, {
       speed: this.speed,
     });
   }

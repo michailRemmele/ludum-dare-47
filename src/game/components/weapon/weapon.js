@@ -4,8 +4,8 @@ import MeleeWeapon from './meleeWeapon';
 import RangeWeapon from './rangeWeapon';
 
 class Weapon extends Component {
-  constructor(config) {
-    super();
+  constructor(componentName, config) {
+    super(componentName, config);
 
     this._weapons = {
       melee: MeleeWeapon,
@@ -56,7 +56,7 @@ class Weapon extends Component {
   }
 
   clone() {
-    return new Weapon({
+    return new Weapon(this.componentName, {
       type: this.type,
       cooldown: this.cooldown,
       properties: this.properties.clone(),

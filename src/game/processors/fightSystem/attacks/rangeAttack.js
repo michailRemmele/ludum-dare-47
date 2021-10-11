@@ -85,7 +85,7 @@ class RangeAttack extends Attack {
       const { gameObject2 } = message;
 
       const hitBox = gameObject2.getComponent(HITBOX_COMPONENT_NAME);
-      const target = gameObject2.getParent();
+      const target = gameObject2.parent;
 
       if (!hitBox || !target) {
         return false;

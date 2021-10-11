@@ -1,8 +1,8 @@
 import { Component } from '@flyer-engine/core';
 
 class ViewDirection extends Component {
-  constructor(config) {
-    super();
+  constructor(componentName, config) {
+    super(componentName, config);
 
     this._x = config.x;
     this._y = config.y;
@@ -25,7 +25,7 @@ class ViewDirection extends Component {
   }
 
   clone() {
-    return new ViewDirection({
+    return new ViewDirection(this.componentName, {
       x: this.x,
       y: this.y,
     });

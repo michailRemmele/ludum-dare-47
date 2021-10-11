@@ -1,8 +1,8 @@
 import { Component } from '@flyer-engine/core';
 
 export class ActiveEffects extends Component {
-  constructor(config) {
-    super();
+  constructor(componentName, config) {
+    super(componentName, config);
 
     this._list = config ? [ ...config.list ] : [];
     this._map = config ? { ...config.map } : {};
@@ -25,7 +25,7 @@ export class ActiveEffects extends Component {
   }
 
   clone() {
-    return new ActiveEffects({
+    return new ActiveEffects(this.componentName, {
       list: this.list,
       map: this.map,
     });
