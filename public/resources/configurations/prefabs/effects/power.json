@@ -19,6 +19,171 @@
           "duration": 5000
         }
       }
+    },
+    {
+      "name": "animatable",
+      "config": {
+        "initialState": "apply",
+        "states": [
+          {
+            "name": "apply",
+            "speed": 1.25,
+            "transitions": [
+              {
+                "state": "idle",
+                "conditions": [],
+                "time": "1"
+              }
+            ],
+            "type": "individual",
+            "timeline": {
+              "frames": [
+                {
+                  "index": 0,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 1,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 2,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 3,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 4,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 5,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 6,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 7,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                }
+              ],
+              "looped": false
+            }
+          },
+          {
+            "name": "idle",
+            "speed": 0.5,
+            "transitions": [
+              {
+                "state": "cancel",
+                "conditions": [
+                  {
+                    "type": "message",
+                    "props": {
+                      "message": "EFFECT_CANCEL"
+                    }
+                  }
+                ]
+              }
+            ],
+            "type": "individual",
+            "timeline": {
+              "frames": [
+                {
+                  "index": 8,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": true
+                },
+                {
+                  "index": 9,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 10,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                },
+                {
+                  "index": 11,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": false
+                }
+              ],
+              "looped": true
+            }
+          },
+          {
+            "name": "cancel",
+            "type": "individual",
+            "speed": 1,
+            "timeline": {
+              "frames": [
+                {
+                  "index": 0,
+                  "rotation": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "disabled": true
+                }
+              ],
+              "looped": false
+            },
+            "transitions": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "renderable",
+      "config": {
+        "type": "sprite",
+        "src": "effects/power-effect",
+        "width": 26,
+        "height": 26,
+        "slice": 12,
+        "rotation": 0,
+        "origin": [ 0, 0 ],
+        "flipX": false,
+        "flipY": false,
+        "sortingLayer": "effects"
+      }
     }
   ]
 }

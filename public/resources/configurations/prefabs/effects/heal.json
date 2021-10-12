@@ -55,7 +55,7 @@
           {
             "name": "apply",
             "type": "individual",
-            "speed": 1,
+            "speed": 1.25,
             "timeline": {
               "frames": [
                 {
@@ -108,7 +108,7 @@
                   "disabled": false
                 },
                 {
-                  "index": 6,
+                  "index": 7,
                   "rotation": 0,
                   "flipX": false,
                   "flipY": false,
