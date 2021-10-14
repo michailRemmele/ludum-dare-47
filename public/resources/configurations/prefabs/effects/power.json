@@ -7,6 +7,7 @@
       "config": {
         "offsetX": 0,
         "offsetY": 0,
+        "offsetZ": 1,
         "rotation": 0
       }
     },
@@ -182,7 +183,7 @@
         "origin": [ 0, 0 ],
         "flipX": false,
         "flipY": false,
-        "sortingLayer": "effects"
+        "sortingLayer": "units"
       }
     }
   ]

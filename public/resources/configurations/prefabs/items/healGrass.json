@@ -9,6 +9,7 @@
       "config": {
         "offsetX": 0,
         "offsetY": 0,
+        "offsetZ": 0,
         "rotation": 0
       }
     },
