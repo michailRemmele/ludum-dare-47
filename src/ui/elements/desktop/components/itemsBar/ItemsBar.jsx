@@ -2,8 +2,6 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { ActionBar } from '../actionBar';
-import healPotionIcon from '../../../../media/images/heal-potion.png';
-import powerPotionIcon from '../../../../media/images/power-potion.png';
 
 import './style.css';
 
@@ -11,12 +9,12 @@ const ITEMS = {
   healPotion: {
     name: 'Heal Potion',
     key: '1',
-    iconSrc: healPotionIcon,
+    iconSrc: '/media/images/heal-potion.png',
   },
   powerPotion: {
     name: 'Power Potion',
     key: '2',
-    iconSrc: powerPotionIcon,
+    iconSrc: '/media/images/power-potion.png',
   },
 };
 

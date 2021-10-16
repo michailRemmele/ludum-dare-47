@@ -6,8 +6,10 @@ import {
   Button,
 } from '../../elements/common';
 
-import GithubIcon from '../../media/images/github.svg';
-import TelegramIcon from '../../media/images/telegram.svg';
+import {
+  GithubIcon,
+  TelegramIcon,
+} from '../../media/icons';
 
 import './style.css';
 

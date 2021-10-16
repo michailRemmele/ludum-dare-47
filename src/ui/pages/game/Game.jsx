@@ -5,6 +5,7 @@ import {
   withGame,
   withDeviceDetection,
   HealthBar,
+  EffectsBar,
   Inventory,
   Button,
   ItemsBarContainer,
@@ -18,12 +19,9 @@ import {
 import {
   ActionBar,
 } from '../../elements/desktop';
+import { PLAYER_ID } from '../../consts';
 
 import './style.css';
-
-import attackIcon from '../../media/images/attack-icon.png';
-import inventoryIcon from '../../media/images/inventory-icon.png';
-import grabIcon from '../../media/images/grab-icon.png';
 
 const VICTORY_MSG = 'VICTORY';
 const DEFEAT_MSG = 'DEFEAT';
@@ -40,7 +38,6 @@ const CAN_GRAB_KEY = 'canGrab';
 const INVENTORY_KEY = 'inventory';
 const TIME_OF_DAY_KEY = 'timeOfDay';
 
-const PLAYER_ID = '1';
 const HEALTH_COMPONENT_NAME = 'health';
 
 const DEV_MODE = 'development';
@@ -288,9 +285,10 @@ export class Game extends React.Component {
           <header className='game__header'>
             <div className='game__left-bar'>
               <HealthBar health={this.state.health} maxHealth={this.state.maxHealth}/>
+              <EffectsBar />
               {NODE_ENV === DEV_MODE && <FpsMeter className='game__fps-meter'/>}
             </div>
-            <MenuButton icon={inventoryIcon} onClick={this.onInventoryToggle} />
+            <MenuButton icon='/media/images/inventory-icon.png' onClick={this.onInventoryToggle} />
           </header>
           <div className='game__main'>
             <ItemsBarContainer
@@ -303,13 +301,13 @@ export class Game extends React.Component {
               {this.state.canGrab && (
                 <ControlButton
                   className='control-bar__button control-bar__button_grab'
-                  icon={grabIcon}
+                  icon='/media/images/grab-icon.png'
                   onClick={this.onCollectItem}
                 />
               )}
               <ControlButton
                 className='control-bar__button control-bar__button_attack'
-                icon={attackIcon}
+                icon='/media/images/attack-icon.png'
                 size='lg'
                 onClick={this.onAttack}
               />
@@ -323,6 +321,7 @@ export class Game extends React.Component {
           <header className='game__header'>
             <div className='game__left-bar'>
               <HealthBar health={this.state.health}/>
+              <EffectsBar />
               {NODE_ENV === DEV_MODE && <FpsMeter className='game__fps-meter'/>}
             </div>
             <ActionBar

@@ -143,6 +143,13 @@
         "flipY": false,
         "sortingLayer": "units"
       }
+    },
+    {
+      "name": "ui",
+      "config": {
+        "icon": "/media/images/heal-potion.png",
+        "title": "Heal effect"
+      }
     }
   ]
 }

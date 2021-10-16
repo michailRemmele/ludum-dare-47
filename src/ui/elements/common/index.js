@@ -3,6 +3,7 @@ export { GameProvider } from './providers';
 export {
   ActionView,
   Button,
+  EffectsBar,
   HealthBar,
   IconButton,
   Inventory,

@@ -9,6 +9,7 @@ import Weapon from './weapon/weapon';
 import ThumbStickControl from './thumbStickControl/thumbStickControl';
 import Movement from './movement/movement';
 import ViewDirection from './viewDirection/viewDirection';
+import { UI } from './ui';
 
 export default {
   aimRadius: AimRadius,
@@ -22,4 +23,5 @@ export default {
   thumbStickControl: ThumbStickControl,
   movement: Movement,
   viewDirection: ViewDirection,
+  ui: UI,
 };

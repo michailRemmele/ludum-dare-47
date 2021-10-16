@@ -185,6 +185,13 @@
         "flipY": false,
         "sortingLayer": "units"
       }
+    },
+    {
+      "name": "ui",
+      "config": {
+        "icon": "/media/images/power-potion.png",
+        "title": "Power effect"
+      }
     }
   ]
 }
