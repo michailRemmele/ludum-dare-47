@@ -6,4 +6,4 @@ export { IconButton } from './iconButton';
 export { Inventory } from './inventory';
 export { SceneSwitcher } from './sceneSwitcher';
 export { ItemsBarContainer } from './itemsBarContainer';
-export { FpsMeter } from './fpsMeter';
+export { GameStatsMeter } from './gameStatsMeter';

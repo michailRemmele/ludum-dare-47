@@ -649,7 +649,7 @@
       }
     },
     {
-      "name": "fpsMeter",
+      "name": "gameStatsMeter",
       "section": "renderingSection",
       "filter": {},
       "options": {}

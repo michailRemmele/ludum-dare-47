@@ -9,5 +9,5 @@ export {
   Inventory,
   SceneSwitcher,
   ItemsBarContainer,
-  FpsMeter,
+  GameStatsMeter,
 } from './components';
