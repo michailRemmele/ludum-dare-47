@@ -142,7 +142,7 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "KILL"
+                      "message": "DEATH"
                     }
                   }
                 ],
@@ -356,7 +356,7 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "KILL"
+                      "message": "DEATH"
                     }
                   }
                 ],
@@ -592,7 +592,7 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "KILL"
+                      "message": "DEATH"
                     }
                   }
                 ],
@@ -731,7 +731,7 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "KILL"
+                      "message": "DEATH"
                     }
                   }
                 ],

@@ -96,7 +96,7 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "KILL"
+                      "message": "DEATH"
                     }
                   }
                 ]
