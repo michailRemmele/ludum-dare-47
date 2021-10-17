@@ -285,7 +285,7 @@ export class Game extends React.Component {
           <header className='game__header'>
             <div className='game__left-bar'>
               <HealthBar health={this.state.health} maxHealth={this.state.maxHealth}/>
-              <EffectsBar />
+              <EffectsBar className='game__effects-bar' />
               {NODE_ENV === DEV_MODE && <FpsMeter className='game__fps-meter'/>}
             </div>
             <MenuButton icon='/media/images/inventory-icon.png' onClick={this.onInventoryToggle} />
@@ -321,7 +321,7 @@ export class Game extends React.Component {
           <header className='game__header'>
             <div className='game__left-bar'>
               <HealthBar health={this.state.health}/>
-              <EffectsBar />
+              <EffectsBar className='game__effects-bar' />
               {NODE_ENV === DEV_MODE && <FpsMeter className='game__fps-meter'/>}
             </div>
             <ActionBar

@@ -29,6 +29,7 @@ export const EffectsBar = ({ className, gameObjects }) => {
 
         if (effect && ui) {
           acc.push({
+            name: effectName,
             iconSrc: ui.icon,
             title: ui.title,
             duration: Math.round(effect.applicatorOptions.duration / 1000),
@@ -55,12 +56,21 @@ export const EffectsBar = ({ className, gameObjects }) => {
     return () => gameObjects.unsubscribe(handlePlayerUpdate, PLAYER_ID);
   }, [ effects ]);
 
+  if (!effects.length) {
+    return null;
+  }
+
   return (
-    <div
+    <ul
       className={`effects-bar ${className}`}
     >
-      Active Effects
-    </div>
+      {effects.map((effect) => (
+        <li className='effects-bar__item' key={effect.name}>
+          <img className='effects-bar__icon' src={effect.iconSrc} alt={effect.title} />
+          <span className='effects-bar__title'>{`${effect.duration} sec.`}</span>
+        </li>
+      ))}
+    </ul>
   );
 };
 
