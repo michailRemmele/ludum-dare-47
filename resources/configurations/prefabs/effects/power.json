@@ -189,7 +189,7 @@
     {
       "name": "ui",
       "config": {
-        "icon": "/media/images/power-potion.png",
+        "icon": "./media/images/power-potion.png",
         "title": "Power effect"
       }
     }
