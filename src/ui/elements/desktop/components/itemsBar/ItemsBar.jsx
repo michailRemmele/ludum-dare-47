@@ -9,12 +9,12 @@ const ITEMS = {
   healPotion: {
     name: 'Heal Potion',
     key: '1',
-    iconSrc: '/media/images/heal-potion.png',
+    iconSrc: './media/images/heal-potion.png',
   },
   powerPotion: {
     name: 'Power Potion',
     key: '2',
-    iconSrc: '/media/images/power-potion.png',
+    iconSrc: './media/images/power-potion.png',
   },
 };
 

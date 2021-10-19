@@ -7,10 +7,10 @@ import './style.css';
 
 const ITEMS = {
   healPotion: {
-    icon: '/media/images/heal-potion.png',
+    icon: './media/images/heal-potion.png',
   },
   powerPotion: {
-    icon: '/media/images/power-potion.png',
+    icon: './media/images/power-potion.png',
   },
 };
 

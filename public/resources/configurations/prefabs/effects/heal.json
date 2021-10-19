@@ -147,7 +147,7 @@
     {
       "name": "ui",
       "config": {
-        "icon": "/media/images/heal-potion.png",
+        "icon": "./media/images/heal-potion.png",
         "title": "Heal effect"
       }
     }
