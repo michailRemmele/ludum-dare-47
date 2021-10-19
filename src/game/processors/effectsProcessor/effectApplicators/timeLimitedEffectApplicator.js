@@ -1,11 +1,10 @@
 import EffectApplicator from './effectApplicator';
 
-class TimeLimitedEffectApplicator extends EffectApplicator {
-  constructor(effect, options) {
-    super();
+import { EFFECT_COMPONENT_NAME } from '../consts';
 
-    this._effect = effect;
-    this._duration = options.duration;
+class TimeLimitedEffectApplicator extends EffectApplicator {
+  constructor(...args) {
+    super(...args);
 
     this._isApplied = false;
     this._isFinished = false;
@@ -16,9 +15,11 @@ class TimeLimitedEffectApplicator extends EffectApplicator {
       return;
     }
 
-    this._duration -= deltaTime;
+    const { applicatorOptions } = this._effect.getComponent(EFFECT_COMPONENT_NAME);
 
-    if (this._duration <= 0) {
+    applicatorOptions.duration -= deltaTime;
+
+    if (applicatorOptions.duration <= 0) {
       this._isFinished = true;
       return;
     }
@@ -27,7 +28,8 @@ class TimeLimitedEffectApplicator extends EffectApplicator {
       return;
     }
 
-    this._effect.apply();
+    this._action.apply();
+    this._handleApply();
     this._isApplied = true;
   }
 
@@ -36,7 +38,8 @@ class TimeLimitedEffectApplicator extends EffectApplicator {
       return;
     }
 
-    this._effect.onCancel();
+    this._action.onCancel();
+    this._handleCancel();
   }
 
   isFinished() {

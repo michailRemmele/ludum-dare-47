@@ -50,7 +50,7 @@ class AutoAimingProcessor extends Processor {
           const { gameObject2 } = collisionMessage;
 
           const hitBox = gameObject2.getComponent(HITBOX_COMPONENT_NAME);
-          const targetParent = gameObject2.getParent();
+          const targetParent = gameObject2.parent;
 
           if (!hitBox || gameObject.getId() === targetParent.getId()) {
             return;

@@ -13,8 +13,6 @@ const COLLIDER_CONTAINER_COMPONENT_NAME = 'colliderContainer';
 const HEALTH_COMPONENT_NAME = 'health';
 const HITBOX_COMPONENT_NAME = 'hitBox';
 
-const FETTER_DURATION = 250;
-
 class RangeAttack extends Attack {
   constructor(gameObject, spawner, messageBus, angle) {
     super();
@@ -87,7 +85,7 @@ class RangeAttack extends Attack {
       const { gameObject2 } = message;
 
       const hitBox = gameObject2.getComponent(HITBOX_COMPONENT_NAME);
-      const target = gameObject2.getParent();
+      const target = gameObject2.parent;
 
       if (!hitBox || !target) {
         return false;
@@ -109,12 +107,7 @@ class RangeAttack extends Attack {
         type: ADD_EFFECT_MSG,
         id: targetId,
         gameObject: target,
-        name: 'weaponFetter',
-        effect: 'fetter',
-        effectType: 'timeLimited',
-        applicatorOptions: {
-          duration: FETTER_DURATION,
-        },
+        name: 'fetter',
       });
       this._messageBus.send({
         type: ADD_IMPULSE_MSG,

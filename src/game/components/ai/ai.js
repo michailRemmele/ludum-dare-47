@@ -1,8 +1,8 @@
 import { Component } from '@flyer-engine/core';
 
 class AI extends Component {
-  constructor(config) {
-    super();
+  constructor(componentName, config) {
+    super(componentName, config);
 
     this._strategy = config.strategy;
   }
@@ -16,7 +16,7 @@ class AI extends Component {
   }
 
   clone() {
-    return new AI({
+    return new AI(this.componentName, {
       strategy: this.strategy,
     });
   }

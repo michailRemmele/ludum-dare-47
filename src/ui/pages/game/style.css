@@ -32,7 +32,11 @@
   flex: 1;
 }
 
-.game__fps-meter {
+.game__effects-bar {
+  margin-top: 10px;
+}
+
+.game__game-stats-meter {
   position: absolute;
 }
 

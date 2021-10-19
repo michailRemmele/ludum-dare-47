@@ -2,17 +2,15 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { TouchButton } from '../touchButton';
-import healPotionIcon from '../../../../media/images/heal-potion.png';
-import powerPotionIcon from '../../../../media/images/power-potion.png';
 
 import './style.css';
 
 const ITEMS = {
   healPotion: {
-    icon: healPotionIcon,
+    icon: '/media/images/heal-potion.png',
   },
   powerPotion: {
-    icon: powerPotionIcon,
+    icon: '/media/images/power-potion.png',
   },
 };
 

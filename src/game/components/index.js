@@ -1,4 +1,6 @@
 import AimRadius from './aimRadius/AimRadius';
+import { Effect } from './effect';
+import { ActiveEffects } from './activeEffects';
 import Health from './health/health';
 import HitBox from './hitBox/hitBox';
 import AI from './ai/ai';
@@ -7,9 +9,12 @@ import Weapon from './weapon/weapon';
 import ThumbStickControl from './thumbStickControl/thumbStickControl';
 import Movement from './movement/movement';
 import ViewDirection from './viewDirection/viewDirection';
+import { UI } from './ui';
 
 export default {
   aimRadius: AimRadius,
+  effect: Effect,
+  activeEffects: ActiveEffects,
   health: Health,
   hitBox: HitBox,
   ai: AI,
@@ -18,4 +23,5 @@ export default {
   thumbStickControl: ThumbStickControl,
   movement: Movement,
   viewDirection: ViewDirection,
+  ui: UI,
 };

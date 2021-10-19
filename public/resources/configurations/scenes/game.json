@@ -13,6 +13,7 @@
           "config": {
             "offsetX": 0,
             "offsetY": 0,
+            "offsetZ": 0,
             "rotation": 0
           }
         }
@@ -30,6 +31,7 @@
           "config": {
             "offsetX": 0,
             "offsetY": 0,
+            "offsetZ": 0,
             "rotation": 0
           }
         }
@@ -47,6 +49,7 @@
           "config": {
             "offsetX": 208,
             "offsetY": 0,
+            "offsetZ": 0,
             "rotation": 0
           }
         }
@@ -64,6 +67,7 @@
           "config": {
             "offsetX": -208,
             "offsetY": 0,
+            "offsetZ": 0,
             "rotation": 0
           }
         }
@@ -81,6 +85,7 @@
           "config": {
             "offsetX": 0,
             "offsetY": -208,
+            "offsetZ": 0,
             "rotation": 0
           }
         }
@@ -98,6 +103,7 @@
           "config": {
             "offsetX": 0,
             "offsetY": 208,
+            "offsetZ": 0,
             "rotation": 0
           }
         }
@@ -115,6 +121,7 @@
           "config": {
             "offsetX": -208,
             "offsetY": -208,
+            "offsetZ": 0,
             "rotation": 0
           }
         }
@@ -132,6 +139,7 @@
           "config": {
             "offsetX": 208,
             "offsetY": -208,
+            "offsetZ": 0,
             "rotation": 0
           }
         }
@@ -149,6 +157,7 @@
           "config": {
             "offsetX": 208,
             "offsetY": 208,
+            "offsetZ": 0,
             "rotation": 0
           }
         }
@@ -166,6 +175,7 @@
           "config": {
             "offsetX": -208,
             "offsetY": 208,
+            "offsetZ": 0,
             "rotation": 0
           }
         }
@@ -205,6 +215,7 @@
               "config": {
                 "offsetX": 0,
                 "offsetY": 0,
+                "offsetZ": 0,
                 "rotation": 0
               }
             },
@@ -223,6 +234,7 @@
           "config": {
             "offsetX": 0,
             "offsetY": 0,
+            "offsetZ": 0,
             "rotation": 0
           }
         },
@@ -468,7 +480,11 @@
     {
       "name": "effectsProcessor",
       "section": "gameStateUpdateSection",
-      "filter": {},
+      "filter": {
+        "components": [
+          "activeEffects"
+        ]
+      },
       "options": {}
     },
     {
@@ -633,7 +649,7 @@
       }
     },
     {
-      "name": "fpsMeter",
+      "name": "gameStatsMeter",
       "section": "renderingSection",
       "filter": {},
       "options": {}

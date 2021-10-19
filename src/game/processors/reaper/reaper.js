@@ -1,6 +1,7 @@
 import { Processor } from '@flyer-engine/core';
 
 const KILL_MSG = 'KILL';
+const DEATH_MSG = 'DEATH';
 
 const GRAVEYARD_CLEAN_FREQUENCY = 1000;
 
@@ -20,29 +21,35 @@ class Reaper extends Processor {
     this._timeCounter = 0;
   }
 
-  _filterGameObjectComponents(gameObject) {
+  _killGameObject(gameObject, messageBus) {
     gameObject.getComponentNamesList().forEach((componentName) => {
       if (!this._allowedComponents[componentName]) {
         gameObject.removeComponent(componentName);
       }
     });
 
-    gameObject.getChildren().forEach((child) => this._filterGameObjectComponents(child));
+    this._graveyard.push({
+      gameObject,
+      lifetime: this._lifetime,
+    });
+
+    messageBus.send({
+      type: DEATH_MSG,
+      id: gameObject.getId(),
+      gameObject,
+    });
+
+    gameObject.getChildren().forEach((child) => this._killGameObject(child, messageBus));
   }
 
   process(options) {
     const { messageBus, deltaTime } = options;
 
-    const damageMessages = messageBus.get(KILL_MSG) || [];
-    damageMessages.forEach((message) => {
+    const killMessages = messageBus.get(KILL_MSG) || [];
+    killMessages.forEach((message) => {
       const { gameObject } = message;
 
-      this._filterGameObjectComponents(gameObject);
-
-      this._graveyard.push({
-        gameObject: gameObject,
-        lifetime: this._lifetime,
-      });
+      this._killGameObject(gameObject, messageBus);
     });
 
     this._timeCounter += deltaTime;

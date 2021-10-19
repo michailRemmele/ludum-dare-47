@@ -3,7 +3,7 @@ import Fetter from './fetter';
 import Heal from './heal';
 import Power from './power';
 
-export default {
+export const effects = {
   damage: Damage,
   fetter: Fetter,
   heal: Heal,

@@ -1,0 +1,47 @@
+.game-stats-meter {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 10px;
+}
+
+.game-stats-meter__details {
+  display: flex;
+}
+
+.game-stats-meter__fps {
+  color: white;
+
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.game-stats-meter__load {
+  display: flex;
+  flex-direction: column;
+
+  margin: 2px 0 0 10px;
+}
+
+.game-stats-meter__additional {
+  font-size: 14px;
+  color: white;
+}
+
+.game-stats-meter__chart {
+  width: 200px;
+  height: 60px;
+
+  padding-top: 5px;
+}
+
+@media screen and (max-height: 481px), screen and (max-width: 768px) {
+  .game-stats-meter__title {
+    font-size: 24px;
+  }
+
+  .game-stats-meter__chart {
+    width: 150px;
+    height: 45px;
+  }  
+}

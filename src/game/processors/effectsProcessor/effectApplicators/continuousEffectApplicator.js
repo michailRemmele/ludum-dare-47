@@ -1,10 +1,8 @@
 import EffectApplicator from './effectApplicator';
 
 class ContinuousEffectApplicator extends EffectApplicator {
-  constructor(effect) {
-    super();
-
-    this._effect = effect;
+  constructor(...args) {
+    super(...args);
 
     this._isApplied = false;
   }
@@ -14,7 +12,8 @@ class ContinuousEffectApplicator extends EffectApplicator {
       return;
     }
 
-    this._effect.apply();
+    this._action.apply();
+    this._handleApply();
     this._isApplied = true;
   }
 
@@ -23,7 +22,8 @@ class ContinuousEffectApplicator extends EffectApplicator {
       return;
     }
 
-    this._effect.onCancel();
+    this._action.onCancel();
+    this._handleCancel();
   }
 
   isFinished() {

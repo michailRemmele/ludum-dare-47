@@ -1,10 +1,9 @@
 import EffectApplicator from './effectApplicator';
 
 class InstantEffectApplicator extends EffectApplicator {
-  constructor(effect) {
-    super();
+  constructor(...args) {
+    super(...args);
 
-    this._effect = effect;
     this._isFinished = false;
   }
 
@@ -13,8 +12,13 @@ class InstantEffectApplicator extends EffectApplicator {
       return;
     }
 
-    this._effect.apply();
+    this._action.apply();
+    this._handleApply();
     this._isFinished = true;
+  }
+
+  cancel() {
+    this._handleCancel();
   }
 
   isFinished() {

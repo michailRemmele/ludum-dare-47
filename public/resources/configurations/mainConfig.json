@@ -39,7 +39,7 @@
       "src": "resources/configurations/prefabs/terrain/pathBlockerBottomLeft.json"
     },
     {
-      "src": "resources/configurations/prefabs/effects/hit.json"
+      "src": "resources/configurations/prefabs/zones/hit.json"
     },
     {
       "src": "resources/configurations/prefabs/units/enemy.json"
@@ -58,6 +58,15 @@
     },
     {
       "src": "resources/configurations/prefabs/items/energyBall.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/effects/fetter.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/effects/heal.json"
+    },
+    {
+      "src": "resources/configurations/prefabs/effects/power.json"
     }
   ],
   "startScene": "mainMenu"

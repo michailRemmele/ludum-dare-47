@@ -1,8 +1,8 @@
 import { Component } from '@flyer-engine/core';
 
 class Collectable extends Component {
-  constructor(config) {
-    super();
+  constructor(componentName, config) {
+    super(componentName, config);
 
     this._name = config.name;
   }
@@ -16,7 +16,7 @@ class Collectable extends Component {
   }
 
   clone() {
-    return new Collectable({
+    return new Collectable(this.componentName, {
       name: this.name,
     });
   }

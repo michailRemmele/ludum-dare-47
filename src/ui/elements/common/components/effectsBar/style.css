@@ -1,0 +1,44 @@
+.effects-bar {
+  display: flex;
+
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+}
+
+.effects-bar__item {
+  display: flex;
+  flex-direction: column;
+
+  text-align: center;
+}
+
+.effects-bar__item + .effects-bar__item {
+  margin-left: 10px;
+}
+
+.effects-bar__icon {
+  width: 32px;
+  height: 32px;
+
+  padding: 5px;
+
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+
+  border: 3px solid #fff;
+}
+
+.effects-bar__title {
+  color: #fff;
+}
+
+@media screen and (max-height: 481px), screen and (max-width: 768px) {
+  .effects-bar__icon {
+    width: 26px;
+    height: 26px;
+
+    padding: 4px;
+  }
+}

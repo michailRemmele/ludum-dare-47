@@ -9,6 +9,7 @@
       "config": {
         "offsetX": 0,
         "offsetY": 0,
+        "offsetZ": 0,
         "rotation": 0
       }
     },
@@ -55,7 +56,7 @@
                   {
                     "type": "message",
                     "props": {
-                      "message": "KILL"
+                      "message": "DEATH"
                     }
                   }
                 ]

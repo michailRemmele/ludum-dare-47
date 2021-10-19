@@ -1,8 +1,8 @@
 import { Component } from '@flyer-engine/core';
 
 class ThumbStickControl extends Component {
-  constructor(config) {
-    super();
+  constructor(componentName, config) {
+    super(componentName, config);
 
     this._inputEventBindings = config.inputEventBindings;
   }
@@ -16,7 +16,7 @@ class ThumbStickControl extends Component {
   }
 
   clone() {
-    return new ThumbStickControl({
+    return new ThumbStickControl(this.componentName, {
       inputEventBindings: {
         ...this.inputEventBindings,
       },
