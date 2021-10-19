@@ -288,7 +288,7 @@ export class Game extends React.Component {
               <EffectsBar className='game__effects-bar' />
               {NODE_ENV === DEV_MODE && <GameStatsMeter className='game__game-stats-meter'/>}
             </div>
-            <MenuButton icon='/media/images/inventory-icon.png' onClick={this.onInventoryToggle} />
+            <MenuButton icon='./media/images/inventory-icon.png' onClick={this.onInventoryToggle} />
           </header>
           <div className='game__main'>
             <ItemsBarContainer
@@ -301,13 +301,13 @@ export class Game extends React.Component {
               {this.state.canGrab && (
                 <ControlButton
                   className='control-bar__button control-bar__button_grab'
-                  icon='/media/images/grab-icon.png'
+                  icon='./media/images/grab-icon.png'
                   onClick={this.onCollectItem}
                 />
               )}
               <ControlButton
                 className='control-bar__button control-bar__button_attack'
-                icon='/media/images/attack-icon.png'
+                icon='./media/images/attack-icon.png'
                 size='lg'
                 onClick={this.onAttack}
               />

@@ -69,15 +69,15 @@
 }
 
 .resources__item_heal {
-  background-image: url('/media/images/heal-grass.png');
+  background-image: url('./media/images/heal-grass.png');
 }
 
 .resources__item_ogre {
-  background-image: url('/media/images/ogre-grass.png');
+  background-image: url('./media/images/ogre-grass.png');
 }
 
 .resources__item_boom {
-  background-image: url('/media/images/boom-grass.png');
+  background-image: url('./media/images/boom-grass.png');
 }
 
 .inventory__close-button {
@@ -167,11 +167,11 @@
 }
 
 .craft-card__title_heal {
-  background-image: url('/media/images/heal-potion.png');
+  background-image: url('./media/images/heal-potion.png');
 }
 
 .craft-card__title_power {
-  background-image: url('/media/images/power-potion.png');
+  background-image: url('./media/images/power-potion.png');
 }
 
 .craft-card__description {
@@ -204,11 +204,11 @@
 }
 
 .craft-card__cost-value_heal {
-  background-image: url('/media/images/heal-grass.png');
+  background-image: url('./media/images/heal-grass.png');
 }
 
 .craft-card__cost-value_power {
-  background-image: url('/media/images/ogre-grass.png');
+  background-image: url('./media/images/ogre-grass.png');
 }
 
 .craft-card__bonus {
