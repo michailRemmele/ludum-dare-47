@@ -15,7 +15,7 @@ const HEAL_EFFECT = {
 const POWER_EFFECT = {
   name: 'power',
   options: {
-    damage: 25,
+    damage: 80,
     range: 15,
   },
 };
