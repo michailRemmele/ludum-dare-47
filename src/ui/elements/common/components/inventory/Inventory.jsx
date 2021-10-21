@@ -23,9 +23,9 @@ const CRAFTS = {
     title: 'Power Potion',
     mod: 'power',
     bonuses: [
-      'Damage: +25',
+      'Damage: +80',
       'Range: +15',
-      'Duration: 5 sec',
+      'Duration: 10 sec',
     ],
     resource: 'ogreGrass',
     cost: 3,
