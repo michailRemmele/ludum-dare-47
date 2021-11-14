@@ -5,9 +5,9 @@ import {
 } from '@flyer-engine/core';
 
 import mainConfig from 'resources/configurations/mainConfig.json';
-import gameProcessorsPlugins from 'game/processorsPlugins';
+import { processorsPlugins as gameProcessorsPlugins } from './game/processors-plugins';
 import gameComponents from 'game/components';
-import pluginHelpers from 'pluginHelpers';
+import pluginHelpers from './plugin-helpers';
 import {
   isIosSafari,
   isIos,

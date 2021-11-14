@@ -9,7 +9,6 @@ class Reaper extends Processor {
   constructor(options) {
     super();
 
-    this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectDestroyer = options.gameObjectDestroyer;
     this._allowedComponents = options.allowedComponents.reduce((storage, componentName) => {
       storage[componentName] = true;
