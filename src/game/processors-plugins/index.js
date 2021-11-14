@@ -5,7 +5,7 @@ import { GameOverProcessorPlugin } from './game-over-processor-plugin';
 import { ReaperPlugin } from './reaper-plugin';
 import { FightSystemPlugin } from './fight-system-plugin';
 import { EnemySpawnerPlugin } from './enemy-spawner-plugin';
-import { AiProcessorPlugin } from './ai-processor-plugin';
+import { AIProcessorPlugin } from './ai-processor-plugin';
 import { EnemiesDetectorPlugin } from './enemies-detector-plugin';
 import { RenderProcessorPlugin } from './render-processor-plugin';
 import { DayNightSimulatorPlugin } from './day-night-simulator-plugin';
@@ -25,7 +25,7 @@ export const processorsPlugins = {
   reaper: ReaperPlugin,
   fightSystem: FightSystemPlugin,
   enemySpawner: EnemySpawnerPlugin,
-  aiProcessor: AiProcessorPlugin,
+  aiProcessor: AIProcessorPlugin,
   enemiesDetector: EnemiesDetectorPlugin,
   customRenderer: RenderProcessorPlugin,
   dayNightSimulator: DayNightSimulatorPlugin,
