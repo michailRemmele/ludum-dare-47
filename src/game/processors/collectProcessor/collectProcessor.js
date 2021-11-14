@@ -1,5 +1,3 @@
-import { Processor } from '@flyer-engine/core';
-
 const COLLISION_ENTER_MSG = 'COLLISION_ENTER';
 const COLLISION_LEAVE_MSG = 'COLLISION_LEAVE';
 const GRAB_MSG = 'GRAB';
@@ -10,10 +8,8 @@ const INVENTORY_KEY = 'inventory';
 
 const COLLECTABLE_COMPONENT_NAME = 'collectable';
 
-class CollectProcessor extends Processor {
+class CollectProcessor {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._store = options.store;
 

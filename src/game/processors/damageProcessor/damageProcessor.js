@@ -1,11 +1,9 @@
-import { Processor } from '@flyer-engine/core';
-
 const DAMAGE_MSG = 'DAMAGE';
 const KILL_MSG = 'KILL';
 
 const HEALTH_COMPONENT_NAME = 'health';
 
-class DamageProcessor extends Processor {
+class DamageProcessor {
   process(options) {
     const messageBus = options.messageBus;
 

@@ -1,5 +1,3 @@
-import { Processor } from '@flyer-engine/core';
-
 import Rectangle from './geometry/shapes/rectangle';
 import Color from './color/color';
 import textureHandlers from './textureHandlers';
@@ -31,10 +29,8 @@ const CURRENT_CAMERA_NAME = 'currentCamera';
 
 const SET_COLOR_FILTER_MSG = 'SET_COLOR_FILTER';
 
-class RenderProcessor extends Processor {
+class RenderProcessor {
   constructor(options) {
-    super();
-
     const {
       window, textureAtlas,
       textureAtlasDescriptor, backgroundColor,

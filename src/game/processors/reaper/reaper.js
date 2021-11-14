@@ -1,14 +1,10 @@
-import { Processor } from '@flyer-engine/core';
-
 const KILL_MSG = 'KILL';
 const DEATH_MSG = 'DEATH';
 
 const GRAVEYARD_CLEAN_FREQUENCY = 1000;
 
-class Reaper extends Processor {
+class Reaper {
   constructor(options) {
-    super();
-
     this._gameObjectDestroyer = options.gameObjectDestroyer;
     this._allowedComponents = options.allowedComponents.reduce((storage, componentName) => {
       storage[componentName] = true;

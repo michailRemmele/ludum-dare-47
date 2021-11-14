@@ -1,4 +1,4 @@
-import { Processor, MathOps } from '@flyer-engine/core';
+import { MathOps } from '@flyer-engine/core';
 
 const ATTACK_MSG = 'ATTACK';
 const COLLISION_STAY_MSG = 'COLLISION_STAY';
@@ -8,10 +8,8 @@ const VIEW_DIRECTION_COMPONENT_NAME = 'viewDirection';
 const AIM_RADIUS_COMPONENT_NAME = 'aimRadius';
 const HITBOX_COMPONENT_NAME = 'hitBox';
 
-class AutoAimingProcessor extends Processor {
+class AutoAimingProcessor {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
   }
 

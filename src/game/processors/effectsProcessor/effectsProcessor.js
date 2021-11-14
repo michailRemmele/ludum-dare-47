@@ -1,5 +1,3 @@
-import { Processor } from '@flyer-engine/core';
-
 import { ActiveEffects } from '../../components/activeEffects';
 
 import effectApplicators from './effectApplicators';
@@ -9,10 +7,8 @@ const ADD_EFFECT_MSG = 'ADD_EFFECT';
 const REMOVE_EFFECT_MSG = 'REMOVE_EFFECT';
 const KILL_MSG = 'KILL';
 
-export class EffectsProcessor extends Processor {
+export class EffectsProcessor {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
     this._actions = options.effects;

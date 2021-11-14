@@ -1,13 +1,9 @@
-import { Processor } from '@flyer-engine/core';
-
 const CONTROL_COMPONENT_NAME = 'keyboardControl';
 
 const PLAYER_KEY = 'player';
 
-class EnemiesDetector extends Processor {
+class EnemiesDetector {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._store = options.store;
 

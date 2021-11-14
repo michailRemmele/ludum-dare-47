@@ -1,5 +1,3 @@
-import { Processor } from '@flyer-engine/core';
-
 import Time from './time';
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
@@ -43,10 +41,8 @@ const COLOR_MAT_21_0 = [
   0.0, 0.0, 0.0, 1.0,
 ];
 
-class DayNightSimulator extends Processor {
+class DayNightSimulator {
   constructor(options) {
-    super();
-
     this._dayLength = options.dayLength;
     this._startTime = options.startTime;
     this._store = options.store;

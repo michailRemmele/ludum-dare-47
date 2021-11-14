@@ -1,13 +1,9 @@
-import { Processor } from '@flyer-engine/core';
-
 const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
 
 const INVENTORY_KEY = 'inventory';
 
-class CollectProcessor extends Processor {
+class CollectProcessor {
   constructor(options) {
-    super();
-
     this._store = options.store;
   }
 

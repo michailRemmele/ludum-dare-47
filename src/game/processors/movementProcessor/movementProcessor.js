@@ -1,4 +1,4 @@
-import { Processor, MathOps, Vector2, VectorOps } from '@flyer-engine/core';
+import { MathOps, Vector2, VectorOps } from '@flyer-engine/core';
 
 const MOVEMENT_MSG = 'MOVEMENT';
 
@@ -10,10 +10,8 @@ const SPEED_DIVIDER = 0.4;
 const MIN_SPEED = 0.5;
 const MAX_SPEED = 1;
 
-class MovementProcessor extends Processor {
+class MovementProcessor {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
   }
 

@@ -1,4 +1,4 @@
-import { Processor, MathOps } from '@flyer-engine/core';
+import { MathOps } from '@flyer-engine/core';
 
 const DAMAGE_MSG = 'DAMAGE';
 
@@ -22,10 +22,8 @@ const RANGE_HP_MAGNIFIER = 2;
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
 
-class EnemySpawner extends Processor {
+class EnemySpawner {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
     this._store = options.store;

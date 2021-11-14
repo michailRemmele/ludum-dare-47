@@ -1,13 +1,9 @@
-import { Processor } from '@flyer-engine/core';
-
 import aiStrategies from './aiStrategies';
 
 const AI_COMPONENT_NAME = 'ai';
 
-class AIProcessor extends Processor {
+class AIProcessor {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._store = options.store;
 

@@ -1,13 +1,9 @@
-import { Processor } from '@flyer-engine/core';
-
 const CONTROL_COMPONENT_NAME = 'keyboardControl';
 const DEATH_MSG = 'DEATH';
 const DEFEAT_MSG = 'DEFEAT';
 
-class GameOverProcessor extends Processor {
+class GameOverProcessor {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
 
     this._playerGameObjects = new Set();

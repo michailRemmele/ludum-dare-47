@@ -1,4 +1,4 @@
-import { Processor, MathOps } from '@flyer-engine/core';
+import { MathOps } from '@flyer-engine/core';
 
 import { SimpleFighter } from './fighters';
 
@@ -6,10 +6,8 @@ const ATTACK_MSG = 'ATTACK';
 
 const TRANSFORM_COMPONENT_NAME = 'transform';
 
-class FightSystem extends Processor {
+class FightSystem {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
 

@@ -1,13 +1,11 @@
-import { Processor, MathOps } from '@flyer-engine/core';
+import { MathOps } from '@flyer-engine/core';
 
 const CONTROL_COMPONENT_NAME = 'thumbStickControl';
 
 const INPUT_MSG = 'THUMB_STICK_POSITION_CHANGE';
 
-class ThumbStickController extends Processor {
+class ThumbStickController {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._currentX = 0;
     this._currentY = 0;

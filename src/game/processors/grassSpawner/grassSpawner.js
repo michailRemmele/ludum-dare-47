@@ -1,4 +1,4 @@
-import { Processor, MathOps } from '@flyer-engine/core';
+import { MathOps } from '@flyer-engine/core';
 
 const TRANSFORM_COMPONENT_NAME = 'transform';
 
@@ -17,10 +17,8 @@ const GRASS_PREFABS = [
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
 
-class GrassSpawner extends Processor {
+class GrassSpawner {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
     this._store = options.store;

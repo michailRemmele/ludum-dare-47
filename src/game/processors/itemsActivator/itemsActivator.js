@@ -1,5 +1,3 @@
-import { Processor } from '@flyer-engine/core';
-
 const USE_ITEM_MSG = 'USE_ITEM';
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
 
@@ -25,10 +23,8 @@ const ITEM_EFFECTS = {
   powerPotion: POWER_EFFECT,
 };
 
-class ItemsActivator extends Processor {
+class ItemsActivator {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._store = options.store;
   }
