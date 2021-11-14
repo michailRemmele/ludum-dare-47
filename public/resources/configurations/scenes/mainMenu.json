@@ -5,13 +5,11 @@
     {
       "name": "sceneLoadProcessor",
       "section": "gameStateUpdateSection",
-      "filter": {},
       "options": {}
     },
     {
       "name": "uiBridge",
       "section": "renderingSection",
-      "filter": {},
       "options": {}
     }
   ]
