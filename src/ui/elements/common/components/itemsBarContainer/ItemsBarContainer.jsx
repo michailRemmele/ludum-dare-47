@@ -17,14 +17,6 @@ export const ItemsBarContainer = ({
 }) => {
   const [ items, setItems ] = useState({});
 
-  const onStoreUpdate = useCallback((store) => {
-    const { healPotion, powerPotion } = store.get(INVENTORY_KEY);
-
-    if (healPotion !== items.healPotion || powerPotion !== items.powerPotion) {
-      setItems({ healPotion, powerPotion });
-    }
-  }, []);
-
   const handleUseItem = useCallback((event, item) => {
     event.stopPropagation();
 
@@ -37,10 +29,18 @@ export const ItemsBarContainer = ({
   }, [ user, pushMessage ]);
 
   useEffect(() => {
-    storeObserver.subscribe(onStoreUpdate);
+    const handleStoreUpdate = (store) => {
+      const { healPotion, powerPotion } = store.get(INVENTORY_KEY);
 
-    return () => storeObserver.unsubscribe(onStoreUpdate);
-  }, []);
+      if (healPotion !== items.healPotion || powerPotion !== items.powerPotion) {
+        setItems({ healPotion, powerPotion });
+      }
+    };
+
+    storeObserver.subscribe(handleStoreUpdate);
+
+    return () => storeObserver.unsubscribe(handleStoreUpdate);
+  }, [ items ]);
 
   const ItemsBar = touchDevice ? ItemsBarTouch : ItemsBarDesktop;
 
