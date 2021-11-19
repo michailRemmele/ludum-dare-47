@@ -31,8 +31,6 @@ export const GameStatsMeter = ({
   const [ fps, setFps ] = useState(0);
   const [ gameObjectsCount, setGameObjectsCount ] = useState(0);
   const [ messagesCount, setMessagesCount ] = useState(0);
-  const [ stateUpdateSkipped, setStateUpdateSkipped ] = useState(0);
-  const [ stateUpdateExecuted, setStateUpdateExecuted ] = useState(0);
 
   const updateChart = useCallback((currentFps) => {
     const ctx = chartCtxRef.current;
@@ -74,8 +72,6 @@ export const GameStatsMeter = ({
 
       setGameObjectsCount(messages[0].gameObjectsCount);
       setMessagesCount(Math.round(messages[0].messagesCount));
-      setStateUpdateSkipped(Math.round(messages[0].skippedStateUpdate));
-      setStateUpdateExecuted(Math.round(messages[0].executedStateUpdate));
 
       setFps(currentFps);
       updateChart(currentFps);
@@ -105,12 +101,6 @@ export const GameStatsMeter = ({
           </span>
           <span className='game-stats-meter__additional'>
             {`Messages: ${messagesCount}`}
-          </span>
-          <span className='game-stats-meter__additional'>
-            {`State updated skipped: ${stateUpdateSkipped}`}
-          </span>
-          <span className='game-stats-meter__additional'>
-            {`State updated executed: ${stateUpdateExecuted}`}
           </span>
         </div>
       </div>
