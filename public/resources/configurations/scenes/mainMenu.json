@@ -4,12 +4,10 @@
   "processors": [
     {
       "name": "sceneLoadProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "uiBridge",
-      "section": "renderingSection",
       "options": {}
     }
   ]

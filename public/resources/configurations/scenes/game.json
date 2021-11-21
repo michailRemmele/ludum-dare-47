@@ -321,47 +321,38 @@
   "processors": [
     {
       "name": "keyboardInputProcessor",
-      "section": "eventProcessSection",
       "options": {}
     },
     {
       "name": "mouseInputProcessor",
-      "section": "eventProcessSection",
       "options": {}
     },
     {
       "name": "touchDeviceJammer",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "mouseInputCoordinatesProjector",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "keyboardControlProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "mouseControlProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "thumbStickController",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "autoAimingProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "dayNightSimulator",
-      "section": "gameStateUpdateSection",
       "options": {
         "dayLength": 60000,
         "startTime": 32400000
@@ -369,62 +360,50 @@
     },
     {
       "name": "aiProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "scriptProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "itemsActivator",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "enemySpawner",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "grassSpawner",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "movementProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "fightSystem",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "collectProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "craftProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "effectsProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "damageProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "reaper",
-      "section": "gameStateUpdateSection",
       "options": {
         "allowedComponents": [
           "transform",
@@ -438,7 +417,6 @@
     },
     {
       "name": "cameraProcessor",
-      "section": "gameStateUpdateSection",
       "options": {
         "windowNodeId": "root",
         "initialCamera": "1.2"
@@ -446,24 +424,20 @@
     },
     {
       "name": "enemiesDetector",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "gameOverProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "physicsProcessor",
-      "section": "gameStateUpdateSection",
       "options": {
         "gravitationalAcceleration": 450
       }
     },
     {
       "name": "jammer",
-      "section": "gameStateUpdateSection",
       "options": {
         "messages": [
           "COLLISION_ENTER",
@@ -474,37 +448,30 @@
     },
     {
       "name": "collisionDetectionProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "collisionBroadcastProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "collisionSolver",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "constraintSolver",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "sceneLoadProcessor",
-      "section": "gameStateUpdateSection",
       "options": {}
     },
     {
       "name": "animateProcessor",
-      "section": "renderingSection",
       "options": {}
     },
     {
       "name": "customRenderer",
-      "section": "renderingSection",
       "options": {
         "windowNodeId": "root",
         "textureAtlas": "resources/textureAtlas.png",
@@ -523,12 +490,10 @@
     },
     {
       "name": "gameStatsMeter",
-      "section": "renderingSection",
       "options": {}
     },
     {
       "name": "uiBridge",
-      "section": "renderingSection",
       "options": {
         "filterComponents": [
           "keyboardControl",
