@@ -89,6 +89,7 @@ class RenderProcessor {
 
   processorDidMount() {
     window.addEventListener('resize', this._onWindowResize);
+    this._gameObjectObserver.subscribe('onremove', this._handleGameObjectRemove);
     this.gl = this._initGraphicContext();
     this._initExtensions();
     this._initScreen();
@@ -99,6 +100,7 @@ class RenderProcessor {
 
   processorWillUnmount() {
     window.removeEventListener('resize', this._onWindowResize);
+    this._gameObjectObserver.unsubscribe('onremove', this._handleGameObjectRemove);
     this._shaders.forEach((shader) => {
       this.gl.detachShader(this.program, shader);
       this.gl.deleteShader(shader);
@@ -120,6 +122,11 @@ class RenderProcessor {
     this._vertexData = null;
     this._gameObjectsCount = 0;
   }
+
+  _handleGameObjectRemove = (gameObject) => {
+    const gameObjectId = gameObject.getId();
+    this._geometry[gameObjectId] = null;
+  };
 
   _onWindowResize() {
     this._windowDidResize = true;
@@ -508,13 +515,6 @@ class RenderProcessor {
     this.gl.bufferSubData(this.gl.ARRAY_BUFFER, 0, this._vertexData);
   }
 
-  _processRemovedGameObjects() {
-    this._gameObjectObserver.getLastRemoved().forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-      this._geometry[gameObjectId] = null;
-    });
-  }
-
   _processColorFilters() {
     const messages = this.messageBus.get(SET_COLOR_FILTER_MSG) || [];
 
@@ -534,7 +534,7 @@ class RenderProcessor {
 
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-    this._processRemovedGameObjects();
+    this._gameObjectObserver.fireEvents();
 
     this._processColorFilters();
 

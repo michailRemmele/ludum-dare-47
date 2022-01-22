@@ -11,21 +11,27 @@ class AIProcessor {
     this.playersStrategies = {};
   }
 
-  _processAddedGameObjects() {
-    this._gameObjectObserver.getLastAdded().forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-      const ai = gameObject.getComponent(AI_COMPONENT_NAME);
-
-      this.playersStrategies[gameObjectId] = new aiStrategies[ai.strategy](
-        gameObject, this._store, this.messageBus
-      );
-    });
+  processorDidMount() {
+    this._gameObjectObserver.subscribe('onadd', this._handleGameObjectAdd);
   }
+
+  processorWillUnmount() {
+    this._gameObjectObserver.unsubscribe('onadd', this._handleGameObjectAdd);
+  }
+
+  _handleGameObjectAdd = (gameObject) => {
+    const gameObjectId = gameObject.getId();
+    const ai = gameObject.getComponent(AI_COMPONENT_NAME);
+
+    this.playersStrategies[gameObjectId] = new aiStrategies[ai.strategy](
+      gameObject, this._store, this.messageBus
+    );
+  };
 
   process(options) {
     const { deltaTime } = options;
 
-    this._processAddedGameObjects();
+    this._gameObjectObserver.fireEvents();
 
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();

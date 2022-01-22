@@ -11,23 +11,29 @@ class GameOverProcessor {
     this._isGameOver = false;
   }
 
-  _processAddedGameObjects() {
-    this._gameObjectObserver.getLastAdded().forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-      const control = gameObject.getComponent(CONTROL_COMPONENT_NAME);
-
-      if (control) {
-        this._playerGameObjects.add(gameObjectId);
-      }
-    });
+  processorDidMount() {
+    this._gameObjectObserver.subscribe('onadd', this._handleGameObjectAdd);
   }
+
+  processorWillUnmount() {
+    this._gameObjectObserver.unsubscribe('onadd', this._handleGameObjectAdd);
+  }
+
+  _handleGameObjectAdd = (gameObject) => {
+    const gameObjectId = gameObject.getId();
+    const control = gameObject.getComponent(CONTROL_COMPONENT_NAME);
+
+    if (control) {
+      this._playerGameObjects.add(gameObjectId);
+    }
+  };
 
   process() {
     if (this._isGameOver) {
       return;
     }
 
-    this._processAddedGameObjects();
+    this._gameObjectObserver.fireEvents();
 
     const messages = this.messageBus.get(DEATH_MSG) || [];
     messages.forEach((message) => {

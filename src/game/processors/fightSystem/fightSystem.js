@@ -16,6 +16,19 @@ class FightSystem {
     this._activeAttacks = [];
   }
 
+  processorDidMount() {
+    this._gameObjectObserver.subscribe('onremove', this._handleGameObjectRemove);
+  }
+
+  processorWillUnmount() {
+    this._gameObjectObserver.unsubscribe('onremove', this._handleGameObjectRemove);
+  }
+
+  _handleGameObjectRemove = (gameObject) => {
+    const gameObjectId = gameObject.getId();
+    this._fighters[gameObjectId] = null;
+  };
+
   _processActiveAttacks(deltaTime) {
     this._activeAttacks = this._activeAttacks.filter((attack) => {
       attack.process(deltaTime);
@@ -56,17 +69,11 @@ class FightSystem {
     });
   }
 
-  _processRemovedFighters() {
-    this._gameObjectObserver.getLastRemoved().forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-      this._fighters[gameObjectId] = null;
-    });
-  }
-
   process(options) {
     const { deltaTime } = options;
 
-    this._processRemovedFighters();
+    this._gameObjectObserver.fireEvents();
+
     this._processFighters(deltaTime);
     this._processActiveAttacks(deltaTime);
 

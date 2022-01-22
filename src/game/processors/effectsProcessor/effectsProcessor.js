@@ -17,6 +17,23 @@ export class EffectsProcessor {
     this._applicatorsMap = {};
   }
 
+  processorDidMount() {
+    this._gameObjectObserver.subscribe('onremove', this._handleGameObjectRemove);
+  }
+
+  processorWillUnmount() {
+    this._gameObjectObserver.unsubscribe('onremove', this._handleGameObjectRemove);
+  }
+
+  _handleGameObjectRemove = (gameObject) => {
+    const gameObjectId = gameObject.getId();
+
+    const applicatorsNames = Object.keys(this._applicatorsMap[gameObjectId] || {});
+    applicatorsNames.forEach((name) => {
+      this._applicatorsMap[gameObjectId][name] = null;
+    });
+  };
+
   _killEffect(effect) {
     this.messageBus.send({
       type: KILL_MSG,
@@ -105,21 +122,11 @@ export class EffectsProcessor {
     });
   }
 
-  _processRemovedGameObjects() {
-    this._gameObjectObserver.getLastRemoved().forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-
-      const applicatorsNames = Object.keys(this._applicatorsMap[gameObjectId] || {});
-      applicatorsNames.forEach((name) => {
-        this._applicatorsMap[gameObjectId][name] = null;
-      });
-    });
-  }
-
   process(options) {
     const deltaTime = options.deltaTime;
 
-    this._processRemovedGameObjects();
+    this._gameObjectObserver.fireEvents();
+
     this._processNewEffects();
     this._processEffectsCancellation();
 
