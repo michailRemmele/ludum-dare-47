@@ -10,6 +10,7 @@ class FightSystem {
   constructor(options) {
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
+    this.messageBus = options.messageBus;
 
     this._fighters = {};
     this._activeAttacks = [];
@@ -23,14 +24,14 @@ class FightSystem {
     });
   }
 
-  _attack(gameObject, targetX, targetY, messageBus) {
+  _attack(gameObject, targetX, targetY) {
     const gameObjectId = gameObject.getId();
     const { offsetX, offsetY } = gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
 
     const fighter = this._fighters[gameObjectId];
 
     if (!fighter || !fighter.isReady()) {
-      messageBus.deleteById(ATTACK_MSG, gameObjectId);
+      this.messageBus.deleteById(ATTACK_MSG, gameObjectId);
       return;
     }
 
@@ -41,13 +42,13 @@ class FightSystem {
     this._activeAttacks.push(attack);
   }
 
-  _processFighters(deltaTime, messageBus) {
+  _processFighters(deltaTime) {
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
 
       if (!this._fighters[gameObjectId]) {
         this._fighters[gameObjectId] = new SimpleFighter(
-          gameObject, this._gameObjectSpawner, messageBus
+          gameObject, this._gameObjectSpawner, this.messageBus
         );
       } else {
         this._fighters[gameObjectId].process(deltaTime);
@@ -63,16 +64,16 @@ class FightSystem {
   }
 
   process(options) {
-    const { messageBus, deltaTime } = options;
+    const { deltaTime } = options;
 
     this._processRemovedFighters();
-    this._processFighters(deltaTime, messageBus);
+    this._processFighters(deltaTime);
     this._processActiveAttacks(deltaTime);
 
-    const messages = messageBus.get(ATTACK_MSG) || [];
+    const messages = this.messageBus.get(ATTACK_MSG) || [];
     messages.forEach((message) => {
       const { gameObject, x, y } = message;
-      this._attack(gameObject, x, y, messageBus);
+      this._attack(gameObject, x, y);
     });
   }
 }

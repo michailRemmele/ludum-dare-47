@@ -8,6 +8,7 @@ export class EffectsProcessorPlugin {
       helpers,
       createGameObjectObserver,
       gameObjectSpawner,
+      messageBus,
     } = options;
 
     const { effects } = await helpers.loadEffects();
@@ -20,6 +21,7 @@ export class EffectsProcessorPlugin {
       }),
       gameObjectSpawner,
       effects,
+      messageBus,
     });
   }
 }

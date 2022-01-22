@@ -5,6 +5,7 @@ export class ItemsActivatorPlugin {
     return new ItemsActivator({
       gameObjectObserver: options.createGameObjectObserver({}),
       store: options.store,
+      messageBus: options.messageBus,
     });
   }
 }

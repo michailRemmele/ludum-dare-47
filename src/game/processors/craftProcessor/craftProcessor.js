@@ -5,12 +5,11 @@ const INVENTORY_KEY = 'inventory';
 class CollectProcessor {
   constructor(options) {
     this._store = options.store;
+    this.messageBus = options.messageBus;
   }
 
-  process(options) {
-    const { messageBus } = options;
-
-    const craftMessages = messageBus.get(CRAFT_RECIPE_MSG) || [];
+  process() {
+    const craftMessages = this.messageBus.get(CRAFT_RECIPE_MSG) || [];
 
     craftMessages.forEach((message) => {
       const { recipe } = message;

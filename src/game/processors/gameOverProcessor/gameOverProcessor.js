@@ -5,6 +5,7 @@ const DEFEAT_MSG = 'DEFEAT';
 class GameOverProcessor {
   constructor(options) {
     this._gameObjectObserver = options.gameObjectObserver;
+    this.messageBus = options.messageBus;
 
     this._playerGameObjects = new Set();
     this._isGameOver = false;
@@ -21,23 +22,21 @@ class GameOverProcessor {
     });
   }
 
-  process(options) {
-    const messageBus = options.messageBus;
-
+  process() {
     if (this._isGameOver) {
       return;
     }
 
     this._processAddedGameObjects();
 
-    const messages = messageBus.get(DEATH_MSG) || [];
+    const messages = this.messageBus.get(DEATH_MSG) || [];
     messages.forEach((message) => {
       const { gameObject } = message;
       this._playerGameObjects.delete(gameObject.getId());
     });
 
     if (this._playerGameObjects.size === 0) {
-      messageBus.send({
+      this.messageBus.send({
         type: DEFEAT_MSG,
       });
       this._isGameOver = true;

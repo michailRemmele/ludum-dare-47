@@ -8,6 +8,7 @@ export class GrassSpawnerPlugin {
         type: 'item',
       }),
       store: options.store,
+      messageBus: options.messageBus,
     });
   }
 }

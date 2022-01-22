@@ -6,6 +6,7 @@ const GRAVEYARD_CLEAN_FREQUENCY = 1000;
 class Reaper {
   constructor(options) {
     this._gameObjectDestroyer = options.gameObjectDestroyer;
+    this.messageBus = options.messageBus;
     this._allowedComponents = options.allowedComponents.reduce((storage, componentName) => {
       storage[componentName] = true;
       return storage;
@@ -16,7 +17,7 @@ class Reaper {
     this._timeCounter = 0;
   }
 
-  _killGameObject(gameObject, messageBus) {
+  _killGameObject(gameObject) {
     gameObject.getComponentNamesList().forEach((componentName) => {
       if (!this._allowedComponents[componentName]) {
         gameObject.removeComponent(componentName);
@@ -28,23 +29,23 @@ class Reaper {
       lifetime: this._lifetime,
     });
 
-    messageBus.send({
+    this.messageBus.send({
       type: DEATH_MSG,
       id: gameObject.getId(),
       gameObject,
     });
 
-    gameObject.getChildren().forEach((child) => this._killGameObject(child, messageBus));
+    gameObject.getChildren().forEach((child) => this._killGameObject(child));
   }
 
   process(options) {
-    const { messageBus, deltaTime } = options;
+    const { deltaTime } = options;
 
-    const killMessages = messageBus.get(KILL_MSG) || [];
+    const killMessages = this.messageBus.get(KILL_MSG) || [];
     killMessages.forEach((message) => {
       const { gameObject } = message;
 
-      this._killGameObject(gameObject, messageBus);
+      this._killGameObject(gameObject);
     });
 
     this._timeCounter += deltaTime;

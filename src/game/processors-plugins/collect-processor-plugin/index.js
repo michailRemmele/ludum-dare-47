@@ -13,6 +13,7 @@ export class CollectProcessorPlugin {
         ],
       }),
       store: options.store,
+      messageBus: options.messageBus,
     });
   }
 }

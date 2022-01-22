@@ -22,6 +22,7 @@ class GrassSpawner {
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
     this._store = options.store;
+    this.messageBus = options.messageBus;
 
     this._islandSize = {
       minX: -180,
@@ -33,7 +34,7 @@ class GrassSpawner {
   }
 
   process(options) {
-    const { messageBus, deltaTime } = options;
+    const { deltaTime } = options;
 
     if (this._cooldown > 0) {
       this._cooldown -= deltaTime;
@@ -58,7 +59,7 @@ class GrassSpawner {
 
     if (grassCount && hour >= KILL_GRASS_HOUR && hour < START_SPAWN_HOUR) {
       this._gameObjectObserver.forEach((gameObject) => {
-        messageBus.send({
+        this.messageBus.send({
           type: KILL_MSG,
           id: gameObject.getId(),
           gameObject: gameObject,

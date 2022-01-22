@@ -4,10 +4,12 @@ const KILL_MSG = 'KILL';
 const HEALTH_COMPONENT_NAME = 'health';
 
 class DamageProcessor {
-  process(options) {
-    const messageBus = options.messageBus;
+  constructor(options) {
+    this.messageBus = options.messageBus;
+  }
 
-    const damageMessages = messageBus.get(DAMAGE_MSG) || [];
+  process() {
+    const damageMessages = this.messageBus.get(DAMAGE_MSG) || [];
     damageMessages.forEach((message) => {
       const { gameObject, value } = message;
 
@@ -22,7 +24,7 @@ class DamageProcessor {
       if (health.points <= 0) {
         health.points = 0;
 
-        messageBus.send({
+        this.messageBus.send({
           type: KILL_MSG,
           id: gameObject.getId(),
           gameObject: gameObject,

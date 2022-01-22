@@ -3,18 +3,17 @@ import { isTouchDevice } from '../../../utils';
 const INPUT_MESSAGE = 'MOUSE_INPUT_EVENT_QUERY';
 
 class TouchDeviceJammer {
-  constructor() {
+  constructor(options) {
+    this.messageBus = options.messageBus;
     this._isTouchDevice = isTouchDevice();
   }
 
-  process(options) {
+  process() {
     if (!this._isTouchDevice) {
       return;
     }
 
-    const messageBus = options.messageBus;
-
-    messageBus.delete(INPUT_MESSAGE);
+    this.messageBus.delete(INPUT_MESSAGE);
   }
 }
 

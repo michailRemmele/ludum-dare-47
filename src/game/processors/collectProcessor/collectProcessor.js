@@ -12,6 +12,7 @@ class CollectProcessor {
   constructor(options) {
     this._gameObjectObserver = options.gameObjectObserver;
     this._store = options.store;
+    this.messageBus = options.messageBus;
 
     this._canGrab = new Set();
     this._inventory = {};
@@ -22,13 +23,11 @@ class CollectProcessor {
     this._store.set(INVENTORY_KEY, this._inventory);
   }
 
-  process(options) {
-    const { messageBus } = options;
-
+  process() {
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
 
-      const enterMessages = messageBus.getById(COLLISION_ENTER_MSG, gameObjectId) || [];
+      const enterMessages = this.messageBus.getById(COLLISION_ENTER_MSG, gameObjectId) || [];
 
       enterMessages.forEach((message) => {
         const { gameObject2 } = message;
@@ -42,7 +41,7 @@ class CollectProcessor {
         this._canGrab.add(gameObject2);
       });
 
-      const leaveMessages = messageBus.getById(COLLISION_LEAVE_MSG, gameObjectId) || [];
+      const leaveMessages = this.messageBus.getById(COLLISION_LEAVE_MSG, gameObjectId) || [];
 
       leaveMessages.forEach((message) => {
         const { gameObject2 } = message;
@@ -52,7 +51,7 @@ class CollectProcessor {
         }
       });
 
-      const grabMessages = messageBus.getById(GRAB_MSG, gameObjectId) || [];
+      const grabMessages = this.messageBus.getById(GRAB_MSG, gameObjectId) || [];
 
       grabMessages.forEach(() => {
         if (!this._canGrab.size) {
@@ -73,7 +72,7 @@ class CollectProcessor {
 
         this._canGrab.delete(item);
 
-        messageBus.send({
+        this.messageBus.send({
           type: KILL_MSG,
           id: item.getId(),
           gameObject: item,

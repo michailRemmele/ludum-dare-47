@@ -46,6 +46,7 @@ class DayNightSimulator {
     this._dayLength = options.dayLength;
     this._startTime = options.startTime;
     this._store = options.store;
+    this.messageBus = options.messageBus;
 
     this._time = null;
 
@@ -67,7 +68,7 @@ class DayNightSimulator {
     this._store.set(TIME_OF_DAY_KEY, this._time);
   }
 
-  _updateColorFilter(messageBus) {
+  _updateColorFilter() {
     const hours = this._time.getHours();
 
     const newIndex = Math.floor(hours / 3);
@@ -75,7 +76,7 @@ class DayNightSimulator {
     if (newIndex !== this._currentFilterIndex) {
       this._currentFilterIndex = Math.floor(hours / 3);
 
-      messageBus.send({
+      this.messageBus.send({
         type: SET_COLOR_FILTER_MSG,
         filter: this._schedule[this._currentFilterIndex],
       });
@@ -83,11 +84,11 @@ class DayNightSimulator {
   }
 
   process(options) {
-    const { messageBus, deltaTime } = options;
+    const { deltaTime } = options;
 
     this._time.tick(deltaTime);
 
-    this._updateColorFilter(messageBus);
+    this._updateColorFilter();
   }
 }
 

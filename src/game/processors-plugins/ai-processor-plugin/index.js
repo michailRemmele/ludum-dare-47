@@ -8,6 +8,7 @@ export class AIProcessorPlugin {
     const {
       createGameObjectObserver,
       store,
+      messageBus,
     } = options;
 
     return new AIProcessor({
@@ -17,7 +18,8 @@ export class AIProcessorPlugin {
           COLLIDER_CONTAINER_COMPONENT_NAME,
         ],
       }),
-      store: store,
+      store,
+      messageBus,
     });
   }
 }

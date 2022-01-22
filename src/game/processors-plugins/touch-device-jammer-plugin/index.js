@@ -1,7 +1,9 @@
 import TouchDeviceJammer from 'game/processors/touchDeviceJammer/touchDeviceJammer';
 
 export class TouchDeviceJammerPlugin {
-  load() {
-    return new TouchDeviceJammer();
+  load(options) {
+    return new TouchDeviceJammer({
+      messageBus: options.messageBus,
+    });
   }
 }

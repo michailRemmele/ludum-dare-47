@@ -12,6 +12,7 @@ export class MovementProcessorPlugin {
           TRANSFORM_COMPONENT_NAME,
         ],
       }),
+      messageBus: options.messageBus,
     });
   }
 }

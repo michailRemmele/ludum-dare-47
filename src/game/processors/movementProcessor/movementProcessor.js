@@ -13,11 +13,11 @@ const MAX_SPEED = 1;
 class MovementProcessor {
   constructor(options) {
     this._gameObjectObserver = options.gameObjectObserver;
+    this.messageBus = options.messageBus;
   }
 
   process(options) {
     const deltaTimeInSeconds = options.deltaTime / 1000;
-    const messageBus = options.messageBus;
 
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
@@ -25,7 +25,7 @@ class MovementProcessor {
       const { vector, speed, penalty } = gameObject.getComponent(MOVEMENT_COMPONENT_NAME);
       vector.multiplyNumber(0);
 
-      const messages = messageBus.getById(MOVEMENT_MSG, gameObjectId) || [];
+      const messages = this.messageBus.getById(MOVEMENT_MSG, gameObjectId) || [];
       const { movementVector, intension } = messages.reduce((storage, message) => {
         const { angle, x, y } = message;
 

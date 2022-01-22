@@ -6,12 +6,14 @@ export class ReaperPlugin {
       gameObjectDestroyer,
       allowedComponents,
       lifetime,
+      messageBus,
     } = options;
 
     return new Reaper({
       gameObjectDestroyer,
       allowedComponents,
       lifetime,
+      messageBus,
     });
   }
 }

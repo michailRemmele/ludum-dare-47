@@ -6,6 +6,7 @@ export class GameOverProcessorPlugin {
       gameObjectObserver: options.createGameObjectObserver({
         type: 'unit',
       }),
+      messageBus: options.messageBus,
     });
   }
 }

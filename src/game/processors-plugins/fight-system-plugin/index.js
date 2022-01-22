@@ -11,6 +11,7 @@ export class FightSystemPlugin {
           WEAPON_COMPONENT_NAME,
         ],
       }),
+      messageBus: options.messageBus,
     });
   }
 }

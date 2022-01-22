@@ -12,6 +12,7 @@ export class EnemySpawnerPlugin {
         ],
       }),
       store: options.store,
+      messageBus: options.messageBus,
     });
   }
 }

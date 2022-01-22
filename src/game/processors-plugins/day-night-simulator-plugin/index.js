@@ -6,12 +6,14 @@ export class DayNightSimulatorPlugin {
       store,
       dayLength,
       startTime,
+      messageBus,
     } = options;
 
     return new DayNightSimulator({
       store,
       dayLength,
       startTime,
+      messageBus,
     });
   }
 }

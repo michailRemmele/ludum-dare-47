@@ -12,6 +12,7 @@ export class AutoAimingProcessorPlugin {
           MOUSE_CONTROL_COMPONENT_NAME,
         ],
       }),
+      messageBus: options.messageBus,
     });
   }
 }

@@ -36,6 +36,7 @@ class RenderProcessor {
       textureAtlasDescriptor, backgroundColor,
       gameObjectObserver, sortingLayers,
       store, scaleSensitivity,
+      messageBus,
     } = options;
 
     this.textureAtlas = textureAtlas;
@@ -69,6 +70,7 @@ class RenderProcessor {
     }, {});
     this._store = store;
     this._gameObjectObserver = gameObjectObserver;
+    this.messageBus = messageBus;
 
     this._scaleSensitivity = Math.min(Math.max(scaleSensitivity, 0), 100) / 100;
     this._screenScale = 1;
@@ -513,8 +515,8 @@ class RenderProcessor {
     });
   }
 
-  _processColorFilters(messageBus) {
-    const messages = messageBus.get(SET_COLOR_FILTER_MSG) || [];
+  _processColorFilters() {
+    const messages = this.messageBus.get(SET_COLOR_FILTER_MSG) || [];
 
     if (messages.length) {
       this.gl.uniformMatrix4fv(
@@ -525,9 +527,7 @@ class RenderProcessor {
     }
   }
 
-  process(options) {
-    const { messageBus } = options;
-
+  process() {
     const canvas = this.gl.canvas;
 
     this._resizeCanvas(canvas);
@@ -536,7 +536,7 @@ class RenderProcessor {
 
     this._processRemovedGameObjects();
 
-    this._processColorFilters(messageBus);
+    this._processColorFilters();
 
     this._updateViewMatrix();
     this._allocateVertexData();

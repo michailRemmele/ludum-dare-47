@@ -27,6 +27,7 @@ class EnemySpawner {
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
     this._store = options.store;
+    this.messageBus = options.messageBus;
 
     this._islandSize = {
       minX: -200,
@@ -87,7 +88,7 @@ class EnemySpawner {
   }
 
   process(options) {
-    const { messageBus, deltaTime } = options;
+    const { deltaTime } = options;
 
     const time = this._store.get(TIME_OF_DAY_KEY);
     const hour = time.getHours();
@@ -98,7 +99,7 @@ class EnemySpawner {
 
     if (this._gameObjectObserver.size() && hour >= END_SPAWN_HOUR) {
       this._gameObjectObserver.forEach((gameObject) => {
-        messageBus.send({
+        this.messageBus.send({
           type: DAMAGE_MSG,
           id: gameObject.getId(),
           gameObject: gameObject,

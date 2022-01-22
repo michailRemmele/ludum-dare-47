@@ -12,19 +12,20 @@ export class EffectsProcessor {
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
     this._actions = options.effects;
+    this.messageBus = options.messageBus;
 
     this._applicatorsMap = {};
   }
 
-  _killEffect(effect, messageBus) {
-    messageBus.send({
+  _killEffect(effect) {
+    this.messageBus.send({
       type: KILL_MSG,
       id: effect.getId(),
       gameObject: effect,
     });
   }
 
-  _cancelEffect(name, gameObject, messageBus) {
+  _cancelEffect(name, gameObject) {
     const gameObjectId = gameObject.getId();
 
     if (!this._applicatorsMap[gameObjectId] || !this._applicatorsMap[gameObjectId][name]) {
@@ -41,7 +42,7 @@ export class EffectsProcessor {
         return true;
       }
 
-      this._killEffect(activeEffects.map[activeEffectName], messageBus);
+      this._killEffect(activeEffects.map[activeEffectName]);
 
       activeEffects.map[activeEffectName] = null;
 
@@ -49,7 +50,7 @@ export class EffectsProcessor {
     });
   }
 
-  _addEffect(name, gameObject, options, messageBus) {
+  _addEffect(name, gameObject, options) {
     const gameObjectId = gameObject.getId();
 
     const effect = this._gameObjectSpawner.spawn(name);
@@ -73,17 +74,17 @@ export class EffectsProcessor {
     const EffectApplicator = effectApplicators[type];
 
     const effectApplicator = new EffectApplicator(
-      new EffectAction(gameObject, messageBus, { ...constOptions, ...options }),
+      new EffectAction(gameObject, this.messageBus, { ...constOptions, ...options }),
       effect,
-      messageBus
+      this.messageBus
     );
 
     this._applicatorsMap[gameObjectId] = this._applicatorsMap[gameObjectId] || {};
     this._applicatorsMap[gameObjectId][name] = effectApplicator;
   }
 
-  _processNewEffects(messageBus) {
-    const newEffects = messageBus.get(ADD_EFFECT_MSG) || [];
+  _processNewEffects() {
+    const newEffects = this.messageBus.get(ADD_EFFECT_MSG) || [];
     newEffects.forEach((message) => {
       const {
         name,
@@ -91,16 +92,16 @@ export class EffectsProcessor {
         gameObject,
       } = message;
 
-      this._cancelEffect(name, gameObject, messageBus);
-      this._addEffect(name, gameObject, options, messageBus);
+      this._cancelEffect(name, gameObject);
+      this._addEffect(name, gameObject, options);
     });
   }
 
-  _processEffectsCancellation(messageBus) {
-    const cancelledEffects = messageBus.get(REMOVE_EFFECT_MSG) || [];
+  _processEffectsCancellation() {
+    const cancelledEffects = this.messageBus.get(REMOVE_EFFECT_MSG) || [];
     cancelledEffects.forEach((message) => {
       const { name, gameObject } = message;
-      this._cancelEffect(name, gameObject, messageBus);
+      this._cancelEffect(name, gameObject);
     });
   }
 
@@ -116,12 +117,11 @@ export class EffectsProcessor {
   }
 
   process(options) {
-    const messageBus = options.messageBus;
     const deltaTime = options.deltaTime;
 
     this._processRemovedGameObjects();
-    this._processNewEffects(messageBus);
-    this._processEffectsCancellation(messageBus);
+    this._processNewEffects();
+    this._processEffectsCancellation();
 
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
@@ -135,7 +135,7 @@ export class EffectsProcessor {
         if (effectApplicator.isFinished()) {
           effectApplicator.cancel();
 
-          this._killEffect(activeEffects.map[name], messageBus);
+          this._killEffect(activeEffects.map[name]);
 
           activeEffects.map[name] = null;
           this._applicatorsMap[gameObjectId][name] = null;

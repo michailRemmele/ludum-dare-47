@@ -27,15 +27,14 @@ class ItemsActivator {
   constructor(options) {
     this._gameObjectObserver = options.gameObjectObserver;
     this._store = options.store;
+    this.messageBus = options.messageBus;
   }
 
-  process(options) {
-    const { messageBus } = options;
-
+  process() {
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
 
-      const messages = messageBus.getById(USE_ITEM_MSG, gameObjectId) || [];
+      const messages = this.messageBus.getById(USE_ITEM_MSG, gameObjectId) || [];
 
       messages.forEach((message) => {
         const { item } = message;
@@ -47,7 +46,7 @@ class ItemsActivator {
 
         inventory[item] -= 1;
 
-        messageBus.send({
+        this.messageBus.send({
           type: ADD_EFFECT_MSG,
           id: gameObjectId,
           gameObject,

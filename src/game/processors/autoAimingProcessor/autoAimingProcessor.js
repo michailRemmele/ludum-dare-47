@@ -11,16 +11,15 @@ const HITBOX_COMPONENT_NAME = 'hitBox';
 class AutoAimingProcessor {
   constructor(options) {
     this._gameObjectObserver = options.gameObjectObserver;
+    this.messageBus = options.messageBus;
   }
 
-  process(options) {
-    const { messageBus } = options;
-
+  process() {
     this._gameObjectObserver.forEach((gameObject) => {
       const { offsetX, offsetY } = gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
       const viewDirection = gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
 
-      const attackMessages = messageBus.getById(ATTACK_MSG, gameObject.getId()) || [];
+      const attackMessages = this.messageBus.getById(ATTACK_MSG, gameObject.getId()) || [];
 
       attackMessages.forEach((attackMessage) => {
         const { x, y } = attackMessage;
@@ -40,7 +39,8 @@ class AutoAimingProcessor {
           return;
         }
 
-        const collisionMessages = messageBus.getById(COLLISION_STAY_MSG, aimRadius.getId()) || [];
+        const collisionMessages =
+          this.messageBus.getById(COLLISION_STAY_MSG, aimRadius.getId()) || [];
 
         let nearestTargetDistance;
 

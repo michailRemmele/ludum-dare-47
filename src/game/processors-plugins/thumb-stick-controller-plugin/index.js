@@ -10,6 +10,7 @@ export class ThumbStickControllerPlugin {
           CONTROL_COMPONENT_NAME,
         ],
       }),
+      messageBus: options.messageBus,
     });
   }
 }

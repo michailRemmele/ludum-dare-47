@@ -18,6 +18,7 @@ export class RenderProcessorPlugin {
       scaleSensitivity,
       createGameObjectObserver,
       store,
+      messageBus,
     } = options;
 
     const window = document.getElementById(windowNodeId);
@@ -40,6 +41,7 @@ export class RenderProcessorPlugin {
         ],
       }),
       store,
+      messageBus,
     });
   }
 }
