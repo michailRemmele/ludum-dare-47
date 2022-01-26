@@ -92,7 +92,8 @@
         "origin": [ 0, -2 ],
         "flipX": false,
         "flipY": false,
-        "sortingLayer": "units"
+        "sortingLayer": "units",
+        "fit": "stretch"
       }
     }
   ]

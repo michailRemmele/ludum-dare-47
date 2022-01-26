@@ -471,7 +471,7 @@
       "options": {}
     },
     {
-      "name": "customRenderer",
+      "name": "renderProcessor",
       "options": {
         "windowNodeId": "root",
         "textureAtlas": "resources/textureAtlas.png",

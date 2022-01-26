@@ -22,7 +22,8 @@
         "origin": [ 0, 0 ],
         "flipX": false,
         "flipY": false,
-        "sortingLayer": "background"
+        "sortingLayer": "background",
+        "fit": "repeat"
       }
     }
   ]

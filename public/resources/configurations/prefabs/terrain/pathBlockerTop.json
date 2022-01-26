@@ -45,7 +45,8 @@
         "origin": [ 0, 0 ],
         "flipX": true,
         "flipY": false,
-        "sortingLayer": "terrain"
+        "sortingLayer": "terrain",
+        "fit": "stretch"
       }
     }
   ]

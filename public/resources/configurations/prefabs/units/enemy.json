@@ -787,7 +787,8 @@
         "origin": [ 0, 0 ],
         "flipX": false,
         "flipY": false,
-        "sortingLayer": "units"
+        "sortingLayer": "units",
+        "fit": "stretch"
       }
     }
   ]
