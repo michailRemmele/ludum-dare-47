@@ -38,11 +38,11 @@
       "name": "renderable",
       "config": {
         "type": "static",
-        "src": "terrain/grass-tile-corner",
+        "src": "resources/graphics/terrain/grass-tile-corner",
         "width": 16,
         "height": 16,
         "rotation": 0,
-        "origin": [ 0, 0 ],
+        "sortCenter": [ 0, 0 ],
         "flipX": false,
         "flipY": false,
         "sortingLayer": "terrain",

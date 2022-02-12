@@ -15,11 +15,11 @@
       "name": "renderable",
       "config": {
         "type": "static",
-        "src": "terrain/water-tile",
+        "src": "resources/graphics/terrain/water-tile",
         "width": 2500,
         "height": 2500,
         "rotation": 0,
-        "origin": [ 0, 0 ],
+        "sortCenter": [ 0, 0 ],
         "flipX": false,
         "flipY": false,
         "sortingLayer": "background",

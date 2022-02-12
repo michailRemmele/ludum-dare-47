@@ -215,7 +215,7 @@
               "config": {
                 "offsetX": 0,
                 "offsetY": 0,
-                "offsetZ": 0,
+                "offsetZ": 1,
                 "rotation": 0
               }
             },
@@ -471,11 +471,9 @@
       "options": {}
     },
     {
-      "name": "renderProcessor",
+      "name": "threeJSRenderer",
       "options": {
         "windowNodeId": "root",
-        "textureAtlas": "resources/textureAtlas.png",
-        "textureAtlasDescriptor": "resources/textureAtlasMap.json",
         "backgroundColor": "#000",
         "sortingLayers": [
           "default",
@@ -485,7 +483,7 @@
           "decorations",
           "units"
         ],
-        "scaleSensitivity": 50
+        "scaleSensitivity": 0.5
       }
     },
     {
