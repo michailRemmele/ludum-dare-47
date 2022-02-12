@@ -782,7 +782,7 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "resources/graphics/units/range-enemy",
+        "src": "resources/graphics/units/range-enemy.png",
         "width": 26,
         "height": 26,
         "slice": 28,

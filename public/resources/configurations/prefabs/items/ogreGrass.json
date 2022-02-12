@@ -84,7 +84,7 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "resources/graphics/items/ogre-grass",
+        "src": "resources/graphics/items/ogre-grass.png",
         "width": 16,
         "height": 16,
         "slice": 1,

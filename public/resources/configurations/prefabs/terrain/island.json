@@ -15,7 +15,7 @@
       "name": "renderable",
       "config": {
         "type": "static",
-        "src": "resources/graphics/terrain/grass-tile",
+        "src": "resources/graphics/terrain/grass-tile.png",
         "width": 400,
         "height": 400,
         "rotation": 0,

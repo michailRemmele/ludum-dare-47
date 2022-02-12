@@ -15,7 +15,7 @@
       "name": "renderable",
       "config": {
         "type": "static",
-        "src": "resources/graphics/terrain/water-tile",
+        "src": "resources/graphics/terrain/water-tile.png",
         "width": 2500,
         "height": 2500,
         "rotation": 0,

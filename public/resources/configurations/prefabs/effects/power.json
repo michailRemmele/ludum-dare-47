@@ -175,7 +175,7 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "resources/graphics/effects/power-effect",
+        "src": "resources/graphics/effects/power-effect.png",
         "width": 26,
         "height": 26,
         "slice": 12,

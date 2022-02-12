@@ -149,7 +149,7 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "resources/graphics/items/energy-ball",
+        "src": "resources/graphics/items/energy-ball.png",
         "width": 16,
         "height": 16,
         "slice": 6,

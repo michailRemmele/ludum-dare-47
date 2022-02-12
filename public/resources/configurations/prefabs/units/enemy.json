@@ -779,7 +779,7 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "resources/graphics/units/enemy",
+        "src": "resources/graphics/units/enemy.png",
         "width": 26,
         "height": 26,
         "slice": 28,

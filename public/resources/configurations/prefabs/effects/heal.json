@@ -133,7 +133,7 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "resources/graphics/effects/heal-effect",
+        "src": "resources/graphics/effects/heal-effect.png",
         "width": 26,
         "height": 26,
         "slice": 8,

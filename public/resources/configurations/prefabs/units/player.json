@@ -803,7 +803,7 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "resources/graphics/units/player",
+        "src": "resources/graphics/units/player.png",
         "width": 26,
         "height": 26,
         "slice": 28,

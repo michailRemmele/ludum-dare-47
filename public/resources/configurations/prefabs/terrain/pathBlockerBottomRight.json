@@ -38,7 +38,7 @@
       "name": "renderable",
       "config": {
         "type": "static",
-        "src": "resources/graphics/terrain/grass-tile-corner",
+        "src": "resources/graphics/terrain/grass-tile-corner.png",
         "width": 16,
         "height": 16,
         "rotation": 0,
