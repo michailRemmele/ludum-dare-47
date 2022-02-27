@@ -188,6 +188,17 @@
       }
     },
     {
+      "name": "light",
+      "config": {
+        "type": "point",
+        "options": {
+          "color": "#d2902d",
+          "intensity": 1,
+          "distance": 24
+        }
+      }
+    },
+    {
       "name": "ui",
       "config": {
         "icon": "./media/images/power-potion.png",

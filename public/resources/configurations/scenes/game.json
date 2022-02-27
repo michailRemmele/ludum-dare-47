@@ -2,6 +2,33 @@
   "name": "game",
   "gameObjects": [
     {
+      "id": "400",
+      "name": "sky",
+      "fromPrefab": false,
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "light",
+          "config": {
+            "type": "ambient",
+            "options": {
+              "color": "#0062ff",
+              "intensity": 0.6
+            }
+          }
+        }
+      ]
+    },
+    {
       "id": "100",
       "name": "sea",
       "fromPrefab": true,
@@ -355,7 +382,8 @@
       "name": "dayNightSimulator",
       "options": {
         "dayLength": 60000,
-        "startTime": 32400000
+        "startTime": 32400000,
+        "skyId": "400"
       }
     },
     {
@@ -409,6 +437,7 @@
           "transform",
           "animatable",
           "renderable",
+          "light",
           "camera",
           "viewDirection"
         ],

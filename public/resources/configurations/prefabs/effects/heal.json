@@ -146,6 +146,17 @@
       }
     },
     {
+      "name": "light",
+      "config": {
+        "type": "point",
+        "options": {
+          "color": "#d12e2e",
+          "intensity": 5,
+          "distance": 24
+        }
+      }
+    },
+    {
       "name": "ui",
       "config": {
         "icon": "./media/images/heal-potion.png",

@@ -1,6 +1,7 @@
 import Time from './time';
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
+const LIGHT_COMPONENT_NAME = 'light';
 
 const SET_COLOR_FILTER_MSG = 'SET_COLOR_FILTER';
 
@@ -43,10 +44,26 @@ const COLOR_MAT_21_0 = [
 
 class DayNightSimulator {
   constructor(options) {
-    this._dayLength = options.dayLength;
-    this._startTime = options.startTime;
-    this._store = options.store;
-    this.messageBus = options.messageBus;
+    const {
+      gameObjectObserver,
+      store,
+      messageBus,
+      dayLength,
+      startTime,
+      skyId,
+    } = options;
+
+    this._store = store;
+    this.messageBus = messageBus;
+
+    this._dayLength = dayLength;
+    this._startTime = startTime;
+
+    this.sky = gameObjectObserver.getById(skyId);
+
+    if (!this.sky) {
+      throw new Error(`Could not find sky game object with id ${skyId}`);
+    }
 
     this._time = null;
 

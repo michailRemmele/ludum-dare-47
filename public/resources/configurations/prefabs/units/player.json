@@ -814,6 +814,17 @@
         "sortingLayer": "units",
         "fit": "stretch"
       }
+    },
+    {
+      "name": "light",
+      "config": {
+        "type": "point",
+        "options": {
+          "color": "#fff",
+          "intensity": 0.5,
+          "distance": 0
+        }
+      }
     }
   ]
 }
