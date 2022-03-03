@@ -21,8 +21,8 @@
           "config": {
             "type": "ambient",
             "options": {
-              "color": "#0062ff",
-              "intensity": 0.6
+              "color": "#fff",
+              "intensity": 1
             }
           }
         }

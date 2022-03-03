@@ -1,46 +1,88 @@
-import Time from './time';
+import { Time, DAY_LENGTH_MS } from './time';
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
 const LIGHT_COMPONENT_NAME = 'light';
 
-const SET_COLOR_FILTER_MSG = 'SET_COLOR_FILTER';
+const skyMiddayColor = {
+  red: 255,
+  green: 255,
+  blue: 255,
+};
+const skySunsetColor = {
+  red: 255,
+  green: 100,
+  blue: 60,
+};
+const skyTwilightColor = {
+  red: 180,
+  green: 120,
+  blue: 200,
+};
+const skyMidnightColor = {
+  red: 30,
+  green: 128,
+  blue: 255,
+};
 
-const COLOR_MAT_0_3 = [
-  0.4, 0.0, 0.2, 0.0,
-  0.0, 0.4, 0.4, 0.0,
-  0.0, 0.0, 0.4, 0.0,
-  0.0, 0.0, 0.0, 1.0,
+const skyPoints = [
+  {
+    color: skyMiddayColor,
+    intensity: 1,
+    time: { hours: 12, minutes: 0 },
+  },
+  {
+    color: skyMiddayColor,
+    intensity: 0.95,
+    time: { hours: 19, minutes: 0 },
+  },
+  {
+    color: skySunsetColor,
+    intensity: 0.9,
+    time: { hours: 20, minutes: 30 },
+  },
+  {
+    color: skySunsetColor,
+    intensity: 0.9,
+    time: { hours: 21, minutes: 30 },
+  },
+  {
+    color: skyTwilightColor,
+    intensity: 0.8,
+    time: { hours: 23, minutes: 0 },
+  },
+  {
+    color: skyMidnightColor,
+    intensity: 0.7,
+    time: { hours: 0, minutes: 0 },
+  },
+  {
+    color: skyMidnightColor,
+    intensity: 0.75,
+    time: { hours: 4, minutes: 0 },
+  },
+  {
+    color: skyTwilightColor,
+    intensity: 0.8,
+    time: { hours: 5, minutes: 0 },
+  },
+  {
+    color: skySunsetColor,
+    intensity: 0.9,
+    time: { hours: 6, minutes: 30 },
+  },
+  {
+    color: skySunsetColor,
+    intensity: 0.9,
+    time: { hours: 7, minutes: 30 },
+  },
+  {
+    color: skyMiddayColor,
+    intensity: 0.95,
+    time: { hours: 9, minutes: 0 },
+  },
 ];
-const COLOR_MAT_3_6 = [
-  0.5, 0.0, 0.0, 0.0,
-  0.0, 0.5, 0.4, 0.0,
-  0.0, 0.0, 0.5, 0.0,
-  0.0, 0.0, 0.0, 1.0,
-];
-const COLOR_MAT_6_9 = [
-  0.8, 0.0, 0.0, 0.0,
-  0.0, 0.8, 0.0, 0.0,
-  0.0, 0.0, 0.8, 0.0,
-  0.0, 0.0, 0.0, 1.0,
-];
-const COLOR_MAT_9_18 = [
-  1.0, 0.0, 0.0, 0.0,
-  0.0, 1.0, 0.0, 0.0,
-  0.0, 0.0, 1.0, 0.0,
-  0.0, 0.0, 0.0, 1.0,
-];
-const COLOR_MAT_18_21 = [
-  1.0, 0.0, 0.0, 0.0,
-  0.3, 1.0, 0.0, 0.0,
-  0.0, 0.0, 0.7, 0.0,
-  0.0, 0.0, 0.0, 1.0,
-];
-const COLOR_MAT_21_0 = [
-  0.8, 0.0, 0.0, 0.0,
-  0.5, 0.8, 0.0, 0.0,
-  0.0, 0.0, 0.7, 0.0,
-  0.0, 0.0, 0.0, 1.0,
-];
+
+export const interpolate = (start, end, progress) => start + ((end - start) * progress);
 
 class DayNightSimulator {
   constructor(options) {
@@ -67,17 +109,7 @@ class DayNightSimulator {
 
     this._time = null;
 
-    this._schedule = [
-      COLOR_MAT_0_3,
-      COLOR_MAT_3_6,
-      COLOR_MAT_6_9,
-      COLOR_MAT_9_18,
-      COLOR_MAT_9_18,
-      COLOR_MAT_9_18,
-      COLOR_MAT_18_21,
-      COLOR_MAT_21_0,
-    ];
-    this._currentFilterIndex = null;
+    this._startSegmentIndex = 0;
   }
 
   processorDidMount() {
@@ -85,19 +117,62 @@ class DayNightSimulator {
     this._store.set(TIME_OF_DAY_KEY, this._time);
   }
 
-  _updateColorFilter() {
-    const hours = this._time.getHours();
+  _updateDaySegment() {
+    const ms = this._time.getTotalMilliseconds();
 
-    const newIndex = Math.floor(hours / 3);
+    let startSegmentIndex;
+    for (let i = 0; i < skyPoints.length; i += 1) {
+      const skyPointTime = skyPoints[i].time;
+      const skyPointMs = Time.timeToMilliseconds(skyPointTime.hours, skyPointTime.minutes);
+      const prevSkyPointTime = skyPoints[i - 1]
+        ? skyPoints[i - 1].time
+        : skyPoints[skyPoints.length - 1].time;
 
-    if (newIndex !== this._currentFilterIndex) {
-      this._currentFilterIndex = Math.floor(hours / 3);
+      if (ms >= skyPointMs) {
+        if (Number.isInteger(startSegmentIndex) && skyPointTime.hours < prevSkyPointTime.hours) {
+          break;
+        }
 
-      this.messageBus.send({
-        type: SET_COLOR_FILTER_MSG,
-        filter: this._schedule[this._currentFilterIndex],
-      });
+        startSegmentIndex = i;
+      } else if (Number.isInteger(startSegmentIndex)) {
+        break;
+      }
     }
+
+    if (Number.isInteger(startSegmentIndex) && startSegmentIndex !== this._startSegmentIndex) {
+      this._startSegmentIndex = startSegmentIndex;
+    }
+  }
+
+  _updateSkyColor() {
+    const light = this.sky.getComponent(LIGHT_COMPONENT_NAME);
+
+    const startPoint = skyPoints[this._startSegmentIndex];
+    const endPoint = skyPoints[this._startSegmentIndex + 1]
+      ? skyPoints[this._startSegmentIndex + 1]
+      : skyPoints[0];
+
+    const ms = this._time.getTotalMilliseconds();
+    const startMs = Time.timeToMilliseconds(startPoint.time.hours, startPoint.time.minutes);
+    const endMs = Time.timeToMilliseconds(endPoint.time.hours, endPoint.time.minutes);
+
+    const duration = endMs > startMs ? endMs - startMs : DAY_LENGTH_MS + endMs - startMs;
+    const passed = ms > startMs ? ms - startMs : DAY_LENGTH_MS + ms - startMs;
+
+    const progress = passed / duration;
+
+    light.options.intensity = interpolate(startPoint.intensity, endPoint.intensity, progress);
+
+    const red = Math.round(interpolate(
+      startPoint.color.red, endPoint.color.red, progress
+    ));
+    const green = Math.round(interpolate(
+      startPoint.color.green, endPoint.color.green, progress
+    ));
+    const blue = Math.round(interpolate(
+      startPoint.color.blue, endPoint.color.blue, progress
+    ));
+    light.options.color = `rgb(${red},${green},${blue})`;
   }
 
   process(options) {
@@ -105,7 +180,8 @@ class DayNightSimulator {
 
     this._time.tick(deltaTime);
 
-    this._updateColorFilter();
+    this._updateDaySegment();
+    this._updateSkyColor();
   }
 }
 
