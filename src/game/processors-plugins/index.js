@@ -7,7 +7,6 @@ import { FightSystemPlugin } from './fight-system-plugin';
 import { EnemySpawnerPlugin } from './enemy-spawner-plugin';
 import { AIProcessorPlugin } from './ai-processor-plugin';
 import { EnemiesDetectorPlugin } from './enemies-detector-plugin';
-import { RenderProcessorPlugin } from './render-processor-plugin';
 import { DayNightSimulatorPlugin } from './day-night-simulator-plugin';
 import { GrassSpawnerPlugin } from './grass-spawner-plugin';
 import { CollectProcessorPlugin } from './collect-processor-plugin';
@@ -27,7 +26,6 @@ export const processorsPlugins = {
   enemySpawner: EnemySpawnerPlugin,
   aiProcessor: AIProcessorPlugin,
   enemiesDetector: EnemiesDetectorPlugin,
-  customRenderer: RenderProcessorPlugin,
   dayNightSimulator: DayNightSimulatorPlugin,
   grassSpawner: GrassSpawnerPlugin,
   collectProcessor: CollectProcessorPlugin,
