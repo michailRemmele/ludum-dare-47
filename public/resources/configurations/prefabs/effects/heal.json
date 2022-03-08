@@ -151,7 +151,7 @@
         "type": "point",
         "options": {
           "color": "#d12e2e",
-          "intensity": 5,
+          "intensity": 0.75,
           "distance": 24
         }
       }

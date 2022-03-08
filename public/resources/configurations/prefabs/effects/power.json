@@ -193,7 +193,7 @@
         "type": "point",
         "options": {
           "color": "#d2902d",
-          "intensity": 1,
+          "intensity": 0.75,
           "distance": 24
         }
       }

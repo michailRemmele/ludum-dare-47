@@ -10,8 +10,8 @@ const skyMiddayColor = {
 };
 const skySunsetColor = {
   red: 255,
-  green: 100,
-  blue: 60,
+  green: 140,
+  blue: 130,
 };
 const skyTwilightColor = {
   red: 180,
@@ -42,32 +42,32 @@ const skyPoints = [
   },
   {
     color: skySunsetColor,
-    intensity: 0.9,
+    intensity: 0.8,
     time: { hours: 21, minutes: 30 },
   },
   {
     color: skyTwilightColor,
-    intensity: 0.8,
+    intensity: 0.6,
     time: { hours: 23, minutes: 0 },
   },
   {
     color: skyMidnightColor,
-    intensity: 0.7,
+    intensity: 0.4,
     time: { hours: 0, minutes: 0 },
   },
   {
     color: skyMidnightColor,
-    intensity: 0.75,
+    intensity: 0.4,
     time: { hours: 4, minutes: 0 },
   },
   {
     color: skyTwilightColor,
-    intensity: 0.8,
+    intensity: 0.6,
     time: { hours: 5, minutes: 0 },
   },
   {
     color: skySunsetColor,
-    intensity: 0.9,
+    intensity: 0.8,
     time: { hours: 6, minutes: 30 },
   },
   {
