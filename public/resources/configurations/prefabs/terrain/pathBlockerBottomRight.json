@@ -46,7 +46,10 @@
         "flipX": true,
         "flipY": true,
         "sortingLayer": "terrain",
-        "fit": "stretch"
+        "fit": "stretch",
+        "material": {
+          "type": "lightsensitive"
+        }
       }
     }
   ]

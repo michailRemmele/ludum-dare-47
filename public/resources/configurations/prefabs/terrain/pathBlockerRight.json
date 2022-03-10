@@ -46,7 +46,10 @@
         "flipX": true,
         "flipY": false,
         "sortingLayer": "terrain",
-        "fit": "repeat"
+        "fit": "repeat",
+        "material": {
+          "type": "lightsensitive"
+        }
       }
     }
   ]

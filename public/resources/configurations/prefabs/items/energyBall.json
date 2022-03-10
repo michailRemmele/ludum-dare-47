@@ -158,7 +158,10 @@
         "flipX": false,
         "flipY": false,
         "sortingLayer": "units",
-        "fit": "stretch"
+        "fit": "stretch",
+        "material": {
+          "type": "basic"
+        }
       }
     }
   ]

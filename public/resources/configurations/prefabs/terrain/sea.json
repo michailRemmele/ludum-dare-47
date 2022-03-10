@@ -23,7 +23,10 @@
         "flipX": false,
         "flipY": false,
         "sortingLayer": "background",
-        "fit": "repeat"
+        "fit": "repeat",
+        "material": {
+          "type": "lightsensitive"
+        }
       }
     }
   ]
