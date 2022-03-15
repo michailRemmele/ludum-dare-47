@@ -510,6 +510,7 @@
           "space",
           "terrain",
           "decorations",
+          "lights",
           "units"
         ],
         "scaleSensitivity": 0.5

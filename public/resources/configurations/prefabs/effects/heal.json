@@ -1,6 +1,43 @@
 {
   "name": "heal",
-  "children": [],
+  "children": [
+    {
+      "name": "healLight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 7,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/effects/heal-effect-light.png",
+            "width": 26,
+            "height": 13,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "lights",
+            "fit": "stretch",
+            "material": {
+              "type": "basic",
+              "options": {
+                "blending": "addition"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
   "components": [
     {
       "name": "transform",
@@ -145,17 +182,6 @@
         "fit": "stretch",
         "material": {
           "type": "basic"
-        }
-      }
-    },
-    {
-      "name": "light",
-      "config": {
-        "type": "point",
-        "options": {
-          "color": "#d12e2e",
-          "intensity": 0.75,
-          "distance": 24
         }
       }
     },

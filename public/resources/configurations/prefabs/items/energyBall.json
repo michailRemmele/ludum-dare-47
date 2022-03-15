@@ -30,6 +30,42 @@
           }
         }
       ]
+    },
+    {
+      "name": "energyBallLight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/items/energy-ball-light.png",
+            "width": 26,
+            "height": 26,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "lights",
+            "fit": "stretch",
+            "material": {
+              "type": "basic",
+              "options": {
+                "blending": "addition"
+              }
+            }
+          }
+        }
+      ]
     }
   ],
   "components": [
