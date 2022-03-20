@@ -77,60 +77,36 @@
             "timeline": {
               "frames": [
                 {
-                  "index": 0,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 0,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 1,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 1,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 2,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 2,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 3,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 3,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 4,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 4,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 5,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 5,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 6,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 6,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 7,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 7,
+                  "components.renderable.disabled": false
                 }
               ],
               "looped": false
@@ -149,39 +125,28 @@
                       "message": "EFFECT_CANCEL"
                     }
                   }
-                ]
+                ],
+                "time": 0
               }
             ],
             "type": "individual",
             "timeline": {
               "frames": [
                 {
-                  "index": 8,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": true
+                  "components.renderable.currentFrame": 8,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 9,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 9,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 10,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 10,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 11,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 11,
+                  "components.renderable.disabled": false
                 }
               ],
               "looped": true
@@ -189,21 +154,18 @@
           },
           {
             "name": "cancel",
-            "type": "individual",
             "speed": 1,
+            "transitions": [],
+            "type": "individual",
             "timeline": {
               "frames": [
                 {
-                  "index": 0,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": true
+                  "components.renderable.currentFrame": 0,
+                  "components.renderable.disabled": true
                 }
               ],
               "looped": false
-            },
-            "transitions": []
+            }
           }
         ]
       }

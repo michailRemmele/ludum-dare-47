@@ -62,20 +62,7 @@
         "states": [
           {
             "name": "idle",
-            "type": "individual",
             "speed": 1,
-            "timeline": {
-              "frames": [
-                {
-                  "index": 0,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": true
-                }
-              ],
-              "looped": false
-            },
             "transitions": [
               {
                 "state": "apply",
@@ -86,82 +73,69 @@
                       "message": "EFFECT_APPLY"
                     }
                   }
-                ]
+                ],
+                "time": 0
               }
-            ]
-          },
-          {
-            "name": "apply",
+            ],
             "type": "individual",
-            "speed": 1.25,
             "timeline": {
               "frames": [
                 {
-                  "index": 0,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
-                },
-                {
-                  "index": 1,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
-                },
-                {
-                  "index": 2,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
-                },
-                {
-                  "index": 3,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
-                },
-                {
-                  "index": 4,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
-                },
-                {
-                  "index": 5,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
-                },
-                {
-                  "index": 6,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
-                },
-                {
-                  "index": 7,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 0,
+                  "components.renderable.disabled": true
                 }
               ],
               "looped": false
-            },
+            }
+          },
+          {
+            "name": "apply",
+            "speed": 1.25,
             "transitions": [
               {
                 "state": "idle",
                 "conditions": [],
                 "time": "1"
               }
-            ]
+            ],
+            "type": "individual",
+            "timeline": {
+              "frames": [
+                {
+                  "components.renderable.currentFrame": 0,
+                  "components.renderable.disabled": false
+                },
+                {
+                  "components.renderable.currentFrame": 1,
+                  "components.renderable.disabled": false
+                },
+                {
+                  "components.renderable.currentFrame": 2,
+                  "components.renderable.disabled": false
+                },
+                {
+                  "components.renderable.currentFrame": 3,
+                  "components.renderable.disabled": false
+                },
+                {
+                  "components.renderable.currentFrame": 4,
+                  "components.renderable.disabled": false
+                },
+                {
+                  "components.renderable.currentFrame": 5,
+                  "components.renderable.disabled": false
+                },
+                {
+                  "components.renderable.currentFrame": 6,
+                  "components.renderable.disabled": false
+                },
+                {
+                  "components.renderable.currentFrame": 7,
+                  "components.renderable.disabled": false
+                }
+              ],
+              "looped": false
+            }
           }
         ]
       }

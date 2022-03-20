@@ -113,18 +113,7 @@
         "states": [
           {
             "name": "idle",
-            "type": "individual",
             "speed": 1,
-            "timeline": {
-              "frames": [
-                {
-                  "index": 0,
-                  "flipY": false,
-                  "rotation": 0
-                }
-              ],
-              "looped": false
-            },
             "transitions": [
               {
                 "state": "death",
@@ -135,48 +124,48 @@
                       "message": "DEATH"
                     }
                   }
-                ]
+                ],
+                "time": 0
               }
-            ]
-          },
-          {
-            "name": "death",
+            ],
             "type": "individual",
-            "speed": 1,
             "timeline": {
               "frames": [
                 {
-                  "index": 1,
-                  "flipY": false,
-                  "rotation": 0
-                },
-                {
-                  "index": 2,
-                  "flipY": false,
-                  "rotation": 0
-                },
-                {
-                  "index": 3,
-                  "flipY": false,
-                  "rotation": 0
-                },
-                {
-                  "index": 4,
-                  "flipY": false,
-                  "rotation": 0
-                },
-                {
-                  "index": 5,
-                  "flipY": false,
-                  "rotation": 0
-                },
-                {
-                  "disabled": true
+                  "components.renderable.currentFrame": 0
                 }
               ],
               "looped": false
-            },
-            "transitions": []
+            }
+          },
+          {
+            "name": "death",
+            "speed": 1,
+            "transitions": [],
+            "type": "individual",
+            "timeline": {
+              "frames": [
+                {
+                  "components.renderable.currentFrame": 1
+                },
+                {
+                  "components.renderable.currentFrame": 2
+                },
+                {
+                  "components.renderable.currentFrame": 3
+                },
+                {
+                  "components.renderable.currentFrame": 4
+                },
+                {
+                  "components.renderable.currentFrame": 5
+                },
+                {
+                  "components.renderable.disabled": true
+                }
+              ],
+              "looped": false
+            }
           }
         ]
       }
