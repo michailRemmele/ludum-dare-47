@@ -47,10 +47,11 @@
         {
           "name": "renderable",
           "config": {
-            "type": "static",
+            "type": "sprite",
             "src": "resources/graphics/items/energy-ball-light.png",
-            "width": 26,
-            "height": 26,
+            "width": 22,
+            "height": 22,
+            "slice": 6,
             "rotation": 0,
             "sortCenter": [ 0, 0 ],
             "flipX": false,
@@ -132,7 +133,8 @@
             "timeline": {
               "frames": [
                 {
-                  "components.renderable.currentFrame": 0
+                  "components.renderable.currentFrame": 0,
+                  "children.energyBallLight.components.renderable.currentFrame": 0
                 }
               ],
               "looped": false
@@ -146,22 +148,28 @@
             "timeline": {
               "frames": [
                 {
-                  "components.renderable.currentFrame": 1
+                  "components.renderable.currentFrame": 1,
+                  "children.energyBallLight.components.renderable.currentFrame": 1
                 },
                 {
-                  "components.renderable.currentFrame": 2
+                  "components.renderable.currentFrame": 2,
+                  "children.energyBallLight.components.renderable.currentFrame": 2
                 },
                 {
-                  "components.renderable.currentFrame": 3
+                  "components.renderable.currentFrame": 3,
+                  "children.energyBallLight.components.renderable.currentFrame": 3
                 },
                 {
-                  "components.renderable.currentFrame": 4
+                  "components.renderable.currentFrame": 4,
+                  "children.energyBallLight.components.renderable.currentFrame": 4
                 },
                 {
-                  "components.renderable.currentFrame": 5
+                  "components.renderable.currentFrame": 5,
+                  "children.energyBallLight.components.renderable.currentFrame": 5
                 },
                 {
-                  "components.renderable.disabled": true
+                  "components.renderable.disabled": true,
+                  "children.energyBallLight.components.renderable.disabled": true
                 }
               ],
               "looped": false

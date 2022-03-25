@@ -511,6 +511,7 @@
           "terrain",
           "decorations",
           "lights",
+          "effectsBack",
           "units"
         ],
         "scaleSensitivity": 0.5

@@ -36,6 +36,40 @@
           }
         }
       ]
+    },
+    {
+      "name": "powerBack",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/effects/power-effect-back.png",
+            "width": 26,
+            "height": 26,
+            "slice": 12,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "effectsBack",
+            "fit": "stretch",
+            "material": {
+              "type": "basic"
+            }
+          }
+        }
+      ]
     }
   ],
   "components": [
@@ -65,7 +99,7 @@
         "states": [
           {
             "name": "apply",
-            "speed": 1.25,
+            "speed": 1,
             "transitions": [
               {
                 "state": "idle",
@@ -78,35 +112,43 @@
               "frames": [
                 {
                   "components.renderable.currentFrame": 0,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 0,
+                  "children.powerLight.components.renderable.material.options.opacity": 0.8
                 },
                 {
                   "components.renderable.currentFrame": 1,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 1,
+                  "children.powerLight.components.renderable.material.options.opacity": 0.9
                 },
                 {
                   "components.renderable.currentFrame": 2,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 2,
+                  "children.powerLight.components.renderable.material.options.opacity": 1
                 },
                 {
                   "components.renderable.currentFrame": 3,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 3,
+                  "children.powerLight.components.renderable.material.options.opacity": 0.8
                 },
                 {
                   "components.renderable.currentFrame": 4,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 4,
+                  "children.powerLight.components.renderable.material.options.opacity": 0.6
                 },
                 {
                   "components.renderable.currentFrame": 5,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 5,
+                  "children.powerLight.components.renderable.material.options.opacity": 0.4
                 },
                 {
                   "components.renderable.currentFrame": 6,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 6,
+                  "children.powerLight.components.renderable.material.options.opacity": 0.2
                 },
                 {
                   "components.renderable.currentFrame": 7,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 7,
+                  "children.powerLight.components.renderable.material.options.opacity": 0.1
                 }
               ],
               "looped": false
@@ -114,7 +156,7 @@
           },
           {
             "name": "idle",
-            "speed": 0.5,
+            "speed": 0.4,
             "transitions": [
               {
                 "state": "cancel",
@@ -134,19 +176,23 @@
               "frames": [
                 {
                   "components.renderable.currentFrame": 8,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 8,
+                  "children.powerLight.components.renderable.material.options.opacity": 0.8
                 },
                 {
                   "components.renderable.currentFrame": 9,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 9,
+                  "children.powerLight.components.renderable.material.options.opacity": 1
                 },
                 {
                   "components.renderable.currentFrame": 10,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 10,
+                  "children.powerLight.components.renderable.material.options.opacity": 0.8
                 },
                 {
                   "components.renderable.currentFrame": 11,
-                  "components.renderable.disabled": false
+                  "children.powerBack.components.renderable.currentFrame": 11,
+                  "children.powerLight.components.renderable.material.options.opacity": 0.6
                 }
               ],
               "looped": true
@@ -161,7 +207,10 @@
               "frames": [
                 {
                   "components.renderable.currentFrame": 0,
-                  "components.renderable.disabled": true
+                  "components.renderable.disabled": true,
+                  "children.powerBack.components.renderable.currentFrame": 0,
+                  "children.powerBack.components.renderable.disabled": true,
+                  "children.powerLight.components.renderable.disabled": true
                 }
               ],
               "looped": false
