@@ -49,8 +49,8 @@
           "config": {
             "type": "sprite",
             "src": "resources/graphics/items/energy-ball-light.png",
-            "width": 22,
-            "height": 22,
+            "width": 20,
+            "height": 20,
             "slice": 6,
             "rotation": 0,
             "sortCenter": [ 0, 0 ],

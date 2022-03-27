@@ -9,7 +9,7 @@
           "name": "transform",
           "config": {
             "offsetX": 0,
-            "offsetY": 7,
+            "offsetY": 0,
             "offsetZ": 0,
             "rotation": 0
           }
@@ -17,10 +17,11 @@
         {
           "name": "renderable",
           "config": {
-            "type": "static",
+            "type": "sprite",
             "src": "resources/graphics/effects/heal-effect-light.png",
             "width": 26,
-            "height": 13,
+            "height": 26,
+            "slice": 7,
             "rotation": 0,
             "sortCenter": [ 0, 0 ],
             "flipX": false,
@@ -144,7 +145,7 @@
                   "children.healBack.components.renderable.currentFrame": 0,
                   "children.healBack.components.renderable.disabled": false,
                   "children.healLight.components.renderable.disabled": false,
-                  "children.healLight.components.renderable.material.options.opacity": 0.8
+                  "children.healLight.components.renderable.currentFrame": 0
                 },
                 {
                   "components.renderable.currentFrame": 1,
@@ -152,7 +153,7 @@
                   "children.healBack.components.renderable.currentFrame": 1,
                   "children.healBack.components.renderable.disabled": false,
                   "children.healLight.components.renderable.disabled": false,
-                  "children.healLight.components.renderable.material.options.opacity": 0.9
+                  "children.healLight.components.renderable.currentFrame": 1
                 },
                 {
                   "components.renderable.currentFrame": 2,
@@ -160,7 +161,7 @@
                   "children.healBack.components.renderable.currentFrame": 2,
                   "children.healBack.components.renderable.disabled": false,
                   "children.healLight.components.renderable.disabled": false,
-                  "children.healLight.components.renderable.material.options.opacity": 1
+                  "children.healLight.components.renderable.currentFrame": 2
                 },
                 {
                   "components.renderable.currentFrame": 3,
@@ -168,7 +169,7 @@
                   "children.healBack.components.renderable.currentFrame": 3,
                   "children.healBack.components.renderable.disabled": false,
                   "children.healLight.components.renderable.disabled": false,
-                  "children.healLight.components.renderable.material.options.opacity": 0.8
+                  "children.healLight.components.renderable.currentFrame": 3
                 },
                 {
                   "components.renderable.currentFrame": 4,
@@ -176,7 +177,7 @@
                   "children.healBack.components.renderable.currentFrame": 4,
                   "children.healBack.components.renderable.disabled": false,
                   "children.healLight.components.renderable.disabled": false,
-                  "children.healLight.components.renderable.material.options.opacity": 0.6
+                  "children.healLight.components.renderable.currentFrame": 4
                 },
                 {
                   "components.renderable.currentFrame": 5,
@@ -184,7 +185,7 @@
                   "children.healBack.components.renderable.currentFrame": 5,
                   "children.healBack.components.renderable.disabled": false,
                   "children.healLight.components.renderable.disabled": false,
-                  "children.healLight.components.renderable.material.options.opacity": 0.4
+                  "children.healLight.components.renderable.currentFrame": 5
                 },
                 {
                   "components.renderable.currentFrame": 6,
@@ -192,15 +193,14 @@
                   "children.healBack.components.renderable.currentFrame": 6,
                   "children.healBack.components.renderable.disabled": false,
                   "children.healLight.components.renderable.disabled": false,
-                  "children.healLight.components.renderable.material.options.opacity": 0.2
+                  "children.healLight.components.renderable.currentFrame": 6
                 },
                 {
                   "components.renderable.currentFrame": 7,
                   "components.renderable.disabled": false,
                   "children.healBack.components.renderable.currentFrame": 7,
                   "children.healBack.components.renderable.disabled": false,
-                  "children.healLight.components.renderable.disabled": false,
-                  "children.healLight.components.renderable.material.options.opacity": 0.1
+                  "children.healLight.components.renderable.disabled": true
                 }
               ],
               "looped": false
