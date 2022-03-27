@@ -128,6 +128,16 @@
       }
     },
     {
+      "name": "script",
+      "config": {
+        "name": "player",
+        "options": {
+          "skyId": "400",
+          "threshold": 0.9
+        }
+      }
+    },
+    {
       "name": "animatable",
       "config": {
         "initialState": "idle",
@@ -180,7 +190,7 @@
                     "props": {
                       "arg1": {
                         "type": "componentValue",
-                        "value": "movement.vector.x"
+                        "value": "components.movement.vector.x"
                       },
                       "operation": "notEquals",
                       "arg2": {
@@ -200,7 +210,7 @@
                     "props": {
                       "arg1": {
                         "type": "componentValue",
-                        "value": "movement.vector.y"
+                        "value": "components.movement.vector.y"
                       },
                       "operation": "notEquals",
                       "arg2": {
@@ -216,8 +226,8 @@
             "type": "group",
             "pickMode": "2D",
             "pickProps": {
-              "x": "viewDirection.x",
-              "y": "viewDirection.y"
+              "x": "components.viewDirection.x",
+              "y": "components.viewDirection.y"
             },
             "substates": [
               {
@@ -225,25 +235,19 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 0,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 0,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 1,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 1,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 2,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 2,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": true
@@ -256,25 +260,19 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 0,
-                      "rotation": 0,
-                      "flipX": true,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 0,
+                      "components.renderable.flipX": true,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 1,
-                      "rotation": 0,
-                      "flipX": true,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 1,
+                      "components.renderable.flipX": true,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 2,
-                      "rotation": 0,
-                      "flipX": true,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 2,
+                      "components.renderable.flipX": true,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": true
@@ -287,25 +285,19 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 6,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 6,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 7,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 7,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 8,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 8,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": true
@@ -318,25 +310,19 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 3,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 3,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 4,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 4,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 5,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 5,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": true
@@ -394,7 +380,7 @@
                     "props": {
                       "arg1": {
                         "type": "componentValue",
-                        "value": "movement.vector.x"
+                        "value": "components.movement.vector.x"
                       },
                       "operation": "equals",
                       "arg2": {
@@ -408,7 +394,7 @@
                     "props": {
                       "arg1": {
                         "type": "componentValue",
-                        "value": "movement.vector.y"
+                        "value": "components.movement.vector.y"
                       },
                       "operation": "equals",
                       "arg2": {
@@ -424,8 +410,8 @@
             "type": "group",
             "pickMode": "2D",
             "pickProps": {
-              "x": "viewDirection.x",
-              "y": "viewDirection.y"
+              "x": "components.viewDirection.x",
+              "y": "components.viewDirection.y"
             },
             "substates": [
               {
@@ -433,32 +419,24 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 9,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 9,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 10,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 10,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 11,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 11,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 10,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 10,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": true
@@ -471,32 +449,24 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 9,
-                      "rotation": 0,
-                      "flipX": true,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 9,
+                      "components.renderable.flipX": true,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 10,
-                      "rotation": 0,
-                      "flipX": true,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 10,
+                      "components.renderable.flipX": true,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 11,
-                      "rotation": 0,
-                      "flipX": true,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 11,
+                      "components.renderable.flipX": true,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 10,
-                      "rotation": 0,
-                      "flipX": true,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 10,
+                      "components.renderable.flipX": true,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": true
@@ -509,32 +479,24 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 15,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 15,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 16,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 16,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 17,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 17,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 16,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 16,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": true
@@ -547,32 +509,24 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 12,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 12,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 13,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 13,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 14,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 14,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 13,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 13,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": true
@@ -623,18 +577,14 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 18,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 18,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 19,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 19,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": false
@@ -647,18 +597,14 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 18,
-                      "rotation": 0,
-                      "flipX": true,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 18,
+                      "components.renderable.flipX": true,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 19,
-                      "rotation": 0,
-                      "flipX": true,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 19,
+                      "components.renderable.flipX": true,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": false
@@ -671,18 +617,14 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 22,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 22,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 23,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 23,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": false
@@ -695,18 +637,14 @@
                 "timeline": {
                   "frames": [
                     {
-                      "index": 20,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 20,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     },
                     {
-                      "index": 21,
-                      "rotation": 0,
-                      "flipX": false,
-                      "flipY": false,
-                      "disabled": false
+                      "components.renderable.currentFrame": 21,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
                     }
                   ],
                   "looped": false
@@ -717,8 +655,8 @@
             ],
             "pickMode": "2D",
             "pickProps": {
-              "x": "viewDirection.x",
-              "y": "viewDirection.y"
+              "x": "components.viewDirection.x",
+              "y": "components.viewDirection.y"
             }
           },
           {
@@ -747,11 +685,9 @@
             "timeline": {
               "frames": [
                 {
-                  "index": 27,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 27,
+                  "components.renderable.flipX": false,
+                  "components.renderable.disabled": false
                 }
               ],
               "looped": false
@@ -765,32 +701,24 @@
             "timeline": {
               "frames": [
                 {
-                  "index": 27,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 27,
+                  "components.renderable.flipX": false,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 24,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 24,
+                  "components.renderable.flipX": false,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 25,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 25,
+                  "components.renderable.flipX": false,
+                  "components.renderable.disabled": false
                 },
                 {
-                  "index": 26,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 26,
+                  "components.renderable.flipX": false,
+                  "components.renderable.disabled": false
                 }
               ],
               "looped": false
@@ -803,15 +731,30 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "units/player",
+        "src": "resources/graphics/units/player.png",
         "width": 26,
         "height": 26,
         "slice": 28,
         "rotation": 0,
-        "origin": [ 0, 0 ],
+        "sortCenter": [ 0, 0 ],
         "flipX": false,
         "flipY": false,
-        "sortingLayer": "units"
+        "sortingLayer": "units",
+        "fit": "stretch",
+        "material": {
+          "type": "lightsensitive"
+        }
+      }
+    },
+    {
+      "name": "light",
+      "config": {
+        "type": "point",
+        "options": {
+          "color": "#fff",
+          "intensity": 1,
+          "distance": 128
+        }
       }
     }
   ]

@@ -37,18 +37,7 @@
         "states": [
           {
             "name": "idle",
-            "type": "individual",
             "speed": 1,
-            "timeline": {
-              "frames": [
-                {
-                  "index": 0,
-                  "flipY": false,
-                  "rotation": 0
-                }
-              ],
-              "looped": false
-            },
             "transitions": [
               {
                 "state": "void",
@@ -59,23 +48,33 @@
                       "message": "DEATH"
                     }
                   }
-                ]
+                ],
+                "time": 0
               }
-            ]
-          },
-          {
-            "name": "void",
+            ],
             "type": "individual",
-            "speed": 1,
             "timeline": {
               "frames": [
                 {
-                  "disabled": true
+                  "components.renderable.disabled": false
                 }
               ],
               "looped": false
-            },
-            "transitions": []
+            }
+          },
+          {
+            "name": "void",
+            "speed": 1,
+            "transitions": [],
+            "type": "individual",
+            "timeline": {
+              "frames": [
+                {
+                  "components.renderable.disabled": true
+                }
+              ],
+              "looped": false
+            }
           }
         ]
       }
@@ -84,15 +83,19 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "items/ogre-grass",
+        "src": "resources/graphics/items/ogre-grass.png",
         "width": 16,
         "height": 16,
         "slice": 1,
         "rotation": 0,
-        "origin": [ 0, -2 ],
+        "sortCenter": [ 0, 3 ],
         "flipX": false,
         "flipY": false,
-        "sortingLayer": "units"
+        "sortingLayer": "units",
+        "fit": "stretch",
+        "material": {
+          "type": "lightsensitive"
+        }
       }
     }
   ]

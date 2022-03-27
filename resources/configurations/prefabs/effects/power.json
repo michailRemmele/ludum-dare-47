@@ -1,6 +1,78 @@
 {
   "name": "power",
-  "children": [],
+  "children": [
+    {
+      "name": "powerLight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/effects/power-effect-light.png",
+            "width": 26,
+            "height": 26,
+            "slice": 11,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "lights",
+            "fit": "stretch",
+            "material": {
+              "type": "basic",
+              "options": {
+                "blending": "addition"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "powerBack",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/effects/power-effect-back.png",
+            "width": 26,
+            "height": 26,
+            "slice": 12,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "effectsBack",
+            "fit": "stretch",
+            "material": {
+              "type": "basic"
+            }
+          }
+        }
+      ]
+    }
+  ],
   "components": [
     {
       "name": "transform",
@@ -28,7 +100,7 @@
         "states": [
           {
             "name": "apply",
-            "speed": 1.25,
+            "speed": 1,
             "transitions": [
               {
                 "state": "idle",
@@ -40,60 +112,51 @@
             "timeline": {
               "frames": [
                 {
-                  "index": 0,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 0,
+                  "children.powerBack.components.renderable.currentFrame": 0,
+                  "children.powerLight.components.renderable.currentFrame": 0,
+                  "children.powerLight.components.renderable.disabled": false
                 },
                 {
-                  "index": 1,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 1,
+                  "children.powerBack.components.renderable.currentFrame": 1,
+                  "children.powerLight.components.renderable.currentFrame": 1,
+                  "children.powerLight.components.renderable.disabled": false
                 },
                 {
-                  "index": 2,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 2,
+                  "children.powerBack.components.renderable.currentFrame": 2,
+                  "children.powerLight.components.renderable.currentFrame": 2,
+                  "children.powerLight.components.renderable.disabled": false
                 },
                 {
-                  "index": 3,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 3,
+                  "children.powerBack.components.renderable.currentFrame": 3,
+                  "children.powerLight.components.renderable.currentFrame": 3,
+                  "children.powerLight.components.renderable.disabled": false
                 },
                 {
-                  "index": 4,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 4,
+                  "children.powerBack.components.renderable.currentFrame": 4,
+                  "children.powerLight.components.renderable.currentFrame": 4,
+                  "children.powerLight.components.renderable.disabled": false
                 },
                 {
-                  "index": 5,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 5,
+                  "children.powerBack.components.renderable.currentFrame": 5,
+                  "children.powerLight.components.renderable.currentFrame": 5,
+                  "children.powerLight.components.renderable.disabled": false
                 },
                 {
-                  "index": 6,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 6,
+                  "children.powerBack.components.renderable.currentFrame": 6,
+                  "children.powerLight.components.renderable.currentFrame": 6,
+                  "children.powerLight.components.renderable.disabled": false
                 },
                 {
-                  "index": 7,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 7,
+                  "children.powerBack.components.renderable.currentFrame": 7,
+                  "children.powerLight.components.renderable.disabled": true
                 }
               ],
               "looped": false
@@ -101,7 +164,7 @@
           },
           {
             "name": "idle",
-            "speed": 0.5,
+            "speed": 0.4,
             "transitions": [
               {
                 "state": "cancel",
@@ -112,39 +175,36 @@
                       "message": "EFFECT_CANCEL"
                     }
                   }
-                ]
+                ],
+                "time": 0
               }
             ],
             "type": "individual",
             "timeline": {
               "frames": [
                 {
-                  "index": 8,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": true
+                  "components.renderable.currentFrame": 8,
+                  "children.powerBack.components.renderable.currentFrame": 8,
+                  "children.powerLight.components.renderable.currentFrame": 7,
+                  "children.powerLight.components.renderable.disabled": false
                 },
                 {
-                  "index": 9,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 9,
+                  "children.powerBack.components.renderable.currentFrame": 9,
+                  "children.powerLight.components.renderable.currentFrame": 8,
+                  "children.powerLight.components.renderable.disabled": false
                 },
                 {
-                  "index": 10,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 10,
+                  "children.powerBack.components.renderable.currentFrame": 10,
+                  "children.powerLight.components.renderable.currentFrame": 9,
+                  "children.powerLight.components.renderable.disabled": false
                 },
                 {
-                  "index": 11,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": false
+                  "components.renderable.currentFrame": 11,
+                  "children.powerBack.components.renderable.currentFrame": 11,
+                  "children.powerLight.components.renderable.currentFrame": 10,
+                  "children.powerLight.components.renderable.disabled": false
                 }
               ],
               "looped": true
@@ -152,21 +212,21 @@
           },
           {
             "name": "cancel",
-            "type": "individual",
             "speed": 1,
+            "transitions": [],
+            "type": "individual",
             "timeline": {
               "frames": [
                 {
-                  "index": 0,
-                  "rotation": 0,
-                  "flipX": false,
-                  "flipY": false,
-                  "disabled": true
+                  "components.renderable.currentFrame": 0,
+                  "components.renderable.disabled": true,
+                  "children.powerBack.components.renderable.currentFrame": 0,
+                  "children.powerBack.components.renderable.disabled": true,
+                  "children.powerLight.components.renderable.disabled": true
                 }
               ],
               "looped": false
-            },
-            "transitions": []
+            }
           }
         ]
       }
@@ -175,15 +235,19 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "effects/power-effect",
+        "src": "resources/graphics/effects/power-effect.png",
         "width": 26,
         "height": 26,
         "slice": 12,
         "rotation": 0,
-        "origin": [ 0, 0 ],
+        "sortCenter": [ 0, 0 ],
         "flipX": false,
         "flipY": false,
-        "sortingLayer": "units"
+        "sortingLayer": "units",
+        "fit": "stretch",
+        "material": {
+          "type": "basic"
+        }
       }
     },
     {

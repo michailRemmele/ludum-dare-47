@@ -38,14 +38,18 @@
       "name": "renderable",
       "config": {
         "type": "static",
-        "src": "terrain/grass-tile-side-v",
+        "src": "resources/graphics/terrain/grass-tile-side-v.png",
         "width": 16,
         "height": 400,
         "rotation": 0,
-        "origin": [ 0, 0 ],
+        "sortCenter": [ 0, 0 ],
         "flipX": false,
         "flipY": true,
-        "sortingLayer": "terrain"
+        "sortingLayer": "terrain",
+        "fit": "repeat",
+        "material": {
+          "type": "lightsensitive"
+        }
       }
     }
   ]

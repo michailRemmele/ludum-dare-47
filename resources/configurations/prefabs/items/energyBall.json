@@ -30,6 +30,43 @@
           }
         }
       ]
+    },
+    {
+      "name": "energyBallLight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/items/energy-ball-light.png",
+            "width": 20,
+            "height": 20,
+            "slice": 6,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "lights",
+            "fit": "stretch",
+            "material": {
+              "type": "basic",
+              "options": {
+                "blending": "addition"
+              }
+            }
+          }
+        }
+      ]
     }
   ],
   "components": [
@@ -77,18 +114,7 @@
         "states": [
           {
             "name": "idle",
-            "type": "individual",
             "speed": 1,
-            "timeline": {
-              "frames": [
-                {
-                  "index": 0,
-                  "flipY": false,
-                  "rotation": 0
-                }
-              ],
-              "looped": false
-            },
             "transitions": [
               {
                 "state": "death",
@@ -99,48 +125,55 @@
                       "message": "DEATH"
                     }
                   }
-                ]
+                ],
+                "time": 0
               }
-            ]
-          },
-          {
-            "name": "death",
+            ],
             "type": "individual",
-            "speed": 1,
             "timeline": {
               "frames": [
                 {
-                  "index": 1,
-                  "flipY": false,
-                  "rotation": 0
-                },
-                {
-                  "index": 2,
-                  "flipY": false,
-                  "rotation": 0
-                },
-                {
-                  "index": 3,
-                  "flipY": false,
-                  "rotation": 0
-                },
-                {
-                  "index": 4,
-                  "flipY": false,
-                  "rotation": 0
-                },
-                {
-                  "index": 5,
-                  "flipY": false,
-                  "rotation": 0
-                },
-                {
-                  "disabled": true
+                  "components.renderable.currentFrame": 0,
+                  "children.energyBallLight.components.renderable.currentFrame": 0
                 }
               ],
               "looped": false
-            },
-            "transitions": []
+            }
+          },
+          {
+            "name": "death",
+            "speed": 1,
+            "transitions": [],
+            "type": "individual",
+            "timeline": {
+              "frames": [
+                {
+                  "components.renderable.currentFrame": 1,
+                  "children.energyBallLight.components.renderable.currentFrame": 1
+                },
+                {
+                  "components.renderable.currentFrame": 2,
+                  "children.energyBallLight.components.renderable.currentFrame": 2
+                },
+                {
+                  "components.renderable.currentFrame": 3,
+                  "children.energyBallLight.components.renderable.currentFrame": 3
+                },
+                {
+                  "components.renderable.currentFrame": 4,
+                  "children.energyBallLight.components.renderable.currentFrame": 4
+                },
+                {
+                  "components.renderable.currentFrame": 5,
+                  "children.energyBallLight.components.renderable.currentFrame": 5
+                },
+                {
+                  "components.renderable.disabled": true,
+                  "children.energyBallLight.components.renderable.disabled": true
+                }
+              ],
+              "looped": false
+            }
           }
         ]
       }
@@ -149,15 +182,19 @@
       "name": "renderable",
       "config": {
         "type": "sprite",
-        "src": "items/energy-ball",
+        "src": "resources/graphics/items/energy-ball.png",
         "width": 16,
         "height": 16,
         "slice": 6,
         "rotation": 0,
-        "origin": [ 0, 0 ],
+        "sortCenter": [ 0, 0 ],
         "flipX": false,
         "flipY": false,
-        "sortingLayer": "units"
+        "sortingLayer": "units",
+        "fit": "stretch",
+        "material": {
+          "type": "basic"
+        }
       }
     }
   ]
