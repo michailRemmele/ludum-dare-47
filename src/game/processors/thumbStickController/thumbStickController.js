@@ -1,23 +1,20 @@
-import { Processor, MathOps } from '@flyer-engine/core';
+import { MathOps } from '@flyer-engine/core';
 
 const CONTROL_COMPONENT_NAME = 'thumbStickControl';
 
 const INPUT_MSG = 'THUMB_STICK_POSITION_CHANGE';
 
-class ThumbStickController extends Processor {
+class ThumbStickController {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
+    this.messageBus = options.messageBus;
     this._currentX = 0;
     this._currentY = 0;
     this._currentAngle = null;
   }
 
-  process(options) {
-    const messageBus = options.messageBus;
-
-    const messages = messageBus.get(INPUT_MSG) || [];
+  process() {
+    const messages = this.messageBus.get(INPUT_MSG) || [];
     messages.forEach((message) => {
       const { x, y } = message;
 
@@ -42,7 +39,7 @@ class ThumbStickController extends Processor {
           throw new Error(`The message type not specified for input event: ${INPUT_MSG}`);
         }
 
-        messageBus.send({
+        this.messageBus.send({
           type: eventBinding.messageType,
           ...eventBinding.attrs,
           gameObject: gameObject,

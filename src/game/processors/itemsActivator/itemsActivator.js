@@ -1,5 +1,3 @@
-import { Processor } from '@flyer-engine/core';
-
 const USE_ITEM_MSG = 'USE_ITEM';
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
 
@@ -25,21 +23,18 @@ const ITEM_EFFECTS = {
   powerPotion: POWER_EFFECT,
 };
 
-class ItemsActivator extends Processor {
+class ItemsActivator {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._store = options.store;
+    this.messageBus = options.messageBus;
   }
 
-  process(options) {
-    const { messageBus } = options;
-
+  process() {
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
 
-      const messages = messageBus.getById(USE_ITEM_MSG, gameObjectId) || [];
+      const messages = this.messageBus.getById(USE_ITEM_MSG, gameObjectId) || [];
 
       messages.forEach((message) => {
         const { item } = message;
@@ -51,7 +46,7 @@ class ItemsActivator extends Processor {
 
         inventory[item] -= 1;
 
-        messageBus.send({
+        this.messageBus.send({
           type: ADD_EFFECT_MSG,
           id: gameObjectId,
           gameObject,

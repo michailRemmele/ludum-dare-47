@@ -71,9 +71,9 @@ export const GameStatsMeter = ({
       const currentFps = Math.round(messages[0].fps);
 
       setGameObjectsCount(messages[0].gameObjectsCount);
-      setMessagesCount(messages[0].messagesCount);
+      setMessagesCount(Math.round(messages[0].messagesCount));
 
-      setFps(messages[0].messagesCount);
+      setFps(currentFps);
       updateChart(currentFps);
     }
   }, []);

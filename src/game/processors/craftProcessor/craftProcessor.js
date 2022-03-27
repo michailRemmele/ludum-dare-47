@@ -1,20 +1,15 @@
-import { Processor } from '@flyer-engine/core';
-
 const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
 
 const INVENTORY_KEY = 'inventory';
 
-class CollectProcessor extends Processor {
+class CollectProcessor {
   constructor(options) {
-    super();
-
     this._store = options.store;
+    this.messageBus = options.messageBus;
   }
 
-  process(options) {
-    const { messageBus } = options;
-
-    const craftMessages = messageBus.get(CRAFT_RECIPE_MSG) || [];
+  process() {
+    const craftMessages = this.messageBus.get(CRAFT_RECIPE_MSG) || [];
 
     craftMessages.forEach((message) => {
       const { recipe } = message;

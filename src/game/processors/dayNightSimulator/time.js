@@ -1,6 +1,8 @@
-const DAY_LENGTH_MS = 86400000;
+export const DAY_LENGTH_MS = 86400000;
+export const HOUR_LENGTH_MS = 3600000;
+export const MINUTE_LENGTH_MS = 60000;
 
-class Time {
+export class Time {
   constructor(dayLength, startTime) {
     this._dayLength = dayLength;
     this._startTime = startTime;
@@ -9,6 +11,10 @@ class Time {
 
     this._currentTime = this._startTime / this._factor;
     this._days = 0;
+  }
+
+  static timeToMilliseconds(hours, minutes) {
+    return (hours * HOUR_LENGTH_MS) + (minutes * MINUTE_LENGTH_MS);
   }
 
   tick(deltaTime) {
@@ -34,16 +40,14 @@ class Time {
   }
 
   getHours() {
-    return Math.floor(this.getTotalMilliseconds() / 3600000);
+    return Math.floor(this.getTotalMilliseconds() / HOUR_LENGTH_MS);
   }
 
   getMinutes() {
-    return Math.floor((this.getTotalMilliseconds() % 3600000) / 60000);
+    return Math.floor((this.getTotalMilliseconds() % HOUR_LENGTH_MS) / MINUTE_LENGTH_MS);
   }
 
   getSeconds() {
-    return Math.floor((this.getTotalMilliseconds() % 60000) / 1000);
+    return Math.floor((this.getTotalMilliseconds() % MINUTE_LENGTH_MS) / 1000);
   }
 }
-
-export default Time;

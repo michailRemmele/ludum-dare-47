@@ -16,11 +16,12 @@ const PREPARE_TO_ATTACK_COOLDOWN = 500;
 const MELEE_RADIUS = 20;
 
 class EnemyAIStrategy extends AIStrategy{
-  constructor(player, store) {
+  constructor(player, store, messageBus) {
     super();
 
     this._player = player;
     this._store = store;
+    this.messageBus = messageBus;
 
     this._playerId = this._player.getId();
     this._cooldown = SPAWN_COOLDOWN;
@@ -62,7 +63,7 @@ class EnemyAIStrategy extends AIStrategy{
     }
   }
 
-  _attack(messageBus) {
+  _attack() {
     if (!this._isMeleeEnemy || this._cooldown > 0) {
       return;
     }
@@ -81,7 +82,7 @@ class EnemyAIStrategy extends AIStrategy{
 
     const { offsetX: enemyX, offsetY: enemyY } = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
 
-    messageBus.send({
+    this.messageBus.send({
       gameObject: this._player,
       id: this._player.getId(),
       type: ATTACK_MSG,
@@ -92,7 +93,7 @@ class EnemyAIStrategy extends AIStrategy{
     this._prepareToAttack = false;
   }
 
-  _move(messageBus) {
+  _move() {
     if (this._isMeleeEnemy || this._prepareToAttack || this._cooldown > 0) {
       return;
     }
@@ -113,7 +114,7 @@ class EnemyAIStrategy extends AIStrategy{
       offsetY
     ));
 
-    messageBus.send({
+    this.messageBus.send({
       type: MOVEMENT_MSG,
       gameObject: this._player,
       id: this._player.getId(),
@@ -121,13 +122,13 @@ class EnemyAIStrategy extends AIStrategy{
     });
   }
 
-  update(messageBus, deltaTime) {
+  update(deltaTime) {
     this._cooldown -= deltaTime;
 
     this._updateDistances();
     this._updateMeleeEnemies();
-    this._attack(messageBus);
-    this._move(messageBus);
+    this._attack();
+    this._move();
   }
 }
 

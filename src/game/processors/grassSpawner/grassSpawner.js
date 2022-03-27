@@ -1,4 +1,4 @@
-import { Processor, MathOps } from '@flyer-engine/core';
+import { MathOps } from '@flyer-engine/core';
 
 const TRANSFORM_COMPONENT_NAME = 'transform';
 
@@ -17,13 +17,12 @@ const GRASS_PREFABS = [
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
 
-class GrassSpawner extends Processor {
+class GrassSpawner {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
     this._store = options.store;
+    this.messageBus = options.messageBus;
 
     this._islandSize = {
       minX: -180,
@@ -35,7 +34,7 @@ class GrassSpawner extends Processor {
   }
 
   process(options) {
-    const { messageBus, deltaTime } = options;
+    const { deltaTime } = options;
 
     if (this._cooldown > 0) {
       this._cooldown -= deltaTime;
@@ -60,7 +59,7 @@ class GrassSpawner extends Processor {
 
     if (grassCount && hour >= KILL_GRASS_HOUR && hour < START_SPAWN_HOUR) {
       this._gameObjectObserver.forEach((gameObject) => {
-        messageBus.send({
+        this.messageBus.send({
           type: KILL_MSG,
           id: gameObject.getId(),
           gameObject: gameObject,

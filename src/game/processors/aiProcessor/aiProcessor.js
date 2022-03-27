@@ -1,36 +1,41 @@
-import { Processor } from '@flyer-engine/core';
-
 import aiStrategies from './aiStrategies';
 
 const AI_COMPONENT_NAME = 'ai';
 
-class AIProcessor extends Processor {
+class AIProcessor {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._store = options.store;
+    this.messageBus = options.messageBus;
 
     this.playersStrategies = {};
   }
 
-  _processAddedGameObjects() {
-    this._gameObjectObserver.getLastAdded().forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-      const ai = gameObject.getComponent(AI_COMPONENT_NAME);
-
-      this.playersStrategies[gameObjectId] = new aiStrategies[ai.strategy](gameObject, this._store);
-    });
+  processorDidMount() {
+    this._gameObjectObserver.subscribe('onadd', this._handleGameObjectAdd);
   }
 
-  process(options) {
-    const { messageBus, deltaTime } = options;
+  processorWillUnmount() {
+    this._gameObjectObserver.unsubscribe('onadd', this._handleGameObjectAdd);
+  }
 
-    this._processAddedGameObjects();
+  _handleGameObjectAdd = (gameObject) => {
+    const gameObjectId = gameObject.getId();
+    const ai = gameObject.getComponent(AI_COMPONENT_NAME);
+
+    this.playersStrategies[gameObjectId] = new aiStrategies[ai.strategy](
+      gameObject, this._store, this.messageBus
+    );
+  };
+
+  process(options) {
+    const { deltaTime } = options;
+
+    this._gameObjectObserver.fireEvents();
 
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
-      this.playersStrategies[gameObjectId].update(messageBus, deltaTime);
+      this.playersStrategies[gameObjectId].update(deltaTime);
     });
   }
 }

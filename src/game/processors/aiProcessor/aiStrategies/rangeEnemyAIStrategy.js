@@ -17,11 +17,12 @@ const MELEE_RADIUS = 50;
 const RETREAT_DISTANCE = 100;
 
 class RangeEnemyAIStrategy extends AIStrategy{
-  constructor(player, store) {
+  constructor(player, store, messageBus) {
     super();
 
     this._player = player;
     this._store = store;
+    this.messageBus = messageBus;
 
     this._playerId = this._player.getId();
     this._cooldown = MathOps.random(0, COOLDOWN);
@@ -119,7 +120,7 @@ class RangeEnemyAIStrategy extends AIStrategy{
     this._waypoint = waypoint || { x: MathOps.random(minX, maxX), y: MathOps.random(minY, maxY) };
   }
 
-  _attack(messageBus) {
+  _attack() {
     const weapon = this._player.getComponent(WEAPON_COMPONENT_NAME);
     const { range } = weapon.properties;
 
@@ -129,7 +130,7 @@ class RangeEnemyAIStrategy extends AIStrategy{
 
     const { offsetX: enemyX, offsetY: enemyY } = this._enemy.getComponent(TRANSFORM_COMPONENT_NAME);
 
-    messageBus.send({
+    this.messageBus.send({
       gameObject: this._player,
       id: this._player.getId(),
       type: ATTACK_MSG,
@@ -138,7 +139,7 @@ class RangeEnemyAIStrategy extends AIStrategy{
     });
   }
 
-  _move(messageBus) {
+  _move() {
     if (!this._waypoint) {
       return;
     }
@@ -158,7 +159,7 @@ class RangeEnemyAIStrategy extends AIStrategy{
       offsetY
     ));
 
-    messageBus.send({
+    this.messageBus.send({
       type: MOVEMENT_MSG,
       gameObject: this._player,
       id: this._player.getId(),
@@ -166,7 +167,7 @@ class RangeEnemyAIStrategy extends AIStrategy{
     });
   }
 
-  update(messageBus, deltaTime) {
+  update(deltaTime) {
     this._cooldown -= deltaTime;
 
     if (this._cooldown <= 0) {
@@ -177,8 +178,8 @@ class RangeEnemyAIStrategy extends AIStrategy{
       this._cooldown += COOLDOWN;
     }
 
-    this._attack(messageBus);
-    this._move(messageBus);
+    this._attack();
+    this._move();
   }
 }
 

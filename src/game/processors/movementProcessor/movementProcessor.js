@@ -1,4 +1,4 @@
-import { Processor, MathOps, Vector2, VectorOps } from '@flyer-engine/core';
+import { MathOps, Vector2, VectorOps } from '@flyer-engine/core';
 
 const MOVEMENT_MSG = 'MOVEMENT';
 
@@ -10,16 +10,14 @@ const SPEED_DIVIDER = 0.4;
 const MIN_SPEED = 0.5;
 const MAX_SPEED = 1;
 
-class MovementProcessor extends Processor {
+class MovementProcessor {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
+    this.messageBus = options.messageBus;
   }
 
   process(options) {
     const deltaTimeInSeconds = options.deltaTime / 1000;
-    const messageBus = options.messageBus;
 
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
@@ -27,7 +25,7 @@ class MovementProcessor extends Processor {
       const { vector, speed, penalty } = gameObject.getComponent(MOVEMENT_COMPONENT_NAME);
       vector.multiplyNumber(0);
 
-      const messages = messageBus.getById(MOVEMENT_MSG, gameObjectId) || [];
+      const messages = this.messageBus.getById(MOVEMENT_MSG, gameObjectId) || [];
       const { movementVector, intension } = messages.reduce((storage, message) => {
         const { angle, x, y } = message;
 

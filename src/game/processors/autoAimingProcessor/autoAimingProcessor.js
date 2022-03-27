@@ -1,4 +1,4 @@
-import { Processor, MathOps } from '@flyer-engine/core';
+import { MathOps } from '@flyer-engine/core';
 
 const ATTACK_MSG = 'ATTACK';
 const COLLISION_STAY_MSG = 'COLLISION_STAY';
@@ -8,21 +8,18 @@ const VIEW_DIRECTION_COMPONENT_NAME = 'viewDirection';
 const AIM_RADIUS_COMPONENT_NAME = 'aimRadius';
 const HITBOX_COMPONENT_NAME = 'hitBox';
 
-class AutoAimingProcessor extends Processor {
+class AutoAimingProcessor {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
+    this.messageBus = options.messageBus;
   }
 
-  process(options) {
-    const { messageBus } = options;
-
+  process() {
     this._gameObjectObserver.forEach((gameObject) => {
       const { offsetX, offsetY } = gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
       const viewDirection = gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
 
-      const attackMessages = messageBus.getById(ATTACK_MSG, gameObject.getId()) || [];
+      const attackMessages = this.messageBus.getById(ATTACK_MSG, gameObject.getId()) || [];
 
       attackMessages.forEach((attackMessage) => {
         const { x, y } = attackMessage;
@@ -42,7 +39,8 @@ class AutoAimingProcessor extends Processor {
           return;
         }
 
-        const collisionMessages = messageBus.getById(COLLISION_STAY_MSG, aimRadius.getId()) || [];
+        const collisionMessages =
+          this.messageBus.getById(COLLISION_STAY_MSG, aimRadius.getId()) || [];
 
         let nearestTargetDistance;
 

@@ -1,4 +1,4 @@
-import { Processor, MathOps } from '@flyer-engine/core';
+import { MathOps } from '@flyer-engine/core';
 
 const DAMAGE_MSG = 'DAMAGE';
 
@@ -22,13 +22,12 @@ const RANGE_HP_MAGNIFIER = 2;
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
 
-class EnemySpawner extends Processor {
+class EnemySpawner {
   constructor(options) {
-    super();
-
     this._gameObjectObserver = options.gameObjectObserver;
     this._gameObjectSpawner = options.gameObjectSpawner;
     this._store = options.store;
+    this.messageBus = options.messageBus;
 
     this._islandSize = {
       minX: -200,
@@ -89,7 +88,7 @@ class EnemySpawner extends Processor {
   }
 
   process(options) {
-    const { messageBus, deltaTime } = options;
+    const { deltaTime } = options;
 
     const time = this._store.get(TIME_OF_DAY_KEY);
     const hour = time.getHours();
@@ -100,7 +99,7 @@ class EnemySpawner extends Processor {
 
     if (this._gameObjectObserver.size() && hour >= END_SPAWN_HOUR) {
       this._gameObjectObserver.forEach((gameObject) => {
-        messageBus.send({
+        this.messageBus.send({
           type: DAMAGE_MSG,
           id: gameObject.getId(),
           gameObject: gameObject,
