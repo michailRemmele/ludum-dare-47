@@ -1,4 +1,4 @@
-import { MathOps, VectorOps } from '@flyer-engine/core';
+import { MathOps, VectorOps } from 'remiz';
 
 import Attack from './attack';
 

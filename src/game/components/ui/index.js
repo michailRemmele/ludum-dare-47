@@ -1,4 +1,4 @@
-import { Component } from '@flyer-engine/core';
+import { Component } from 'remiz';
 
 export class UI extends Component {
   constructor(componentName, config) {

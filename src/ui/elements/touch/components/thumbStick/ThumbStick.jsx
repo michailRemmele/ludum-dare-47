@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Vector2 } from '@flyer-engine/core';
+import { Vector2 } from 'remiz';
 
 import { withGame } from '../../../common';
 

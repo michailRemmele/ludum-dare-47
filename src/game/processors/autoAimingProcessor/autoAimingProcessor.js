@@ -1,4 +1,4 @@
-import { MathOps } from '@flyer-engine/core';
+import { MathOps } from 'remiz';
 
 const ATTACK_MSG = 'ATTACK';
 const COLLISION_STAY_MSG = 'COLLISION_STAY';

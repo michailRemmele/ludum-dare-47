@@ -1,4 +1,4 @@
-import { VectorOps } from '@flyer-engine/core';
+import { VectorOps } from 'remiz';
 
 import Fighter from './fighter';
 import attacks from '../attacks';

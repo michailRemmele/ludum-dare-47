@@ -1,4 +1,4 @@
-import { MathOps } from '@flyer-engine/core';
+import { MathOps } from 'remiz';
 
 const DAMAGE_MSG = 'DAMAGE';
 

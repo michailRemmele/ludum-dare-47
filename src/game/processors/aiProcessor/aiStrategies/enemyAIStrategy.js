@@ -1,5 +1,5 @@
 
-import { MathOps } from '@flyer-engine/core';
+import { MathOps } from 'remiz';
 
 import AIStrategy from './aiStrategy';
 

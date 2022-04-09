@@ -1,4 +1,4 @@
-import { MathOps, Vector2, VectorOps } from '@flyer-engine/core';
+import { MathOps, Vector2, VectorOps } from 'remiz';
 
 const MOVEMENT_MSG = 'MOVEMENT';
 

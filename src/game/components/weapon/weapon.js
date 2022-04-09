@@ -1,4 +1,4 @@
-import { Component } from '@flyer-engine/core';
+import { Component } from 'remiz';
 
 import MeleeWeapon from './meleeWeapon';
 import RangeWeapon from './rangeWeapon';

@@ -2,7 +2,7 @@ import {
   Engine,
   contribProcessorsPlugins,
   contribComponents,
-} from '@flyer-engine/core';
+} from 'remiz';
 
 import mainConfig from 'resources/configurations/mainConfig.json';
 import { processorsPlugins as gameProcessorsPlugins } from './game/processors-plugins';

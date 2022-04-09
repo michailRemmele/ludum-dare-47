@@ -1,4 +1,4 @@
-import { Component, Vector2 } from '@flyer-engine/core';
+import { Component, Vector2 } from 'remiz';
 
 class Movement extends Component {
   constructor(componentName, config) {
