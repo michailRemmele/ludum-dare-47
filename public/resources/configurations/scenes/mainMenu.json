@@ -1,9 +1,9 @@
 {
   "name": "mainMenu",
   "gameObjects": [],
-  "processors": [
+  "systems": [
     {
-      "name": "sceneLoadProcessor",
+      "name": "sceneLoadSystem",
       "options": {}
     },
     {

@@ -1,11 +1,11 @@
 import {
   Engine,
-  contribProcessorsPlugins,
+  contribSystemsPlugins,
   contribComponents,
 } from 'remiz';
 
 import mainConfig from 'resources/configurations/mainConfig.json';
-import { processorsPlugins as gameProcessorsPlugins } from './game/processors-plugins';
+import { systemsPlugins as gameSystemsPlugins } from './game/systems-plugins';
 import gameComponents from 'game/components';
 import pluginHelpers from './plugin-helpers';
 import {
@@ -17,9 +17,9 @@ import {
 
 const options = {
   mainConfig: mainConfig,
-  processorsPlugins: {
-    ...contribProcessorsPlugins,
-    ...gameProcessorsPlugins,
+  systemsPlugins: {
+    ...contribSystemsPlugins,
+    ...gameSystemsPlugins,
   },
   components: {
     ...contribComponents,
