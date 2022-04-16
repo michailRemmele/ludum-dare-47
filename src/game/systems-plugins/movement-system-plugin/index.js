@@ -6,7 +6,7 @@ const TRANSFORM_COMPONENT_NAME = 'transform';
 export class MovementSystemPlugin {
   load(options) {
     return new MovementSystem({
-      gameObjectObserver: options.createGameObjectObserver({
+      entityObserver: options.createEntityObserver({
         components: [
           MOVEMENT_COMPONENT_NAME,
           TRANSFORM_COMPONENT_NAME,

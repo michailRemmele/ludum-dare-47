@@ -87,7 +87,7 @@ export const interpolate = (start, end, progress) => start + ((end - start) * pr
 export class DayNightSimulator {
   constructor(options) {
     const {
-      gameObjectObserver,
+      entityObserver,
       store,
       messageBus,
       dayLength,
@@ -101,7 +101,7 @@ export class DayNightSimulator {
     this._dayLength = dayLength;
     this._startTime = startTime;
 
-    this.sky = gameObjectObserver.getById(skyId);
+    this.sky = entityObserver.getById(skyId);
 
     if (!this.sky) {
       throw new Error(`Could not find sky game object with id ${skyId}`);

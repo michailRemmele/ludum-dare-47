@@ -6,7 +6,7 @@ const MOUSE_CONTROL_COMPONENT_NAME = 'mouseControl';
 export class AutoAimingSystemPlugin {
   load(options) {
     return new AutoAimingSystem({
-      gameObjectObserver: options.createGameObjectObserver({
+      entityObserver: options.createEntityObserver({
         components: [
           KEYBOARD_CONTROL_COMPONENT_NAME,
           MOUSE_CONTROL_COMPONENT_NAME,

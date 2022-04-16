@@ -5,7 +5,7 @@ const CONTROL_COMPONENT_NAME = 'thumbStickControl';
 export class ThumbStickControllerPlugin {
   load(options) {
     return new ThumbStickController({
-      gameObjectObserver: options.createGameObjectObserver({
+      entityObserver: options.createEntityObserver({
         components: [
           CONTROL_COMPONENT_NAME,
         ],

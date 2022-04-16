@@ -8,13 +8,13 @@ export function withGame(WrappedComponent) {
     render() {
       return (
         <GameContext.Consumer>
-          {({ messageBusObserver, storeObserver, pushMessage, pushAction, gameObjects }) => (
+          {({ messageBusObserver, storeObserver, pushMessage, pushAction, entities }) => (
             <WrappedComponent
               messageBusObserver={messageBusObserver}
               storeObserver={storeObserver}
               pushMessage={pushMessage}
               pushAction={pushAction}
-              gameObjects={gameObjects}
+              entities={entities}
               {...this.props}
             />
           )}

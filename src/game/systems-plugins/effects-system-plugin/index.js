@@ -6,20 +6,20 @@ export class EffectsSystemPlugin {
   async load(options) {
     const {
       helpers,
-      createGameObjectObserver,
-      gameObjectSpawner,
+      createEntityObserver,
+      entitySpawner,
       messageBus,
     } = options;
 
     const { effects } = await helpers.loadEffects();
 
     return new EffectsSystem({
-      gameObjectObserver: createGameObjectObserver({
+      entityObserver: createEntityObserver({
         components: [
           ACTIVE_EFFECTS_COMPONENT_NAME,
         ],
       }),
-      gameObjectSpawner,
+      entitySpawner,
       effects,
       messageBus,
     });

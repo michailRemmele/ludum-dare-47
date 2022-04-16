@@ -9,14 +9,14 @@ const VIEW_DIRECTION_COMPONENT_NAME = 'viewDirection';
 const TIME_TO_ATTACK = 250;
 
 class SimpleFighter extends Fighter {
-  constructor(gameObject, spawner, messageBus) {
+  constructor(entity, spawner, messageBus) {
     super();
 
-    this._gameObject = gameObject;
+    this._entity = entity;
     this._spawner = spawner;
     this._messageBus = messageBus;
 
-    this._weapon = this._gameObject.getComponent(WEAPON_COMPONENT_NAME);
+    this._weapon = this._entity.getComponent(WEAPON_COMPONENT_NAME);
     this._weapon.cooldownRemaining = 0;
 
     this._viewDirection = null;
@@ -45,7 +45,7 @@ class SimpleFighter extends Fighter {
     this._viewDirection = VectorOps.getVectorByAngle(angle);
     this._viewTimer = TIME_TO_ATTACK;
 
-    return new Attack(this._gameObject, this._spawner, this._messageBus, angle);
+    return new Attack(this._entity, this._spawner, this._messageBus, angle);
   }
 
   update(deltaTime) {
@@ -54,7 +54,7 @@ class SimpleFighter extends Fighter {
     if (this._viewTimer > 0) {
       this._viewTimer -= deltaTime;
 
-      const viewDirection = this._gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
+      const viewDirection = this._entity.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
 
       viewDirection.x = this._viewDirection.x;
       viewDirection.y = this._viewDirection.y;

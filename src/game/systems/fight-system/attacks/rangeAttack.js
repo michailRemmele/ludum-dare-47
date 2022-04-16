@@ -14,17 +14,17 @@ const HEALTH_COMPONENT_NAME = 'health';
 const HITBOX_COMPONENT_NAME = 'hitBox';
 
 class RangeAttack extends Attack {
-  constructor(gameObject, spawner, messageBus, angle) {
+  constructor(entity, spawner, messageBus, angle) {
     super();
 
-    this._gameObject = gameObject;
+    this._entity = entity;
     this._spawner = spawner;
     this._messageBus = messageBus;
     this._angle = angle;
 
-    this._weapon = this._gameObject.getComponent(WEAPON_COMPONENT_NAME);
+    this._weapon = this._entity.getComponent(WEAPON_COMPONENT_NAME);
 
-    const { offsetX, offsetY } = this._gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
+    const { offsetX, offsetY } = this._entity.getComponent(TRANSFORM_COMPONENT_NAME);
     const {
       range,
       projectileSpeed,
@@ -51,7 +51,7 @@ class RangeAttack extends Attack {
     this._messageBus.send({
       type: ADD_IMPULSE_MSG,
       id: shot.getId(),
-      gameObject: shot,
+      entity: shot,
       value: directionVector.clone(),
     });
 
@@ -82,10 +82,10 @@ class RangeAttack extends Attack {
 
     const collisionMessages = this._messageBus.getById(COLLISION_ENTER_MSG, shotId) || [];
     collisionMessages.some((message) => {
-      const { gameObject2 } = message;
+      const { entity2 } = message;
 
-      const hitBox = gameObject2.getComponent(HITBOX_COMPONENT_NAME);
-      const target = gameObject2.parent;
+      const hitBox = entity2.getComponent(HITBOX_COMPONENT_NAME);
+      const target = entity2.parent;
 
       if (!hitBox || !target) {
         return false;
@@ -93,26 +93,26 @@ class RangeAttack extends Attack {
 
       const targetId = target.getId();
 
-      if (this._gameObject.getId() === targetId || shotId === targetId) {
+      if (this._entity.getId() === targetId || shotId === targetId) {
         return false;
       }
 
       this._messageBus.send({
         type: DAMAGE_MSG,
         id: targetId,
-        gameObject: target,
+        entity: target,
         value: damage,
       });
       this._messageBus.send({
         type: ADD_EFFECT_MSG,
         id: targetId,
-        gameObject: target,
+        entity: target,
         name: 'fetter',
       });
       this._messageBus.send({
         type: ADD_IMPULSE_MSG,
         value: this._directionVector.clone(),
-        gameObject: target,
+        entity: target,
         id: targetId,
       });
 
@@ -129,7 +129,7 @@ class RangeAttack extends Attack {
       this._messageBus.send({
         type: DAMAGE_MSG,
         id: shotId,
-        gameObject: this._shot,
+        entity: this._shot,
         value: shotHealth.points,
       });
 

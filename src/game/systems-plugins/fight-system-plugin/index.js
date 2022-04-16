@@ -5,8 +5,8 @@ const WEAPON_COMPONENT_NAME = 'weapon';
 export class FightSystemPlugin {
   load(options) {
     return new FightSystem({
-      gameObjectSpawner: options.gameObjectSpawner,
-      gameObjectObserver: options.createGameObjectObserver({
+      entitySpawner: options.entitySpawner,
+      entityObserver: options.createEntityObserver({
         components: [
           WEAPON_COMPONENT_NAME,
         ],

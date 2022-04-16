@@ -6,13 +6,13 @@ const COLLIDER_CONTAINER_COMPONENT_NAME = 'colliderContainer';
 export class AISystemPlugin {
   load(options) {
     const {
-      createGameObjectObserver,
+      createEntityObserver,
       store,
       messageBus,
     } = options;
 
     return new AISystem({
-      gameObjectObserver: createGameObjectObserver({
+      entityObserver: createEntityObserver({
         components: [
           AI_COMPONENT_NAME,
           COLLIDER_CONTAINER_COMPONENT_NAME,

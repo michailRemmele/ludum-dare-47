@@ -24,8 +24,8 @@ const TIME_OF_DAY_KEY = 'timeOfDay';
 
 export class EnemySpawner {
   constructor(options) {
-    this._gameObjectObserver = options.gameObjectObserver;
-    this._gameObjectSpawner = options.gameObjectSpawner;
+    this._entityObserver = options.entityObserver;
+    this._entitySpawner = options.entitySpawner;
     this._store = options.store;
     this.messageBus = options.messageBus;
 
@@ -46,7 +46,7 @@ export class EnemySpawner {
     }
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const enemy = this._gameObjectSpawner.spawn(ENEMY_PREFAB_NAME);
+      const enemy = this._entitySpawner.spawn(ENEMY_PREFAB_NAME);
       const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
       const enemyWeapon = enemy.getComponent(WEAPON_COMPONENT_NAME);
       const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
@@ -70,7 +70,7 @@ export class EnemySpawner {
     }
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const enemy = this._gameObjectSpawner.spawn(RANGE_ENEMY_PREFAB_NAME);
+      const enemy = this._entitySpawner.spawn(RANGE_ENEMY_PREFAB_NAME);
       const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
       const enemyWeapon = enemy.getComponent(WEAPON_COMPONENT_NAME);
       const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
@@ -97,12 +97,12 @@ export class EnemySpawner {
     this._spawnMeleeEnemies(deltaTime, hour, days);
     this._spawnRangeEnemies(deltaTime, hour, days);
 
-    if (this._gameObjectObserver.size() && hour >= END_SPAWN_HOUR) {
-      this._gameObjectObserver.forEach((gameObject) => {
+    if (this._entityObserver.size() && hour >= END_SPAWN_HOUR) {
+      this._entityObserver.forEach((entity) => {
         this.messageBus.send({
           type: DAMAGE_MSG,
-          id: gameObject.getId(),
-          gameObject: gameObject,
+          id: entity.getId(),
+          entity: entity,
           value: END_SPAWN_DAMAGE,
         });
       });

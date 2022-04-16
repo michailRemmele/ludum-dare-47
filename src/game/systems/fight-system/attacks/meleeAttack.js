@@ -19,17 +19,17 @@ const HIT_LIFETIME = 100;
 const PUSH_IMPULSE = 200;
 
 class MeleeAttack extends Attack {
-  constructor(gameObject, spawner, messageBus, angle) {
+  constructor(entity, spawner, messageBus, angle) {
     super();
 
-    this._gameObject = gameObject;
+    this._entity = entity;
     this._spawner = spawner;
     this._messageBus = messageBus;
     this._angle = angle;
 
-    this._weapon = this._gameObject.getComponent(WEAPON_COMPONENT_NAME);
+    this._weapon = this._entity.getComponent(WEAPON_COMPONENT_NAME);
 
-    const { offsetX, offsetY } = this._gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
+    const { offsetX, offsetY } = this._entity.getComponent(TRANSFORM_COMPONENT_NAME);
     const { range } = this._weapon.properties;
 
     const degAngle = MathOps.radToDeg(this._angle);
@@ -71,10 +71,10 @@ class MeleeAttack extends Attack {
 
     const collisionMessages = this._messageBus.getById(COLLISION_ENTER_MSG, hitId) || [];
     collisionMessages.forEach((message) => {
-      const { gameObject2 } = message;
+      const { entity2 } = message;
 
-      const hitBox = gameObject2.getComponent(HITBOX_COMPONENT_NAME);
-      const target = gameObject2.parent;
+      const hitBox = entity2.getComponent(HITBOX_COMPONENT_NAME);
+      const target = entity2.parent;
 
       if (!hitBox || !target) {
         return;
@@ -82,26 +82,26 @@ class MeleeAttack extends Attack {
 
       const targetId = target.getId();
 
-      if (this._gameObject.getId() === targetId || hitId === targetId) {
+      if (this._entity.getId() === targetId || hitId === targetId) {
         return;
       }
 
       this._messageBus.send({
         type: DAMAGE_MSG,
         id: targetId,
-        gameObject: target,
+        entity: target,
         value: damage,
       });
       this._messageBus.send({
         type: ADD_EFFECT_MSG,
         id: targetId,
-        gameObject: target,
+        entity: target,
         name: 'fetter',
       });
       this._messageBus.send({
         type: ADD_IMPULSE_MSG,
         value: this._directionVector.clone(),
-        gameObject: target,
+        entity: target,
         id: targetId,
       });
     });
@@ -114,7 +114,7 @@ class MeleeAttack extends Attack {
       this._messageBus.send({
         type: DAMAGE_MSG,
         id: hitId,
-        gameObject: this._hit,
+        entity: this._hit,
         value: hitHealth.points,
       });
 

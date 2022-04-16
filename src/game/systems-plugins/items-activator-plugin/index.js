@@ -3,7 +3,7 @@ import { ItemsActivator } from 'game/systems/items-activator';
 export class ItemsActivatorPlugin {
   load(options) {
     return new ItemsActivator({
-      gameObjectObserver: options.createGameObjectObserver({}),
+      entityObserver: options.createEntityObserver({}),
       store: options.store,
       messageBus: options.messageBus,
     });

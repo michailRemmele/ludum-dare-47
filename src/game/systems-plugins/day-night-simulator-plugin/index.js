@@ -5,7 +5,7 @@ const LIGHT_COMPONENT_NAME = 'light';
 export class DayNightSimulatorPlugin {
   load(options) {
     const {
-      createGameObjectObserver,
+      createEntityObserver,
       store,
       messageBus,
       dayLength,
@@ -14,7 +14,7 @@ export class DayNightSimulatorPlugin {
     } = options;
 
     return new DayNightSimulator({
-      gameObjectObserver: createGameObjectObserver({
+      entityObserver: createEntityObserver({
         components: [ LIGHT_COMPONENT_NAME ],
       }),
       store,

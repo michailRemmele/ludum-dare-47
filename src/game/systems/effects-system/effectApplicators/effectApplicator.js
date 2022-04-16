@@ -9,7 +9,7 @@ class EffectApplicator {
     this._messageBus.send({
       type: EFFECT_ADD_MSG,
       id: this._effect.getId(),
-      gameObject: this._effect,
+      entity: this._effect,
     });
   }
 
@@ -17,7 +17,7 @@ class EffectApplicator {
     this._messageBus.send({
       type: EFFECT_CANCEL_MSG,
       id: this._effect.getId(),
-      gameObject: this._effect,
+      entity: this._effect,
     });
   }
 
@@ -25,7 +25,7 @@ class EffectApplicator {
     this._messageBus.send({
       type: EFFECT_APPLY_MSG,
       id: this._effect.getId(),
-      gameObject: this._effect,
+      entity: this._effect,
     });
   }
 

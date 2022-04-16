@@ -131,7 +131,7 @@ class RangeEnemyAIStrategy extends AIStrategy{
     const { offsetX: enemyX, offsetY: enemyY } = this._enemy.getComponent(TRANSFORM_COMPONENT_NAME);
 
     this.messageBus.send({
-      gameObject: this._player,
+      entity: this._player,
       id: this._player.getId(),
       type: ATTACK_MSG,
       x: enemyX,
@@ -161,7 +161,7 @@ class RangeEnemyAIStrategy extends AIStrategy{
 
     this.messageBus.send({
       type: MOVEMENT_MSG,
-      gameObject: this._player,
+      entity: this._player,
       id: this._player.getId(),
       angle: movementAngle,
     });

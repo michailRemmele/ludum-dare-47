@@ -16,7 +16,7 @@ export function onInit(options) {
     storeObserver,
     pushMessage,
     pushAction,
-    gameObjects,
+    entities,
   } = options;
 
   ReactDOM.render(
@@ -25,7 +25,7 @@ export function onInit(options) {
       storeObserver={storeObserver}
       pushMessage={pushMessage}
       pushAction={pushAction}
-      gameObjects={gameObjects}
+      entities={entities}
     >
       <MemoryRouter>
         <SceneSwitcher sceneName={sceneName}>

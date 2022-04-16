@@ -4,20 +4,20 @@ const PLAYER_KEY = 'player';
 
 export class EnemiesDetector {
   constructor(options) {
-    this._gameObjectObserver = options.gameObjectObserver;
+    this._entityObserver = options.entityObserver;
     this._store = options.store;
 
     this._playersCount = 0;
   }
 
   _scan() {
-    this._playersCount = this._gameObjectObserver.size();
+    this._playersCount = this._entityObserver.size();
 
     this._store.set(PLAYER_KEY, null);
 
-    this._gameObjectObserver.forEach((gameObject) => {
-      if (gameObject.getComponent(CONTROL_COMPONENT_NAME)) {
-        this._store.set(PLAYER_KEY, gameObject);
+    this._entityObserver.forEach((entity) => {
+      if (entity.getComponent(CONTROL_COMPONENT_NAME)) {
+        this._store.set(PLAYER_KEY, entity);
       }
     });
   }
@@ -27,7 +27,7 @@ export class EnemiesDetector {
   }
 
   update() {
-    if (this._playersCount !== this._gameObjectObserver.size()) {
+    if (this._playersCount !== this._entityObserver.size()) {
       this._scan();
     }
   }

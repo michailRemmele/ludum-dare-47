@@ -4,7 +4,7 @@ const AI_COMPONENT_NAME = 'ai';
 
 export class AISystem {
   constructor(options) {
-    this._gameObjectObserver = options.gameObjectObserver;
+    this._entityObserver = options.entityObserver;
     this._store = options.store;
     this.messageBus = options.messageBus;
 
@@ -12,30 +12,30 @@ export class AISystem {
   }
 
   systemDidMount() {
-    this._gameObjectObserver.subscribe('onadd', this._handleGameObjectAdd);
+    this._entityObserver.subscribe('onadd', this._handleEntitiyAdd);
   }
 
   systemWillUnmount() {
-    this._gameObjectObserver.unsubscribe('onadd', this._handleGameObjectAdd);
+    this._entityObserver.unsubscribe('onadd', this._handleEntitiyAdd);
   }
 
-  _handleGameObjectAdd = (gameObject) => {
-    const gameObjectId = gameObject.getId();
-    const ai = gameObject.getComponent(AI_COMPONENT_NAME);
+  _handleEntitiyAdd = (entity) => {
+    const entityId = entity.getId();
+    const ai = entity.getComponent(AI_COMPONENT_NAME);
 
-    this.playersStrategies[gameObjectId] = new aiStrategies[ai.strategy](
-      gameObject, this._store, this.messageBus
+    this.playersStrategies[entityId] = new aiStrategies[ai.strategy](
+      entity, this._store, this.messageBus
     );
   };
 
   update(options) {
     const { deltaTime } = options;
 
-    this._gameObjectObserver.fireEvents();
+    this._entityObserver.fireEvents();
 
-    this._gameObjectObserver.forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-      this.playersStrategies[gameObjectId].update(deltaTime);
+    this._entityObserver.forEach((entity) => {
+      const entityId = entity.getId();
+      this.playersStrategies[entityId].update(deltaTime);
     });
   }
 }

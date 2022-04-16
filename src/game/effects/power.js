@@ -3,16 +3,16 @@ import { Effect } from '../systems/effects-system';
 const WEAPON_COMPONENT_NAME = 'weapon';
 
 class Heal extends Effect {
-  constructor(gameObject, _messageBus, options) {
+  constructor(entity, _messageBus, options) {
     super();
 
-    this._gameObject = gameObject;
+    this._entity = entity;
     this._damage = options.damage;
     this._range = options.range;
   }
 
   apply() {
-    const weapon = this._gameObject.getComponent(WEAPON_COMPONENT_NAME);
+    const weapon = this._entity.getComponent(WEAPON_COMPONENT_NAME);
 
     if (!weapon) {
       return;
@@ -23,7 +23,7 @@ class Heal extends Effect {
   }
 
   onCancel() {
-    const weapon = this._gameObject.getComponent(WEAPON_COMPONENT_NAME);
+    const weapon = this._entity.getComponent(WEAPON_COMPONENT_NAME);
 
     if (!weapon) {
       return;

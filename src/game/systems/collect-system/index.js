@@ -10,7 +10,7 @@ const COLLECTABLE_COMPONENT_NAME = 'collectable';
 
 export class CollectSystem {
   constructor(options) {
-    this._gameObjectObserver = options.gameObjectObserver;
+    this._entityObserver = options.entityObserver;
     this._store = options.store;
     this.messageBus = options.messageBus;
 
@@ -24,34 +24,34 @@ export class CollectSystem {
   }
 
   update() {
-    this._gameObjectObserver.forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
+    this._entityObserver.forEach((entity) => {
+      const entityId = entity.getId();
 
-      const enterMessages = this.messageBus.getById(COLLISION_ENTER_MSG, gameObjectId) || [];
+      const enterMessages = this.messageBus.getById(COLLISION_ENTER_MSG, entityId) || [];
 
       enterMessages.forEach((message) => {
-        const { gameObject2 } = message;
+        const { entity2 } = message;
 
-        const collectable = gameObject2.getComponent(COLLECTABLE_COMPONENT_NAME);
+        const collectable = entity2.getComponent(COLLECTABLE_COMPONENT_NAME);
 
         if (!collectable) {
           return;
         }
 
-        this._canGrab.add(gameObject2);
+        this._canGrab.add(entity2);
       });
 
-      const leaveMessages = this.messageBus.getById(COLLISION_LEAVE_MSG, gameObjectId) || [];
+      const leaveMessages = this.messageBus.getById(COLLISION_LEAVE_MSG, entityId) || [];
 
       leaveMessages.forEach((message) => {
-        const { gameObject2 } = message;
+        const { entity2 } = message;
 
-        if (this._canGrab.has(gameObject2)) {
-          this._canGrab.delete(gameObject2);
+        if (this._canGrab.has(entity2)) {
+          this._canGrab.delete(entity2);
         }
       });
 
-      const grabMessages = this.messageBus.getById(GRAB_MSG, gameObjectId) || [];
+      const grabMessages = this.messageBus.getById(GRAB_MSG, entityId) || [];
 
       grabMessages.forEach(() => {
         if (!this._canGrab.size) {
@@ -75,7 +75,7 @@ export class CollectSystem {
         this.messageBus.send({
           type: KILL_MSG,
           id: item.getId(),
-          gameObject: item,
+          entity: item,
         });
       });
     });

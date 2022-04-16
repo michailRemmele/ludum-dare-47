@@ -6,7 +6,7 @@ const INPUT_MSG = 'THUMB_STICK_POSITION_CHANGE';
 
 export class ThumbStickController {
   constructor(options) {
-    this._gameObjectObserver = options.gameObjectObserver;
+    this._entityObserver = options.entityObserver;
     this.messageBus = options.messageBus;
     this._currentX = 0;
     this._currentY = 0;
@@ -30,8 +30,8 @@ export class ThumbStickController {
       return;
     }
 
-    this._gameObjectObserver.forEach((gameObject) => {
-      const control = gameObject.getComponent(CONTROL_COMPONENT_NAME);
+    this._entityObserver.forEach((entity) => {
+      const control = entity.getComponent(CONTROL_COMPONENT_NAME);
       const eventBinding = control.inputEventBindings[INPUT_MSG];
 
       if (eventBinding) {
@@ -42,8 +42,8 @@ export class ThumbStickController {
         this.messageBus.send({
           type: eventBinding.messageType,
           ...eventBinding.attrs,
-          gameObject: gameObject,
-          id: gameObject.getId(),
+          entity: entity,
+          id: entity.getId(),
           x: this._currentX,
           y: this._currentY,
           angle: this._currentAngle,

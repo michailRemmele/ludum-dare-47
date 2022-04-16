@@ -3,14 +3,14 @@ import { Reaper } from 'game/systems/reaper';
 export class ReaperPlugin {
   load(options) {
     const {
-      gameObjectDestroyer,
+      entityDestroyer,
       allowedComponents,
       lifetime,
       messageBus,
     } = options;
 
     return new Reaper({
-      gameObjectDestroyer,
+      entityDestroyer,
       allowedComponents,
       lifetime,
       messageBus,

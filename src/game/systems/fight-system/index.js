@@ -8,8 +8,8 @@ const TRANSFORM_COMPONENT_NAME = 'transform';
 
 export class FightSystem {
   constructor(options) {
-    this._gameObjectObserver = options.gameObjectObserver;
-    this._gameObjectSpawner = options.gameObjectSpawner;
+    this._entityObserver = options.entityObserver;
+    this._entitySpawner = options.entitySpawner;
     this.messageBus = options.messageBus;
 
     this._fighters = {};
@@ -17,16 +17,16 @@ export class FightSystem {
   }
 
   systemDidMount() {
-    this._gameObjectObserver.subscribe('onremove', this._handleGameObjectRemove);
+    this._entityObserver.subscribe('onremove', this._handleEntitiyRemove);
   }
 
   systemWillUnmount() {
-    this._gameObjectObserver.unsubscribe('onremove', this._handleGameObjectRemove);
+    this._entityObserver.unsubscribe('onremove', this._handleEntitiyRemove);
   }
 
-  _handleGameObjectRemove = (gameObject) => {
-    const gameObjectId = gameObject.getId();
-    this._fighters[gameObjectId] = null;
+  _handleEntitiyRemove = (entity) => {
+    const entityId = entity.getId();
+    this._fighters[entityId] = null;
   };
 
   _processActiveAttacks(deltaTime) {
@@ -37,14 +37,14 @@ export class FightSystem {
     });
   }
 
-  _attack(gameObject, targetX, targetY) {
-    const gameObjectId = gameObject.getId();
-    const { offsetX, offsetY } = gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
+  _attack(entity, targetX, targetY) {
+    const entityId = entity.getId();
+    const { offsetX, offsetY } = entity.getComponent(TRANSFORM_COMPONENT_NAME);
 
-    const fighter = this._fighters[gameObjectId];
+    const fighter = this._fighters[entityId];
 
     if (!fighter || !fighter.isReady()) {
-      this.messageBus.deleteById(ATTACK_MSG, gameObjectId);
+      this.messageBus.deleteById(ATTACK_MSG, entityId);
       return;
     }
 
@@ -56,15 +56,15 @@ export class FightSystem {
   }
 
   _processFighters(deltaTime) {
-    this._gameObjectObserver.forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
+    this._entityObserver.forEach((entity) => {
+      const entityId = entity.getId();
 
-      if (!this._fighters[gameObjectId]) {
-        this._fighters[gameObjectId] = new SimpleFighter(
-          gameObject, this._gameObjectSpawner, this.messageBus
+      if (!this._fighters[entityId]) {
+        this._fighters[entityId] = new SimpleFighter(
+          entity, this._entitySpawner, this.messageBus
         );
       } else {
-        this._fighters[gameObjectId].update(deltaTime);
+        this._fighters[entityId].update(deltaTime);
       }
     });
   }
@@ -72,15 +72,15 @@ export class FightSystem {
   update(options) {
     const { deltaTime } = options;
 
-    this._gameObjectObserver.fireEvents();
+    this._entityObserver.fireEvents();
 
     this._processFighters(deltaTime);
     this._processActiveAttacks(deltaTime);
 
     const messages = this.messageBus.get(ATTACK_MSG) || [];
     messages.forEach((message) => {
-      const { gameObject, x, y } = message;
-      this._attack(gameObject, x, y);
+      const { entity, x, y } = message;
+      this._attack(entity, x, y);
     });
   }
 }

@@ -3,12 +3,12 @@ import { EnemiesDetector } from 'game/systems/enemies-detector';
 export class EnemiesDetectorPlugin {
   load(options) {
     const {
-      createGameObjectObserver,
+      createEntityObserver,
       store,
     } = options;
 
     return new EnemiesDetector({
-      gameObjectObserver: createGameObjectObserver({
+      entityObserver: createEntityObserver({
         type: 'unit',
       }),
       store: store,

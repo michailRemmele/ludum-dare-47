@@ -1,6 +1,6 @@
 {
   "name": "game",
-  "gameObjects": [
+  "entities": [
     {
       "id": "400",
       "name": "sky",

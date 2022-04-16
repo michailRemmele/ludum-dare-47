@@ -19,8 +19,8 @@ const TIME_OF_DAY_KEY = 'timeOfDay';
 
 export class GrassSpawner {
   constructor(options) {
-    this._gameObjectObserver = options.gameObjectObserver;
-    this._gameObjectSpawner = options.gameObjectSpawner;
+    this._entityObserver = options.entityObserver;
+    this._entitySpawner = options.entitySpawner;
     this._store = options.store;
     this.messageBus = options.messageBus;
 
@@ -46,7 +46,7 @@ export class GrassSpawner {
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
       const prefabName = MathOps.random(0, GRASS_PREFABS.length - 1);
-      const grass = this._gameObjectSpawner.spawn(GRASS_PREFABS[prefabName]);
+      const grass = this._entitySpawner.spawn(GRASS_PREFABS[prefabName]);
       const grassTransform = grass.getComponent(TRANSFORM_COMPONENT_NAME);
 
       grassTransform.offsetX = MathOps.random(this._islandSize.minX, this._islandSize.maxX);
@@ -55,14 +55,14 @@ export class GrassSpawner {
       this._cooldown = SPAWN_COOLDOWN;
     }
 
-    const grassCount = this._gameObjectObserver.size();
+    const grassCount = this._entityObserver.size();
 
     if (grassCount && hour >= KILL_GRASS_HOUR && hour < START_SPAWN_HOUR) {
-      this._gameObjectObserver.forEach((gameObject) => {
+      this._entityObserver.forEach((entity) => {
         this.messageBus.send({
           type: KILL_MSG,
-          id: gameObject.getId(),
-          gameObject: gameObject,
+          id: entity.getId(),
+          entity: entity,
         });
       });
     }

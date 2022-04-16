@@ -1,6 +1,6 @@
 {
   "name": "mainMenu",
-  "gameObjects": [],
+  "entities": [],
   "systems": [
     {
       "name": "sceneLoadSystem",
