@@ -1,6 +1,6 @@
 {
   "name": "game",
-  "gameObjects": [
+  "entities": [
     {
       "id": "400",
       "name": "sky",
@@ -345,13 +345,13 @@
       ]
     }
   ],
-  "processors": [
+  "systems": [
     {
-      "name": "keyboardInputProcessor",
+      "name": "keyboardInputSystem",
       "options": {}
     },
     {
-      "name": "mouseInputProcessor",
+      "name": "mouseInputSystem",
       "options": {}
     },
     {
@@ -363,11 +363,11 @@
       "options": {}
     },
     {
-      "name": "keyboardControlProcessor",
+      "name": "keyboardControlSystem",
       "options": {}
     },
     {
-      "name": "mouseControlProcessor",
+      "name": "mouseControlSystem",
       "options": {}
     },
     {
@@ -375,7 +375,7 @@
       "options": {}
     },
     {
-      "name": "autoAimingProcessor",
+      "name": "autoAimingSystem",
       "options": {}
     },
     {
@@ -387,11 +387,11 @@
       }
     },
     {
-      "name": "aiProcessor",
+      "name": "aiSystem",
       "options": {}
     },
     {
-      "name": "scriptProcessor",
+      "name": "scriptSystem",
       "options": {}
     },
     {
@@ -407,7 +407,7 @@
       "options": {}
     },
     {
-      "name": "movementProcessor",
+      "name": "movementSystem",
       "options": {}
     },
     {
@@ -415,19 +415,19 @@
       "options": {}
     },
     {
-      "name": "collectProcessor",
+      "name": "collectSystem",
       "options": {}
     },
     {
-      "name": "craftProcessor",
+      "name": "craftSystem",
       "options": {}
     },
     {
-      "name": "effectsProcessor",
+      "name": "effectsSystem",
       "options": {}
     },
     {
-      "name": "damageProcessor",
+      "name": "damageSystem",
       "options": {}
     },
     {
@@ -445,7 +445,7 @@
       }
     },
     {
-      "name": "cameraProcessor",
+      "name": "cameraSystem",
       "options": {
         "windowNodeId": "root",
         "initialCamera": "1.2"
@@ -456,11 +456,11 @@
       "options": {}
     },
     {
-      "name": "gameOverProcessor",
+      "name": "gameOverSystem",
       "options": {}
     },
     {
-      "name": "physicsProcessor",
+      "name": "physicsSystem",
       "options": {
         "gravitationalAcceleration": 450
       }
@@ -476,11 +476,11 @@
       }
     },
     {
-      "name": "collisionDetectionProcessor",
+      "name": "collisionDetectionSystem",
       "options": {}
     },
     {
-      "name": "collisionBroadcastProcessor",
+      "name": "collisionBroadcastSystem",
       "options": {}
     },
     {
@@ -492,7 +492,7 @@
       "options": {}
     },
     {
-      "name": "sceneLoadProcessor",
+      "name": "sceneLoadSystem",
       "options": {}
     },
     {
