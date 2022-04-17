@@ -4,7 +4,7 @@ import {
   contribComponents,
 } from 'remiz';
 
-import mainConfig from 'resources/configurations/mainConfig.json';
+import config from 'resources/config.json';
 import { systemsPlugins as gameSystemsPlugins } from './game/systems-plugins';
 import gameComponents from 'game/components';
 import pluginHelpers from './plugin-helpers';
@@ -16,7 +16,7 @@ import {
 } from './utils';
 
 const options = {
-  mainConfig: mainConfig,
+  config,
   systemsPlugins: {
     ...contribSystemsPlugins,
     ...gameSystemsPlugins,
