@@ -30,3 +30,18 @@ body {
 
   z-index: 2;
 }
+
+.initial-loader {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.initial-loader__title {
+  color: white;
+
+  font-family: sans-serif;
+  font-size: 48px;
+}
