@@ -11,9 +11,9 @@ export class DamageSystem {
   update() {
     const damageMessages = this.messageBus.get(DAMAGE_MSG) || [];
     damageMessages.forEach((message) => {
-      const { entity, value } = message;
+      const { gameObject, value } = message;
 
-      const health = entity.getComponent(HEALTH_COMPONENT_NAME);
+      const health = gameObject.getComponent(HEALTH_COMPONENT_NAME);
 
       if (!health) {
         return;
@@ -26,8 +26,8 @@ export class DamageSystem {
 
         this.messageBus.send({
           type: KILL_MSG,
-          id: entity.getId(),
-          entity: entity,
+          id: gameObject.getId(),
+          gameObject: gameObject,
         });
       }
     });

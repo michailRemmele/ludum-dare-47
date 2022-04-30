@@ -12,7 +12,7 @@ const COLLECTABLE_COMPONENT_NAME = 'collectable';
 
 export class CollectSystem {
   constructor(options) {
-    this._entityObserver = options.createEntityObserver({
+    this._gameObjectObserver = options.createGameObjectObserver({
       components: [
         KEYBOARD_CONTROL_COMPONENT_NAME,
         MOUSE_CONTROL_COMPONENT_NAME,
@@ -31,34 +31,34 @@ export class CollectSystem {
   }
 
   update() {
-    this._entityObserver.forEach((entity) => {
-      const entityId = entity.getId();
+    this._gameObjectObserver.forEach((gameObject) => {
+      const gameObjectId = gameObject.getId();
 
-      const enterMessages = this.messageBus.getById(COLLISION_ENTER_MSG, entityId) || [];
+      const enterMessages = this.messageBus.getById(COLLISION_ENTER_MSG, gameObjectId) || [];
 
       enterMessages.forEach((message) => {
-        const { entity2 } = message;
+        const { gameObject2 } = message;
 
-        const collectable = entity2.getComponent(COLLECTABLE_COMPONENT_NAME);
+        const collectable = gameObject2.getComponent(COLLECTABLE_COMPONENT_NAME);
 
         if (!collectable) {
           return;
         }
 
-        this._canGrab.add(entity2);
+        this._canGrab.add(gameObject2);
       });
 
-      const leaveMessages = this.messageBus.getById(COLLISION_LEAVE_MSG, entityId) || [];
+      const leaveMessages = this.messageBus.getById(COLLISION_LEAVE_MSG, gameObjectId) || [];
 
       leaveMessages.forEach((message) => {
-        const { entity2 } = message;
+        const { gameObject2 } = message;
 
-        if (this._canGrab.has(entity2)) {
-          this._canGrab.delete(entity2);
+        if (this._canGrab.has(gameObject2)) {
+          this._canGrab.delete(gameObject2);
         }
       });
 
-      const grabMessages = this.messageBus.getById(GRAB_MSG, entityId) || [];
+      const grabMessages = this.messageBus.getById(GRAB_MSG, gameObjectId) || [];
 
       grabMessages.forEach(() => {
         if (!this._canGrab.size) {
@@ -82,7 +82,7 @@ export class CollectSystem {
         this.messageBus.send({
           type: KILL_MSG,
           id: item.getId(),
-          entity: item,
+          gameObject: item,
         });
       });
     });

@@ -12,7 +12,7 @@ const HITBOX_COMPONENT_NAME = 'hitBox';
 
 export class AutoAimingSystem {
   constructor(options) {
-    this._entityObserver = options.createEntityObserver({
+    this._gameObjectObserver = options.createGameObjectObserver({
       components: [
         KEYBOARD_CONTROL_COMPONENT_NAME,
         MOUSE_CONTROL_COMPONENT_NAME,
@@ -22,11 +22,11 @@ export class AutoAimingSystem {
   }
 
   update() {
-    this._entityObserver.forEach((entity) => {
-      const { offsetX, offsetY } = entity.getComponent(TRANSFORM_COMPONENT_NAME);
-      const viewDirection = entity.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
+    this._gameObjectObserver.forEach((gameObject) => {
+      const { offsetX, offsetY } = gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
+      const viewDirection = gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
 
-      const attackMessages = this.messageBus.getById(ATTACK_MSG, entity.getId()) || [];
+      const attackMessages = this.messageBus.getById(ATTACK_MSG, gameObject.getId()) || [];
 
       attackMessages.forEach((attackMessage) => {
         const { x, y } = attackMessage;
@@ -38,7 +38,7 @@ export class AutoAimingSystem {
         attackMessage.x = offsetX + viewDirection.x;
         attackMessage.y = offsetY + viewDirection.y;
 
-        const aimRadius = entity.getChildren().find(
+        const aimRadius = gameObject.getChildren().find(
           (child) => child.getComponent(AIM_RADIUS_COMPONENT_NAME)
         );
 
@@ -52,19 +52,19 @@ export class AutoAimingSystem {
         let nearestTargetDistance;
 
         collisionMessages.forEach((collisionMessage) => {
-          const { entity2 } = collisionMessage;
+          const { gameObject2 } = collisionMessage;
 
-          const hitBox = entity2.getComponent(HITBOX_COMPONENT_NAME);
-          const targetParent = entity2.parent;
+          const hitBox = gameObject2.getComponent(HITBOX_COMPONENT_NAME);
+          const targetParent = gameObject2.parent;
 
-          if (!hitBox || entity.getId() === targetParent.getId()) {
+          if (!hitBox || gameObject.getId() === targetParent.getId()) {
             return;
           }
 
           const {
             offsetX: targetX,
             offsetY: targetY,
-          } = entity2.getComponent(TRANSFORM_COMPONENT_NAME);
+          } = gameObject2.getComponent(TRANSFORM_COMPONENT_NAME);
 
           const distance = MathOps.getDistanceBetweenTwoPoints(offsetX, targetX, offsetY, targetY);
 

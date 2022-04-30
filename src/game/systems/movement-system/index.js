@@ -12,7 +12,7 @@ const MAX_SPEED = 1;
 
 export class MovementSystem {
   constructor(options) {
-    this._entityObserver = options.createEntityObserver({
+    this._gameObjectObserver = options.createGameObjectObserver({
       components: [
         MOVEMENT_COMPONENT_NAME,
         TRANSFORM_COMPONENT_NAME,
@@ -24,13 +24,13 @@ export class MovementSystem {
   update(options) {
     const deltaTimeInSeconds = options.deltaTime / 1000;
 
-    this._entityObserver.forEach((entity) => {
-      const entityId = entity.getId();
+    this._gameObjectObserver.forEach((gameObject) => {
+      const gameObjectId = gameObject.getId();
 
-      const { vector, speed, penalty } = entity.getComponent(MOVEMENT_COMPONENT_NAME);
+      const { vector, speed, penalty } = gameObject.getComponent(MOVEMENT_COMPONENT_NAME);
       vector.multiplyNumber(0);
 
-      const messages = this.messageBus.getById(MOVEMENT_MSG, entityId) || [];
+      const messages = this.messageBus.getById(MOVEMENT_MSG, gameObjectId) || [];
       const { movementVector, intension } = messages.reduce((storage, message) => {
         const { angle, x, y } = message;
 
@@ -48,7 +48,7 @@ export class MovementSystem {
         return;
       }
 
-      const transform = entity.getComponent(TRANSFORM_COMPONENT_NAME);
+      const transform = gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
       const resultingSpeed = penalty < speed ? speed - penalty : 0;
 
       movementVector.multiplyNumber(
@@ -59,7 +59,7 @@ export class MovementSystem {
       transform.offsetX = transform.offsetX + vector.x;
       transform.offsetY = transform.offsetY + vector.y;
 
-      const viewDirection = entity.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
+      const viewDirection = gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
 
       viewDirection.x = vector.x;
       viewDirection.y = vector.y;

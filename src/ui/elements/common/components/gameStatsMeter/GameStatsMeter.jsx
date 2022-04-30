@@ -29,7 +29,7 @@ export const GameStatsMeter = ({
   const chartValues = useRef([]);
 
   const [ fps, setFps ] = useState(0);
-  const [ entitiesCount, setEntitiesCount ] = useState(0);
+  const [ gameObjectsCount, setGameObjectsCount ] = useState(0);
   const [ messagesCount, setMessagesCount ] = useState(0);
 
   const updateChart = useCallback((currentFps) => {
@@ -70,7 +70,7 @@ export const GameStatsMeter = ({
     if (messages) {
       const currentFps = Math.round(messages[0].fps);
 
-      setEntitiesCount(messages[0].entitiesCount);
+      setGameObjectsCount(messages[0].gameObjectsCount);
       setMessagesCount(Math.round(messages[0].messagesCount));
 
       setFps(currentFps);
@@ -97,7 +97,7 @@ export const GameStatsMeter = ({
 
         <div className='game-stats-meter__load'>
           <span className='game-stats-meter__additional'>
-            {`Game objects: ${entitiesCount}`}
+            {`Game objects: ${gameObjectsCount}`}
           </span>
           <span className='game-stats-meter__additional'>
             {`Messages: ${messagesCount}`}

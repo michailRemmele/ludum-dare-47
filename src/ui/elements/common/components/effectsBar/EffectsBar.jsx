@@ -10,16 +10,16 @@ export const ACTIVE_EFFECTS_COMPONENT_NAME = 'activeEffects';
 export const EFFECT_COMPONENT_NAME = 'effect';
 export const UI_COMPONENT_NAME = 'ui';
 
-export const EffectsBar = ({ className, entities }) => {
+export const EffectsBar = ({ className, gameObjects }) => {
   const [ effects, setEffects ] = useState([]);
 
   useEffect(() => {
-    const handlePlayerUpdate = (entity) => {
-      if (!entity || !entity.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME)) {
+    const handlePlayerUpdate = (gameObject) => {
+      if (!gameObject || !gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME)) {
         return;
       }
 
-      const activeEffects = entity.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
+      const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
 
       const newEffects = activeEffects.list.reduce((acc, effectName) => {
         const effectObject = activeEffects.map[effectName];
@@ -51,9 +51,9 @@ export const EffectsBar = ({ className, entities }) => {
       }
     };
 
-    entities.subscribe(handlePlayerUpdate, PLAYER_ID);
+    gameObjects.subscribe(handlePlayerUpdate, PLAYER_ID);
 
-    return () => entities.unsubscribe(handlePlayerUpdate, PLAYER_ID);
+    return () => gameObjects.unsubscribe(handlePlayerUpdate, PLAYER_ID);
   }, [ effects ]);
 
   if (!effects.length) {
@@ -76,12 +76,12 @@ export const EffectsBar = ({ className, entities }) => {
 
 EffectsBar.defaultProps = {
   className: '',
-  entities: void 0,
+  gameObjects: void 0,
 };
 
 EffectsBar.propTypes = {
   className: PropTypes.string,
-  entities: PropTypes.any,
+  gameObjects: PropTypes.any,
 };
 
 export const EffectsBarWithGame = withGame(EffectsBar);
