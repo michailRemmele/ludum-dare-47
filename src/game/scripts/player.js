@@ -4,19 +4,19 @@ const LIGHT_COMPONENT_NAME = 'light';
 
 export class Player {
   constructor({
-    entity,
-    entityObserver,
+    gameObject,
+    gameObjectObserver,
     skyId,
     threshold,
   }) {
-    this.entity = entity;
-    this.sky = entityObserver.getById(skyId);
+    this.gameObject = gameObject;
+    this.sky = gameObjectObserver.getById(skyId);
     this.threshold = threshold;
   }
 
   update() {
     const skyLight = this.sky.getComponent(LIGHT_COMPONENT_NAME);
-    const playerLight = this.entity.getComponent(LIGHT_COMPONENT_NAME);
+    const playerLight = this.gameObject.getComponent(LIGHT_COMPONENT_NAME);
 
     playerLight.options.intensity = MathOps.clamp(
       this.threshold - skyLight.options.intensity,

@@ -99,13 +99,13 @@ export class Game extends React.Component {
   componentDidMount() {
     this.props.messageBusObserver.subscribe(this.messageBusSubscription);
     this.props.storeObserver.subscribe(this.storeSubscription);
-    this.props.entities.subscribe(this.playerSubscription, PLAYER_ID);
+    this.props.gameObjects.subscribe(this.playerSubscription, PLAYER_ID);
   }
 
   componentWillUnmount() {
     this.props.messageBusObserver.unsubscribe(this.messageBusSubscription);
     this.props.storeObserver.unsubscribe(this.storeSubscription);
-    this.props.entities.unsubscribe(this.playerSubscription, PLAYER_ID);
+    this.props.gameObjects.unsubscribe(this.playerSubscription, PLAYER_ID);
   }
 
   onStoreUpdate(store) {
@@ -161,8 +161,8 @@ export class Game extends React.Component {
     }
   }
 
-  onPlayerUpdate(entity) {
-    if (!entity) {
+  onPlayerUpdate(gameObject) {
+    if (!gameObject) {
       this.setState({
         health: 0,
         maxHealth: 0,
@@ -170,7 +170,7 @@ export class Game extends React.Component {
       return;
     }
 
-    const health = entity.getComponent(HEALTH_COMPONENT_NAME);
+    const health = gameObject.getComponent(HEALTH_COMPONENT_NAME);
 
     const newState = {};
 
@@ -179,11 +179,11 @@ export class Game extends React.Component {
       newState.maxHealth = health.maxPoints;
     }
 
-    const entityId = entity.getId();
+    const gameObjectId = gameObject.getId();
 
-    if (entityId !== this.state.entityId) {
-      newState.entityId = entityId;
-      newState.entity = entity;
+    if (gameObjectId !== this.state.gameObjectId) {
+      newState.gameObjectId = gameObjectId;
+      newState.gameObject = gameObject;
     }
 
     if (Object.keys(newState).length) {
@@ -196,8 +196,8 @@ export class Game extends React.Component {
 
     this.props.pushMessage({
       type: GRAB_MSG,
-      id: this.state.entityId,
-      entity: this.state.entity,
+      id: this.state.gameObjectId,
+      gameObject: this.state.gameObject,
     });
   }
 
@@ -239,8 +239,8 @@ export class Game extends React.Component {
   onAttack = () => {
     this.props.pushMessage({
       type: ATTACK_MSG,
-      id: this.state.entityId,
-      entity: this.state.entity,
+      id: this.state.gameObjectId,
+      gameObject: this.state.gameObject,
     });
   }
 
@@ -296,7 +296,7 @@ export class Game extends React.Component {
           </header>
           <div className='game__main'>
             <ItemsBarContainer
-              user={this.state.entity}
+              user={this.state.gameObject}
             />
           </div>
           <footer className='game__footer game__footer_touch'>
@@ -337,7 +337,7 @@ export class Game extends React.Component {
           <footer className='game__footer'>
             <div className='game__bars'>
               <ItemsBarContainer
-                user={this.state.entity}
+                user={this.state.gameObject}
               />
               {this.renderActionBar()}
             </div>
@@ -360,7 +360,7 @@ Game.propTypes = {
   messageBusObserver: PropTypes.any,
   storeObserver: PropTypes.any,
   pushMessage: PropTypes.func,
-  entities: PropTypes.any,
+  gameObjects: PropTypes.any,
   touchDevice: PropTypes.bool,
 };
 

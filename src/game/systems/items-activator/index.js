@@ -25,16 +25,16 @@ const ITEM_EFFECTS = {
 
 export class ItemsActivator {
   constructor(options) {
-    this._entityObserver = options.createEntityObserver({});
+    this._gameObjectObserver = options.createGameObjectObserver({});
     this._store = options.store;
     this.messageBus = options.messageBus;
   }
 
   update() {
-    this._entityObserver.forEach((entity) => {
-      const entityId = entity.getId();
+    this._gameObjectObserver.forEach((gameObject) => {
+      const gameObjectId = gameObject.getId();
 
-      const messages = this.messageBus.getById(USE_ITEM_MSG, entityId) || [];
+      const messages = this.messageBus.getById(USE_ITEM_MSG, gameObjectId) || [];
 
       messages.forEach((message) => {
         const { item } = message;
@@ -48,8 +48,8 @@ export class ItemsActivator {
 
         this.messageBus.send({
           type: ADD_EFFECT_MSG,
-          id: entityId,
-          entity,
+          id: gameObjectId,
+          gameObject,
           ...ITEM_EFFECTS[item],
         });
       });

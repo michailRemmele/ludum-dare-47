@@ -2,8 +2,8 @@ import { MathOps } from 'remiz';
 
 const DAMAGE_MSG = 'DAMAGE';
 
-const ENEMY_PREFAB_NAME = 'enemy';
-const RANGE_ENEMY_PREFAB_NAME = 'rangeEnemy';
+const ENEMY_TEMPLATE_NAME = 'enemy';
+const RANGE_ENEMY_TEMPLATE_NAME = 'rangeEnemy';
 const TRANSFORM_COMPONENT_NAME = 'transform';
 const WEAPON_COMPONENT_NAME = 'weapon';
 const HEALTH_COMPONENT_NAME = 'health';
@@ -25,12 +25,12 @@ const TIME_OF_DAY_KEY = 'timeOfDay';
 
 export class EnemySpawner {
   constructor(options) {
-    this._entityObserver = options.createEntityObserver({
+    this._gameObjectObserver = options.createGameObjectObserver({
       components: [
         AI_COMPONENT_NAME,
       ],
     });
-    this._entitySpawner = options.entitySpawner;
+    this._gameObjectSpawner = options.gameObjectSpawner;
     this._store = options.store;
     this.messageBus = options.messageBus;
 
@@ -51,7 +51,7 @@ export class EnemySpawner {
     }
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const enemy = this._entitySpawner.spawn(ENEMY_PREFAB_NAME);
+      const enemy = this._gameObjectSpawner.spawn(ENEMY_TEMPLATE_NAME);
       const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
       const enemyWeapon = enemy.getComponent(WEAPON_COMPONENT_NAME);
       const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
@@ -75,7 +75,7 @@ export class EnemySpawner {
     }
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const enemy = this._entitySpawner.spawn(RANGE_ENEMY_PREFAB_NAME);
+      const enemy = this._gameObjectSpawner.spawn(RANGE_ENEMY_TEMPLATE_NAME);
       const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
       const enemyWeapon = enemy.getComponent(WEAPON_COMPONENT_NAME);
       const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
@@ -102,12 +102,12 @@ export class EnemySpawner {
     this._spawnMeleeEnemies(deltaTime, hour, days);
     this._spawnRangeEnemies(deltaTime, hour, days);
 
-    if (this._entityObserver.size() && hour >= END_SPAWN_HOUR) {
-      this._entityObserver.forEach((entity) => {
+    if (this._gameObjectObserver.size() && hour >= END_SPAWN_HOUR) {
+      this._gameObjectObserver.forEach((gameObject) => {
         this.messageBus.send({
           type: DAMAGE_MSG,
-          id: entity.getId(),
-          entity: entity,
+          id: gameObject.getId(),
+          gameObject: gameObject,
           value: END_SPAWN_DAMAGE,
         });
       });

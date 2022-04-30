@@ -12,7 +12,7 @@ export class GameProvider extends React.Component {
         storeObserver: this.props.storeObserver,
         pushMessage: this.props.pushMessage,
         pushAction: this.props.pushAction,
-        entities: this.props.entities,
+        gameObjects: this.props.gameObjects,
       },
     };
   }
@@ -32,5 +32,5 @@ GameProvider.propTypes = {
   storeObserver: PropTypes.any,
   pushMessage: PropTypes.func,
   pushAction: PropTypes.func,
-  entities: PropTypes.any,
+  gameObjects: PropTypes.any,
 };

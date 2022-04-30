@@ -23,7 +23,7 @@ export const ItemsBarContainer = ({
     pushMessage({
       type: USE_ITEM_MSG,
       id: user.getId(),
-      entity: user,
+      gameObject: user,
       item,
     });
   }, [ user, pushMessage ]);

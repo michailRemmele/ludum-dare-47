@@ -4,29 +4,29 @@ const DEFEAT_MSG = 'DEFEAT';
 
 export class GameOverSystem {
   constructor(options) {
-    this._entityObserver = options.createEntityObserver({
+    this._gameObjectObserver = options.createGameObjectObserver({
       type: 'unit',
     });
     this.messageBus = options.messageBus;
 
-    this._playerEntities = new Set();
+    this._playerGameObjects = new Set();
     this._isGameOver = false;
   }
 
   mount() {
-    this._entityObserver.subscribe('onadd', this._handleEntitiyAdd);
+    this._gameObjectObserver.subscribe('onadd', this._handleEntitiyAdd);
   }
 
   unmount() {
-    this._entityObserver.unsubscribe('onadd', this._handleEntitiyAdd);
+    this._gameObjectObserver.unsubscribe('onadd', this._handleEntitiyAdd);
   }
 
-  _handleEntitiyAdd = (entity) => {
-    const entityId = entity.getId();
-    const control = entity.getComponent(CONTROL_COMPONENT_NAME);
+  _handleEntitiyAdd = (gameObject) => {
+    const gameObjectId = gameObject.getId();
+    const control = gameObject.getComponent(CONTROL_COMPONENT_NAME);
 
     if (control) {
-      this._playerEntities.add(entityId);
+      this._playerGameObjects.add(gameObjectId);
     }
   };
 
@@ -35,15 +35,15 @@ export class GameOverSystem {
       return;
     }
 
-    this._entityObserver.fireEvents();
+    this._gameObjectObserver.fireEvents();
 
     const messages = this.messageBus.get(DEATH_MSG) || [];
     messages.forEach((message) => {
-      const { entity } = message;
-      this._playerEntities.delete(entity.getId());
+      const { gameObject } = message;
+      this._playerGameObjects.delete(gameObject.getId());
     });
 
-    if (this._playerEntities.size === 0) {
+    if (this._playerGameObjects.size === 0) {
       this.messageBus.send({
         type: DEFEAT_MSG,
       });
