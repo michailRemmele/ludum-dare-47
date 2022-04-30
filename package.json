@@ -2,7 +2,7 @@
   "name": "infinite-battle",
   "version": "0.6.0",
   "dependencies": {
-    "remiz": "0.8.1",
+    "remiz": "0.9.0",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
