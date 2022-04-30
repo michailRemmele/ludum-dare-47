@@ -12,7 +12,12 @@ const MAX_SPEED = 1;
 
 export class MovementSystem {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      components: [
+        MOVEMENT_COMPONENT_NAME,
+        TRANSFORM_COMPONENT_NAME,
+      ],
+    });
     this.messageBus = options.messageBus;
   }
 

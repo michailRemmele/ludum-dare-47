@@ -4,7 +4,9 @@ const PLAYER_KEY = 'player';
 
 export class EnemiesDetector {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      type: 'unit',
+    });
     this._store = options.store;
 
     this._playersCount = 0;
@@ -22,7 +24,7 @@ export class EnemiesDetector {
     });
   }
 
-  systemDidMount() {
+  mount() {
     this._scan();
   }
 

@@ -4,10 +4,6 @@
       "name": "mainMenu",
       "systems": [
         {
-          "name": "sceneLoadSystem",
-          "options": {}
-        },
-        {
           "name": "uiBridge",
           "options": {}
         }
@@ -163,10 +159,6 @@
           "options": {}
         },
         {
-          "name": "sceneLoadSystem",
-          "options": {}
-        },
-        {
           "name": "animator",
           "options": {}
         },
@@ -202,7 +194,7 @@
           }
         }
       ]
-    }        
+    }    
   ],
   "levels": [
     {
@@ -4334,6 +4326,17 @@
             "icon": "./media/images/power-potion.png",
             "title": "Power effect"
           }
+        }
+      ]
+    }
+  ],
+  "loaders": [
+    {
+      "name": "loader",
+      "systems": [
+        {
+          "name": "uiBridge",
+          "options": {}
         }
       ]
     }

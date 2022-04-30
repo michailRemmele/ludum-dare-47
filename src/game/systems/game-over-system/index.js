@@ -4,18 +4,20 @@ const DEFEAT_MSG = 'DEFEAT';
 
 export class GameOverSystem {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      type: 'unit',
+    });
     this.messageBus = options.messageBus;
 
     this._playerEntities = new Set();
     this._isGameOver = false;
   }
 
-  systemDidMount() {
+  mount() {
     this._entityObserver.subscribe('onadd', this._handleEntitiyAdd);
   }
 
-  systemWillUnmount() {
+  unmount() {
     this._entityObserver.unsubscribe('onadd', this._handleEntitiyAdd);
   }
 

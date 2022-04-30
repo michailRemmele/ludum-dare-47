@@ -3,6 +3,8 @@ import { MathOps } from 'remiz';
 const ATTACK_MSG = 'ATTACK';
 const COLLISION_STAY_MSG = 'COLLISION_STAY';
 
+const KEYBOARD_CONTROL_COMPONENT_NAME = 'keyboardControl';
+const MOUSE_CONTROL_COMPONENT_NAME = 'mouseControl';
 const TRANSFORM_COMPONENT_NAME = 'transform';
 const VIEW_DIRECTION_COMPONENT_NAME = 'viewDirection';
 const AIM_RADIUS_COMPONENT_NAME = 'aimRadius';
@@ -10,7 +12,12 @@ const HITBOX_COMPONENT_NAME = 'hitBox';
 
 export class AutoAimingSystem {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      components: [
+        KEYBOARD_CONTROL_COMPONENT_NAME,
+        MOUSE_CONTROL_COMPONENT_NAME,
+      ],
+    });
     this.messageBus = options.messageBus;
   }
 

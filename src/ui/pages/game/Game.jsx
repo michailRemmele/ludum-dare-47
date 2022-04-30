@@ -222,6 +222,9 @@ export class Game extends React.Component {
     this.props.pushMessage({
       type: LOAD_SCENE_MSG,
       name: GAME_SCENE_NAME,
+      loader: 'loader',
+      unloadCurrent: true,
+      clean: true,
     });
   }
 
@@ -229,6 +232,7 @@ export class Game extends React.Component {
     this.props.pushMessage({
       type: LOAD_SCENE_MSG,
       name: MAIN_MENU_SCENE_NAME,
+      unloadCurrent: true,
     });
   }
 

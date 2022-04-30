@@ -1,13 +1,13 @@
 import {
   Engine,
-  contribSystemsPlugins,
+  contribSystems,
   contribComponents,
 } from 'remiz';
 
 import config from 'resources/config.json';
-import { systemsPlugins as gameSystemsPlugins } from './game/systems-plugins';
+import { systems as gameSystems } from './game/systems';
 import gameComponents from 'game/components';
-import pluginHelpers from './plugin-helpers';
+import helpers from './helpers';
 import {
   isIosSafari,
   isIos,
@@ -17,16 +17,16 @@ import {
 
 const options = {
   config,
-  systemsPlugins: {
-    ...contribSystemsPlugins,
-    ...gameSystemsPlugins,
+  systems: {
+    ...contribSystems,
+    ...gameSystems,
   },
   components: {
     ...contribComponents,
     ...gameComponents,
   },
-  pluginHelpers: {
-    ...pluginHelpers,
+  helpers: {
+    ...helpers,
   },
 };
 

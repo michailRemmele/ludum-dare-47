@@ -87,7 +87,7 @@ export const interpolate = (start, end, progress) => start + ((end - start) * pr
 export class DayNightSimulator {
   constructor(options) {
     const {
-      entityObserver,
+      createEntityObserver,
       store,
       messageBus,
       dayLength,
@@ -101,6 +101,9 @@ export class DayNightSimulator {
     this._dayLength = dayLength;
     this._startTime = startTime;
 
+    const entityObserver = createEntityObserver({
+      components: [ LIGHT_COMPONENT_NAME ],
+    });
     this.sky = entityObserver.getById(skyId);
 
     if (!this.sky) {
@@ -112,7 +115,7 @@ export class DayNightSimulator {
     this._startSegmentIndex = 0;
   }
 
-  systemDidMount() {
+  mount() {
     this._time = new Time(this._dayLength, this._startTime);
     this._store.set(TIME_OF_DAY_KEY, this._time);
   }

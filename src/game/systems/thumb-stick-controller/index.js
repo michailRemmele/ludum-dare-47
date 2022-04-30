@@ -6,7 +6,11 @@ const INPUT_MSG = 'THUMB_STICK_POSITION_CHANGE';
 
 export class ThumbStickController {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      components: [
+        CONTROL_COMPONENT_NAME,
+      ],
+    });
     this.messageBus = options.messageBus;
     this._currentX = 0;
     this._currentY = 0;

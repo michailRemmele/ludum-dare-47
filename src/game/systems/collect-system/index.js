@@ -6,11 +6,18 @@ const KILL_MSG = 'KILL';
 const CAN_GRAB_KEY = 'canGrab';
 const INVENTORY_KEY = 'inventory';
 
+const KEYBOARD_CONTROL_COMPONENT_NAME = 'keyboardControl';
+const MOUSE_CONTROL_COMPONENT_NAME = 'mouseControl';
 const COLLECTABLE_COMPONENT_NAME = 'collectable';
 
 export class CollectSystem {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      components: [
+        KEYBOARD_CONTROL_COMPONENT_NAME,
+        MOUSE_CONTROL_COMPONENT_NAME,
+      ],
+    });
     this._store = options.store;
     this.messageBus = options.messageBus;
 
@@ -18,7 +25,7 @@ export class CollectSystem {
     this._inventory = {};
   }
 
-  systemDidMount() {
+  mount() {
     this._store.set(CAN_GRAB_KEY, this._canGrab);
     this._store.set(INVENTORY_KEY, this._inventory);
   }
