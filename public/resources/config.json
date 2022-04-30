@@ -2,12 +2,7 @@
   "scenes": [
     {
       "name": "mainMenu",
-      "entities": [],
       "systems": [
-        {
-          "name": "sceneLoadSystem",
-          "options": {}
-        },
         {
           "name": "uiBridge",
           "options": {}
@@ -16,6 +11,194 @@
     },
     {
       "name": "game",
+      "level": "island",
+      "systems": [
+        {
+          "name": "keyboardInputSystem",
+          "options": {}
+        },
+        {
+          "name": "mouseInputSystem",
+          "options": {}
+        },
+        {
+          "name": "touchDeviceJammer",
+          "options": {}
+        },
+        {
+          "name": "mouseInputCoordinatesProjector",
+          "options": {}
+        },
+        {
+          "name": "keyboardControlSystem",
+          "options": {}
+        },
+        {
+          "name": "mouseControlSystem",
+          "options": {}
+        },
+        {
+          "name": "thumbStickController",
+          "options": {}
+        },
+        {
+          "name": "autoAimingSystem",
+          "options": {}
+        },
+        {
+          "name": "dayNightSimulator",
+          "options": {
+            "dayLength": 60000,
+            "startTime": 32400000,
+            "skyId": "400"
+          }
+        },
+        {
+          "name": "aiSystem",
+          "options": {}
+        },
+        {
+          "name": "scriptSystem",
+          "options": {}
+        },
+        {
+          "name": "itemsActivator",
+          "options": {}
+        },
+        {
+          "name": "enemySpawner",
+          "options": {}
+        },
+        {
+          "name": "grassSpawner",
+          "options": {}
+        },
+        {
+          "name": "movementSystem",
+          "options": {}
+        },
+        {
+          "name": "fightSystem",
+          "options": {}
+        },
+        {
+          "name": "collectSystem",
+          "options": {}
+        },
+        {
+          "name": "craftSystem",
+          "options": {}
+        },
+        {
+          "name": "effectsSystem",
+          "options": {}
+        },
+        {
+          "name": "damageSystem",
+          "options": {}
+        },
+        {
+          "name": "reaper",
+          "options": {
+            "allowedComponents": [
+              "transform",
+              "animatable",
+              "renderable",
+              "light",
+              "camera",
+              "viewDirection"
+            ],
+            "lifetime": 5000
+          }
+        },
+        {
+          "name": "cameraSystem",
+          "options": {
+            "windowNodeId": "root",
+            "initialCamera": "1.2"
+          }
+        },
+        {
+          "name": "enemiesDetector",
+          "options": {}
+        },
+        {
+          "name": "gameOverSystem",
+          "options": {}
+        },
+        {
+          "name": "physicsSystem",
+          "options": {
+            "gravitationalAcceleration": 450
+          }
+        },
+        {
+          "name": "jammer",
+          "options": {
+            "messages": [
+              "COLLISION_ENTER",
+              "COLLISION_STAY",
+              "COLLISION_LEAVE"
+            ]
+          }
+        },
+        {
+          "name": "collisionDetectionSystem",
+          "options": {}
+        },
+        {
+          "name": "collisionBroadcastSystem",
+          "options": {}
+        },
+        {
+          "name": "collisionSolver",
+          "options": {}
+        },
+        {
+          "name": "constraintSolver",
+          "options": {}
+        },
+        {
+          "name": "animator",
+          "options": {}
+        },
+        {
+          "name": "threeJSRenderer",
+          "options": {
+            "windowNodeId": "root",
+            "backgroundColor": "#000",
+            "sortingLayers": [
+              "default",
+              "background",
+              "space",
+              "terrain",
+              "decorations",
+              "lights",
+              "effectsBack",
+              "units"
+            ],
+            "scaleSensitivity": 0.5
+          }
+        },
+        {
+          "name": "gameStatsMeter",
+          "options": {}
+        },
+        {
+          "name": "uiBridge",
+          "options": {
+            "filterComponents": [
+              "keyboardControl",
+              "mouseControl"
+            ]
+          }
+        }
+      ]
+    }    
+  ],
+  "levels": [
+    {
+      "name": "island",
       "entities": [
         {
           "id": "400",
@@ -360,194 +543,8 @@
             }
           ]
         }
-      ],
-      "systems": [
-        {
-          "name": "keyboardInputSystem",
-          "options": {}
-        },
-        {
-          "name": "mouseInputSystem",
-          "options": {}
-        },
-        {
-          "name": "touchDeviceJammer",
-          "options": {}
-        },
-        {
-          "name": "mouseInputCoordinatesProjector",
-          "options": {}
-        },
-        {
-          "name": "keyboardControlSystem",
-          "options": {}
-        },
-        {
-          "name": "mouseControlSystem",
-          "options": {}
-        },
-        {
-          "name": "thumbStickController",
-          "options": {}
-        },
-        {
-          "name": "autoAimingSystem",
-          "options": {}
-        },
-        {
-          "name": "dayNightSimulator",
-          "options": {
-            "dayLength": 60000,
-            "startTime": 32400000,
-            "skyId": "400"
-          }
-        },
-        {
-          "name": "aiSystem",
-          "options": {}
-        },
-        {
-          "name": "scriptSystem",
-          "options": {}
-        },
-        {
-          "name": "itemsActivator",
-          "options": {}
-        },
-        {
-          "name": "enemySpawner",
-          "options": {}
-        },
-        {
-          "name": "grassSpawner",
-          "options": {}
-        },
-        {
-          "name": "movementSystem",
-          "options": {}
-        },
-        {
-          "name": "fightSystem",
-          "options": {}
-        },
-        {
-          "name": "collectSystem",
-          "options": {}
-        },
-        {
-          "name": "craftSystem",
-          "options": {}
-        },
-        {
-          "name": "effectsSystem",
-          "options": {}
-        },
-        {
-          "name": "damageSystem",
-          "options": {}
-        },
-        {
-          "name": "reaper",
-          "options": {
-            "allowedComponents": [
-              "transform",
-              "animatable",
-              "renderable",
-              "light",
-              "camera",
-              "viewDirection"
-            ],
-            "lifetime": 5000
-          }
-        },
-        {
-          "name": "cameraSystem",
-          "options": {
-            "windowNodeId": "root",
-            "initialCamera": "1.2"
-          }
-        },
-        {
-          "name": "enemiesDetector",
-          "options": {}
-        },
-        {
-          "name": "gameOverSystem",
-          "options": {}
-        },
-        {
-          "name": "physicsSystem",
-          "options": {
-            "gravitationalAcceleration": 450
-          }
-        },
-        {
-          "name": "jammer",
-          "options": {
-            "messages": [
-              "COLLISION_ENTER",
-              "COLLISION_STAY",
-              "COLLISION_LEAVE"
-            ]
-          }
-        },
-        {
-          "name": "collisionDetectionSystem",
-          "options": {}
-        },
-        {
-          "name": "collisionBroadcastSystem",
-          "options": {}
-        },
-        {
-          "name": "collisionSolver",
-          "options": {}
-        },
-        {
-          "name": "constraintSolver",
-          "options": {}
-        },
-        {
-          "name": "sceneLoadSystem",
-          "options": {}
-        },
-        {
-          "name": "animator",
-          "options": {}
-        },
-        {
-          "name": "threeJSRenderer",
-          "options": {
-            "windowNodeId": "root",
-            "backgroundColor": "#000",
-            "sortingLayers": [
-              "default",
-              "background",
-              "space",
-              "terrain",
-              "decorations",
-              "lights",
-              "effectsBack",
-              "units"
-            ],
-            "scaleSensitivity": 0.5
-          }
-        },
-        {
-          "name": "gameStatsMeter",
-          "options": {}
-        },
-        {
-          "name": "uiBridge",
-          "options": {
-            "filterComponents": [
-              "keyboardControl",
-              "mouseControl"
-            ]
-          }
-        }
       ]
-    }        
+    }
   ],
   "prefabs": [
     {
@@ -4329,6 +4326,17 @@
             "icon": "./media/images/power-potion.png",
             "title": "Power effect"
           }
+        }
+      ]
+    }
+  ],
+  "loaders": [
+    {
+      "name": "loader",
+      "systems": [
+        {
+          "name": "uiBridge",
+          "options": {}
         }
       ]
     }

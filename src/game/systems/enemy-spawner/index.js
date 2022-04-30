@@ -7,6 +7,7 @@ const RANGE_ENEMY_PREFAB_NAME = 'rangeEnemy';
 const TRANSFORM_COMPONENT_NAME = 'transform';
 const WEAPON_COMPONENT_NAME = 'weapon';
 const HEALTH_COMPONENT_NAME = 'health';
+const AI_COMPONENT_NAME = 'ai';
 
 const ENEMY_SPAWN_COOLDOWN = 2000;
 const RANGE_ENEMY_SPAWN_COOLDOWN = 4000;
@@ -24,7 +25,11 @@ const TIME_OF_DAY_KEY = 'timeOfDay';
 
 export class EnemySpawner {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      components: [
+        AI_COMPONENT_NAME,
+      ],
+    });
     this._entitySpawner = options.entitySpawner;
     this._store = options.store;
     this.messageBus = options.messageBus;

@@ -25,7 +25,7 @@ const ITEM_EFFECTS = {
 
 export class ItemsActivator {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({});
     this._store = options.store;
     this.messageBus = options.messageBus;
   }

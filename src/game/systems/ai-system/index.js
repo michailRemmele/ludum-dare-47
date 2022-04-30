@@ -1,21 +1,27 @@
 import aiStrategies from './aiStrategies';
 
 const AI_COMPONENT_NAME = 'ai';
+const COLLIDER_CONTAINER_COMPONENT_NAME = 'colliderContainer';
 
 export class AISystem {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      components: [
+        AI_COMPONENT_NAME,
+        COLLIDER_CONTAINER_COMPONENT_NAME,
+      ],
+    });
     this._store = options.store;
     this.messageBus = options.messageBus;
 
     this.playersStrategies = {};
   }
 
-  systemDidMount() {
+  mount() {
     this._entityObserver.subscribe('onadd', this._handleEntitiyAdd);
   }
 
-  systemWillUnmount() {
+  unmount() {
     this._entityObserver.unsubscribe('onadd', this._handleEntitiyAdd);
   }
 

@@ -1,0 +1,14 @@
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+}
+
+.loader__title {
+  font-family: sans-serif;
+  font-size: 48px;
+
+  color: white;
+}

@@ -4,11 +4,16 @@ import { SimpleFighter } from './fighters';
 
 const ATTACK_MSG = 'ATTACK';
 
+const WEAPON_COMPONENT_NAME = 'weapon';
 const TRANSFORM_COMPONENT_NAME = 'transform';
 
 export class FightSystem {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      components: [
+        WEAPON_COMPONENT_NAME,
+      ],
+    });
     this._entitySpawner = options.entitySpawner;
     this.messageBus = options.messageBus;
 
@@ -16,11 +21,11 @@ export class FightSystem {
     this._activeAttacks = [];
   }
 
-  systemDidMount() {
+  mount() {
     this._entityObserver.subscribe('onremove', this._handleEntitiyRemove);
   }
 
-  systemWillUnmount() {
+  unmount() {
     this._entityObserver.unsubscribe('onremove', this._handleEntitiyRemove);
   }
 

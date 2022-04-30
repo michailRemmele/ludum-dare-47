@@ -19,7 +19,9 @@ const TIME_OF_DAY_KEY = 'timeOfDay';
 
 export class GrassSpawner {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      type: 'item',
+    });
     this._entitySpawner = options.entitySpawner;
     this._store = options.store;
     this.messageBus = options.messageBus;

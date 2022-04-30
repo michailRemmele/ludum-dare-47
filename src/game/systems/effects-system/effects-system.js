@@ -9,20 +9,31 @@ const KILL_MSG = 'KILL';
 
 export class EffectsSystem {
   constructor(options) {
-    this._entityObserver = options.entityObserver;
+    this._entityObserver = options.createEntityObserver({
+      components: [
+        ACTIVE_EFFECTS_COMPONENT_NAME,
+      ],
+    });
     this._entitySpawner = options.entitySpawner;
     this._actions = options.effects;
     this.messageBus = options.messageBus;
+    this.helpers = options.helpers;
 
     this._applicatorsMap = {};
   }
 
-  systemDidMount() {
+  mount() {
     this._entityObserver.subscribe('onremove', this._handleEntitiyRemove);
   }
 
-  systemWillUnmount() {
+  unmount() {
     this._entityObserver.unsubscribe('onremove', this._handleEntitiyRemove);
+  }
+
+  async load() {
+    const { effects } = await this.helpers.loadEffects();
+
+    this._actions = effects;
   }
 
   _handleEntitiyRemove = (entity) => {
