@@ -1,4 +1,4 @@
-import { Effect } from '../processors/effectsProcessor';
+import { Effect } from '../systems/effects-system';
 
 const MOVEMENT_COMPONENT_NAME = 'movement';
 

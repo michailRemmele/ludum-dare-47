@@ -8,6 +8,7 @@ import {
 } from './elements/common';
 import { MainMenu } from './pages/mainMenu';
 import { Game } from './pages/game';
+import { Loader } from './pages/loader';
 
 export function onInit(options) {
   const {
@@ -35,6 +36,9 @@ export function onInit(options) {
             </Route>
             <Route path='/game'>
               <Game/>
+            </Route>
+            <Route path='/loader'>
+              <Loader/>
             </Route>
           </Switch>
         </SceneSwitcher>

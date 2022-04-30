@@ -1,4 +1,4 @@
-import { Effect } from '../processors/effectsProcessor';
+import { Effect } from '../systems/effects-system';
 
 const DAMAGE_MSG = 'DAMAGE';
 

@@ -1,0 +1,4345 @@
+{
+  "scenes": [
+    {
+      "name": "mainMenu",
+      "systems": [
+        {
+          "name": "uiBridge",
+          "options": {}
+        }
+      ]
+    },
+    {
+      "name": "game",
+      "level": "island",
+      "systems": [
+        {
+          "name": "keyboardInputSystem",
+          "options": {}
+        },
+        {
+          "name": "mouseInputSystem",
+          "options": {}
+        },
+        {
+          "name": "touchDeviceJammer",
+          "options": {}
+        },
+        {
+          "name": "mouseInputCoordinatesProjector",
+          "options": {}
+        },
+        {
+          "name": "keyboardControlSystem",
+          "options": {}
+        },
+        {
+          "name": "mouseControlSystem",
+          "options": {}
+        },
+        {
+          "name": "thumbStickController",
+          "options": {}
+        },
+        {
+          "name": "autoAimingSystem",
+          "options": {}
+        },
+        {
+          "name": "dayNightSimulator",
+          "options": {
+            "dayLength": 60000,
+            "startTime": 32400000,
+            "skyId": "400"
+          }
+        },
+        {
+          "name": "aiSystem",
+          "options": {}
+        },
+        {
+          "name": "scriptSystem",
+          "options": {}
+        },
+        {
+          "name": "itemsActivator",
+          "options": {}
+        },
+        {
+          "name": "enemySpawner",
+          "options": {}
+        },
+        {
+          "name": "grassSpawner",
+          "options": {}
+        },
+        {
+          "name": "movementSystem",
+          "options": {}
+        },
+        {
+          "name": "fightSystem",
+          "options": {}
+        },
+        {
+          "name": "collectSystem",
+          "options": {}
+        },
+        {
+          "name": "craftSystem",
+          "options": {}
+        },
+        {
+          "name": "effectsSystem",
+          "options": {}
+        },
+        {
+          "name": "damageSystem",
+          "options": {}
+        },
+        {
+          "name": "reaper",
+          "options": {
+            "allowedComponents": [
+              "transform",
+              "animatable",
+              "renderable",
+              "light",
+              "camera",
+              "viewDirection"
+            ],
+            "lifetime": 5000
+          }
+        },
+        {
+          "name": "cameraSystem",
+          "options": {
+            "windowNodeId": "root",
+            "initialCamera": "1.2"
+          }
+        },
+        {
+          "name": "enemiesDetector",
+          "options": {}
+        },
+        {
+          "name": "gameOverSystem",
+          "options": {}
+        },
+        {
+          "name": "physicsSystem",
+          "options": {
+            "gravitationalAcceleration": 450
+          }
+        },
+        {
+          "name": "jammer",
+          "options": {
+            "messages": [
+              "COLLISION_ENTER",
+              "COLLISION_STAY",
+              "COLLISION_LEAVE"
+            ]
+          }
+        },
+        {
+          "name": "collisionDetectionSystem",
+          "options": {}
+        },
+        {
+          "name": "collisionBroadcastSystem",
+          "options": {}
+        },
+        {
+          "name": "collisionSolver",
+          "options": {}
+        },
+        {
+          "name": "constraintSolver",
+          "options": {}
+        },
+        {
+          "name": "animator",
+          "options": {}
+        },
+        {
+          "name": "threeJSRenderer",
+          "options": {
+            "windowNodeId": "root",
+            "backgroundColor": "#000",
+            "sortingLayers": [
+              "default",
+              "background",
+              "space",
+              "terrain",
+              "decorations",
+              "lights",
+              "effectsBack",
+              "units"
+            ],
+            "scaleSensitivity": 0.5
+          }
+        },
+        {
+          "name": "gameStatsMeter",
+          "options": {}
+        },
+        {
+          "name": "uiBridge",
+          "options": {
+            "filterComponents": [
+              "keyboardControl",
+              "mouseControl"
+            ]
+          }
+        }
+      ]
+    }    
+  ],
+  "levels": [
+    {
+      "name": "island",
+      "gameObjects": [
+        {
+          "id": "400",
+          "name": "sky",
+          "fromTemplate": false,
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "light",
+              "config": {
+                "type": "ambient",
+                "options": {
+                  "color": "#fff",
+                  "intensity": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "100",
+          "name": "sea",
+          "fromTemplate": true,
+          "templateName": "sea",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "200",
+          "name": "island",
+          "fromTemplate": true,
+          "templateName": "island",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "300",
+          "name": "pathBlockerRight",
+          "fromTemplate": true,
+          "templateName": "pathBlockerRight",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 208,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "301",
+          "name": "pathBlockerLeft",
+          "fromTemplate": true,
+          "templateName": "pathBlockerLeft",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": -208,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "303",
+          "name": "pathBlockerTop",
+          "fromTemplate": true,
+          "templateName": "pathBlockerTop",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": -208,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "304",
+          "name": "pathBlockerBottom",
+          "fromTemplate": true,
+          "templateName": "pathBlockerBottom",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 208,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "305",
+          "name": "pathBlockerTopLeft",
+          "fromTemplate": true,
+          "templateName": "pathBlockerTopLeft",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": -208,
+                "offsetY": -208,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "306",
+          "name": "pathBlockerTopRight",
+          "fromTemplate": true,
+          "templateName": "pathBlockerTopRight",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 208,
+                "offsetY": -208,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "307",
+          "name": "pathBlockerBottomRight",
+          "fromTemplate": true,
+          "templateName": "pathBlockerBottomRight",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 208,
+                "offsetY": 208,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "308",
+          "name": "pathBlockerBottomLeft",
+          "fromTemplate": true,
+          "templateName": "pathBlockerBottomLeft",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": -208,
+                "offsetY": 208,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "1",
+          "name": "player",
+          "fromTemplate": true,
+          "templateName": "player",
+          "children": [
+            {
+              "id": "1.1",
+              "name": "playerHitBox",
+              "fromTemplate": true,
+              "templateName": "playerHitBox",
+              "children": [],
+              "components": []
+            },
+            {
+              "id": "1.3",
+              "name": "playerAimRadius",
+              "fromTemplate": true,
+              "templateName": "playerAimRadius",
+              "children": [],
+              "components": []
+            },
+            {
+              "id": "1.2",
+              "name": "mainCamera",
+              "fromTemplate": false,
+              "templateName": "",
+              "children": [],
+              "components": [
+                {
+                  "name": "transform",
+                  "config": {
+                    "offsetX": 0,
+                    "offsetY": 0,
+                    "offsetZ": 1,
+                    "rotation": 0
+                  }
+                },
+                {
+                  "name": "camera",
+                  "config": {
+                    "zoom": 4
+                  }
+                }
+              ]
+            }
+          ],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "keyboardControl",
+              "config": {
+                "inputEventBindings": {
+                  "W_PRESSED": {
+                    "messageType": "MOVEMENT",
+                    "attrs": {
+                      "angle": 270
+                    }
+                  },
+                  "A_PRESSED": {
+                    "messageType": "MOVEMENT",
+                    "attrs": {
+                      "angle": 180
+                    }
+                  },
+                  "S_PRESSED": {
+                    "messageType": "MOVEMENT",
+                    "attrs": {
+                      "angle": 90
+                    }
+                  },
+                  "D_PRESSED": {
+                    "messageType": "MOVEMENT",
+                    "attrs": {
+                      "angle": 0
+                    }
+                  },
+                  "E_RELEASED": {
+                    "messageType": "GRAB",
+                    "attrs": {}
+                  },
+                  "I_RELEASED": {
+                    "messageType": "TOGGLE_INVENTORY",
+                    "attrs": {}
+                  },
+                  "ESCAPE_RELEASED": {
+                    "messageType": "CLOSE_INVENTORY",
+                    "attrs": {}
+                  },
+                  "1_RELEASED": {
+                    "messageType": "USE_ITEM",
+                    "attrs": {
+                      "item": "healPotion"
+                    }
+                  },
+                  "2_RELEASED": {
+                    "messageType": "USE_ITEM",
+                    "attrs": {
+                      "item": "powerPotion"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "mouseControl",
+              "config": {
+                "inputEventBindings": {
+                  "MOUSE_LEFT_BUTTON_PRESS": {
+                    "messageType": "ATTACK",
+                    "attrs": {}
+                  }
+                }
+              }
+            },
+            {
+              "name": "thumbStickControl",
+              "config": {
+                "inputEventBindings": {
+                  "THUMB_STICK_POSITION_CHANGE": {
+                    "messageType": "MOVEMENT",
+                    "attrs": {}
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "name": "player",
+      "type": "unit",
+      "children": [
+        {
+          "name": "playerHitBox",
+          "children": [],
+          "components": [
+            {
+              "name": "hitBox",
+              "config": {}
+            },
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "colliderContainer",
+              "config": {
+                "type": "boxCollider",
+                "collider": {
+                  "sizeX": 12,
+                  "sizeY": 16,
+                  "centerX": 0,
+                  "centerY": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "playerAimRadius",
+          "children": [],
+          "components": [
+            {
+              "name": "aimRadius",
+              "config": {}
+            },
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "colliderContainer",
+              "config": {
+                "type": "circleCollider",
+                "collider": {
+                  "radius": 45,
+                  "centerX": 0,
+                  "centerY": 0
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "viewDirection",
+          "config": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "health",
+          "config": {
+            "points": 100
+          }
+        },
+        {
+          "name": "weapon",
+          "config": {
+            "type": "melee",
+            "cooldown": 500,
+            "properties": {
+              "damage": 25,
+              "range": 30
+            }
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "dynamic",
+            "mass": 2,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0.5
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 12,
+              "sizeY": 16,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "movement",
+          "config": {
+            "speed": 100
+          }
+        },
+        {
+          "name": "script",
+          "config": {
+            "name": "player",
+            "options": {
+              "skyId": "400",
+              "threshold": 0.9
+            }
+          }
+        },
+        {
+          "name": "animatable",
+          "config": {
+            "initialState": "idle",
+            "states": [
+              {
+                "name": "idle",
+                "speed": 0.5,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "damage",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DAMAGE"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "attack",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "ATTACK"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "run",
+                    "conditions": [
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.x"
+                          },
+                          "operation": "notEquals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "run",
+                    "conditions": [
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.y"
+                          },
+                          "operation": "notEquals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "group",
+                "pickMode": "2D",
+                "pickProps": {
+                  "x": "components.viewDirection.x",
+                  "y": "components.viewDirection.y"
+                },
+                "substates": [
+                  {
+                    "name": "idleRight",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 0,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 1,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 2,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 1,
+                    "y": 0
+                  },
+                  {
+                    "name": "idleLeft",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 0,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 1,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 2,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": -1,
+                    "y": 0
+                  },
+                  {
+                    "name": "idleTop",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 6,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 7,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 8,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": -1
+                  },
+                  {
+                    "name": "idleBottom",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 3,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 4,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 5,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": 1
+                  }
+                ]
+              },
+              {
+                "name": "run",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "damage",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DAMAGE"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "attack",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "ATTACK"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "idle",
+                    "conditions": [
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.x"
+                          },
+                          "operation": "equals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      },
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.y"
+                          },
+                          "operation": "equals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "group",
+                "pickMode": "2D",
+                "pickProps": {
+                  "x": "components.viewDirection.x",
+                  "y": "components.viewDirection.y"
+                },
+                "substates": [
+                  {
+                    "name": "runRight",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 9,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 11,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 1,
+                    "y": 0
+                  },
+                  {
+                    "name": "runLeft",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 9,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 11,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": -1,
+                    "y": 0
+                  },
+                  {
+                    "name": "runTop",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 15,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 16,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 17,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 16,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": -1
+                  },
+                  {
+                    "name": "runBottom",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 12,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 13,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 14,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 13,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": 1
+                  }
+                ]
+              },
+              {
+                "name": "attack",
+                "speed": 1.3,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "damage",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DAMAGE"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "idle",
+                    "conditions": [],
+                    "time": 1
+                  }
+                ],
+                "type": "group",
+                "substates": [
+                  {
+                    "name": "attackRight",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 18,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 19,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": 1,
+                    "y": 0
+                  },
+                  {
+                    "name": "attackLeft",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 18,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 19,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": -1,
+                    "y": 0
+                  },
+                  {
+                    "name": "attackTop",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 22,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 23,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": 0,
+                    "y": -1
+                  },
+                  {
+                    "name": "attackBottom",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 20,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 21,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": 0,
+                    "y": 1
+                  }
+                ],
+                "pickMode": "2D",
+                "pickProps": {
+                  "x": "components.viewDirection.x",
+                  "y": "components.viewDirection.y"
+                }
+              },
+              {
+                "name": "damage",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "idle",
+                    "conditions": [],
+                    "time": 1
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 27,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    }
+                  ],
+                  "looped": false
+                }
+              },
+              {
+                "name": "death",
+                "speed": 1,
+                "transitions": [],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 27,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 24,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 25,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 26,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    }
+                  ],
+                  "looped": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/units/player.png",
+            "width": 26,
+            "height": 26,
+            "slice": 28,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "units",
+            "fit": "stretch",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        },
+        {
+          "name": "light",
+          "config": {
+            "type": "point",
+            "options": {
+              "color": "#fff",
+              "intensity": 1,
+              "distance": 128
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "enemy",
+      "type": "unit",
+      "children": [
+        {
+          "name": "enemyHitBox",
+          "children": [],
+          "components": [
+            {
+              "name": "hitBox",
+              "config": {}
+            },
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "colliderContainer",
+              "config": {
+                "type": "boxCollider",
+                "collider": {
+                  "sizeX": 12,
+                  "sizeY": 16,
+                  "centerX": 0,
+                  "centerY": 0
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "viewDirection",
+          "config": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "health",
+          "config": {
+            "points": 100
+          }
+        },
+        {
+          "name": "weapon",
+          "config": {
+            "type": "melee",
+            "cooldown": 500,
+            "properties": {
+              "damage": 5,
+              "range": 15
+            }
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "dynamic",
+            "mass": 2,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0.5
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 12,
+              "sizeY": 16,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "movement",
+          "config": {
+            "speed": 50
+          }
+        },
+        {
+          "name": "ai",
+          "config": {
+            "strategy": "enemy"
+          }
+        },
+        {
+          "name": "animatable",
+          "config": {
+            "initialState": "idle",
+            "states": [
+              {
+                "name": "idle",
+                "speed": 0.5,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "damage",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DAMAGE"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "attack",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "ATTACK"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "run",
+                    "conditions": [
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.x"
+                          },
+                          "operation": "notEquals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "run",
+                    "conditions": [
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.y"
+                          },
+                          "operation": "notEquals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "group",
+                "pickMode": "2D",
+                "pickProps": {
+                  "x": "components.viewDirection.x",
+                  "y": "components.viewDirection.y"
+                },
+                "substates": [
+                  {
+                    "name": "idleRight",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 0,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 1,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 2,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 1,
+                    "y": 0
+                  },
+                  {
+                    "name": "idleLeft",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 0,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 1,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 2,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": -1,
+                    "y": 0
+                  },
+                  {
+                    "name": "idleTop",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 6,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 7,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 8,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": -1
+                  },
+                  {
+                    "name": "idleBottom",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 3,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 4,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 5,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": 1
+                  }
+                ]
+              },
+              {
+                "name": "run",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "damage",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DAMAGE"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "attack",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "ATTACK"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "idle",
+                    "conditions": [
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.x"
+                          },
+                          "operation": "equals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      },
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.y"
+                          },
+                          "operation": "equals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "group",
+                "pickMode": "2D",
+                "pickProps": {
+                  "x": "components.viewDirection.x",
+                  "y": "components.viewDirection.y"
+                },
+                "substates": [
+                  {
+                    "name": "runRight",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 9,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 11,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 1,
+                    "y": 0
+                  },
+                  {
+                    "name": "runLeft",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 9,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 11,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": -1,
+                    "y": 0
+                  },
+                  {
+                    "name": "runTop",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 15,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 16,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 17,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 16,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": -1
+                  },
+                  {
+                    "name": "runBottom",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 12,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 13,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 14,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 13,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": 1
+                  }
+                ]
+              },
+              {
+                "name": "attack",
+                "speed": 1.3,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "damage",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DAMAGE"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "idle",
+                    "conditions": [],
+                    "time": 1
+                  }
+                ],
+                "type": "group",
+                "substates": [
+                  {
+                    "name": "attackRight",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 18,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 19,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": 1,
+                    "y": 0
+                  },
+                  {
+                    "name": "attackLeft",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 18,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 19,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": -1,
+                    "y": 0
+                  },
+                  {
+                    "name": "attackTop",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 22,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 23,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": 0,
+                    "y": -1
+                  },
+                  {
+                    "name": "attackBottom",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 20,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 21,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": 0,
+                    "y": 1
+                  }
+                ],
+                "pickMode": "2D",
+                "pickProps": {
+                  "x": "components.viewDirection.x",
+                  "y": "components.viewDirection.y"
+                }
+              },
+              {
+                "name": "damage",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "idle",
+                    "conditions": [],
+                    "time": 1
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 27,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    }
+                  ],
+                  "looped": false
+                }
+              },
+              {
+                "name": "death",
+                "speed": 1,
+                "transitions": [],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 27,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 24,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 25,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 26,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    }
+                  ],
+                  "looped": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/units/enemy.png",
+            "width": 26,
+            "height": 26,
+            "slice": 28,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "units",
+            "fit": "stretch",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rangeEnemy",
+      "type": "unit",
+      "children": [
+        {
+          "name": "enemyHitBox",
+          "children": [],
+          "components": [
+            {
+              "name": "hitBox",
+              "config": {}
+            },
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "colliderContainer",
+              "config": {
+                "type": "boxCollider",
+                "collider": {
+                  "sizeX": 12,
+                  "sizeY": 16,
+                  "centerX": 0,
+                  "centerY": 0
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "viewDirection",
+          "config": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "health",
+          "config": {
+            "points": 50
+          }
+        },
+        {
+          "name": "weapon",
+          "config": {
+            "type": "range",
+            "cooldown": 2000,
+            "properties": {
+              "damage": 10,
+              "range": 150,
+              "projectileSpeed": 150,
+              "projectileModel": "energyBall",
+              "projectileRadius": 10
+            }
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "dynamic",
+            "mass": 2,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0.5
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 12,
+              "sizeY": 16,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "movement",
+          "config": {
+            "speed": 50
+          }
+        },
+        {
+          "name": "ai",
+          "config": {
+            "strategy": "rangeEnemy"
+          }
+        },
+        {
+          "name": "animatable",
+          "config": {
+            "initialState": "idle",
+            "states": [
+              {
+                "name": "idle",
+                "speed": 0.5,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "damage",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DAMAGE"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "attack",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "ATTACK"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "run",
+                    "conditions": [
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.x"
+                          },
+                          "operation": "notEquals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "run",
+                    "conditions": [
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.y"
+                          },
+                          "operation": "notEquals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "group",
+                "pickMode": "2D",
+                "pickProps": {
+                  "x": "components.viewDirection.x",
+                  "y": "components.viewDirection.y"
+                },
+                "substates": [
+                  {
+                    "name": "idleRight",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 0,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 1,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 2,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 1,
+                    "y": 0
+                  },
+                  {
+                    "name": "idleLeft",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 0,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 1,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 2,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": -1,
+                    "y": 0
+                  },
+                  {
+                    "name": "idleTop",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 6,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 7,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 8,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": -1
+                  },
+                  {
+                    "name": "idleBottom",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 3,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 4,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 5,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": 1
+                  }
+                ]
+              },
+              {
+                "name": "run",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "damage",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DAMAGE"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "attack",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "ATTACK"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "idle",
+                    "conditions": [
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.x"
+                          },
+                          "operation": "equals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      },
+                      {
+                        "type": "comparator",
+                        "props": {
+                          "arg1": {
+                            "type": "componentValue",
+                            "value": "components.movement.vector.y"
+                          },
+                          "operation": "equals",
+                          "arg2": {
+                            "type": "number",
+                            "value": 0
+                          }
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "group",
+                "pickMode": "2D",
+                "pickProps": {
+                  "x": "components.viewDirection.x",
+                  "y": "components.viewDirection.y"
+                },
+                "substates": [
+                  {
+                    "name": "runRight",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 9,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 11,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 1,
+                    "y": 0
+                  },
+                  {
+                    "name": "runLeft",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 9,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 11,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 10,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": -1,
+                    "y": 0
+                  },
+                  {
+                    "name": "runTop",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 15,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 16,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 17,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 16,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": -1
+                  },
+                  {
+                    "name": "runBottom",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 12,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 13,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 14,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 13,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": true
+                    },
+                    "x": 0,
+                    "y": 1
+                  }
+                ]
+              },
+              {
+                "name": "attack",
+                "speed": 1.3,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "damage",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DAMAGE"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "idle",
+                    "conditions": [],
+                    "time": 1
+                  }
+                ],
+                "type": "group",
+                "substates": [
+                  {
+                    "name": "attackRight",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 18,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 19,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": 1,
+                    "y": 0
+                  },
+                  {
+                    "name": "attackLeft",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 18,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 19,
+                          "components.renderable.flipX": true,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": -1,
+                    "y": 0
+                  },
+                  {
+                    "name": "attackTop",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 22,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 23,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": 0,
+                    "y": -1
+                  },
+                  {
+                    "name": "attackBottom",
+                    "timeline": {
+                      "frames": [
+                        {
+                          "components.renderable.currentFrame": 20,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        },
+                        {
+                          "components.renderable.currentFrame": 21,
+                          "components.renderable.flipX": false,
+                          "components.renderable.disabled": false
+                        }
+                      ],
+                      "looped": false
+                    },
+                    "x": 0,
+                    "y": 1
+                  }
+                ],
+                "pickMode": "2D",
+                "pickProps": {
+                  "x": "components.viewDirection.x",
+                  "y": "components.viewDirection.y"
+                }
+              },
+              {
+                "name": "damage",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  },
+                  {
+                    "state": "idle",
+                    "conditions": [],
+                    "time": 1
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 27,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    }
+                  ],
+                  "looped": false
+                }
+              },
+              {
+                "name": "death",
+                "speed": 1,
+                "transitions": [],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 27,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 24,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 25,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 26,
+                      "components.renderable.flipX": false,
+                      "components.renderable.disabled": false
+                    }
+                  ],
+                  "looped": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/units/range-enemy.png",
+            "width": 26,
+            "height": 26,
+            "slice": 28,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "units",
+            "fit": "stretch",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "island",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/terrain/grass-tile.png",
+            "width": 400,
+            "height": 400,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "terrain",
+            "fit": "repeat",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "sea",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/terrain/water-tile.png",
+            "width": 2500,
+            "height": 2500,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "background",
+            "fit": "repeat",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pathBlockerTop",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "static",
+            "mass": 1,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 400,
+              "sizeY": 16,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/terrain/grass-tile-side-h.png",
+            "width": 400,
+            "height": 16,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": true,
+            "flipY": false,
+            "sortingLayer": "terrain",
+            "fit": "repeat",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pathBlockerBottom",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "static",
+            "mass": 1,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 400,
+              "sizeY": 16,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/terrain/grass-tile-side-h.png",
+            "width": 400,
+            "height": 16,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": true,
+            "sortingLayer": "terrain",
+            "fit": "repeat",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pathBlockerLeft",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "static",
+            "mass": 1,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 16,
+              "sizeY": 400,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/terrain/grass-tile-side-v.png",
+            "width": 16,
+            "height": 400,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": true,
+            "sortingLayer": "terrain",
+            "fit": "repeat",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pathBlockerRight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "static",
+            "mass": 1,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 16,
+              "sizeY": 400,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/terrain/grass-tile-side-v.png",
+            "width": 16,
+            "height": 400,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": true,
+            "flipY": false,
+            "sortingLayer": "terrain",
+            "fit": "repeat",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pathBlockerTopLeft",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "static",
+            "mass": 1,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 16,
+              "sizeY": 16,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/terrain/grass-tile-corner.png",
+            "width": 16,
+            "height": 16,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "terrain",
+            "fit": "stretch",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pathBlockerTopRight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "static",
+            "mass": 1,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 16,
+              "sizeY": 16,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/terrain/grass-tile-corner.png",
+            "width": 16,
+            "height": 16,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": true,
+            "flipY": false,
+            "sortingLayer": "terrain",
+            "fit": "stretch",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pathBlockerBottomRight",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "static",
+            "mass": 1,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 16,
+              "sizeY": 16,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/terrain/grass-tile-corner.png",
+            "width": 16,
+            "height": 16,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": true,
+            "flipY": true,
+            "sortingLayer": "terrain",
+            "fit": "stretch",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pathBlockerBottomLeft",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "static",
+            "mass": 1,
+            "useGravity": false,
+            "isPermeable": false,
+            "ghost": false,
+            "drag": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "boxCollider",
+            "collider": {
+              "sizeX": 16,
+              "sizeY": 16,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "static",
+            "src": "resources/graphics/terrain/grass-tile-corner.png",
+            "width": 16,
+            "height": 16,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": true,
+            "sortingLayer": "terrain",
+            "fit": "stretch",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "hit",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "health",
+          "config": {
+            "points": 1
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "dynamic",
+            "mass": 1.75,
+            "useGravity": false,
+            "isPermeable": true,
+            "ghost": false,
+            "drag": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "circleCollider",
+            "collider": {
+              "radius": 0,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "healGrass",
+      "type": "item",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "circleCollider",
+            "collider": {
+              "radius": 15,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "collectable",
+          "config": {
+            "name": "healGrass"
+          }
+        },
+        {
+          "name": "animatable",
+          "config": {
+            "initialState": "idle",
+            "states": [
+              {
+                "name": "idle",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "void",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.disabled": false
+                    }
+                  ],
+                  "looped": false
+                }
+              },
+              {
+                "name": "void",
+                "speed": 1,
+                "transitions": [],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.disabled": true
+                    }
+                  ],
+                  "looped": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/items/heal-grass.png",
+            "width": 16,
+            "height": 16,
+            "slice": 1,
+            "rotation": 0,
+            "sortCenter": [ 0, 3 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "units",
+            "fit": "stretch",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ogreGrass",
+      "type": "item",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "circleCollider",
+            "collider": {
+              "radius": 15,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "collectable",
+          "config": {
+            "name": "ogreGrass"
+          }
+        },
+        {
+          "name": "animatable",
+          "config": {
+            "initialState": "idle",
+            "states": [
+              {
+                "name": "idle",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "void",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.disabled": false
+                    }
+                  ],
+                  "looped": false
+                }
+              },
+              {
+                "name": "void",
+                "speed": 1,
+                "transitions": [],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.disabled": true
+                    }
+                  ],
+                  "looped": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/items/ogre-grass.png",
+            "width": 16,
+            "height": 16,
+            "slice": 1,
+            "rotation": 0,
+            "sortCenter": [ 0, 3 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "units",
+            "fit": "stretch",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "boomGrass",
+      "type": "item",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "circleCollider",
+            "collider": {
+              "radius": 15,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "collectable",
+          "config": {
+            "name": "boomGrass"
+          }
+        },
+        {
+          "name": "animatable",
+          "config": {
+            "initialState": "idle",
+            "states": [
+              {
+                "name": "idle",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "void",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.disabled": false
+                    }
+                  ],
+                  "looped": false
+                }
+              },
+              {
+                "name": "void",
+                "speed": 1,
+                "transitions": [],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.disabled": true
+                    }
+                  ],
+                  "looped": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/items/boom-grass.png",
+            "width": 16,
+            "height": 16,
+            "slice": 1,
+            "rotation": 0,
+            "sortCenter": [ 0, 3 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "units",
+            "fit": "stretch",
+            "material": {
+              "type": "lightsensitive"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "energyBall",
+      "children": [
+        {
+          "name": "energyBallHitBox",
+          "children": [],
+          "components": [
+            {
+              "name": "hitBox",
+              "config": {}
+            },
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "colliderContainer",
+              "config": {
+                "type": "circleCollider",
+                "collider": {
+                  "radius": 10,
+                  "centerX": 0,
+                  "centerY": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "energyBallLight",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "renderable",
+              "config": {
+                "type": "sprite",
+                "src": "resources/graphics/items/energy-ball-light.png",
+                "width": 20,
+                "height": 20,
+                "slice": 6,
+                "rotation": 0,
+                "sortCenter": [ 0, 0 ],
+                "flipX": false,
+                "flipY": false,
+                "sortingLayer": "lights",
+                "fit": "stretch",
+                "material": {
+                  "type": "basic",
+                  "options": {
+                    "blending": "addition"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "health",
+          "config": {
+            "points": 1
+          }
+        },
+        {
+          "name": "rigidBody",
+          "config": {
+            "type": "dynamic",
+            "mass": 1,
+            "useGravity": false,
+            "isPermeable": true,
+            "ghost": false,
+            "drag": 0
+          }
+        },
+        {
+          "name": "colliderContainer",
+          "config": {
+            "type": "circleCollider",
+            "collider": {
+              "radius": 0,
+              "centerX": 0,
+              "centerY": 0
+            }
+          }
+        },
+        {
+          "name": "animatable",
+          "config": {
+            "initialState": "idle",
+            "states": [
+              {
+                "name": "idle",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "death",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "DEATH"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 0,
+                      "children.energyBallLight.components.renderable.currentFrame": 0
+                    }
+                  ],
+                  "looped": false
+                }
+              },
+              {
+                "name": "death",
+                "speed": 1,
+                "transitions": [],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 1,
+                      "children.energyBallLight.components.renderable.currentFrame": 1
+                    },
+                    {
+                      "components.renderable.currentFrame": 2,
+                      "children.energyBallLight.components.renderable.currentFrame": 2
+                    },
+                    {
+                      "components.renderable.currentFrame": 3,
+                      "children.energyBallLight.components.renderable.currentFrame": 3
+                    },
+                    {
+                      "components.renderable.currentFrame": 4,
+                      "children.energyBallLight.components.renderable.currentFrame": 4
+                    },
+                    {
+                      "components.renderable.currentFrame": 5,
+                      "children.energyBallLight.components.renderable.currentFrame": 5
+                    },
+                    {
+                      "components.renderable.disabled": true,
+                      "children.energyBallLight.components.renderable.disabled": true
+                    }
+                  ],
+                  "looped": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/items/energy-ball.png",
+            "width": 16,
+            "height": 16,
+            "slice": 6,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "units",
+            "fit": "stretch",
+            "material": {
+              "type": "basic"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "fetter",
+      "children": [],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 0,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "effect",
+          "config": {
+            "action": "fetter",
+            "type": "timeLimited",
+            "applicatorOptions": {
+              "duration": 250
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "heal",
+      "children": [
+        {
+          "name": "healLight",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "renderable",
+              "config": {
+                "type": "sprite",
+                "src": "resources/graphics/effects/heal-effect-light.png",
+                "width": 26,
+                "height": 26,
+                "slice": 7,
+                "rotation": 0,
+                "sortCenter": [ 0, 0 ],
+                "flipX": false,
+                "flipY": false,
+                "sortingLayer": "lights",
+                "fit": "stretch",
+                "material": {
+                  "type": "basic",
+                  "options": {
+                    "blending": "addition"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "healBack",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "renderable",
+              "config": {
+                "type": "sprite",
+                "src": "resources/graphics/effects/heal-effect-back.png",
+                "width": 26,
+                "height": 26,
+                "slice": 8,
+                "rotation": 0,
+                "sortCenter": [ 0, 0 ],
+                "flipX": false,
+                "flipY": false,
+                "sortingLayer": "effectsBack",
+                "fit": "stretch",
+                "material": {
+                  "type": "basic"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 1,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "effect",
+          "config": {
+            "action": "heal",
+            "type": "instant"
+          }
+        },
+        {
+          "name": "animatable",
+          "config": {
+            "initialState": "idle",
+            "states": [
+              {
+                "name": "idle",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "apply",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "EFFECT_APPLY"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 0,
+                      "components.renderable.disabled": true,
+                      "children.healBack.components.renderable.currentFrame": 0,
+                      "children.healBack.components.renderable.disabled": true,
+                      "children.healLight.components.renderable.disabled": true
+                    }
+                  ],
+                  "looped": false
+                }
+              },
+              {
+                "name": "apply",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "idle",
+                    "conditions": [],
+                    "time": "1"
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 0,
+                      "components.renderable.disabled": false,
+                      "children.healBack.components.renderable.currentFrame": 0,
+                      "children.healBack.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.currentFrame": 0
+                    },
+                    {
+                      "components.renderable.currentFrame": 1,
+                      "components.renderable.disabled": false,
+                      "children.healBack.components.renderable.currentFrame": 1,
+                      "children.healBack.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.currentFrame": 1
+                    },
+                    {
+                      "components.renderable.currentFrame": 2,
+                      "components.renderable.disabled": false,
+                      "children.healBack.components.renderable.currentFrame": 2,
+                      "children.healBack.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.currentFrame": 2
+                    },
+                    {
+                      "components.renderable.currentFrame": 3,
+                      "components.renderable.disabled": false,
+                      "children.healBack.components.renderable.currentFrame": 3,
+                      "children.healBack.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.currentFrame": 3
+                    },
+                    {
+                      "components.renderable.currentFrame": 4,
+                      "components.renderable.disabled": false,
+                      "children.healBack.components.renderable.currentFrame": 4,
+                      "children.healBack.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.currentFrame": 4
+                    },
+                    {
+                      "components.renderable.currentFrame": 5,
+                      "components.renderable.disabled": false,
+                      "children.healBack.components.renderable.currentFrame": 5,
+                      "children.healBack.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.currentFrame": 5
+                    },
+                    {
+                      "components.renderable.currentFrame": 6,
+                      "components.renderable.disabled": false,
+                      "children.healBack.components.renderable.currentFrame": 6,
+                      "children.healBack.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.currentFrame": 6
+                    },
+                    {
+                      "components.renderable.currentFrame": 7,
+                      "components.renderable.disabled": false,
+                      "children.healBack.components.renderable.currentFrame": 7,
+                      "children.healBack.components.renderable.disabled": false,
+                      "children.healLight.components.renderable.disabled": true
+                    }
+                  ],
+                  "looped": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/effects/heal-effect.png",
+            "width": 26,
+            "height": 26,
+            "slice": 8,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "units",
+            "fit": "stretch",
+            "material": {
+              "type": "basic"
+            }
+          }
+        },
+        {
+          "name": "ui",
+          "config": {
+            "icon": "./media/images/heal-potion.png",
+            "title": "Heal effect"
+          }
+        }
+      ]
+    },
+    {
+      "name": "power",
+      "children": [
+        {
+          "name": "powerLight",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "renderable",
+              "config": {
+                "type": "sprite",
+                "src": "resources/graphics/effects/power-effect-light.png",
+                "width": 26,
+                "height": 26,
+                "slice": 11,
+                "rotation": 0,
+                "sortCenter": [ 0, 0 ],
+                "flipX": false,
+                "flipY": false,
+                "sortingLayer": "lights",
+                "fit": "stretch",
+                "material": {
+                  "type": "basic",
+                  "options": {
+                    "blending": "addition"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "powerBack",
+          "children": [],
+          "components": [
+            {
+              "name": "transform",
+              "config": {
+                "offsetX": 0,
+                "offsetY": 0,
+                "offsetZ": 0,
+                "rotation": 0
+              }
+            },
+            {
+              "name": "renderable",
+              "config": {
+                "type": "sprite",
+                "src": "resources/graphics/effects/power-effect-back.png",
+                "width": 26,
+                "height": 26,
+                "slice": 12,
+                "rotation": 0,
+                "sortCenter": [ 0, 0 ],
+                "flipX": false,
+                "flipY": false,
+                "sortingLayer": "effectsBack",
+                "fit": "stretch",
+                "material": {
+                  "type": "basic"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "components": [
+        {
+          "name": "transform",
+          "config": {
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetZ": 1,
+            "rotation": 0
+          }
+        },
+        {
+          "name": "effect",
+          "config": {
+            "action": "power",
+            "type": "timeLimited",
+            "applicatorOptions": {
+              "duration": 10000
+            }
+          }
+        },
+        {
+          "name": "animatable",
+          "config": {
+            "initialState": "apply",
+            "states": [
+              {
+                "name": "apply",
+                "speed": 1,
+                "transitions": [
+                  {
+                    "state": "idle",
+                    "conditions": [],
+                    "time": "1"
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 0,
+                      "children.powerBack.components.renderable.currentFrame": 0,
+                      "children.powerLight.components.renderable.currentFrame": 0,
+                      "children.powerLight.components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 1,
+                      "children.powerBack.components.renderable.currentFrame": 1,
+                      "children.powerLight.components.renderable.currentFrame": 1,
+                      "children.powerLight.components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 2,
+                      "children.powerBack.components.renderable.currentFrame": 2,
+                      "children.powerLight.components.renderable.currentFrame": 2,
+                      "children.powerLight.components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 3,
+                      "children.powerBack.components.renderable.currentFrame": 3,
+                      "children.powerLight.components.renderable.currentFrame": 3,
+                      "children.powerLight.components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 4,
+                      "children.powerBack.components.renderable.currentFrame": 4,
+                      "children.powerLight.components.renderable.currentFrame": 4,
+                      "children.powerLight.components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 5,
+                      "children.powerBack.components.renderable.currentFrame": 5,
+                      "children.powerLight.components.renderable.currentFrame": 5,
+                      "children.powerLight.components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 6,
+                      "children.powerBack.components.renderable.currentFrame": 6,
+                      "children.powerLight.components.renderable.currentFrame": 6,
+                      "children.powerLight.components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 7,
+                      "children.powerBack.components.renderable.currentFrame": 7,
+                      "children.powerLight.components.renderable.disabled": true
+                    }
+                  ],
+                  "looped": false
+                }
+              },
+              {
+                "name": "idle",
+                "speed": 0.4,
+                "transitions": [
+                  {
+                    "state": "cancel",
+                    "conditions": [
+                      {
+                        "type": "message",
+                        "props": {
+                          "message": "EFFECT_CANCEL"
+                        }
+                      }
+                    ],
+                    "time": 0
+                  }
+                ],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 8,
+                      "children.powerBack.components.renderable.currentFrame": 8,
+                      "children.powerLight.components.renderable.currentFrame": 7,
+                      "children.powerLight.components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 9,
+                      "children.powerBack.components.renderable.currentFrame": 9,
+                      "children.powerLight.components.renderable.currentFrame": 8,
+                      "children.powerLight.components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 10,
+                      "children.powerBack.components.renderable.currentFrame": 10,
+                      "children.powerLight.components.renderable.currentFrame": 9,
+                      "children.powerLight.components.renderable.disabled": false
+                    },
+                    {
+                      "components.renderable.currentFrame": 11,
+                      "children.powerBack.components.renderable.currentFrame": 11,
+                      "children.powerLight.components.renderable.currentFrame": 10,
+                      "children.powerLight.components.renderable.disabled": false
+                    }
+                  ],
+                  "looped": true
+                }
+              },
+              {
+                "name": "cancel",
+                "speed": 1,
+                "transitions": [],
+                "type": "individual",
+                "timeline": {
+                  "frames": [
+                    {
+                      "components.renderable.currentFrame": 0,
+                      "components.renderable.disabled": true,
+                      "children.powerBack.components.renderable.currentFrame": 0,
+                      "children.powerBack.components.renderable.disabled": true,
+                      "children.powerLight.components.renderable.disabled": true
+                    }
+                  ],
+                  "looped": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "renderable",
+          "config": {
+            "type": "sprite",
+            "src": "resources/graphics/effects/power-effect.png",
+            "width": 26,
+            "height": 26,
+            "slice": 12,
+            "rotation": 0,
+            "sortCenter": [ 0, 0 ],
+            "flipX": false,
+            "flipY": false,
+            "sortingLayer": "units",
+            "fit": "stretch",
+            "material": {
+              "type": "basic"
+            }
+          }
+        },
+        {
+          "name": "ui",
+          "config": {
+            "icon": "./media/images/power-potion.png",
+            "title": "Power effect"
+          }
+        }
+      ]
+    }
+  ],
+  "loaders": [
+    {
+      "name": "loader",
+      "systems": [
+        {
+          "name": "uiBridge",
+          "options": {}
+        }
+      ]
+    }
+  ],
+  "startScene": "mainMenu"
+}

@@ -1,13 +1,13 @@
 import {
   Engine,
-  contribProcessorsPlugins,
+  contribSystems,
   contribComponents,
 } from 'remiz';
 
-import mainConfig from 'resources/configurations/mainConfig.json';
-import { processorsPlugins as gameProcessorsPlugins } from './game/processors-plugins';
+import config from 'resources/config.json';
+import { systems as gameSystems } from './game/systems';
 import gameComponents from 'game/components';
-import pluginHelpers from './plugin-helpers';
+import helpers from './helpers';
 import {
   isIosSafari,
   isIos,
@@ -16,17 +16,17 @@ import {
 } from './utils';
 
 const options = {
-  mainConfig: mainConfig,
-  processorsPlugins: {
-    ...contribProcessorsPlugins,
-    ...gameProcessorsPlugins,
+  config,
+  systems: {
+    ...contribSystems,
+    ...gameSystems,
   },
   components: {
     ...contribComponents,
     ...gameComponents,
   },
-  pluginHelpers: {
-    ...pluginHelpers,
+  helpers: {
+    ...helpers,
   },
 };
 
