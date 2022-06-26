@@ -35,3 +35,5 @@ export const systems = {
   thumbStickController: ThumbStickController,
   touchDeviceJammer: TouchDeviceJammer,
 };
+
+export default systems;

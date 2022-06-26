@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { MemoryRouter, Switch, Route } from 'react-router';
 
 import {
@@ -10,9 +10,11 @@ import { MainMenu } from './pages/mainMenu';
 import { Game } from './pages/game';
 import { Loader } from './pages/loader';
 
+let root;
+
 export function onInit(options) {
   const {
-    sceneName,
+    sceneContext,
     messageBusObserver,
     storeObserver,
     pushMessage,
@@ -20,7 +22,9 @@ export function onInit(options) {
     gameObjects,
   } = options;
 
-  ReactDOM.render(
+  root = createRoot(document.getElementById('ui-root'));
+
+  root.render(
     <GameProvider
       messageBusObserver={messageBusObserver}
       storeObserver={storeObserver}
@@ -29,7 +33,7 @@ export function onInit(options) {
       gameObjects={gameObjects}
     >
       <MemoryRouter>
-        <SceneSwitcher sceneName={sceneName}>
+        <SceneSwitcher sceneName={sceneContext.name}>
           <Switch>
             <Route path='/mainMenu'>
               <MainMenu/>
@@ -43,13 +47,13 @@ export function onInit(options) {
           </Switch>
         </SceneSwitcher>
       </MemoryRouter>
-    </GameProvider>,
-    document.getElementById('ui-root')
+    </GameProvider>
   );
 }
 
 export function onDestroy() {
-  ReactDOM.unmountComponentAtNode(
-    document.getElementById('ui-root')
-  );
+  if (root) {
+    root.unmount();
+    root = void 0;
+  }
 }
