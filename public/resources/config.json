@@ -2,6 +2,7 @@
   "scenes": [
     {
       "name": "mainMenu",
+      "level": null,
       "systems": [
         {
           "name": "uiBridge",
@@ -4333,6 +4334,7 @@
   "loaders": [
     {
       "name": "loader",
+      "level": null,
       "systems": [
         {
           "name": "uiBridge",
@@ -4341,5 +4343,6 @@
       ]
     }
   ],
-  "startScene": "mainMenu"
+  "startScene": "mainMenu",
+  "startLoader": null
 }
