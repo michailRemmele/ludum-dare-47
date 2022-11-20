@@ -9,7 +9,7 @@
     "react-router": "5.2.0"
   },
   "devDependencies": {
-    "remiz-editor": "/Users/mihailremmele/Documents/Projects/remiz-editor/remiz-editor-0.0.7.tgz",
+    "remiz-editor": "/Users/mihailremmele/Documents/Projects/remiz-editor/remiz-editor-0.0.15.tgz",
     "@babel/core": "7.3.4",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-object-rest-spread": "7.3.4",
@@ -36,7 +36,7 @@
   },
   "scripts": {
     "start": "env NODE_ENV=development webpack-dev-server --hot --config webpack.config.js",
-    "start:editor": "npx remiz-editor",
+    "start:editor": "npm run build:editor && npx remiz-editor",
     "build": "env NODE_ENV=production webpack --config webpack.config.js",
     "build:editor": "env NODE_ENV=production webpack --config webpack.editor.config.js",
     "analyse": "webpack --config webpack.config.js --profile --json > stats.json && webpack-bundle-analyzer stats.json ./build"
