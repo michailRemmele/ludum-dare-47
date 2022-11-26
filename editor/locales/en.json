@@ -91,5 +91,8 @@
 
   "systems.thumbStickControl.title": "Thumb Stick Control",
 
-  "systems.touchDeviceJammer.title": "Touch Device Jammer"
+  "systems.touchDeviceJammer.title": "Touch Device Jammer",
+
+  "scripts.scriptSystem.options.skyId.title": "Sky Object Id",
+  "scripts.scriptSystem.options.threshold.title": "Threshold"
 }
