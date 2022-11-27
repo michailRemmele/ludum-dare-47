@@ -1,3 +1,5 @@
+import { WeaponWidget } from './view';
+
 export const weapon = {
   title: 'components.weapon.title',
   fields: [
@@ -40,11 +42,11 @@ export const weapon = {
         value: 'range',
       },
     },
-    // TODO: Custom view. Add select with custom references with templates list
     {
       name: 'properties.projectileModel',
       title: 'components.weapon.properties.projectileModel.title',
-      type: 'string',
+      type: 'select',
+      referenceId: 'models',
       dependency: {
         name: 'type',
         value: 'range',
@@ -65,4 +67,5 @@ export const weapon = {
       ],
     },
   },
+  view: WeaponWidget,
 };
