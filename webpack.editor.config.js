@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const paths = require('./paths');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'none',
@@ -18,6 +18,11 @@ module.exports = {
     library: 'editorExtension',
   },
 
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+  },
+
   devtool: false,
 
   resolve: {
@@ -29,16 +34,20 @@ module.exports = {
     ],
   },
 
+  optimization: {
+    minimize: true,
+    minimizer: [ new TerserPlugin() ],
+  },
+
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
-    new CleanWebpackPlugin([ paths.buildEditor ]),
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
     }),
-    new UglifyJsPlugin(),
   ],
 
   module: {
@@ -49,6 +58,12 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+              ],
+            },
           },
         ],
       },

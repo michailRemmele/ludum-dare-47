@@ -290,7 +290,9 @@ export class Game extends React.Component {
             <div className='game__left-bar'>
               <HealthBar health={this.state.health} maxHealth={this.state.maxHealth}/>
               <EffectsBar className='game__effects-bar' />
-              {NODE_ENV === DEV_MODE && <GameStatsMeter className='game__game-stats-meter'/>}
+              {process.env.NODE_ENV === DEV_MODE && (
+                <GameStatsMeter className='game__game-stats-meter'/>
+              )}
             </div>
             <MenuButton icon='./media/images/inventory-icon.png' onClick={this.onInventoryToggle} />
           </header>
@@ -326,7 +328,7 @@ export class Game extends React.Component {
             <div className='game__left-bar'>
               <HealthBar health={this.state.health}/>
               <EffectsBar className='game__effects-bar' />
-              {NODE_ENV === DEV_MODE && <GameStatsMeter className='game__game-stats-meter'/>}
+              {process.env.NODE_ENV === DEV_MODE && <GameStatsMeter className='game__game-stats-meter'/>}
             </div>
             <ActionBar
               onClick={this.onInventoryToggle}

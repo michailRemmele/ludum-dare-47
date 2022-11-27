@@ -1,12 +1,8 @@
+import { EffectWidget } from './view';
+
 export const effect = {
   title: 'components.effect.title',
   fields: [
-    {
-      name: 'action',
-      title: 'components.effect.action.title',
-      type: 'select',
-      referenceId: 'actions',
-    },
     {
       name: 'type',
       title: 'components.effect.type.title',
@@ -49,30 +45,14 @@ export const effect = {
         value: 'periodical',
       },
     },
-    // TODO: Custom view. Implement custom view with options fields
+    {
+      name: 'action',
+      title: 'components.effect.action.title',
+      type: 'select',
+      referenceId: 'actions',
+    },
   ],
   references: {
-    actions: {
-      // TODO: Custom view. Get available effects list dynamically
-      items: [
-        {
-          title: 'components.effect.actions.damage.title',
-          value: 'damage',
-        },
-        {
-          title: 'components.effect.actions.fetter.title',
-          value: 'fetter',
-        },
-        {
-          title: 'components.effect.actions.heal.title',
-          value: 'heal',
-        },
-        {
-          title: 'components.effect.actions.power.title',
-          value: 'power',
-        },
-      ],
-    },
     types: {
       items: [
         {
@@ -98,4 +78,5 @@ export const effect = {
       ],
     },
   },
+  view: EffectWidget,
 };
