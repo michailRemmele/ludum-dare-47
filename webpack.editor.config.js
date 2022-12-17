@@ -21,6 +21,9 @@ module.exports = {
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM',
+    'i18next': 'i18next',
+    'react-i18next': 'ReactI18next',
+    'antd': 'antd',
   },
 
   devtool: false,
@@ -83,15 +86,20 @@ module.exports = {
         use: [ '@svgr/webpack' ],
       },
       {
-        test: /\.css$/i,
+        test: /\.less$/i,
         use: [
           {
             loader: 'style-loader',
           },
           {
             loader: 'css-loader',
+          },
+          {
+            loader: 'less-loader',
             options: {
-              url: false,
+              lessOptions: {
+                javascriptEnabled: true,
+              },
             },
           },
         ],
