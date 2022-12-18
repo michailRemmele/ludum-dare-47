@@ -2,6 +2,7 @@ import React, { useMemo, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 import {
   EngineContext,
   Field,
@@ -59,30 +60,41 @@ export const ThumbStickControlWidget = ({ path }) => {
   const handleAddNewBind = useCallback(() => {
     // TODO: Нужно из доступных брать первый эвент и добавлять новую секцию для этого эвента
   }, []);
+  const handleDeleteBind = useCallback(() => {
+    // TODO: Нужно удалить по ключу один из биндов
+  }, []);
 
   return (
     <div>
       <ul className='thumb-stick-control__events'>
-        {addedOptions.map((event) => (
+        {addedOptions.map((event, index) => (
           <li className='thumb-stick-control__fieldset' key={event.value}>
-            <LabelledSelect
-              // TODO: мемоизировать
-              options={[ event, ...availableOptions ]}
-              value={event.value}
-              onChange={handleChange}
-              label={t('components.thumbStickControl.bind.event.title')}
-            />
-            <Field
-              path={path.concat('inputEventBindings', event.value, 'messageType')}
-              component={LabelledTextInput}
-              label={t('components.thumbStickControl.bind.messageType.title')}
-            />
-            <span className='thumb-stick-control__section-header'>
-              {t('components.thumbStickControl.bind.attributes.title')}
-            </span>
-            <MultiField
-              path={path.concat('inputEventBindings', event.value, 'attrs')}
-            />
+            <header className='thumb-stick-control__heading'>
+              <span>
+                {t('components.thumbStickControl.bind.title', { index: index + 1 })}
+              </span>
+              <Button icon={<DeleteOutlined />} size='small' onClick={handleDeleteBind} />
+            </header>
+            <div className='thumb-stick-control__fieldset-content'>
+              <LabelledSelect
+                // TODO: мемоизировать
+                options={[ event, ...availableOptions ]}
+                value={event.value}
+                onChange={handleChange}
+                label={t('components.thumbStickControl.bind.event.title')}
+              />
+              <Field
+                path={path.concat('inputEventBindings', event.value, 'messageType')}
+                component={LabelledTextInput}
+                label={t('components.thumbStickControl.bind.messageType.title')}
+              />
+              <span className='thumb-stick-control__section-header'>
+                {t('components.thumbStickControl.bind.attributes.title')}
+              </span>
+              <MultiField
+                path={path.concat('inputEventBindings', event.value, 'attrs')}
+              />
+            </div>
           </li>
         ))}
       </ul>
