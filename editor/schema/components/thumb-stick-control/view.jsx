@@ -1,7 +1,15 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
+import {
+  EngineContext,
+  Field,
+  LabelledSelect,
+  LabelledTextInput,
+  MultiField,
+  get,
+} from 'remiz-editor';
 
 import './style.less';
 
@@ -20,21 +28,11 @@ const events = [
   },
 ];
 
-export const ThumbStickControlWidget = ({
-  path,
-  components: {
-    Field,
-    LabelledSelect,
-    LabelledTextInput,
-  },
-  context: {
-    projectConfig,
-  },
-  utils: {
-    get,
-  },
-}) => {
+export const ThumbStickControlWidget = ({ path }) => {
   const { t } = useTranslation();
+
+  const { sceneContext } = useContext(EngineContext);
+  const projectConfig = sceneContext.data.projectConfig;
 
   const options = useMemo(() => events.map(({ title, value }) => ({
     title: t(title),
@@ -79,6 +77,12 @@ export const ThumbStickControlWidget = ({
               component={LabelledTextInput}
               label={t('components.thumbStickControl.bind.messageType.title')}
             />
+            <span className='thumb-stick-control__section-header'>
+              {t('components.thumbStickControl.bind.attributes.title')}
+            </span>
+            <MultiField
+              path={path.concat('inputEventBindings', event.value, 'attrs')}
+            />
           </li>
         ))}
       </ul>
@@ -98,16 +102,5 @@ ThumbStickControlWidget.propTypes = {
   fields: PropTypes.object,
   path: PropTypes.arrayOf(PropTypes.string),
   references: PropTypes.object,
-  components: PropTypes.shape({
-    Field: PropTypes.element,
-    LabelledSelect: PropTypes.element,
-    LabelledTextInput: PropTypes.element,
-  }),
-  context: PropTypes.shape({
-    projectConfig: PropTypes.object,
-  }),
-  utils: PropTypes.shape({
-    get: PropTypes.func,
-  }),
 };
 

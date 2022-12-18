@@ -24,6 +24,7 @@ module.exports = {
     'i18next': 'i18next',
     'react-i18next': 'ReactI18next',
     'antd': 'antd',
+    'remiz-editor': 'RemizEditor',
   },
 
   devtool: false,

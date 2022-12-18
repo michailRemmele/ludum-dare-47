@@ -1,6 +1,7 @@
 import components from '../src/game/components';
 import systems from '../src/game/systems';
 import { scripts as scriptSystemScripts } from '../src/game/scripts';
+import { effects } from '../src/game/effects';
 
 import { componentsSchema, systemsSchema, scriptsSchema } from './schema';
 
@@ -12,6 +13,7 @@ const locales = {
 
 const scripts = {
   scriptSystem: scriptSystemScripts,
+  effectsSystem: effects,
 };
 
 export {

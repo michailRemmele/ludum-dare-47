@@ -1,5 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
+import {
+  EngineContext,
+  Widget,
+  useExtension,
+  get,
+} from 'remiz-editor';
 
 const EFFECTS_SYSTEM_NAME = 'effectsSystem';
 
@@ -7,18 +13,11 @@ export const EffectWidget = ({
   fields,
   path,
   references,
-  components: {
-    Widget,
-  },
-  context: {
-    extension,
-    projectConfig,
-  },
-  utils: {
-    get,
-  },
 }) => {
-  const { scripts, scriptsSchema } = extension;
+  const { sceneContext } = useContext(EngineContext);
+  const projectConfig = sceneContext.data.projectConfig;
+
+  const { scripts, scriptsSchema } = useExtension();
 
   const scriptName = useMemo(() => get(projectConfig, path.concat('action')), [ projectConfig ]);
 
@@ -47,15 +46,5 @@ EffectWidget.propTypes = {
   fields: PropTypes.object,
   path: PropTypes.arrayOf(PropTypes.string),
   references: PropTypes.object,
-  components: PropTypes.shape({
-    Widget: PropTypes.element,
-  }),
-  context: PropTypes.shape({
-    extension: PropTypes.object,
-    projectConfig: PropTypes.object,
-  }),
-  utils: PropTypes.shape({
-    get: PropTypes.func,
-  }),
 };
 
