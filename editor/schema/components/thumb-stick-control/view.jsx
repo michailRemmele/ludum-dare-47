@@ -19,14 +19,6 @@ const events = [
     title: 'components.thumbStickControl.option.positionChange.title',
     value: 'THUMB_STICK_POSITION_CHANGE',
   },
-  {
-    title: 'components.thumbStickControl.option.start.title',
-    value: 'THUMB_STICK_START',
-  },
-  {
-    title: 'components.thumbStickControl.option.stop.title',
-    value: 'THUMB_STICK_STOP',
-  },
 ];
 
 export const ThumbStickControlWidget = ({ path }) => {

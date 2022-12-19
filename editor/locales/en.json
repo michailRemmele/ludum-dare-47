@@ -44,8 +44,6 @@
   "components.thumbStickControl.bind.attributes.title": "Attributes",
   "components.thumbStickControl.bind.addNew.title": "Add New Bind",
   "components.thumbStickControl.option.positionChange.title": "Position Change",
-  "components.thumbStickControl.option.start.title": "Start",
-  "components.thumbStickControl.option.stop.title": "Stop",
 
   "components.ui.title": "UI",
   "components.ui.title.title": "Title",
