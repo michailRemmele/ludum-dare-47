@@ -2,13 +2,13 @@ import React, { useMemo, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
 import {
   EngineContext,
   Field,
   LabelledSelect,
   LabelledTextInput,
   MultiField,
+  Panel,
   get,
 } from 'remiz-editor';
 
@@ -61,13 +61,11 @@ export const ThumbStickControlWidget = ({ path }) => {
       <ul className='thumb-stick-control__events'>
         {addedOptions.map((event, index) => (
           <li className='thumb-stick-control__fieldset' key={event.value}>
-            <header className='thumb-stick-control__heading'>
-              <span>
-                {t('components.thumbStickControl.bind.title', { index: index + 1 })}
-              </span>
-              <Button icon={<DeleteOutlined />} size='small' onClick={handleDeleteBind} />
-            </header>
-            <div className='thumb-stick-control__fieldset-content'>
+            <Panel
+              className='thumb-stick-control__panel'
+              title={t('components.thumbStickControl.bind.title', { index: index + 1 })}
+              onDelete={handleDeleteBind}
+            >
               <LabelledSelect
                 // TODO: мемоизировать
                 options={[ event, ...availableOptions ]}
@@ -86,7 +84,7 @@ export const ThumbStickControlWidget = ({ path }) => {
               <MultiField
                 path={path.concat('inputEventBindings', event.value, 'attrs')}
               />
-            </div>
+            </Panel>
           </li>
         ))}
       </ul>
