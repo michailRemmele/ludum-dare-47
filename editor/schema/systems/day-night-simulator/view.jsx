@@ -38,7 +38,7 @@ export const DayNightSimulatorWidget = ({ fields, path, references }) => {
     const { gameObjects } = get(projectConfig, [ 'levels', scene.level ]);
 
     return getItems(gameObjects);
-  }, [ projectConfig ]);
+  }, [ projectConfig, path ]);
 
   const extReferences = useMemo(() => ({
     ...references,
