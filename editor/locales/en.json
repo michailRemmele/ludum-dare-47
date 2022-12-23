@@ -97,6 +97,8 @@
   "systems.movementSystem.title": "Movement System",
 
   "systems.reaper.title": "Reaper",
+  "systems.reaper.lifetime.title": "Lifetime",
+  "systems.reaper.allowedComponents.title": "Allowed Components",
 
   "systems.thumbStickControl.title": "Thumb Stick Control",
 
