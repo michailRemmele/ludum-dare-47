@@ -76,6 +76,9 @@
   "systems.damageSystem.title": "Damage System",
 
   "systems.dayNightSimulator.title": "Day Night Simulator",
+  "systems.dayNightSimulator.dayLength.title": "Day Length",
+  "systems.dayNightSimulator.startTime.title": "Start Time",
+  "systems.dayNightSimulator.skyId.title": "Sky Object",
 
   "systems.effectsSystem.title": "Effects System",
 

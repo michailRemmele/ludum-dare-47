@@ -183,7 +183,9 @@
         },
         {
           "name": "gameStatsMeter",
-          "options": {}
+          "options": {
+            "frequency": 1000
+          }
         },
         {
           "name": "uiBridge",
@@ -538,14 +540,6 @@
                   "THUMB_STICK_POSITION_CHANGE": {
                     "messageType": "MOVEMENT",
                     "attrs": {}
-                  },
-                  "THUMB_STICK_START": {
-                    "messageType": "MOVEMENT",
-                    "attrs": {
-                      "a": 10,
-                      "b": false,
-                      "c": "123456"
-                    }
                   }
                 }
               }
