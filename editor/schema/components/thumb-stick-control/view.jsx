@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
@@ -8,7 +8,7 @@ import {
   LabelledTextInput,
   MultiField,
   Panel,
-  useMutator,
+  useConfig,
 } from 'remiz-editor';
 
 import './style.less';
@@ -23,7 +23,7 @@ const events = [
 export const ThumbStickControlWidget = ({ path }) => {
   const { t } = useTranslation();
 
-  const inputEventBindings = useMutator(path.concat('inputEventBindings'));
+  const inputEventBindings = useConfig(path.concat('inputEventBindings'));
 
   const options = useMemo(() => events.map(({ title, value }) => ({
     title: t(title),

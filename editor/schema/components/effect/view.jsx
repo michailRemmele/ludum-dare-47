@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   Widget,
   useExtension,
-  useMutator,
+  useConfig,
 } from 'remiz-editor';
 
 const EFFECTS_SYSTEM_NAME = 'effectsSystem';
@@ -15,7 +15,7 @@ export const EffectWidget = ({
 }) => {
   const { scripts, scriptsSchema } = useExtension();
 
-  const scriptName = useMutator(path.concat('action'));
+  const scriptName = useConfig(path.concat('action'));
 
   const extendedReferences = useMemo(() => ({
     ...references,

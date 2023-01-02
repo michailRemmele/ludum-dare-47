@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   Widget,
-  useMutator,
+  useConfig,
 } from 'remiz-editor';
 
 export const WeaponWidget = ({
@@ -10,7 +10,7 @@ export const WeaponWidget = ({
   path,
   references,
 }) => {
-  const templates = useMutator('templates');
+  const templates = useConfig('templates');
 
   const extendedReferences = useMemo(() => ({
     ...references,

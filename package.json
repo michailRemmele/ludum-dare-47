@@ -28,7 +28,7 @@
     "less-loader": "11.0.0",
     "mini-css-extract-plugin": "2.7.0",
     "react-i18next": "11.17.2",
-    "remiz-editor": "/Users/mihailremmele/Documents/Projects/remiz-editor/remiz-editor-0.0.38.tgz",
+    "remiz-editor": "/Users/mihailremmele/Documents/Projects/remiz-editor/remiz-editor-0.0.40.tgz",
     "style-loader": "3.3.1",
     "webpack": "5.75.0",
     "webpack-bundle-analyzer": "4.7.0",
