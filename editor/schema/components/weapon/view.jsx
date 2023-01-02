@@ -1,8 +1,8 @@
-import React, { useMemo, useContext } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
-  EngineContext,
   Widget,
+  useMutator,
 } from 'remiz-editor';
 
 export const WeaponWidget = ({
@@ -10,10 +10,7 @@ export const WeaponWidget = ({
   path,
   references,
 }) => {
-  const { sceneContext } = useContext(EngineContext);
-  const projectConfig = sceneContext.data.projectConfig;
-
-  const { templates } = projectConfig;
+  const templates = useMutator('templates');
 
   const extendedReferences = useMemo(() => ({
     ...references,

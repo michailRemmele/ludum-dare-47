@@ -1,10 +1,9 @@
-import React, { useMemo, useContext } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
-  EngineContext,
   Widget,
   useExtension,
-  get,
+  useMutator,
 } from 'remiz-editor';
 
 const EFFECTS_SYSTEM_NAME = 'effectsSystem';
@@ -14,12 +13,9 @@ export const EffectWidget = ({
   path,
   references,
 }) => {
-  const { sceneContext } = useContext(EngineContext);
-  const projectConfig = sceneContext.data.projectConfig;
-
   const { scripts, scriptsSchema } = useExtension();
 
-  const scriptName = useMemo(() => get(projectConfig, path.concat('action')), [ projectConfig ]);
+  const scriptName = useMutator(path.concat('action'));
 
   const extendedReferences = useMemo(() => ({
     ...references,

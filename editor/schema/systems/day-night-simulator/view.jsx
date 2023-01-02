@@ -1,9 +1,8 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   Widget,
-  EngineContext,
-  get,
+  useMutator,
 } from 'remiz-editor';
 
 const SCENE_PATH_LENGTH = 2;
@@ -25,20 +24,11 @@ const getItems = (
 }, []);
 
 export const DayNightSimulatorWidget = ({ fields, path, references }) => {
-  const { sceneContext } = useContext(EngineContext);
-  const projectConfig = sceneContext.data.projectConfig;
+  const scene = useMutator(path.slice(0, SCENE_PATH_LENGTH));
+  const level = useMutator(typeof scene.level === 'string' ? [ 'levels', scene.level ] : void 0);
+  const gameObjects = level?.gameObjects || [];
 
-  const items = useMemo(() => {
-    const scene = get(projectConfig, path.slice(0, SCENE_PATH_LENGTH));
-
-    if (typeof scene.level !== 'string') {
-      return [];
-    }
-
-    const { gameObjects } = get(projectConfig, [ 'levels', scene.level ]);
-
-    return getItems(gameObjects);
-  }, [ projectConfig, path ]);
+  const items = useMemo(() => getItems(gameObjects), [ gameObjects ]);
 
   const extReferences = useMemo(() => ({
     ...references,

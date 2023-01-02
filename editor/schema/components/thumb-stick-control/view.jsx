@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
 import {
-  EngineContext,
   Field,
   LabelledSelect,
   LabelledTextInput,
   MultiField,
   Panel,
-  get,
+  useMutator,
 } from 'remiz-editor';
 
 import './style.less';
@@ -24,17 +23,12 @@ const events = [
 export const ThumbStickControlWidget = ({ path }) => {
   const { t } = useTranslation();
 
-  const { sceneContext } = useContext(EngineContext);
-  const projectConfig = sceneContext.data.projectConfig;
+  const inputEventBindings = useMutator(path.concat('inputEventBindings'));
 
   const options = useMemo(() => events.map(({ title, value }) => ({
     title: t(title),
     value,
   })), []);
-  const inputEventBindings = useMemo(
-    () => get(projectConfig, path.concat('inputEventBindings')),
-    [ projectConfig ]
-  );
   const availableOptions = useMemo(
     () => options.filter((event) => !inputEventBindings[event.value]),
     [ inputEventBindings ]
