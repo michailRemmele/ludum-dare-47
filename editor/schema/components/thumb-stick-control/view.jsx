@@ -23,7 +23,9 @@ const events = [
 export const ThumbStickControlWidget = ({ path }) => {
   const { t } = useTranslation();
 
-  const inputEventBindings = useConfig(path.concat('inputEventBindings'));
+  const bindingsPath = useMemo(() => path.concat('inputEventBindings'), [ path ]);
+
+  const inputEventBindings = useConfig(bindingsPath);
 
   const options = useMemo(() => events.map(({ title, value }) => ({
     title: t(title),

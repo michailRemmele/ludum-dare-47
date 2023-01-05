@@ -15,7 +15,9 @@ export const EffectWidget = ({
 }) => {
   const { scripts, scriptsSchema } = useExtension();
 
-  const scriptName = useConfig(path.concat('action'));
+  const actionPath = useMemo(() => path.concat('action'), [ path ]);
+
+  const scriptName = useConfig(actionPath);
 
   const extendedReferences = useMemo(() => ({
     ...references,
