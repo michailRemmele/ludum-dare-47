@@ -8,7 +8,8 @@
           "name": "uiBridge",
           "options": {}
         }
-      ]
+      ],
+      "id": "5d78b760-d3ae-4966-ad0c-7942a54006f2"
     },
     {
       "name": "game",
@@ -196,8 +197,9 @@
             ]
           }
         }
-      ]
-    }    
+      ],
+      "id": "a6d997de-cc8d-4d61-9fcb-932179c32142"
+    }
   ],
   "levels": [
     {
@@ -546,7 +548,8 @@
             }
           ]
         }
-      ]
+      ],
+      "id": "23f60f16-49f4-4117-8202-48b1211bec99"
     }
   ],
   "templates": [
@@ -583,7 +586,8 @@
                 }
               }
             }
-          ]
+          ],
+          "id": "21f581ca-4d42-4b4e-9e08-d1de370a5e0d"
         },
         {
           "name": "playerAimRadius",
@@ -613,7 +617,8 @@
                 }
               }
             }
-          ]
+          ],
+          "id": "1c44b64a-efc8-4903-bef5-ba13984c6e99"
         }
       ],
       "components": [
@@ -1288,7 +1293,10 @@
             "height": 26,
             "slice": 28,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "units",
@@ -1309,7 +1317,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "647d1216-ac18-4e50-8d98-dd0d0a3a52e9"
     },
     {
       "name": "enemy",
@@ -1344,7 +1353,8 @@
                 }
               }
             }
-          ]
+          ],
+          "id": "c5223b0b-1538-42f8-8676-bf22f689185e"
         }
       ],
       "components": [
@@ -2015,7 +2025,10 @@
             "height": 26,
             "slice": 28,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "units",
@@ -2025,7 +2038,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "bde6add9-dcba-4a38-9829-b3f58eff93cb"
     },
     {
       "name": "rangeEnemy",
@@ -2060,7 +2074,8 @@
                 }
               }
             }
-          ]
+          ],
+          "id": "b24978cc-e3ca-49d8-b6e5-99c17c05b99e"
         }
       ],
       "components": [
@@ -2734,7 +2749,10 @@
             "height": 26,
             "slice": 28,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "units",
@@ -2744,7 +2762,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "e6ad51f9-a964-4830-9ce2-afb09de2a41e"
     },
     {
       "name": "island",
@@ -2767,7 +2786,10 @@
             "width": 400,
             "height": 400,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "terrain",
@@ -2777,7 +2799,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "bc9e86fe-ba41-43c5-8be5-132367671f86"
     },
     {
       "name": "sea",
@@ -2800,7 +2823,10 @@
             "width": 2500,
             "height": 2500,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "background",
@@ -2810,7 +2836,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "230b7192-9b5a-4e14-aacd-4e2bf35e25aa"
     },
     {
       "name": "pathBlockerTop",
@@ -2856,7 +2883,10 @@
             "width": 400,
             "height": 16,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": true,
             "flipY": false,
             "sortingLayer": "terrain",
@@ -2866,7 +2896,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "23c51948-c96c-465b-8e29-6a7c1937460d"
     },
     {
       "name": "pathBlockerBottom",
@@ -2912,7 +2943,10 @@
             "width": 400,
             "height": 16,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": true,
             "sortingLayer": "terrain",
@@ -2922,7 +2956,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "0c5954e7-dd3d-4437-a471-2082a1d95361"
     },
     {
       "name": "pathBlockerLeft",
@@ -2968,7 +3003,10 @@
             "width": 16,
             "height": 400,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": true,
             "sortingLayer": "terrain",
@@ -2978,7 +3016,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "fca46d70-ef71-4ea7-861a-f019eaa56101"
     },
     {
       "name": "pathBlockerRight",
@@ -3024,7 +3063,10 @@
             "width": 16,
             "height": 400,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": true,
             "flipY": false,
             "sortingLayer": "terrain",
@@ -3034,7 +3076,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "e275bb13-3372-4401-bd73-ac30a4ad7a1b"
     },
     {
       "name": "pathBlockerTopLeft",
@@ -3080,7 +3123,10 @@
             "width": 16,
             "height": 16,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "terrain",
@@ -3090,7 +3136,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "a5b63dfa-6088-43f3-831f-8aabda7ec14e"
     },
     {
       "name": "pathBlockerTopRight",
@@ -3136,7 +3183,10 @@
             "width": 16,
             "height": 16,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": true,
             "flipY": false,
             "sortingLayer": "terrain",
@@ -3146,7 +3196,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "c2550cf1-2b0f-4fe5-863d-aa4e4fe4bb94"
     },
     {
       "name": "pathBlockerBottomRight",
@@ -3192,7 +3243,10 @@
             "width": 16,
             "height": 16,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": true,
             "flipY": true,
             "sortingLayer": "terrain",
@@ -3202,7 +3256,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "5f8fe305-a23f-4c02-bd2c-33f86c721050"
     },
     {
       "name": "pathBlockerBottomLeft",
@@ -3248,7 +3303,10 @@
             "width": 16,
             "height": 16,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": true,
             "sortingLayer": "terrain",
@@ -3258,7 +3316,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "c6e1bc04-ab27-41e2-8c31-01c8e2a914d3"
     },
     {
       "name": "hit",
@@ -3301,7 +3360,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "6f3548cb-9a1c-4ddc-9609-29d80eedd99c"
     },
     {
       "name": "healGrass",
@@ -3392,7 +3452,10 @@
             "height": 16,
             "slice": 1,
             "rotation": 0,
-            "sortCenter": [ 0, 3 ],
+            "sortCenter": [
+              0,
+              3
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "units",
@@ -3402,7 +3465,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "8fcc3d22-c360-41cb-aa7b-0ac39b74db95"
     },
     {
       "name": "ogreGrass",
@@ -3493,7 +3557,10 @@
             "height": 16,
             "slice": 1,
             "rotation": 0,
-            "sortCenter": [ 0, 3 ],
+            "sortCenter": [
+              0,
+              3
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "units",
@@ -3503,7 +3570,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "2aa2d307-1a4f-4fe4-ac4c-2a4e6900ed16"
     },
     {
       "name": "boomGrass",
@@ -3594,7 +3662,10 @@
             "height": 16,
             "slice": 1,
             "rotation": 0,
-            "sortCenter": [ 0, 3 ],
+            "sortCenter": [
+              0,
+              3
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "units",
@@ -3604,7 +3675,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "2241aceb-0112-4ad4-9c0c-9c05f6d4ba47"
     },
     {
       "name": "energyBall",
@@ -3637,7 +3709,8 @@
                 }
               }
             }
-          ]
+          ],
+          "id": "d8045441-a8fa-4f53-be1e-062595610fb3"
         },
         {
           "name": "energyBallLight",
@@ -3661,7 +3734,10 @@
                 "height": 20,
                 "slice": 6,
                 "rotation": 0,
-                "sortCenter": [ 0, 0 ],
+                "sortCenter": [
+                  0,
+                  0
+                ],
                 "flipX": false,
                 "flipY": false,
                 "sortingLayer": "lights",
@@ -3674,7 +3750,8 @@
                 }
               }
             }
-          ]
+          ],
+          "id": "a0964b8b-e42f-4fdd-93fd-9249f21fa107"
         }
       ],
       "components": [
@@ -3795,7 +3872,10 @@
             "height": 16,
             "slice": 6,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "units",
@@ -3805,7 +3885,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "ba8e2243-e919-4cee-a201-204b4e8ed31d"
     },
     {
       "name": "fetter",
@@ -3830,7 +3911,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "039f1088-d693-48ab-9305-20a254658666"
     },
     {
       "name": "heal",
@@ -3857,7 +3939,10 @@
                 "height": 26,
                 "slice": 7,
                 "rotation": 0,
-                "sortCenter": [ 0, 0 ],
+                "sortCenter": [
+                  0,
+                  0
+                ],
                 "flipX": false,
                 "flipY": false,
                 "sortingLayer": "lights",
@@ -3870,7 +3955,8 @@
                 }
               }
             }
-          ]
+          ],
+          "id": "a9533918-0d2e-42d4-a52c-bab3d1cdb8db"
         },
         {
           "name": "healBack",
@@ -3894,7 +3980,10 @@
                 "height": 26,
                 "slice": 8,
                 "rotation": 0,
-                "sortCenter": [ 0, 0 ],
+                "sortCenter": [
+                  0,
+                  0
+                ],
                 "flipX": false,
                 "flipY": false,
                 "sortingLayer": "effectsBack",
@@ -3904,7 +3993,8 @@
                 }
               }
             }
-          ]
+          ],
+          "id": "55c5f955-bd5a-4aad-8ea5-d7b6122da4f9"
         }
       ],
       "components": [
@@ -4052,7 +4142,10 @@
             "height": 26,
             "slice": 8,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "units",
@@ -4069,7 +4162,8 @@
             "title": "Heal effect"
           }
         }
-      ]
+      ],
+      "id": "a1510c63-6925-459c-9442-10902ed829f0"
     },
     {
       "name": "power",
@@ -4096,7 +4190,10 @@
                 "height": 26,
                 "slice": 11,
                 "rotation": 0,
-                "sortCenter": [ 0, 0 ],
+                "sortCenter": [
+                  0,
+                  0
+                ],
                 "flipX": false,
                 "flipY": false,
                 "sortingLayer": "lights",
@@ -4109,7 +4206,8 @@
                 }
               }
             }
-          ]
+          ],
+          "id": "2e405890-6a40-4987-944d-75868553d809"
         },
         {
           "name": "powerBack",
@@ -4133,7 +4231,10 @@
                 "height": 26,
                 "slice": 12,
                 "rotation": 0,
-                "sortCenter": [ 0, 0 ],
+                "sortCenter": [
+                  0,
+                  0
+                ],
                 "flipX": false,
                 "flipY": false,
                 "sortingLayer": "effectsBack",
@@ -4143,7 +4244,8 @@
                 }
               }
             }
-          ]
+          ],
+          "id": "42d89baf-a0ab-4759-8377-588bd417b086"
         }
       ],
       "components": [
@@ -4313,7 +4415,10 @@
             "height": 26,
             "slice": 12,
             "rotation": 0,
-            "sortCenter": [ 0, 0 ],
+            "sortCenter": [
+              0,
+              0
+            ],
             "flipX": false,
             "flipY": false,
             "sortingLayer": "units",
@@ -4330,7 +4435,8 @@
             "title": "Power effect"
           }
         }
-      ]
+      ],
+      "id": "20e63f34-e52b-445b-b722-685628be2fd7"
     }
   ],
   "loaders": [
@@ -4342,7 +4448,8 @@
           "name": "uiBridge",
           "options": {}
         }
-      ]
+      ],
+      "id": "3c4c020d-bcf7-4644-893f-fa72335b352e"
     }
   ],
   "startScene": "mainMenu",
