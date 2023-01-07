@@ -472,78 +472,89 @@
             {
               "name": "keyboardControl",
               "config": {
-                "inputEventBindings": {
-                  "W_PRESSED": {
-                    "messageType": "MOVEMENT",
-                    "attrs": {
-                      "angle": 270
+                "inputEventBindings": [
+                    {
+                      "event": "W_PRESSED",
+                      "messageType": "MOVEMENT",
+                      "attrs": {
+                        "angle": 270
+                      }
+                    },
+                    {
+                      "event": "A_PRESSED",
+                      "messageType": "MOVEMENT",
+                      "attrs": {
+                        "angle": 180
+                      }
+                    },
+                    {
+                      "event": "S_PRESSED",
+                      "messageType": "MOVEMENT",
+                      "attrs": {
+                        "angle": 90
+                      }
+                    },
+                    {
+                      "event": "D_PRESSED",
+                      "messageType": "MOVEMENT",
+                      "attrs": {
+                        "angle": 0
+                      }
+                    },
+                    {
+                      "event": "E_RELEASED",
+                      "messageType": "GRAB",
+                      "attrs": {}
+                    },
+                    {
+                      "event": "I_RELEASED",
+                      "messageType": "TOGGLE_INVENTORY",
+                      "attrs": {}
+                    },
+                    {
+                      "event": "ESCAPE_RELEASED",
+                      "messageType": "CLOSE_INVENTORY",
+                      "attrs": {}
+                    },
+                    {
+                      "event": "1_RELEASED",
+                      "messageType": "USE_ITEM",
+                      "attrs": {
+                        "item": "healPotion"
+                      }
+                    },
+                    {
+                      "event": "2_RELEASED",
+                      "messageType": "USE_ITEM",
+                      "attrs": {
+                        "item": "powerPotion"
+                      }
                     }
-                  },
-                  "A_PRESSED": {
-                    "messageType": "MOVEMENT",
-                    "attrs": {
-                      "angle": 180
-                    }
-                  },
-                  "S_PRESSED": {
-                    "messageType": "MOVEMENT",
-                    "attrs": {
-                      "angle": 90
-                    }
-                  },
-                  "D_PRESSED": {
-                    "messageType": "MOVEMENT",
-                    "attrs": {
-                      "angle": 0
-                    }
-                  },
-                  "E_RELEASED": {
-                    "messageType": "GRAB",
-                    "attrs": {}
-                  },
-                  "I_RELEASED": {
-                    "messageType": "TOGGLE_INVENTORY",
-                    "attrs": {}
-                  },
-                  "ESCAPE_RELEASED": {
-                    "messageType": "CLOSE_INVENTORY",
-                    "attrs": {}
-                  },
-                  "1_RELEASED": {
-                    "messageType": "USE_ITEM",
-                    "attrs": {
-                      "item": "healPotion"
-                    }
-                  },
-                  "2_RELEASED": {
-                    "messageType": "USE_ITEM",
-                    "attrs": {
-                      "item": "powerPotion"
-                    }
-                  }
-                }
+                ]
               }
             },
             {
               "name": "mouseControl",
               "config": {
-                "inputEventBindings": {
-                  "MOUSE_LEFT_BUTTON_PRESS": {
+                "inputEventBindings": [
+                  {
+                    "event": "MOUSE_LEFT_BUTTON_PRESS",
                     "messageType": "ATTACK",
                     "attrs": {}
                   }
-                }
+                ]
               }
             },
             {
               "name": "thumbStickControl",
               "config": {
-                "inputEventBindings": {
-                  "THUMB_STICK_POSITION_CHANGE": {
+                "inputEventBindings": [
+                  {
+                    "event": "THUMB_STICK_POSITION_CHANGE",
                     "messageType": "MOVEMENT",
                     "attrs": {}
                   }
-                }
+                ]
               }
             }
           ]

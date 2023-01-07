@@ -4,7 +4,15 @@ class ThumbStickControl extends Component {
   constructor(componentName, config) {
     super(componentName, config);
 
-    this._inputEventBindings = config.inputEventBindings;
+    const { inputEventBindings } = config;
+
+    this._inputEventBindings = inputEventBindings.reduce((acc, bind) => {
+      acc[bind.event] = {
+        messageType: bind.messageType,
+        attrs: bind.attrs,
+      };
+      return acc;
+    }, {});
   }
 
   set inputEventBindings(inputEventBindings) {
@@ -17,9 +25,15 @@ class ThumbStickControl extends Component {
 
   clone() {
     return new ThumbStickControl(this.componentName, {
-      inputEventBindings: {
-        ...this.inputEventBindings,
-      },
+      inputEventBindings: Object.keys(this._inputEventBindings).map(
+        (key) => ({
+          event: key,
+          messageType: this.inputEventBindings[key].messageType,
+          attrs: {
+            ...this.inputEventBindings[key].attrs,
+          },
+        }),
+      ),
     });
   }
 }
