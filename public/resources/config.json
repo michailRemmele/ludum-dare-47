@@ -474,61 +474,94 @@
               "config": {
                 "inputEventBindings": [
                     {
-                      "event": "W_PRESSED",
+                      "key": "W",
+                      "event": "PRESSED",
                       "messageType": "MOVEMENT",
-                      "attrs": {
-                        "angle": 270
-                      }
+                      "attrs": [
+                        {
+                          "name": "angle",
+                          "type": "number",
+                          "value": 270
+                        }
+                      ]
                     },
                     {
-                      "event": "A_PRESSED",
+                      "key": "A",   
+                      "event": "PRESSED",
                       "messageType": "MOVEMENT",
-                      "attrs": {
-                        "angle": 180
-                      }
+                      "attrs": [
+                        {
+                          "name": "angle",
+                          "type": "number",
+                          "value": 180
+                        }
+                      ]
                     },
                     {
-                      "event": "S_PRESSED",
+                      "key": "S",
+                      "event": "PRESSED",
                       "messageType": "MOVEMENT",
-                      "attrs": {
-                        "angle": 90
-                      }
+                      "attrs": [
+                        {
+                          "name": "angle",
+                          "type": "number",
+                          "value": 90
+                        }
+                      ]
                     },
                     {
-                      "event": "D_PRESSED",
+                      "key": "D",
+                      "event": "PRESSED",
                       "messageType": "MOVEMENT",
-                      "attrs": {
-                        "angle": 0
-                      }
+                      "attrs": [
+                        {
+                          "name": "angle",
+                          "type": "number",
+                          "value": 0
+                        }
+                      ]
                     },
                     {
-                      "event": "E_RELEASED",
+                      "key": "E",
+                      "event": "RELEASED",
                       "messageType": "GRAB",
-                      "attrs": {}
+                      "attrs": []
                     },
                     {
-                      "event": "I_RELEASED",
+                      "key": "I",
+                      "event": "RELEASED",
                       "messageType": "TOGGLE_INVENTORY",
-                      "attrs": {}
+                      "attrs": []
                     },
                     {
-                      "event": "ESCAPE_RELEASED",
+                      "key": "ESCAPE",
+                      "event": "RELEASED",
                       "messageType": "CLOSE_INVENTORY",
-                      "attrs": {}
+                      "attrs": []
                     },
                     {
-                      "event": "1_RELEASED",
+                      "key": "1",
+                      "event": "RELEASED",
                       "messageType": "USE_ITEM",
-                      "attrs": {
-                        "item": "healPotion"
-                      }
+                      "attrs": [
+                        {
+                          "name": "item",
+                          "type": "string",
+                          "value": "healPotion"
+                        }
+                      ]
                     },
                     {
-                      "event": "2_RELEASED",
+                      "key": "2",
+                      "event": "RELEASED",
                       "messageType": "USE_ITEM",
-                      "attrs": {
-                        "item": "powerPotion"
-                      }
+                      "attrs": [
+                        {
+                          "name": "item",
+                          "type": "string",
+                          "value": "powerPotion"
+                        }
+                      ]
                     }
                 ]
               }
@@ -540,7 +573,7 @@
                   {
                     "event": "MOUSE_LEFT_BUTTON_PRESS",
                     "messageType": "ATTACK",
-                    "attrs": {}
+                    "attrs": []
                   }
                 ]
               }
@@ -552,7 +585,7 @@
                   {
                     "event": "THUMB_STICK_POSITION_CHANGE",
                     "messageType": "MOVEMENT",
-                    "attrs": {}
+                    "attrs": []
                   }
                 ]
               }

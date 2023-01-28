@@ -9,7 +9,10 @@ class ThumbStickControl extends Component {
     this._inputEventBindings = inputEventBindings.reduce((acc, bind) => {
       acc[bind.event] = {
         messageType: bind.messageType,
-        attrs: bind.attrs,
+        attrs: bind.attrs.reduce((attrs, attr) => {
+          attrs[attr.name] = attr.value;
+          return attrs;
+        }, {}),
       };
       return acc;
     }, {});
@@ -29,9 +32,9 @@ class ThumbStickControl extends Component {
         (key) => ({
           event: key,
           messageType: this.inputEventBindings[key].messageType,
-          attrs: {
-            ...this.inputEventBindings[key].attrs,
-          },
+          attrs: Object.keys(this.inputEventBindings[key].attrs).map(
+            (name) => ({ name, value: this.inputEventBindings[key].attrs[name] }),
+          ),
         }),
       ),
     });
