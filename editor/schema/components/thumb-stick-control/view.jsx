@@ -2,14 +2,9 @@ import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
-import {
-  Field,
-  LabelledSelect,
-  LabelledTextInput,
-  MultiField,
-  Panel,
-  useConfig,
-} from 'remiz-editor';
+import { useConfig, useCommander, commands } from 'remiz-editor';
+
+import { InputBind } from './input-bind';
 
 import './style.less';
 
@@ -22,6 +17,7 @@ const events = [
 
 export const ThumbStickControlWidget = ({ path }) => {
   const { t } = useTranslation();
+  const { dispatch } = useCommander();
 
   const bindingsPath = useMemo(() => path.concat('inputEventBindings'), [ path ]);
 
@@ -31,56 +27,42 @@ export const ThumbStickControlWidget = ({ path }) => {
     title: t(title),
     value,
   })), []);
+  const optionsMap = useMemo(() => options.reduce((acc, option) => {
+    acc[option.value] = option;
+    return acc;
+  }, {}), [ options ]);
+  const bindingsMap = useMemo(
+    () => inputEventBindings.reduce((acc, { event, ...bind }) => {
+      acc[event] = bind;
+      return acc;
+    }, {}),
+    [ inputEventBindings ],
+  );
   const availableOptions = useMemo(
-    () => options.filter((event) => !inputEventBindings[event.value]),
-    [ inputEventBindings ]
+    () => options.filter((event) => !bindingsMap[event.value]),
+    [ options, bindingsMap ]
   );
   const addedOptions = useMemo(
-    () => options.filter((event) => inputEventBindings[event.value]),
-    [ inputEventBindings ]
+    () => inputEventBindings.map((bind) => optionsMap[bind.event]),
+    [ inputEventBindings, optionsMap ]
   );
 
-  const handleChange = useCallback(() => {
-    // TODO: Обрабатывать изменение маппинга на другой эвент
-    // Нужно в конфиге по новому ключу сохранить текущий маппинг, а старую запись удалить
-    // После этого списки выбранных и доступных опций должны автоматом обновиться
-  }, []);
   const handleAddNewBind = useCallback(() => {
-    // TODO: Нужно из доступных брать первый эвент и добавлять новую секцию для этого эвента
-  }, []);
-  const handleDeleteBind = useCallback(() => {
-    // TODO: Нужно удалить по ключу один из биндов
-  }, []);
+    const inputEvent = availableOptions[0].value;
+    dispatch(commands.addValue(bindingsPath, { event: inputEvent, messageType: '', attrs: []}));
+  }, [ dispatch, bindingsPath, availableOptions ]);
 
   return (
     <div>
       <ul className='thumb-stick-control__events'>
         {addedOptions.map((event, index) => (
           <li className='thumb-stick-control__fieldset' key={event.value}>
-            <Panel
-              className='thumb-stick-control__panel'
-              title={t('components.thumbStickControl.bind.title', { index: index + 1 })}
-              onDelete={handleDeleteBind}
-            >
-              <LabelledSelect
-                // TODO: мемоизировать
-                options={[ event, ...availableOptions ]}
-                value={event.value}
-                onChange={handleChange}
-                label={t('components.thumbStickControl.bind.event.title')}
-              />
-              <Field
-                path={path.concat('inputEventBindings', event.value, 'messageType')}
-                component={LabelledTextInput}
-                label={t('components.thumbStickControl.bind.messageType.title')}
-              />
-              <span className='thumb-stick-control__section-header'>
-                {t('components.thumbStickControl.bind.attributes.title')}
-              </span>
-              <MultiField
-                path={path.concat('inputEventBindings', event.value, 'attrs')}
-              />
-            </Panel>
+            <InputBind
+              path={path}
+              event={event}
+              order={index}
+              availableEvents={availableOptions}
+            />
           </li>
         ))}
       </ul>
