@@ -474,11 +474,13 @@
               "config": {
                 "inputEventBindings": [
                     {
+                      "id": "8ef798ca-73c0-4f72-a437-f5f22b8b7e6d",
                       "key": "W",
                       "event": "PRESSED",
                       "messageType": "MOVEMENT",
                       "attrs": [
                         {
+                          "id": "5085a1a9-674e-4de5-9e2e-2f53282f4717",
                           "name": "angle",
                           "type": "number",
                           "value": 270
@@ -486,11 +488,13 @@
                       ]
                     },
                     {
+                      "id": "7c9d0caf-0e0c-4ba9-8624-266a26294cae",
                       "key": "A",   
                       "event": "PRESSED",
                       "messageType": "MOVEMENT",
                       "attrs": [
                         {
+                          "id": "5a4b7850-6aab-493a-b9d2-c78a74b8bc6d",
                           "name": "angle",
                           "type": "number",
                           "value": 180
@@ -498,11 +502,13 @@
                       ]
                     },
                     {
+                      "id": "e901ed80-5820-48fd-95d9-8d87a5f61cf4",
                       "key": "S",
                       "event": "PRESSED",
                       "messageType": "MOVEMENT",
                       "attrs": [
                         {
+                          "id": "2cf2e49e-2600-43b1-a223-185521d30991",
                           "name": "angle",
                           "type": "number",
                           "value": 90
@@ -510,11 +516,13 @@
                       ]
                     },
                     {
+                      "id": "854c285f-39e7-46d8-9904-19bc20820723",
                       "key": "D",
                       "event": "PRESSED",
                       "messageType": "MOVEMENT",
                       "attrs": [
                         {
+                          "id": "c3e6c5bd-1dea-4a76-91dc-339675226b0a",
                           "name": "angle",
                           "type": "number",
                           "value": 0
@@ -522,29 +530,34 @@
                       ]
                     },
                     {
+                      "id": "a5f13255-5a2a-4de1-806a-44876a9b5534",
                       "key": "E",
                       "event": "RELEASED",
                       "messageType": "GRAB",
                       "attrs": []
                     },
                     {
+                      "id": "534e0a9d-548d-4968-b324-d16c54c084a3",
                       "key": "I",
                       "event": "RELEASED",
                       "messageType": "TOGGLE_INVENTORY",
                       "attrs": []
                     },
                     {
+                      "id": "572598bf-53c9-4c0f-a092-82cf530501fc",
                       "key": "ESCAPE",
                       "event": "RELEASED",
                       "messageType": "CLOSE_INVENTORY",
                       "attrs": []
                     },
                     {
+                      "id": "c04e9b85-f27d-440e-81bc-019a2673a5e5",
                       "key": "1",
                       "event": "RELEASED",
                       "messageType": "USE_ITEM",
                       "attrs": [
                         {
+                          "id": "8383705a-6f6e-4b1d-8696-2870ac95659a",
                           "name": "item",
                           "type": "string",
                           "value": "healPotion"
@@ -552,11 +565,13 @@
                       ]
                     },
                     {
+                      "id": "a687753d-c563-4624-9184-9103151c02d4",
                       "key": "2",
                       "event": "RELEASED",
                       "messageType": "USE_ITEM",
                       "attrs": [
                         {
+                          "id": "0eb5a72e-f39e-48b9-8bf6-8d642535848b",
                           "name": "item",
                           "type": "string",
                           "value": "powerPotion"
