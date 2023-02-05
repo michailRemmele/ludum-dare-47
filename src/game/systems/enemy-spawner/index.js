@@ -2,8 +2,8 @@ import { MathOps } from 'remiz';
 
 const DAMAGE_MSG = 'DAMAGE';
 
-const ENEMY_TEMPLATE_NAME = 'enemy';
-const RANGE_ENEMY_TEMPLATE_NAME = 'rangeEnemy';
+const ENEMY_TEMPLATE_ID = 'bde6add9-dcba-4a38-9829-b3f58eff93cb';
+const RANGE_ENEMY_TEMPLATE_ID = 'e6ad51f9-a964-4830-9ce2-afb09de2a41e';
 const TRANSFORM_COMPONENT_NAME = 'transform';
 const WEAPON_COMPONENT_NAME = 'weapon';
 const HEALTH_COMPONENT_NAME = 'health';
@@ -51,7 +51,7 @@ export class EnemySpawner {
     }
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const enemy = this._gameObjectSpawner.spawn(ENEMY_TEMPLATE_NAME);
+      const enemy = this._gameObjectSpawner.spawn(ENEMY_TEMPLATE_ID);
       const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
       const enemyWeapon = enemy.getComponent(WEAPON_COMPONENT_NAME);
       const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
@@ -75,7 +75,7 @@ export class EnemySpawner {
     }
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const enemy = this._gameObjectSpawner.spawn(RANGE_ENEMY_TEMPLATE_NAME);
+      const enemy = this._gameObjectSpawner.spawn(RANGE_ENEMY_TEMPLATE_ID);
       const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
       const enemyWeapon = enemy.getComponent(WEAPON_COMPONENT_NAME);
       const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);

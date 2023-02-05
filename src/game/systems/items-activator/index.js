@@ -4,14 +4,14 @@ const ADD_EFFECT_MSG = 'ADD_EFFECT';
 const INVENTORY_KEY = 'inventory';
 
 const HEAL_EFFECT = {
-  name: 'heal',
+  effectId: 'a1510c63-6925-459c-9442-10902ed829f0',
   options: {
     value: 50,
   },
 };
 
 const POWER_EFFECT = {
-  name: 'power',
+  effectId: '20e63f34-e52b-445b-b722-685628be2fd7',
   options: {
     damage: 80,
     range: 15,

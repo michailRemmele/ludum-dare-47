@@ -7,7 +7,7 @@ const COLLISION_ENTER_MSG = 'COLLISION_ENTER';
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
 const ADD_IMPULSE_MSG = 'ADD_IMPULSE';
 
-const HIT_TEMPLATE_NAME = 'hit';
+const HIT_TEMPLATE_ID = '6f3548cb-9a1c-4ddc-9609-29d80eedd99c';
 
 const WEAPON_COMPONENT_NAME = 'weapon';
 const TRANSFORM_COMPONENT_NAME = 'transform';
@@ -34,7 +34,7 @@ class MeleeAttack extends Attack {
 
     const degAngle = MathOps.radToDeg(this._angle);
 
-    const hit = this._spawner.spawn(HIT_TEMPLATE_NAME);
+    const hit = this._spawner.spawn(HIT_TEMPLATE_ID);
     const hitTransform = hit.getComponent(TRANSFORM_COMPONENT_NAME);
     const hitCollider = hit.getComponent(COLLIDER_CONTAINER_COMPONENT_NAME).collider;
 
@@ -96,7 +96,7 @@ class MeleeAttack extends Attack {
         type: ADD_EFFECT_MSG,
         id: targetId,
         gameObject: target,
-        name: 'fetter',
+        effectId: '039f1088-d693-48ab-9305-20a254658666',
       });
       this._messageBus.send({
         type: ADD_IMPULSE_MSG,

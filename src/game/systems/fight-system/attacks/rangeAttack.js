@@ -107,7 +107,7 @@ class RangeAttack extends Attack {
         type: ADD_EFFECT_MSG,
         id: targetId,
         gameObject: target,
-        name: 'fetter',
+        effectId: '039f1088-d693-48ab-9305-20a254658666',
       });
       this._messageBus.send({
         type: ADD_IMPULSE_MSG,

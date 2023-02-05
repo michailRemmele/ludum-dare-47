@@ -53,35 +53,35 @@ export class EffectsSystem {
     });
   }
 
-  _cancelEffect(name, gameObject) {
+  _cancelEffect(effectId, gameObject) {
     const gameObjectId = gameObject.getId();
 
-    if (!this._applicatorsMap[gameObjectId] || !this._applicatorsMap[gameObjectId][name]) {
+    if (!this._applicatorsMap[gameObjectId] || !this._applicatorsMap[gameObjectId][effectId]) {
       return;
     }
 
-    this._applicatorsMap[gameObjectId][name].cancel();
-    this._applicatorsMap[gameObjectId][name] = null;
+    this._applicatorsMap[gameObjectId][effectId].cancel();
+    this._applicatorsMap[gameObjectId][effectId] = null;
 
     const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
 
-    activeEffects.list = activeEffects.list.filter((activeEffectName) => {
-      if (name !== activeEffectName) {
+    activeEffects.list = activeEffects.list.filter((activeEffectId) => {
+      if (effectId !== activeEffectId) {
         return true;
       }
 
-      this._killEffect(activeEffects.map[activeEffectName]);
+      this._killEffect(activeEffects.map[activeEffectId]);
 
-      activeEffects.map[activeEffectName] = null;
+      activeEffects.map[activeEffectId] = null;
 
       return false;
     });
   }
 
-  _addEffect(name, gameObject, options) {
+  _addEffect(effectId, gameObject, options) {
     const gameObjectId = gameObject.getId();
 
-    const effect = this._gameObjectSpawner.spawn(name);
+    const effect = this._gameObjectSpawner.spawn(effectId);
     gameObject.appendChild(effect);
 
     const {
@@ -95,8 +95,8 @@ export class EffectsSystem {
     }
 
     const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
-    activeEffects.list.push(name);
-    activeEffects.map[name] = effect;
+    activeEffects.list.push(effectId);
+    activeEffects.map[effectId] = effect;
 
     const EffectAction = this._actions[action];
     const EffectApplicator = effectApplicators[type];
@@ -108,28 +108,28 @@ export class EffectsSystem {
     );
 
     this._applicatorsMap[gameObjectId] = this._applicatorsMap[gameObjectId] || {};
-    this._applicatorsMap[gameObjectId][name] = effectApplicator;
+    this._applicatorsMap[gameObjectId][effectId] = effectApplicator;
   }
 
   _processNewEffects() {
     const newEffects = this.messageBus.get(ADD_EFFECT_MSG) || [];
     newEffects.forEach((message) => {
       const {
-        name,
+        effectId,
         options,
         gameObject,
       } = message;
 
-      this._cancelEffect(name, gameObject);
-      this._addEffect(name, gameObject, options);
+      this._cancelEffect(effectId, gameObject);
+      this._addEffect(effectId, gameObject, options);
     });
   }
 
   _processEffectsCancellation() {
     const cancelledEffects = this.messageBus.get(REMOVE_EFFECT_MSG) || [];
     cancelledEffects.forEach((message) => {
-      const { name, gameObject } = message;
-      this._cancelEffect(name, gameObject);
+      const { effectId, gameObject } = message;
+      this._cancelEffect(effectId, gameObject);
     });
   }
 
@@ -145,18 +145,18 @@ export class EffectsSystem {
       const gameObjectId = gameObject.getId();
       const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
 
-      activeEffects.list = activeEffects.list.filter((name) => {
-        const effectApplicator = this._applicatorsMap[gameObjectId][name];
+      activeEffects.list = activeEffects.list.filter((effectId) => {
+        const effectApplicator = this._applicatorsMap[gameObjectId][effectId];
 
         effectApplicator.update(deltaTime);
 
         if (effectApplicator.isFinished()) {
           effectApplicator.cancel();
 
-          this._killEffect(activeEffects.map[name]);
+          this._killEffect(activeEffects.map[effectId]);
 
-          activeEffects.map[name] = null;
-          this._applicatorsMap[gameObjectId][name] = null;
+          activeEffects.map[effectId] = null;
+          this._applicatorsMap[gameObjectId][effectId] = null;
 
           return false;
         }

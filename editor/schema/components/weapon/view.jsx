@@ -17,7 +17,7 @@ export const WeaponWidget = ({
     models: {
       items: templates.map((template) => ({
         title: template.name,
-        value: template.name,
+        value: template.id,
       })),
     },
   }), [ references ]);

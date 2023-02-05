@@ -10,9 +10,9 @@ const END_SPAWN_HOUR = 18;
 const KILL_GRASS_HOUR = 0;
 
 const GRASS_TEMPLATES = [
-  'healGrass',
-  'ogreGrass',
-  'boomGrass',
+  '8fcc3d22-c360-41cb-aa7b-0ac39b74db95',
+  '2aa2d307-1a4f-4fe4-ac4c-2a4e6900ed16',
+  '2241aceb-0112-4ad4-9c0c-9c05f6d4ba47',
 ];
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
@@ -47,8 +47,8 @@ export class GrassSpawner {
     const hour = time.getHours();
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const templateName = MathOps.random(0, GRASS_TEMPLATES.length - 1);
-      const grass = this._gameObjectSpawner.spawn(GRASS_TEMPLATES[templateName]);
+      const templateIndex = MathOps.random(0, GRASS_TEMPLATES.length - 1);
+      const grass = this._gameObjectSpawner.spawn(GRASS_TEMPLATES[templateIndex]);
       const grassTransform = grass.getComponent(TRANSFORM_COMPONENT_NAME);
 
       grassTransform.offsetX = MathOps.random(this._islandSize.minX, this._islandSize.maxX);

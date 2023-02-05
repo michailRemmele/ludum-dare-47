@@ -236,7 +236,6 @@
           "id": "100",
           "name": "sea",
           "fromTemplate": true,
-          "templateName": "sea",
           "children": [],
           "components": [
             {
@@ -248,13 +247,13 @@
                 "rotation": 0
               }
             }
-          ]
+          ],
+          "templateId": "230b7192-9b5a-4e14-aacd-4e2bf35e25aa"
         },
         {
           "id": "200",
           "name": "island",
           "fromTemplate": true,
-          "templateName": "island",
           "children": [],
           "components": [
             {
@@ -266,13 +265,13 @@
                 "rotation": 0
               }
             }
-          ]
+          ],
+          "templateId": "bc9e86fe-ba41-43c5-8be5-132367671f86"
         },
         {
           "id": "300",
           "name": "pathBlockerRight",
           "fromTemplate": true,
-          "templateName": "pathBlockerRight",
           "children": [],
           "components": [
             {
@@ -284,13 +283,13 @@
                 "rotation": 0
               }
             }
-          ]
+          ],
+          "templateId": "e275bb13-3372-4401-bd73-ac30a4ad7a1b"
         },
         {
           "id": "301",
           "name": "pathBlockerLeft",
           "fromTemplate": true,
-          "templateName": "pathBlockerLeft",
           "children": [],
           "components": [
             {
@@ -302,13 +301,13 @@
                 "rotation": 0
               }
             }
-          ]
+          ],
+          "templateId": "fca46d70-ef71-4ea7-861a-f019eaa56101"
         },
         {
           "id": "303",
           "name": "pathBlockerTop",
           "fromTemplate": true,
-          "templateName": "pathBlockerTop",
           "children": [],
           "components": [
             {
@@ -320,13 +319,13 @@
                 "rotation": 0
               }
             }
-          ]
+          ],
+          "templateId": "23c51948-c96c-465b-8e29-6a7c1937460d"
         },
         {
           "id": "304",
           "name": "pathBlockerBottom",
           "fromTemplate": true,
-          "templateName": "pathBlockerBottom",
           "children": [],
           "components": [
             {
@@ -338,13 +337,13 @@
                 "rotation": 0
               }
             }
-          ]
+          ],
+          "templateId": "0c5954e7-dd3d-4437-a471-2082a1d95361"
         },
         {
           "id": "305",
           "name": "pathBlockerTopLeft",
           "fromTemplate": true,
-          "templateName": "pathBlockerTopLeft",
           "children": [],
           "components": [
             {
@@ -356,13 +355,13 @@
                 "rotation": 0
               }
             }
-          ]
+          ],
+          "templateId": "a5b63dfa-6088-43f3-831f-8aabda7ec14e"
         },
         {
           "id": "306",
           "name": "pathBlockerTopRight",
           "fromTemplate": true,
-          "templateName": "pathBlockerTopRight",
           "children": [],
           "components": [
             {
@@ -374,13 +373,13 @@
                 "rotation": 0
               }
             }
-          ]
+          ],
+          "templateId": "c2550cf1-2b0f-4fe5-863d-aa4e4fe4bb94"
         },
         {
           "id": "307",
           "name": "pathBlockerBottomRight",
           "fromTemplate": true,
-          "templateName": "pathBlockerBottomRight",
           "children": [],
           "components": [
             {
@@ -392,13 +391,13 @@
                 "rotation": 0
               }
             }
-          ]
+          ],
+          "templateId": "5f8fe305-a23f-4c02-bd2c-33f86c721050"
         },
         {
           "id": "308",
           "name": "pathBlockerBottomLeft",
           "fromTemplate": true,
-          "templateName": "pathBlockerBottomLeft",
           "children": [],
           "components": [
             {
@@ -410,29 +409,29 @@
                 "rotation": 0
               }
             }
-          ]
+          ],
+          "templateId": "c6e1bc04-ab27-41e2-8c31-01c8e2a914d3"
         },
         {
           "id": "1",
           "name": "player",
           "fromTemplate": true,
-          "templateName": "player",
           "children": [
             {
               "id": "1.1",
               "name": "playerHitBox",
               "fromTemplate": true,
-              "templateName": "playerHitBox",
               "children": [],
-              "components": []
+              "components": [],
+              "templateId": "21f581ca-4d42-4b4e-9e08-d1de370a5e0d"
             },
             {
               "id": "1.3",
               "name": "playerAimRadius",
               "fromTemplate": true,
-              "templateName": "playerAimRadius",
               "children": [],
-              "components": []
+              "components": [],
+              "templateId": "1c44b64a-efc8-4903-bef5-ba13984c6e99"
             },
             {
               "id": "1.2",
@@ -473,111 +472,111 @@
               "name": "keyboardControl",
               "config": {
                 "inputEventBindings": [
-                    {
-                      "id": "8ef798ca-73c0-4f72-a437-f5f22b8b7e6d",
-                      "key": "W",
-                      "event": "PRESSED",
-                      "messageType": "MOVEMENT",
-                      "attrs": [
-                        {
-                          "id": "5085a1a9-674e-4de5-9e2e-2f53282f4717",
-                          "name": "angle",
-                          "type": "number",
-                          "value": 270
-                        }
-                      ]
-                    },
-                    {
-                      "id": "7c9d0caf-0e0c-4ba9-8624-266a26294cae",
-                      "key": "A",   
-                      "event": "PRESSED",
-                      "messageType": "MOVEMENT",
-                      "attrs": [
-                        {
-                          "id": "5a4b7850-6aab-493a-b9d2-c78a74b8bc6d",
-                          "name": "angle",
-                          "type": "number",
-                          "value": 180
-                        }
-                      ]
-                    },
-                    {
-                      "id": "e901ed80-5820-48fd-95d9-8d87a5f61cf4",
-                      "key": "S",
-                      "event": "PRESSED",
-                      "messageType": "MOVEMENT",
-                      "attrs": [
-                        {
-                          "id": "2cf2e49e-2600-43b1-a223-185521d30991",
-                          "name": "angle",
-                          "type": "number",
-                          "value": 90
-                        }
-                      ]
-                    },
-                    {
-                      "id": "854c285f-39e7-46d8-9904-19bc20820723",
-                      "key": "D",
-                      "event": "PRESSED",
-                      "messageType": "MOVEMENT",
-                      "attrs": [
-                        {
-                          "id": "c3e6c5bd-1dea-4a76-91dc-339675226b0a",
-                          "name": "angle",
-                          "type": "number",
-                          "value": 0
-                        }
-                      ]
-                    },
-                    {
-                      "id": "a5f13255-5a2a-4de1-806a-44876a9b5534",
-                      "key": "E",
-                      "event": "RELEASED",
-                      "messageType": "GRAB",
-                      "attrs": []
-                    },
-                    {
-                      "id": "534e0a9d-548d-4968-b324-d16c54c084a3",
-                      "key": "I",
-                      "event": "RELEASED",
-                      "messageType": "TOGGLE_INVENTORY",
-                      "attrs": []
-                    },
-                    {
-                      "id": "572598bf-53c9-4c0f-a092-82cf530501fc",
-                      "key": "ESCAPE",
-                      "event": "RELEASED",
-                      "messageType": "CLOSE_INVENTORY",
-                      "attrs": []
-                    },
-                    {
-                      "id": "c04e9b85-f27d-440e-81bc-019a2673a5e5",
-                      "key": "1",
-                      "event": "RELEASED",
-                      "messageType": "USE_ITEM",
-                      "attrs": [
-                        {
-                          "id": "8383705a-6f6e-4b1d-8696-2870ac95659a",
-                          "name": "item",
-                          "type": "string",
-                          "value": "healPotion"
-                        }
-                      ]
-                    },
-                    {
-                      "id": "a687753d-c563-4624-9184-9103151c02d4",
-                      "key": "2",
-                      "event": "RELEASED",
-                      "messageType": "USE_ITEM",
-                      "attrs": [
-                        {
-                          "id": "0eb5a72e-f39e-48b9-8bf6-8d642535848b",
-                          "name": "item",
-                          "type": "string",
-                          "value": "powerPotion"
-                        }
-                      ]
-                    }
+                  {
+                    "id": "8ef798ca-73c0-4f72-a437-f5f22b8b7e6d",
+                    "key": "W",
+                    "event": "PRESSED",
+                    "messageType": "MOVEMENT",
+                    "attrs": [
+                      {
+                        "id": "5085a1a9-674e-4de5-9e2e-2f53282f4717",
+                        "name": "angle",
+                        "type": "number",
+                        "value": 270
+                      }
+                    ]
+                  },
+                  {
+                    "id": "7c9d0caf-0e0c-4ba9-8624-266a26294cae",
+                    "key": "A",
+                    "event": "PRESSED",
+                    "messageType": "MOVEMENT",
+                    "attrs": [
+                      {
+                        "id": "5a4b7850-6aab-493a-b9d2-c78a74b8bc6d",
+                        "name": "angle",
+                        "type": "number",
+                        "value": 180
+                      }
+                    ]
+                  },
+                  {
+                    "id": "e901ed80-5820-48fd-95d9-8d87a5f61cf4",
+                    "key": "S",
+                    "event": "PRESSED",
+                    "messageType": "MOVEMENT",
+                    "attrs": [
+                      {
+                        "id": "2cf2e49e-2600-43b1-a223-185521d30991",
+                        "name": "angle",
+                        "type": "number",
+                        "value": 90
+                      }
+                    ]
+                  },
+                  {
+                    "id": "854c285f-39e7-46d8-9904-19bc20820723",
+                    "key": "D",
+                    "event": "PRESSED",
+                    "messageType": "MOVEMENT",
+                    "attrs": [
+                      {
+                        "id": "c3e6c5bd-1dea-4a76-91dc-339675226b0a",
+                        "name": "angle",
+                        "type": "number",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  {
+                    "id": "a5f13255-5a2a-4de1-806a-44876a9b5534",
+                    "key": "E",
+                    "event": "RELEASED",
+                    "messageType": "GRAB",
+                    "attrs": []
+                  },
+                  {
+                    "id": "534e0a9d-548d-4968-b324-d16c54c084a3",
+                    "key": "I",
+                    "event": "RELEASED",
+                    "messageType": "TOGGLE_INVENTORY",
+                    "attrs": []
+                  },
+                  {
+                    "id": "572598bf-53c9-4c0f-a092-82cf530501fc",
+                    "key": "ESCAPE",
+                    "event": "RELEASED",
+                    "messageType": "CLOSE_INVENTORY",
+                    "attrs": []
+                  },
+                  {
+                    "id": "c04e9b85-f27d-440e-81bc-019a2673a5e5",
+                    "key": "1",
+                    "event": "RELEASED",
+                    "messageType": "USE_ITEM",
+                    "attrs": [
+                      {
+                        "id": "8383705a-6f6e-4b1d-8696-2870ac95659a",
+                        "name": "item",
+                        "type": "string",
+                        "value": "healPotion"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "a687753d-c563-4624-9184-9103151c02d4",
+                    "key": "2",
+                    "event": "RELEASED",
+                    "messageType": "USE_ITEM",
+                    "attrs": [
+                      {
+                        "id": "0eb5a72e-f39e-48b9-8bf6-8d642535848b",
+                        "name": "item",
+                        "type": "string",
+                        "value": "powerPotion"
+                      }
+                    ]
+                  }
                 ]
               }
             },
@@ -605,7 +604,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "templateId": "647d1216-ac18-4e50-8d98-dd0d0a3a52e9"
         }
       ],
       "id": "23f60f16-49f4-4117-8202-48b1211bec99"
@@ -2169,7 +2169,7 @@
               "damage": 10,
               "range": 150,
               "projectileSpeed": 150,
-              "projectileModel": "energyBall",
+              "projectileModel": "ba8e2243-e919-4cee-a201-204b4e8ed31d",
               "projectileRadius": 10
             }
           }
