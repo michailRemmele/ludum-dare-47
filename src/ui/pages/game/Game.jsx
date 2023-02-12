@@ -31,8 +31,9 @@ const LOAD_SCENE_MSG = 'LOAD_SCENE';
 const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
 const GRAB_MSG = 'GRAB';
 const ATTACK_MSG = 'ATTACK';
-const GAME_SCENE_NAME = 'game';
-const MAIN_MENU_SCENE_NAME = 'mainMenu';
+const GAME_SCENE_ID = 'a6d997de-cc8d-4d61-9fcb-932179c32142';
+const MAIN_MENU_SCENE_ID = '5d78b760-d3ae-4966-ad0c-7942a54006f2';
+const LOADER_ID = '3c4c020d-bcf7-4644-893f-fa72335b352e';
 
 const CAN_GRAB_KEY = 'canGrab';
 const INVENTORY_KEY = 'inventory';
@@ -221,8 +222,8 @@ export class Game extends React.Component {
   onRestart() {
     this.props.pushMessage({
       type: LOAD_SCENE_MSG,
-      name: GAME_SCENE_NAME,
-      loader: 'loader',
+      sceneId: GAME_SCENE_ID,
+      loaderId: LOADER_ID,
       unloadCurrent: true,
       clean: true,
     });
@@ -231,7 +232,7 @@ export class Game extends React.Component {
   onMainMenu() {
     this.props.pushMessage({
       type: LOAD_SCENE_MSG,
-      name: MAIN_MENU_SCENE_NAME,
+      sceneId: MAIN_MENU_SCENE_ID,
       unloadCurrent: true,
     });
   }

@@ -1,19 +1,20 @@
 {
   "scenes": [
     {
+      "id": "5d78b760-d3ae-4966-ad0c-7942a54006f2",
       "name": "mainMenu",
-      "level": null,
+      "levelId": null,
       "systems": [
         {
           "name": "uiBridge",
           "options": {}
         }
-      ],
-      "id": "5d78b760-d3ae-4966-ad0c-7942a54006f2"
+      ]
     },
     {
+      "id": "a6d997de-cc8d-4d61-9fcb-932179c32142",
       "name": "game",
-      "level": "island",
+      "levelId": "23f60f16-49f4-4117-8202-48b1211bec99",
       "systems": [
         {
           "name": "keyboardInputSystem",
@@ -197,8 +198,7 @@
             ]
           }
         }
-      ],
-      "id": "a6d997de-cc8d-4d61-9fcb-932179c32142"
+      ]
     }
   ],
   "levels": [
@@ -4500,6 +4500,7 @@
   ],
   "loaders": [
     {
+      "id": "3c4c020d-bcf7-4644-893f-fa72335b352e",
       "name": "loader",
       "level": null,
       "systems": [
@@ -4507,10 +4508,9 @@
           "name": "uiBridge",
           "options": {}
         }
-      ],
-      "id": "3c4c020d-bcf7-4644-893f-fa72335b352e"
+      ]
     }
   ],
-  "startScene": "mainMenu",
-  "startLoader": null
+  "startSceneId": "5d78b760-d3ae-4966-ad0c-7942a54006f2",
+  "startLoaderId": null
 }

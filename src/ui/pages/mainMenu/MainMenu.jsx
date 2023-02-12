@@ -14,14 +14,15 @@ import {
 import './style.css';
 
 const LOAD_SCENE_MSG = 'LOAD_SCENE';
-const GAME_SCENE_NAME = 'game';
+const GAME_SCENE_ID = 'a6d997de-cc8d-4d61-9fcb-932179c32142';
+const LOADER_ID = '3c4c020d-bcf7-4644-893f-fa72335b352e';
 
 export class MainMenu extends React.Component {
   onPlay() {
     this.props.pushMessage({
       type: LOAD_SCENE_MSG,
-      name: GAME_SCENE_NAME,
-      loader: 'loader',
+      sceneId: GAME_SCENE_ID,
+      loaderId: LOADER_ID,
       clean: true,
     });
   }

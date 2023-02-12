@@ -6,7 +6,7 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-router": "5.2.0",
-    "remiz": "0.9.9"
+    "remiz": "0.9.11"
   },
   "devDependencies": {
     "@babel/core": "7.3.4",

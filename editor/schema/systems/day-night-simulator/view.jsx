@@ -26,7 +26,7 @@ const getItems = (
 export const DayNightSimulatorWidget = ({ fields, path, references }) => {
   const scene = useConfig(path.slice(0, SCENE_PATH_LENGTH));
   const level = useConfig(
-    typeof scene.level === 'string' ? [ 'levels', `name:${scene.level}` ] : void 0
+    typeof scene.levelId === 'string' ? [ 'levels', `id:${scene.levelId}` ] : void 0
   );
   const gameObjects = level?.gameObjects || [];
 
