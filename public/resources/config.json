@@ -1361,7 +1361,8 @@
             "sortingLayer": "units",
             "fit": "stretch",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         },
@@ -2093,7 +2094,8 @@
             "sortingLayer": "units",
             "fit": "stretch",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -2817,7 +2819,8 @@
             "sortingLayer": "units",
             "fit": "stretch",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -2854,7 +2857,8 @@
             "sortingLayer": "terrain",
             "fit": "repeat",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -2891,7 +2895,8 @@
             "sortingLayer": "background",
             "fit": "repeat",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -2951,7 +2956,8 @@
             "sortingLayer": "terrain",
             "fit": "repeat",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3011,7 +3017,8 @@
             "sortingLayer": "terrain",
             "fit": "repeat",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3071,7 +3078,8 @@
             "sortingLayer": "terrain",
             "fit": "repeat",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3131,7 +3139,8 @@
             "sortingLayer": "terrain",
             "fit": "repeat",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3191,7 +3200,8 @@
             "sortingLayer": "terrain",
             "fit": "stretch",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3251,7 +3261,8 @@
             "sortingLayer": "terrain",
             "fit": "stretch",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3311,7 +3322,8 @@
             "sortingLayer": "terrain",
             "fit": "stretch",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3371,7 +3383,8 @@
             "sortingLayer": "terrain",
             "fit": "stretch",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3520,7 +3533,8 @@
             "sortingLayer": "units",
             "fit": "stretch",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3625,7 +3639,8 @@
             "sortingLayer": "units",
             "fit": "stretch",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3730,7 +3745,8 @@
             "sortingLayer": "units",
             "fit": "stretch",
             "material": {
-              "type": "lightsensitive"
+              "type": "lightsensitive",
+              "options": {}
             }
           }
         }
@@ -3940,7 +3956,8 @@
             "sortingLayer": "units",
             "fit": "stretch",
             "material": {
-              "type": "basic"
+              "type": "basic",
+              "options": {}
             }
           }
         }
@@ -4048,7 +4065,8 @@
                 "sortingLayer": "effectsBack",
                 "fit": "stretch",
                 "material": {
-                  "type": "basic"
+                  "type": "basic",
+                  "options": {}
                 }
               }
             }
@@ -4210,7 +4228,8 @@
             "sortingLayer": "units",
             "fit": "stretch",
             "material": {
-              "type": "basic"
+              "type": "basic",
+              "options": {}
             }
           }
         },
@@ -4299,7 +4318,8 @@
                 "sortingLayer": "effectsBack",
                 "fit": "stretch",
                 "material": {
-                  "type": "basic"
+                  "type": "basic",
+                  "options": {}
                 }
               }
             }
@@ -4483,7 +4503,8 @@
             "sortingLayer": "units",
             "fit": "stretch",
             "material": {
-              "type": "basic"
+              "type": "basic",
+              "options": {}
             }
           }
         },
