@@ -11,4 +11,8 @@ export const player = {
       type: 'number',
     },
   ],
+  getInitial: () => ({
+    skyId: '',
+    threshold: 0,
+  }),
 };

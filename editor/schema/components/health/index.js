@@ -7,4 +7,7 @@ export const health = {
       type: 'number',
     },
   ],
+  getInitial: () => ({
+    points: 1,
+  }),
 };

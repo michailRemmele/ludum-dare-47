@@ -12,4 +12,8 @@ export const ui = {
       type: 'string',
     },
   ],
+  getInitial: () => ({
+    title: '',
+    icon: '',
+  }),
 };

@@ -7,4 +7,7 @@ export const movement = {
       type: 'number',
     },
   ],
+  getInitial: () => ({
+    speed: 0,
+  }),
 };

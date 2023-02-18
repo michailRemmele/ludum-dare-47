@@ -16,4 +16,8 @@ export const reaper = {
     },
   ],
   view: ReaperWidget,
+  getInitial: () => ({
+    lifetime: 1000,
+    allowedComponents: [],
+  }),
 };

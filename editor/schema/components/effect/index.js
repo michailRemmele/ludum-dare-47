@@ -79,4 +79,9 @@ export const effect = {
     },
   },
   view: EffectWidget,
+  getInitial: () => ({
+    type: 'instant',
+    applicatorOptions: {},
+    action: '',
+  }),
 };

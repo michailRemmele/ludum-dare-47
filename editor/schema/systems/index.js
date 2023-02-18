@@ -13,7 +13,7 @@ import { grassSpawner } from './grass-spawner';
 import { itemsActivator } from './items-activator';
 import { movementSystem } from './movement-system';
 import { reaper } from './reaper';
-import { thumbStickControl } from './thumb-stick-controller';
+import { thumbStickController } from './thumb-stick-controller';
 import { touchDeviceJammer } from './touch-device-jammer';
 
 export const systemsSchema = {
@@ -32,6 +32,6 @@ export const systemsSchema = {
   itemsActivator,
   movementSystem,
   reaper,
-  thumbStickControl,
+  thumbStickController,
   touchDeviceJammer,
 };

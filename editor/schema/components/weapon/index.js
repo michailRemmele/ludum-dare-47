@@ -68,4 +68,12 @@ export const weapon = {
     },
   },
   view: WeaponWidget,
+  getInitial: () => ({
+    type: 'melee',
+    cooldown: 1000,
+    properties: {
+      damage: 1,
+      range: 10,
+    },
+  }),
 };

@@ -100,7 +100,7 @@
   "systems.reaper.lifetime.title": "Lifetime",
   "systems.reaper.allowedComponents.title": "Allowed Components",
 
-  "systems.thumbStickControl.title": "Thumb Stick Control",
+  "systems.thumbStickController.title": "Thumb Stick Controller",
 
   "systems.touchDeviceJammer.title": "Touch Device Jammer",
 

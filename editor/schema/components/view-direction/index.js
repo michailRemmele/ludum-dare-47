@@ -12,4 +12,8 @@ export const viewDirection = {
       type: 'number',
     },
   ],
+  getInitial: () => ({
+    x: 0,
+    y: 0,
+  }),
 };

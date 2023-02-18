@@ -1,3 +1,3 @@
-export const thumbStickControl = {
-  title: 'systems.thumbStickControl.title',
+export const thumbStickController = {
+  title: 'systems.thumbStickController.title',
 };

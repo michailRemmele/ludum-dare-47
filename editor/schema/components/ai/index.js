@@ -23,4 +23,7 @@ export const ai = {
       ],
     },
   },
+  getInitial: () => ({
+    strategy: 'enemy',
+  }),
 };

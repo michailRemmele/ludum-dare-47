@@ -27,4 +27,7 @@ export const collectable = {
       ],
     },
   },
+  getInitial: () => ({
+    name: '',
+  }),
 };

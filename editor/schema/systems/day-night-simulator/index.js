@@ -21,4 +21,9 @@ export const dayNightSimulator = {
     },
   ],
   view: DayNightSimulatorWidget,
+  getInitial: () => ({
+    dayLength: 60000,
+    startTime: 0,
+    skyId: '',
+  }),
 };
