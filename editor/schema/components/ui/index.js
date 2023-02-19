@@ -12,7 +12,7 @@ export const ui = {
       type: 'string',
     },
   ],
-  getInitial: () => ({
+  getInitialState: () => ({
     title: '',
     icon: '',
   }),

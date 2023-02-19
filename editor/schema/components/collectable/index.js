@@ -27,7 +27,7 @@ export const collectable = {
       ],
     },
   },
-  getInitial: () => ({
+  getInitialState: () => ({
     name: '',
   }),
 };

@@ -79,7 +79,7 @@ export const effect = {
     },
   },
   view: EffectWidget,
-  getInitial: () => ({
+  getInitialState: () => ({
     type: 'instant',
     applicatorOptions: {},
     action: '',

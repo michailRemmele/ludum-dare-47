@@ -12,7 +12,7 @@ export const viewDirection = {
       type: 'number',
     },
   ],
-  getInitial: () => ({
+  getInitialState: () => ({
     x: 0,
     y: 0,
   }),

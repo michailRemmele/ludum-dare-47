@@ -68,7 +68,7 @@ export const weapon = {
     },
   },
   view: WeaponWidget,
-  getInitial: () => ({
+  getInitialState: () => ({
     type: 'melee',
     cooldown: 1000,
     properties: {
