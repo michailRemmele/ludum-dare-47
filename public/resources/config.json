@@ -118,7 +118,8 @@
           "name": "cameraSystem",
           "options": {
             "windowNodeId": "root",
-            "initialCamera": "1.2"
+            "initialCamera": "1.2",
+            "scaleSensitivity": 0.5
           }
         },
         {
@@ -166,7 +167,7 @@
           "options": {}
         },
         {
-          "name": "threeJSRenderer",
+          "name": "renderer",
           "options": {
             "windowNodeId": "root",
             "backgroundColor": "#000",
@@ -179,8 +180,7 @@
               "lights",
               "effectsBack",
               "units"
-            ],
-            "scaleSensitivity": 0.5
+            ]
           }
         },
         {
@@ -263,8 +263,8 @@
             {
               "name": "transform",
               "config": {
-                "offsetX": 0,
-                "offsetY": 0,
+                "offsetX": 1,
+                "offsetY": -1,
                 "offsetZ": 0,
                 "rotation": 0,
                 "scaleX": 1,
