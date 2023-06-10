@@ -11,6 +11,8 @@ import {
   commands,
 } from 'remiz-editor';
 
+import { PanelCSS, SectionHeaderStyled } from './thumb-stick-control.style';
+
 export const InputBind = ({
   path,
   event,
@@ -35,7 +37,7 @@ export const InputBind = ({
 
   return (
     <Panel
-      className='thumb-stick-control__panel'
+      css={PanelCSS}
       title={t('components.thumbStickControl.bind.title', { index: order + 1 })}
       onDelete={handleDeleteBind}
     >
@@ -50,9 +52,9 @@ export const InputBind = ({
         component={LabelledTextInput}
         label={t('components.thumbStickControl.bind.messageType.title')}
       />
-      <span className='thumb-stick-control__section-header'>
+      <SectionHeaderStyled>
         {t('components.thumbStickControl.bind.attributes.title')}
-      </span>
+      </SectionHeaderStyled>
       <MultiField
         path={attrsPath}
       />

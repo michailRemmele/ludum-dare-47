@@ -5,8 +5,7 @@ import { Button } from 'antd';
 import { useConfig, useCommander, commands } from 'remiz-editor';
 
 import { InputBind } from './input-bind';
-
-import './style.less';
+import { EventListStyled, ButtonCSS } from './thumb-stick-control.style';
 
 const events = [
   {
@@ -54,9 +53,9 @@ export const ThumbStickControlWidget = ({ path }) => {
 
   return (
     <div>
-      <ul className='thumb-stick-control__events'>
+      <EventListStyled>
         {addedOptions.map((event, index) => (
-          <li className='thumb-stick-control__fieldset' key={event.value}>
+          <li key={event.value}>
             <InputBind
               path={path}
               event={event}
@@ -65,9 +64,9 @@ export const ThumbStickControlWidget = ({ path }) => {
             />
           </li>
         ))}
-      </ul>
+      </EventListStyled>
       <Button
-        className='thumb-stick-control__button'
+        css={ButtonCSS}
         size='small'
         onClick={handleAddNewBind}
         disabled={availableOptions.length === 0}

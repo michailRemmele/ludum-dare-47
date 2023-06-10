@@ -23,7 +23,10 @@ module.exports = {
     'react-dom': 'ReactDOM',
     'i18next': 'i18next',
     'react-i18next': 'ReactI18next',
+    'dayjs': 'dayjs',
     'antd': 'antd',
+    '@emotion/react': 'emotionReact',
+    '@emotion/styled': 'emotionStyled',
     'remiz-editor': 'RemizEditor',
   },
 
@@ -65,7 +68,10 @@ module.exports = {
             options: {
               presets: [
                 '@babel/preset-env',
-                '@babel/preset-react',
+                [
+                  '@babel/preset-react',
+                  { runtime: 'automatic', importSource: '@emotion/react' },
+                ],
               ],
             },
           },
@@ -85,25 +91,6 @@ module.exports = {
       {
         test: /\.svg$/,
         use: [ '@svgr/webpack' ],
-      },
-      {
-        test: /\.less$/i,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              lessOptions: {
-                javascriptEnabled: true,
-              },
-            },
-          },
-        ],
       },
     ],
   },
