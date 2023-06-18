@@ -170,17 +170,7 @@
           "name": "renderer",
           "options": {
             "windowNodeId": "root",
-            "backgroundColor": "#000",
-            "sortingLayers": [
-              "default",
-              "background",
-              "space",
-              "terrain",
-              "decorations",
-              "lights",
-              "effectsBack",
-              "units"
-            ]
+            "backgroundColor": "#000"
           }
         },
         {
@@ -7805,6 +7795,24 @@
           "name": "uiBridge",
           "options": {}
         }
+      ]
+    }
+  ],
+  "globalOptions": [
+    {
+      "id": "a655234a-555e-48a2-85ba-1464f02fc6f4",
+      "name": "sortingLayers",
+      "type": "array",
+      "value": [
+        "default",
+        "background",
+        "space",
+        "terrain",
+        "decorations",
+        "lights",
+        "effectsBackground",
+        "unitsBack",
+        "units"
       ]
     }
   ],
