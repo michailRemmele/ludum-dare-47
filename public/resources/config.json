@@ -137,32 +137,6 @@
           }
         },
         {
-          "name": "jammer",
-          "options": {
-            "messages": [
-              "COLLISION_ENTER",
-              "COLLISION_STAY",
-              "COLLISION_LEAVE"
-            ]
-          }
-        },
-        {
-          "name": "collisionDetectionSystem",
-          "options": {}
-        },
-        {
-          "name": "collisionBroadcastSystem",
-          "options": {}
-        },
-        {
-          "name": "collisionSolver",
-          "options": {}
-        },
-        {
-          "name": "constraintSolver",
-          "options": {}
-        },
-        {
           "name": "animator",
           "options": {}
         },
@@ -7810,8 +7784,7 @@
         "terrain",
         "decorations",
         "lights",
-        "effectsBackground",
-        "unitsBack",
+        "effectsBack",
         "units"
       ]
     }
