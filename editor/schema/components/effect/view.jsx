@@ -13,7 +13,7 @@ export const EffectWidget = ({
   path,
   references,
 }) => {
-  const { scripts, scriptsSchema } = useExtension();
+  const { scriptsSchema } = useExtension();
 
   const actionPath = useMemo(() => path.concat('action'), [ path ]);
 
@@ -22,7 +22,7 @@ export const EffectWidget = ({
   const extendedReferences = useMemo(() => ({
     ...references,
     actions: {
-      items: Object.keys(scripts[EFFECTS_SYSTEM_NAME] || {}).map((key) => ({
+      items: Object.keys(scriptsSchema[EFFECTS_SYSTEM_NAME] || {}).map((key) => ({
         title: key,
         value: key,
       })),
