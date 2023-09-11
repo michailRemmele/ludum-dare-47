@@ -29,7 +29,7 @@
     "i18next": "21.8.9",
     "mini-css-extract-plugin": "2.7.0",
     "react-i18next": "11.17.2",
-    "remiz-editor": "0.0.1",
+    "remiz-editor": "0.0.5",
     "style-loader": "3.3.1",
     "webpack": "5.75.0",
     "webpack-bundle-analyzer": "4.7.0",
@@ -38,9 +38,8 @@
   },
   "scripts": {
     "start": "env NODE_ENV=development webpack-dev-server --hot --config webpack.config.js",
-    "start:editor": "npm run build:editor && npx remiz-editor",
+    "start:editor": "npx remiz-editor",
     "build": "env NODE_ENV=production webpack --config webpack.config.js",
-    "build:editor": "env NODE_ENV=production webpack --config webpack.editor.config.js",
     "analyse": "webpack --config webpack.config.js --profile --json > stats.json && webpack-bundle-analyzer stats.json ./build"
   }
 }
