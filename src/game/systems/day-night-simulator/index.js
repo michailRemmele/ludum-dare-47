@@ -1,7 +1,8 @@
+import { System, Light } from 'remiz';
+
 import { Time, DAY_LENGTH_MS } from './time';
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
-const LIGHT_COMPONENT_NAME = 'light';
 
 const skyMiddayColor = {
   red: 255,
@@ -84,8 +85,10 @@ const skyPoints = [
 
 export const interpolate = (start, end, progress) => start + ((end - start) * progress);
 
-export class DayNightSimulator {
+export class DayNightSimulator extends System {
   constructor(options) {
+    super();
+
     const {
       createGameObjectObserver,
       store,
@@ -102,7 +105,7 @@ export class DayNightSimulator {
     this._startTime = startTime;
 
     const gameObjectObserver = createGameObjectObserver({
-      components: [ LIGHT_COMPONENT_NAME ],
+      components: [ Light ],
     });
     this.sky = gameObjectObserver.getById(skyId);
 
@@ -148,7 +151,7 @@ export class DayNightSimulator {
   }
 
   _updateSkyColor() {
-    const light = this.sky.getComponent(LIGHT_COMPONENT_NAME);
+    const light = this.sky.getComponent(Light);
 
     const startPoint = skyPoints[this._startSegmentIndex];
     const endPoint = skyPoints[this._startSegmentIndex + 1]
@@ -187,3 +190,5 @@ export class DayNightSimulator {
     this._updateSkyColor();
   }
 }
+
+DayNightSimulator.systemName = 'DayNightSimulator';

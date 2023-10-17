@@ -1,21 +1,27 @@
-import { MathOps, Vector2, VectorOps } from 'remiz';
+import {
+  MathOps,
+  Vector2,
+  VectorOps,
+  System,
+  Transform,
+} from 'remiz';
+
+import { Movement, ViewDirection } from '../../components';
 
 const MOVEMENT_MSG = 'MOVEMENT';
-
-const TRANSFORM_COMPONENT_NAME = 'transform';
-const MOVEMENT_COMPONENT_NAME = 'movement';
-const VIEW_DIRECTION_COMPONENT_NAME = 'viewDirection';
 
 const SPEED_DIVIDER = 0.4;
 const MIN_SPEED = 0.5;
 const MAX_SPEED = 1;
 
-export class MovementSystem {
+export class MovementSystem extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({
       components: [
-        MOVEMENT_COMPONENT_NAME,
-        TRANSFORM_COMPONENT_NAME,
+        Movement,
+        Transform,
       ],
     });
     this.messageBus = options.messageBus;
@@ -27,7 +33,7 @@ export class MovementSystem {
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
 
-      const { vector, speed, penalty } = gameObject.getComponent(MOVEMENT_COMPONENT_NAME);
+      const { vector, speed, penalty } = gameObject.getComponent(Movement);
       vector.multiplyNumber(0);
 
       const messages = this.messageBus.getById(MOVEMENT_MSG, gameObjectId) || [];
@@ -48,7 +54,7 @@ export class MovementSystem {
         return;
       }
 
-      const transform = gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
+      const transform = gameObject.getComponent(Transform);
       const resultingSpeed = penalty < speed ? speed - penalty : 0;
 
       movementVector.multiplyNumber(
@@ -59,10 +65,12 @@ export class MovementSystem {
       transform.offsetX = transform.offsetX + vector.x;
       transform.offsetY = transform.offsetY + vector.y;
 
-      const viewDirection = gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
+      const viewDirection = gameObject.getComponent(ViewDirection);
 
       viewDirection.x = vector.x;
       viewDirection.y = vector.y;
     });
   }
 }
+
+MovementSystem.systemName = 'MovementSystem';

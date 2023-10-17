@@ -1,10 +1,14 @@
+import { System } from 'remiz';
+
 const KILL_MSG = 'KILL';
 const DEATH_MSG = 'DEATH';
 
 const GRAVEYARD_CLEAN_FREQUENCY = 1000;
 
-export class Reaper {
+export class Reaper extends System {
   constructor(options) {
+    super();
+
     this._gameObjectDestroyer = options.gameObjectDestroyer;
     this.messageBus = options.messageBus;
     this._allowedComponents = options.allowedComponents.reduce((storage, componentName) => {
@@ -18,9 +22,9 @@ export class Reaper {
   }
 
   _killEntitiy(gameObject) {
-    gameObject.getComponentNamesList().forEach((componentName) => {
-      if (!this._allowedComponents[componentName]) {
-        gameObject.removeComponent(componentName);
+    gameObject.getComponents().forEach((component) => {
+      if (!this._allowedComponents[component.constructor.componentName]) {
+        gameObject.removeComponent(component.constructor);
       }
     });
 
@@ -66,3 +70,5 @@ export class Reaper {
     }
   }
 }
+
+Reaper.systemName = 'Reaper';

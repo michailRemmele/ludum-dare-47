@@ -1,6 +1,4 @@
-import { MathOps } from 'remiz';
-
-const TRANSFORM_COMPONENT_NAME = 'transform';
+import { MathOps, System, Transform } from 'remiz';
 
 const KILL_MSG = 'KILL';
 
@@ -17,8 +15,10 @@ const GRASS_TEMPLATES = [
 
 const TIME_OF_DAY_KEY = 'timeOfDay';
 
-export class GrassSpawner {
+export class GrassSpawner extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({
       type: 'item',
     });
@@ -49,7 +49,7 @@ export class GrassSpawner {
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
       const templateIndex = MathOps.random(0, GRASS_TEMPLATES.length - 1);
       const grass = this._gameObjectSpawner.spawn(GRASS_TEMPLATES[templateIndex]);
-      const grassTransform = grass.getComponent(TRANSFORM_COMPONENT_NAME);
+      const grassTransform = grass.getComponent(Transform);
 
       grassTransform.offsetX = MathOps.random(this._islandSize.minX, this._islandSize.maxX);
       grassTransform.offsetY = MathOps.random(this._islandSize.minY, this._islandSize.maxY);
@@ -70,3 +70,5 @@ export class GrassSpawner {
     }
   }
 }
+
+GrassSpawner.systemName = 'GrassSpawner';

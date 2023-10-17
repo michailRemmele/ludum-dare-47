@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Health } from '../../../game/components';
 import {
   withGame,
   withDeviceDetection,
@@ -38,8 +39,6 @@ const LOADER_ID = '3c4c020d-bcf7-4644-893f-fa72335b352e';
 const CAN_GRAB_KEY = 'canGrab';
 const INVENTORY_KEY = 'inventory';
 const TIME_OF_DAY_KEY = 'timeOfDay';
-
-const HEALTH_COMPONENT_NAME = 'health';
 
 const DEV_MODE = 'development';
 
@@ -171,7 +170,7 @@ export class Game extends React.Component {
       return;
     }
 
-    const health = gameObject.getComponent(HEALTH_COMPONENT_NAME);
+    const health = gameObject.getComponent(Health);
 
     const newState = {};
 

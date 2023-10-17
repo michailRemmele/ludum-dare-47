@@ -1,31 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { ActiveEffects, Effect, UI } from '../../../../../game/components';
 import { withGame } from '../../../common';
 import { PLAYER_ID } from '../../../../consts';
 
 import './style.css';
-
-export const ACTIVE_EFFECTS_COMPONENT_NAME = 'activeEffects';
-export const EFFECT_COMPONENT_NAME = 'effect';
-export const UI_COMPONENT_NAME = 'ui';
 
 export const EffectsBar = ({ className, gameObjects }) => {
   const [ effects, setEffects ] = useState([]);
 
   useEffect(() => {
     const handlePlayerUpdate = (gameObject) => {
-      if (!gameObject || !gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME)) {
+      if (!gameObject || !gameObject.getComponent(ActiveEffects)) {
         return;
       }
 
-      const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
+      const activeEffects = gameObject.getComponent(ActiveEffects);
 
       const newEffects = activeEffects.list.reduce((acc, effectName) => {
         const effectObject = activeEffects.map[effectName];
 
-        const effect = effectObject.getComponent(EFFECT_COMPONENT_NAME);
-        const ui = effectObject.getComponent(UI_COMPONENT_NAME);
+        const effect = effectObject.getComponent(Effect);
+        const ui = effectObject.getComponent(UI);
 
         if (effect && ui) {
           acc.push({

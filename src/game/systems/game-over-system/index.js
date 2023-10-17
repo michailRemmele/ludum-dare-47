@@ -1,9 +1,12 @@
-const CONTROL_COMPONENT_NAME = 'keyboardControl';
+import { System, KeyboardControl } from 'remiz';
+
 const DEATH_MSG = 'DEATH';
 const DEFEAT_MSG = 'DEFEAT';
 
-export class GameOverSystem {
+export class GameOverSystem extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({
       type: 'unit',
     });
@@ -23,7 +26,7 @@ export class GameOverSystem {
 
   _handleEntitiyAdd = (gameObject) => {
     const gameObjectId = gameObject.getId();
-    const control = gameObject.getComponent(CONTROL_COMPONENT_NAME);
+    const control = gameObject.getComponent(KeyboardControl);
 
     if (control) {
       this._playerGameObjects.add(gameObjectId);
@@ -51,3 +54,5 @@ export class GameOverSystem {
     }
   }
 }
+
+GameOverSystem.systemName = 'GameOverSystem';

@@ -1,15 +1,15 @@
-import { MathOps } from 'remiz';
+import { MathOps, System } from 'remiz';
 
-const CONTROL_COMPONENT_NAME = 'thumbStickControl';
+import { ThumbStickControl } from '../../components';
 
 const INPUT_MSG = 'THUMB_STICK_POSITION_CHANGE';
 
-export class ThumbStickController {
+export class ThumbStickController extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({
-      components: [
-        CONTROL_COMPONENT_NAME,
-      ],
+      components: [ ThumbStickControl ],
     });
     this.messageBus = options.messageBus;
     this._currentX = 0;
@@ -35,7 +35,7 @@ export class ThumbStickController {
     }
 
     this._gameObjectObserver.forEach((gameObject) => {
-      const control = gameObject.getComponent(CONTROL_COMPONENT_NAME);
+      const control = gameObject.getComponent(ThumbStickControl);
       const eventBinding = control.inputEventBindings[INPUT_MSG];
 
       if (eventBinding) {
@@ -56,3 +56,5 @@ export class ThumbStickController {
     });
   }
 }
+
+ThumbStickController.systemName = 'ThumbStickController';

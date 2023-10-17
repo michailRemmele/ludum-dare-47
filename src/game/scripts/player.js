@@ -1,6 +1,4 @@
-import { MathOps } from 'remiz';
-
-const LIGHT_COMPONENT_NAME = 'light';
+import { MathOps, Light } from 'remiz';
 
 export class Player {
   constructor({
@@ -15,8 +13,8 @@ export class Player {
   }
 
   update() {
-    const skyLight = this.sky.getComponent(LIGHT_COMPONENT_NAME);
-    const playerLight = this.gameObject.getComponent(LIGHT_COMPONENT_NAME);
+    const skyLight = this.sky.getComponent(Light);
+    const playerLight = this.gameObject.getComponent(Light);
 
     playerLight.options.intensity = MathOps.clamp(
       this.threshold - skyLight.options.intensity,

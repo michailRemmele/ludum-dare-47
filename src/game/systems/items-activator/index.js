@@ -1,3 +1,5 @@
+import { System } from 'remiz';
+
 const USE_ITEM_MSG = 'USE_ITEM';
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
 
@@ -23,8 +25,10 @@ const ITEM_EFFECTS = {
   powerPotion: POWER_EFFECT,
 };
 
-export class ItemsActivator {
+export class ItemsActivator extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({});
     this._store = options.store;
     this.messageBus = options.messageBus;
@@ -56,3 +60,5 @@ export class ItemsActivator {
     });
   }
 }
+
+ItemsActivator.systemName = 'ItemsActivator';

@@ -1,14 +1,17 @@
-import aiStrategies from './aiStrategies';
+import { System, ColliderContainer } from 'remiz';
 
-const AI_COMPONENT_NAME = 'ai';
-const COLLIDER_CONTAINER_COMPONENT_NAME = 'colliderContainer';
+import { AI } from '../../components';
 
-export class AISystem {
+import { strategies } from './ai-strategies';
+
+export class AISystem extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({
       components: [
-        AI_COMPONENT_NAME,
-        COLLIDER_CONTAINER_COMPONENT_NAME,
+        AI,
+        ColliderContainer,
       ],
     });
     this._store = options.store;
@@ -27,9 +30,9 @@ export class AISystem {
 
   _handleEntitiyAdd = (gameObject) => {
     const gameObjectId = gameObject.getId();
-    const ai = gameObject.getComponent(AI_COMPONENT_NAME);
+    const ai = gameObject.getComponent(AI);
 
-    this.playersStrategies[gameObjectId] = new aiStrategies[ai.strategy](
+    this.playersStrategies[gameObjectId] = new strategies[ai.strategy](
       gameObject, this._store, this.messageBus
     );
   };
@@ -45,3 +48,5 @@ export class AISystem {
     });
   }
 }
+
+AISystem.systemName = 'AISystem';

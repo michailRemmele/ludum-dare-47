@@ -1,18 +1,19 @@
-import { ActiveEffects } from '../../components/activeEffects';
+import { System } from 'remiz';
 
-import effectApplicators from './effectApplicators';
-import { ACTIVE_EFFECTS_COMPONENT_NAME, EFFECT_COMPONENT_NAME } from './consts';
+import { ActiveEffects, Effect } from '../../components';
+
+import { effectApplicators } from './effect-applicators';
 
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
 const REMOVE_EFFECT_MSG = 'REMOVE_EFFECT';
 const KILL_MSG = 'KILL';
 
-export class EffectsSystem {
+export class EffectsSystem extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({
-      components: [
-        ACTIVE_EFFECTS_COMPONENT_NAME,
-      ],
+      components: [ ActiveEffects ],
     });
     this._gameObjectSpawner = options.gameObjectSpawner;
     this._actions = options.effects;
@@ -63,7 +64,7 @@ export class EffectsSystem {
     this._applicatorsMap[gameObjectId][effectId].cancel();
     this._applicatorsMap[gameObjectId][effectId] = null;
 
-    const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
+    const activeEffects = gameObject.getComponent(ActiveEffects);
 
     activeEffects.list = activeEffects.list.filter((activeEffectId) => {
       if (effectId !== activeEffectId) {
@@ -88,13 +89,13 @@ export class EffectsSystem {
       action,
       type,
       options: constOptions,
-    } = effect.getComponent(EFFECT_COMPONENT_NAME);
+    } = effect.getComponent(Effect);
 
-    if (!gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME)) {
-      gameObject.setComponent(ACTIVE_EFFECTS_COMPONENT_NAME, new ActiveEffects());
+    if (!gameObject.getComponent(ActiveEffects)) {
+      gameObject.setComponent(new ActiveEffects());
     }
 
-    const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
+    const activeEffects = gameObject.getComponent(ActiveEffects);
     activeEffects.list.push(effectId);
     activeEffects.map[effectId] = effect;
 
@@ -143,7 +144,7 @@ export class EffectsSystem {
 
     this._gameObjectObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
-      const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
+      const activeEffects = gameObject.getComponent(ActiveEffects);
 
       activeEffects.list = activeEffects.list.filter((effectId) => {
         const effectApplicator = this._applicatorsMap[gameObjectId][effectId];
@@ -166,3 +167,5 @@ export class EffectsSystem {
     });
   }
 }
+
+EffectsSystem.systemName = 'EffectsSystem';

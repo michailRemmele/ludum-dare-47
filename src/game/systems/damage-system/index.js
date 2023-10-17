@@ -1,10 +1,14 @@
+import { System } from 'remiz';
+
+import { Health } from '../../components';
+
 const DAMAGE_MSG = 'DAMAGE';
 const KILL_MSG = 'KILL';
 
-const HEALTH_COMPONENT_NAME = 'health';
-
-export class DamageSystem {
+export class DamageSystem extends System {
   constructor(options) {
+    super();
+
     this.messageBus = options.messageBus;
   }
 
@@ -13,7 +17,7 @@ export class DamageSystem {
     damageMessages.forEach((message) => {
       const { gameObject, value } = message;
 
-      const health = gameObject.getComponent(HEALTH_COMPONENT_NAME);
+      const health = gameObject.getComponent(Health);
 
       if (!health) {
         return;
@@ -33,3 +37,5 @@ export class DamageSystem {
     });
   }
 }
+
+DamageSystem.systemName = 'DamageSystem';

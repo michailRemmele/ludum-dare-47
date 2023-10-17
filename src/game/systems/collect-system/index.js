@@ -1,3 +1,11 @@
+import {
+  System,
+  KeyboardControl,
+  MouseControl,
+} from 'remiz';
+
+import { Collectable } from '../../components';
+
 const COLLISION_ENTER_MSG = 'COLLISION_ENTER';
 const COLLISION_LEAVE_MSG = 'COLLISION_LEAVE';
 const GRAB_MSG = 'GRAB';
@@ -6,16 +14,14 @@ const KILL_MSG = 'KILL';
 const CAN_GRAB_KEY = 'canGrab';
 const INVENTORY_KEY = 'inventory';
 
-const KEYBOARD_CONTROL_COMPONENT_NAME = 'keyboardControl';
-const MOUSE_CONTROL_COMPONENT_NAME = 'mouseControl';
-const COLLECTABLE_COMPONENT_NAME = 'collectable';
-
-export class CollectSystem {
+export class CollectSystem extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({
       components: [
-        KEYBOARD_CONTROL_COMPONENT_NAME,
-        MOUSE_CONTROL_COMPONENT_NAME,
+        KeyboardControl,
+        MouseControl,
       ],
     });
     this._store = options.store;
@@ -39,7 +45,7 @@ export class CollectSystem {
       enterMessages.forEach((message) => {
         const { gameObject2 } = message;
 
-        const collectable = gameObject2.getComponent(COLLECTABLE_COMPONENT_NAME);
+        const collectable = gameObject2.getComponent(Collectable);
 
         if (!collectable) {
           return;
@@ -66,7 +72,7 @@ export class CollectSystem {
         }
 
         const item = this._canGrab.values().next().value;
-        const collectable = item.getComponent(COLLECTABLE_COMPONENT_NAME);
+        const collectable = item.getComponent(Collectable);
 
         if (!collectable) {
           return;
@@ -88,3 +94,5 @@ export class CollectSystem {
     });
   }
 }
+
+CollectSystem.systemName = 'CollectSystem';

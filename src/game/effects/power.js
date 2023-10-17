@@ -1,6 +1,5 @@
 import { Effect } from '../systems/effects-system';
-
-const WEAPON_COMPONENT_NAME = 'weapon';
+import { Weapon } from '../components';
 
 class Heal extends Effect {
   constructor(gameObject, _messageBus, options) {
@@ -12,7 +11,7 @@ class Heal extends Effect {
   }
 
   apply() {
-    const weapon = this._gameObject.getComponent(WEAPON_COMPONENT_NAME);
+    const weapon = this._gameObject.getComponent(Weapon);
 
     if (!weapon) {
       return;
@@ -23,7 +22,7 @@ class Heal extends Effect {
   }
 
   onCancel() {
-    const weapon = this._gameObject.getComponent(WEAPON_COMPONENT_NAME);
+    const weapon = this._gameObject.getComponent(Weapon);
 
     if (!weapon) {
       return;

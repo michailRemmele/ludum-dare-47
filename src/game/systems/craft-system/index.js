@@ -1,9 +1,13 @@
+import { System } from 'remiz';
+
 const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
 
 const INVENTORY_KEY = 'inventory';
 
-export class CraftSystem {
+export class CraftSystem extends System {
   constructor(options) {
+    super();
+
     this._store = options.store;
     this.messageBus = options.messageBus;
   }
@@ -25,3 +29,5 @@ export class CraftSystem {
     });
   }
 }
+
+CraftSystem.systemName = 'CraftSystem';

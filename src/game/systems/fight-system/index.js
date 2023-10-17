@@ -1,18 +1,17 @@
-import { MathOps } from 'remiz';
+import { MathOps, System, Transform } from 'remiz';
+
+import { Weapon } from '../../components';
 
 import { SimpleFighter } from './fighters';
 
 const ATTACK_MSG = 'ATTACK';
 
-const WEAPON_COMPONENT_NAME = 'weapon';
-const TRANSFORM_COMPONENT_NAME = 'transform';
-
-export class FightSystem {
+export class FightSystem extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({
-      components: [
-        WEAPON_COMPONENT_NAME,
-      ],
+      components: [ Weapon ],
     });
     this._gameObjectSpawner = options.gameObjectSpawner;
     this.messageBus = options.messageBus;
@@ -44,7 +43,7 @@ export class FightSystem {
 
   _attack(gameObject, targetX, targetY) {
     const gameObjectId = gameObject.getId();
-    const { offsetX, offsetY } = gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
+    const { offsetX, offsetY } = gameObject.getComponent(Transform);
 
     const fighter = this._fighters[gameObjectId];
 
@@ -89,3 +88,5 @@ export class FightSystem {
     });
   }
 }
+
+FightSystem.systemName = 'FightSystem';

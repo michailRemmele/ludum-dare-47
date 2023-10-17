@@ -6,7 +6,7 @@ import {
   useConfig,
 } from 'remiz-editor';
 
-const EFFECTS_SYSTEM_NAME = 'effectsSystem';
+import { EffectsSystem } from '../../../../src/game/systems';
 
 export const EffectWidget = ({
   fields,
@@ -22,15 +22,15 @@ export const EffectWidget = ({
   const extendedReferences = useMemo(() => ({
     ...references,
     actions: {
-      items: Object.keys(scriptsSchema[EFFECTS_SYSTEM_NAME] || {}).map((key) => ({
+      items: Object.keys(scriptsSchema[EffectsSystem.systemName] || {}).map((key) => ({
         title: key,
         value: key,
       })),
     },
   }), [ references ]);
 
-  const partFields = scriptsSchema[EFFECTS_SYSTEM_NAME]?.[scriptName]?.fields;
-  const partReferences = scriptsSchema[EFFECTS_SYSTEM_NAME]?.[scriptName]?.references;
+  const partFields = scriptsSchema[EffectsSystem.systemName]?.[scriptName]?.fields;
+  const partReferences = scriptsSchema[EffectsSystem.systemName]?.[scriptName]?.references;
 
   return (
     <>

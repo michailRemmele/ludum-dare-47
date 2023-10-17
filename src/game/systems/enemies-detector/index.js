@@ -1,9 +1,11 @@
-const CONTROL_COMPONENT_NAME = 'keyboardControl';
+import { System, KeyboardControl } from 'remiz';
 
 const PLAYER_KEY = 'player';
 
-export class EnemiesDetector {
+export class EnemiesDetector extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({
       type: 'unit',
     });
@@ -18,7 +20,7 @@ export class EnemiesDetector {
     this._store.set(PLAYER_KEY, null);
 
     this._gameObjectObserver.forEach((gameObject) => {
-      if (gameObject.getComponent(CONTROL_COMPONENT_NAME)) {
+      if (gameObject.getComponent(KeyboardControl)) {
         this._store.set(PLAYER_KEY, gameObject);
       }
     });
@@ -34,3 +36,5 @@ export class EnemiesDetector {
     }
   }
 }
+
+EnemiesDetector.systemName = 'EnemiesDetector';

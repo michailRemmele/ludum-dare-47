@@ -1,56 +1,24 @@
 import { Component } from 'remiz';
 
-import { applicatorOptions } from './applicatorOptions';
+import { applicatorOptions } from './applicator-options';
 
 export class Effect extends Component {
-  constructor(componentName, config) {
-    super(componentName, config);
+  constructor(config) {
+    super(config);
 
-    this._action = config.action;
-    this._type = config.type;
-    this._options = { ...config.options };
+    this.action = config.action;
+    this.type = config.type;
+    this.options = { ...config.options };
 
-    const EffectApplicator = applicatorOptions[this._type];
+    const EffectApplicator = applicatorOptions[this.type];
 
     if (EffectApplicator) {
-      this._applicatorOptions = new EffectApplicator(config.applicatorOptions);
+      this.applicatorOptions = new EffectApplicator(config.applicatorOptions);
     }
   }
 
-  set action(action) {
-    this._action = action;
-  }
-
-  get action() {
-    return this._action;
-  }
-
-  set type(type) {
-    this._type = type;
-  }
-
-  get type() {
-    return this._type;
-  }
-
-  set options(options) {
-    this._options = options;
-  }
-
-  get options() {
-    return this._options;
-  }
-
-  set applicatorOptions(applicatorOptions) {
-    this._applicatorOptions = applicatorOptions;
-  }
-
-  get applicatorOptions() {
-    return this._applicatorOptions;
-  }
-
   clone() {
-    return new Effect(this.componentName, {
+    return new Effect({
       action: this.action,
       type: this.type,
       options: this.options,
@@ -58,3 +26,5 @@ export class Effect extends Component {
     });
   }
 }
+
+Effect.componentName = 'Effect';

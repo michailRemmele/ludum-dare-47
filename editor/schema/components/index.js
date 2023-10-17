@@ -11,15 +11,15 @@ import { viewDirection } from './view-direction';
 import { weapon } from './weapon';
 
 export const componentsSchema = {
-  ai,
-  aimRadius,
-  collectable,
-  effect,
-  health,
-  hitBox,
-  movement,
-  thumbStickControl,
-  ui,
-  viewDirection,
-  weapon,
+  AI: ai,
+  AimRadius: aimRadius,
+  Collectable: collectable,
+  Effect: effect,
+  Health: health,
+  HitBox: hitBox,
+  Movement: movement,
+  ThumbStickControl: thumbStickControl,
+  UI: ui,
+  ViewDirection: viewDirection,
+  Weapon: weapon,
 };

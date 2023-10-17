@@ -1,21 +1,28 @@
-import { MathOps } from 'remiz';
+import {
+  MathOps,
+  System,
+  KeyboardControl,
+  MouseControl,
+  Transform,
+} from 'remiz';
+
+import {
+  ViewDirection,
+  AimRadius,
+  HitBox,
+} from '../../components';
 
 const ATTACK_MSG = 'ATTACK';
 const COLLISION_STAY_MSG = 'COLLISION_STAY';
 
-const KEYBOARD_CONTROL_COMPONENT_NAME = 'keyboardControl';
-const MOUSE_CONTROL_COMPONENT_NAME = 'mouseControl';
-const TRANSFORM_COMPONENT_NAME = 'transform';
-const VIEW_DIRECTION_COMPONENT_NAME = 'viewDirection';
-const AIM_RADIUS_COMPONENT_NAME = 'aimRadius';
-const HITBOX_COMPONENT_NAME = 'hitBox';
-
-export class AutoAimingSystem {
+export class AutoAimingSystem extends System {
   constructor(options) {
+    super();
+
     this._gameObjectObserver = options.createGameObjectObserver({
       components: [
-        KEYBOARD_CONTROL_COMPONENT_NAME,
-        MOUSE_CONTROL_COMPONENT_NAME,
+        KeyboardControl,
+        MouseControl,
       ],
     });
     this.messageBus = options.messageBus;
@@ -23,8 +30,8 @@ export class AutoAimingSystem {
 
   update() {
     this._gameObjectObserver.forEach((gameObject) => {
-      const { offsetX, offsetY } = gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
-      const viewDirection = gameObject.getComponent(VIEW_DIRECTION_COMPONENT_NAME);
+      const { offsetX, offsetY } = gameObject.getComponent(Transform);
+      const viewDirection = gameObject.getComponent(ViewDirection);
 
       const attackMessages = this.messageBus.getById(ATTACK_MSG, gameObject.getId()) || [];
 
@@ -39,7 +46,7 @@ export class AutoAimingSystem {
         attackMessage.y = offsetY + viewDirection.y;
 
         const aimRadius = gameObject.getChildren().find(
-          (child) => child.getComponent(AIM_RADIUS_COMPONENT_NAME)
+          (child) => child.getComponent(AimRadius)
         );
 
         if (!aimRadius) {
@@ -54,7 +61,7 @@ export class AutoAimingSystem {
         collisionMessages.forEach((collisionMessage) => {
           const { gameObject2 } = collisionMessage;
 
-          const hitBox = gameObject2.getComponent(HITBOX_COMPONENT_NAME);
+          const hitBox = gameObject2.getComponent(HitBox);
           const targetParent = gameObject2.parent;
 
           if (!hitBox || gameObject.getId() === targetParent.getId()) {
@@ -64,7 +71,7 @@ export class AutoAimingSystem {
           const {
             offsetX: targetX,
             offsetY: targetY,
-          } = gameObject2.getComponent(TRANSFORM_COMPONENT_NAME);
+          } = gameObject2.getComponent(Transform);
 
           const distance = MathOps.getDistanceBetweenTwoPoints(offsetX, targetX, offsetY, targetY);
 
@@ -78,3 +85,5 @@ export class AutoAimingSystem {
     });
   }
 }
+
+AutoAimingSystem.systemName = 'AutoAimingSystem';
