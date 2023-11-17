@@ -59,7 +59,8 @@ import {
   ViewDirection,
   Weapon,
 } from 'game/components';
-import helpers from './helpers';
+import { scripts } from 'game/scripts';
+import { effects } from 'game/effects';
 import {
   isIosSafari,
   isIos,
@@ -123,8 +124,12 @@ const options = {
     ViewDirection,
     Weapon,
   ],
-  helpers: {
-    ...helpers,
+  resources: {
+    [ScriptSystem.systemName]: scripts,
+    [EffectsSystem.systemName]: effects,
+    [UiBridge.systemName]: {
+      loadUiApp: () => import('ui'),
+    },
   },
 };
 

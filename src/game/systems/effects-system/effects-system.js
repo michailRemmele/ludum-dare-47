@@ -12,13 +12,19 @@ export class EffectsSystem extends System {
   constructor(options) {
     super();
 
-    this._gameObjectObserver = options.createGameObjectObserver({
+    const {
+      createGameObjectObserver,
+      gameObjectSpawner,
+      messageBus,
+      resources = {},
+    } = options;
+
+    this._gameObjectObserver = createGameObjectObserver({
       components: [ ActiveEffects ],
     });
-    this._gameObjectSpawner = options.gameObjectSpawner;
-    this._actions = options.effects;
-    this.messageBus = options.messageBus;
-    this.helpers = options.helpers;
+    this._gameObjectSpawner = gameObjectSpawner;
+    this._actions = resources;
+    this.messageBus = messageBus;
 
     this._applicatorsMap = {};
   }
@@ -29,12 +35,6 @@ export class EffectsSystem extends System {
 
   unmount() {
     this._gameObjectObserver.unsubscribe('onremove', this._handleEntitiyRemove);
-  }
-
-  async load() {
-    const { effects } = await this.helpers.loadEffects();
-
-    this._actions = effects;
   }
 
   _handleEntitiyRemove = (gameObject) => {
