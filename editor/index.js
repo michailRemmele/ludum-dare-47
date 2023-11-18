@@ -1,4 +1,4 @@
-import { componentsSchema, systemsSchema, scriptsSchema } from './schema';
+import { componentsSchema, systemsSchema, resourcesSchema } from './schema';
 
 import en from './locales/en.json';
 
@@ -9,6 +9,6 @@ const locales = {
 export {
   componentsSchema,
   systemsSchema,
-  scriptsSchema,
+  resourcesSchema,
   locales,
 };

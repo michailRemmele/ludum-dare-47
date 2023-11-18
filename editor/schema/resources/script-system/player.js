@@ -2,12 +2,12 @@ export const player = {
   fields: [
     {
       name: 'options.skyId',
-      title: 'scripts.scriptSystem.options.skyId.title',
+      title: 'resources.scriptSystem.options.skyId.title',
       type: 'string',
     },
     {
       name: 'options.threshold',
-      title: 'scripts.scriptSystem.options.threshold.title',
+      title: 'resources.scriptSystem.options.threshold.title',
       type: 'number',
     },
   ],
