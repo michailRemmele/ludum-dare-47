@@ -2,24 +2,23 @@
 import { MathOps, Transform } from 'remiz';
 
 import { Weapon } from '../../../components';
+import { PLAYER_ID } from '../../../../consts/game-objects';
 
 import { AIStrategy } from './ai-strategy';
 
 const ATTACK_MSG = 'ATTACK';
 const MOVEMENT_MSG = 'MOVEMENT';
 
-const PLAYER_KEY = 'player';
-
 const SPAWN_COOLDOWN = 1000;
 const PREPARE_TO_ATTACK_COOLDOWN = 500;
 const MELEE_RADIUS = 20;
 
 export class EnemyAIStrategy extends AIStrategy{
-  constructor(player, store, messageBus) {
+  constructor(player, gameObjectObserver, messageBus) {
     super();
 
     this._player = player;
-    this._store = store;
+    this.gameObjectObserver = gameObjectObserver;
     this.messageBus = messageBus;
 
     this._playerId = this._player.getId();
@@ -35,7 +34,7 @@ export class EnemyAIStrategy extends AIStrategy{
       return;
     }
 
-    const enemy = this._store.get(PLAYER_KEY);
+    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -73,7 +72,7 @@ export class EnemyAIStrategy extends AIStrategy{
       return;
     }
 
-    const enemy = this._store.get(PLAYER_KEY);
+    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -97,7 +96,7 @@ export class EnemyAIStrategy extends AIStrategy{
       return;
     }
 
-    const enemy = this._store.get(PLAYER_KEY);
+    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
 
     if (!enemy) {
       return;

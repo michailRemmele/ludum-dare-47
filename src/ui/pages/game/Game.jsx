@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Health } from '../../../game/components';
+import { CollectService, TimeService } from '../../../game/systems';
 import {
   withGame,
   withDeviceDetection,
@@ -20,7 +21,7 @@ import {
 import {
   ActionBar,
 } from '../../elements/desktop';
-import { PLAYER_ID } from '../../consts';
+import { PLAYER_ID } from '../../../consts/game-objects';
 
 import './style.css';
 
@@ -35,10 +36,6 @@ const ATTACK_MSG = 'ATTACK';
 const GAME_SCENE_ID = 'a6d997de-cc8d-4d61-9fcb-932179c32142';
 const MAIN_MENU_SCENE_ID = '5d78b760-d3ae-4966-ad0c-7942a54006f2';
 const LOADER_ID = '3c4c020d-bcf7-4644-893f-fa72335b352e';
-
-const CAN_GRAB_KEY = 'canGrab';
-const INVENTORY_KEY = 'inventory';
-const TIME_OF_DAY_KEY = 'timeOfDay';
 
 const DEV_MODE = 'development';
 
@@ -91,35 +88,37 @@ export class Game extends React.Component {
         </>
       ),
     };
-    this.messageBusSubscription = this.onMessageBusUpdate.bind(this);
-    this.storeSubscription = this.onStoreUpdate.bind(this);
-    this.playerSubscription = this.onPlayerUpdate.bind(this);
   }
 
   componentDidMount() {
-    this.props.messageBusObserver.subscribe(this.messageBusSubscription);
-    this.props.storeObserver.subscribe(this.storeSubscription);
-    this.props.gameObjects.subscribe(this.playerSubscription, PLAYER_ID);
+    this.props.gameStateObserver.subscribe(this.onGameStateUpdate);
   }
 
   componentWillUnmount() {
-    this.props.messageBusObserver.unsubscribe(this.messageBusSubscription);
-    this.props.storeObserver.unsubscribe(this.storeSubscription);
-    this.props.gameObjects.unsubscribe(this.playerSubscription, PLAYER_ID);
+    this.props.gameStateObserver.unsubscribe(this.onGameStateUpdate);
   }
 
-  onStoreUpdate(store) {
-    const canGrabSet = store.get(CAN_GRAB_KEY);
+  onGameStateUpdate = () => {
+    this.handlePlayerUpdate();
+    this.handleMessagesUpdate();
+    this.handleGUIUpdate();
+  }
 
-    const canGrab = !!canGrabSet.size;
+  handleGUIUpdate() {
+    const collectService = this.props.sceneContext.getService(CollectService);
+    const timeService = this.props.sceneContext.getService(TimeService);
+    const collectableItems = collectService.getCollectableItems();
+    const inventory = collectService.getInventory();
+
+    const canGrab = !!collectableItems.size;
 
     if (canGrab !== this.state.canGrab) {
       this.setState({
-        canGrab: !!canGrabSet.size,
+        canGrab: !!collectableItems.size,
       });
     }
 
-    const { healGrass, ogreGrass, boomGrass } = store.get(INVENTORY_KEY);
+    const { healGrass, ogreGrass, boomGrass } = inventory;
 
     if (
       healGrass !== this.state.healGrass
@@ -133,8 +132,7 @@ export class Game extends React.Component {
       });
     }
 
-    const time = store.get(TIME_OF_DAY_KEY);
-    const days = time.getDays();
+    const days = timeService.getDays();
 
     if (days !== this.state.days) {
       this.setState({
@@ -143,34 +141,37 @@ export class Game extends React.Component {
     }
   }
 
-  onMessageBusUpdate(messageBus) {
-    if (messageBus.get(VICTORY_MSG)) {
+  handleMessagesUpdate() {
+    if (this.props.messageBus.get(VICTORY_MSG)) {
       this.setState({ pageState: PAGE_STATE.VICTORY });
-    } else if (messageBus.get(DEFEAT_MSG)) {
+    } else if (this.props.messageBus.get(DEFEAT_MSG)) {
       this.setState({ pageState: PAGE_STATE.DEFEAT });
     }
 
     const pageState = this.state.pageState;
-    if (messageBus.get(TOGGLE_INVENTORY_MSG) && pageState === PAGE_STATE.GAME) {
+    const toggleInventoryMessages = this.props.messageBus.get(TOGGLE_INVENTORY_MSG);
+    const closeInventoryMessages = this.props.messageBus.get(CLOSE_INVENTORY_MSG);
+    if (toggleInventoryMessages && pageState === PAGE_STATE.GAME) {
       this.setState({ pageState: PAGE_STATE.INVENTORY });
     } else if (
-      (messageBus.get(TOGGLE_INVENTORY_MSG) || messageBus.get(CLOSE_INVENTORY_MSG)) &&
+      (toggleInventoryMessages || closeInventoryMessages) &&
       pageState === PAGE_STATE.INVENTORY
     ) {
       this.setState({ pageState: PAGE_STATE.GAME });
     }
   }
 
-  onPlayerUpdate(gameObject) {
-    if (!gameObject) {
+  handlePlayerUpdate() {
+    const gameObject = this.props.gameObjectObserver.getById(PLAYER_ID);
+    const health = gameObject?.getComponent(Health);
+
+    if (!gameObject || !health) {
       this.setState({
         health: 0,
         maxHealth: 0,
       });
       return;
     }
-
-    const health = gameObject.getComponent(Health);
 
     const newState = {};
 
@@ -359,10 +360,11 @@ export class Game extends React.Component {
 }
 
 Game.propTypes = {
-  messageBusObserver: PropTypes.any,
-  storeObserver: PropTypes.any,
+  gameStateObserver: PropTypes.any,
+  gameObjectObserver: PropTypes.any,
+  messageBus: PropTypes.any,
+  sceneContext: PropTypes.any,
   pushMessage: PropTypes.func,
-  gameObjects: PropTypes.any,
   touchDevice: PropTypes.bool,
 };
 

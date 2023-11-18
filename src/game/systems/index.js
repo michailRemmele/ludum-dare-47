@@ -1,11 +1,10 @@
 export { AISystem } from './ai-system';
 export { AutoAimingSystem } from './auto-aiming-system';
-export { CollectSystem } from './collect-system';
+export { CollectSystem, CollectService } from './collect-system';
 export { CraftSystem } from './craft-system';
 export { DamageSystem } from './damage-system';
-export { DayNightSimulator } from './day-night-simulator';
+export { DayNightSimulator, TimeService } from './day-night-simulator';
 export { EffectsSystem } from './effects-system';
-export { EnemiesDetector } from './enemies-detector';
 export { EnemySpawner } from './enemy-spawner';
 export { FightSystem } from './fight-system';
 export { GameOverSystem } from './game-over-system';

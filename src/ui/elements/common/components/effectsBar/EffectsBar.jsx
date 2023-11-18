@@ -3,15 +3,21 @@ import PropTypes from 'prop-types';
 
 import { ActiveEffects, Effect, UI } from '../../../../../game/components';
 import { withGame } from '../../../common';
-import { PLAYER_ID } from '../../../../consts';
+import { PLAYER_ID } from '../../../../../consts/game-objects';
 
 import './style.css';
 
-export const EffectsBar = ({ className, gameObjects }) => {
+export const EffectsBar = ({
+  className,
+  gameStateObserver,
+  gameObjectObserver,
+}) => {
   const [ effects, setEffects ] = useState([]);
 
   useEffect(() => {
-    const handlePlayerUpdate = (gameObject) => {
+    const handleGameStateUpdate = () => {
+      const gameObject = gameObjectObserver.getById(PLAYER_ID);
+
       if (!gameObject || !gameObject.getComponent(ActiveEffects)) {
         return;
       }
@@ -48,10 +54,10 @@ export const EffectsBar = ({ className, gameObjects }) => {
       }
     };
 
-    gameObjects.subscribe(handlePlayerUpdate, PLAYER_ID);
+    gameStateObserver.subscribe(handleGameStateUpdate);
 
-    return () => gameObjects.unsubscribe(handlePlayerUpdate, PLAYER_ID);
-  }, [ effects ]);
+    return () => gameStateObserver.unsubscribe(handleGameStateUpdate);
+  }, [ effects, gameObjectObserver, gameStateObserver ]);
 
   if (!effects.length) {
     return null;
@@ -73,12 +79,14 @@ export const EffectsBar = ({ className, gameObjects }) => {
 
 EffectsBar.defaultProps = {
   className: '',
-  gameObjects: void 0,
+  gameStateObserver: void 0,
+  gameObjectObserver: void 0,
 };
 
 EffectsBar.propTypes = {
   className: PropTypes.string,
-  gameObjects: PropTypes.any,
+  gameStateObserver: PropTypes.any,
+  gameObjectObserver: PropTypes.any,
 };
 
 export const EffectsBarWithGame = withGame(EffectsBar);

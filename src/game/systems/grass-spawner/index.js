@@ -1,5 +1,7 @@
 import { MathOps, System, Transform } from 'remiz';
 
+import { TimeService } from '../';
+
 const KILL_MSG = 'KILL';
 
 const SPAWN_COOLDOWN = 2000;
@@ -13,8 +15,6 @@ const GRASS_TEMPLATES = [
   '2241aceb-0112-4ad4-9c0c-9c05f6d4ba47',
 ];
 
-const TIME_OF_DAY_KEY = 'timeOfDay';
-
 export class GrassSpawner extends System {
   constructor(options) {
     super();
@@ -23,7 +23,7 @@ export class GrassSpawner extends System {
       type: 'item',
     });
     this._gameObjectSpawner = options.gameObjectSpawner;
-    this._store = options.store;
+    this.timeService = options.sceneContext.getService(TimeService);
     this.messageBus = options.messageBus;
 
     this._islandSize = {
@@ -43,8 +43,7 @@ export class GrassSpawner extends System {
       return;
     }
 
-    const time = this._store.get(TIME_OF_DAY_KEY);
-    const hour = time.getHours();
+    const hour = this.timeService.getHours();
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
       const templateIndex = MathOps.random(0, GRASS_TEMPLATES.length - 1);

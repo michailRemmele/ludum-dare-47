@@ -22,7 +22,8 @@ const getPointY = (value, max) => {
 
 export const GameStatsMeter = ({
   className,
-  messageBusObserver,
+  gameStateObserver,
+  messageBus,
 }) => {
   const chartRef = useRef(null);
   const chartCtxRef = useRef(null);
@@ -64,25 +65,25 @@ export const GameStatsMeter = ({
     ctx.stroke();
   }, []);
 
-  const onMessageBusUpdate = useCallback((messageBus) => {
-    const messages = messageBus.get(GAME_STATS_UPDATE_MSG);
-
-    if (messages) {
-      const currentFps = Math.round(messages[0].fps);
-
-      setGameObjectsCount(messages[0].gameObjectsCount);
-      setMessagesCount(Math.round(messages[0].messagesCount));
-
-      setFps(currentFps);
-      updateChart(currentFps);
-    }
-  }, []);
-
   useEffect(() => {
-    messageBusObserver.subscribe(onMessageBusUpdate);
+    const handleGameStateUpdate = () => {
+      const messages = messageBus.get(GAME_STATS_UPDATE_MSG);
 
-    return () => messageBusObserver.unsubscribe(onMessageBusUpdate);
-  }, []);
+      if (messages) {
+        const currentFps = Math.round(messages[0].fps);
+
+        setGameObjectsCount(messages[0].gameObjectsCount);
+        setMessagesCount(Math.round(messages[0].messagesCount));
+
+        setFps(currentFps);
+        updateChart(currentFps);
+      }
+    };
+
+    gameStateObserver.subscribe(handleGameStateUpdate);
+
+    return () => gameStateObserver.unsubscribe(handleGameStateUpdate);
+  }, [ gameStateObserver, messageBus ]);
 
   useEffect(() => {
     chartCtxRef.current = chartRef.current.getContext('2d');
@@ -121,7 +122,8 @@ GameStatsMeter.defaultProps = {
 
 GameStatsMeter.propTypes = {
   className: PropTypes.string,
-  messageBusObserver: PropTypes.any,
+  messageBus: PropTypes.any,
+  gameStateObserver: PropTypes.any,
 };
 
 export const WrappedGameStatsMeter = withGame(GameStatsMeter);

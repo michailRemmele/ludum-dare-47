@@ -7,13 +7,7 @@ export class GameProvider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: {
-        messageBusObserver: this.props.messageBusObserver,
-        storeObserver: this.props.storeObserver,
-        pushMessage: this.props.pushMessage,
-        pushAction: this.props.pushAction,
-        gameObjects: this.props.gameObjects,
-      },
+      value: { ...props },
     };
   }
 
@@ -28,9 +22,10 @@ export class GameProvider extends React.Component {
 
 GameProvider.propTypes = {
   children: PropTypes.node,
-  messageBusObserver: PropTypes.any,
-  storeObserver: PropTypes.any,
+  gameStateObserver: PropTypes.any,
+  gameObjectObserver: PropTypes.any,
+  messageBus: PropTypes.any,
+  sceneContext: PropTypes.any,
   pushMessage: PropTypes.func,
   pushAction: PropTypes.func,
-  gameObjects: PropTypes.any,
 };

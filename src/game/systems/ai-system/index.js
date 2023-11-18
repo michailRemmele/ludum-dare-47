@@ -8,24 +8,24 @@ export class AISystem extends System {
   constructor(options) {
     super();
 
-    this._gameObjectObserver = options.createGameObjectObserver({
+    this.aiUnitsObserver = options.createGameObjectObserver({
       components: [
         AI,
         ColliderContainer,
       ],
     });
-    this._store = options.store;
+    this.gameObjectObserver = options.createGameObjectObserver({});
     this.messageBus = options.messageBus;
 
     this.playersStrategies = {};
   }
 
   mount() {
-    this._gameObjectObserver.subscribe('onadd', this._handleEntitiyAdd);
+    this.aiUnitsObserver.subscribe('onadd', this._handleEntitiyAdd);
   }
 
   unmount() {
-    this._gameObjectObserver.unsubscribe('onadd', this._handleEntitiyAdd);
+    this.aiUnitsObserver.unsubscribe('onadd', this._handleEntitiyAdd);
   }
 
   _handleEntitiyAdd = (gameObject) => {
@@ -33,16 +33,16 @@ export class AISystem extends System {
     const ai = gameObject.getComponent(AI);
 
     this.playersStrategies[gameObjectId] = new strategies[ai.strategy](
-      gameObject, this._store, this.messageBus
+      gameObject, this.gameObjectObserver, this.messageBus
     );
   };
 
   update(options) {
     const { deltaTime } = options;
 
-    this._gameObjectObserver.fireEvents();
+    this.aiUnitsObserver.fireEvents();
 
-    this._gameObjectObserver.forEach((gameObject) => {
+    this.aiUnitsObserver.forEach((gameObject) => {
       const gameObjectId = gameObject.getId();
       this.playersStrategies[gameObjectId].update(deltaTime);
     });

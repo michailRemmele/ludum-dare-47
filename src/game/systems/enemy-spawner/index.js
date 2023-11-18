@@ -9,6 +9,7 @@ import {
   Health,
   Weapon,
 } from '../../components';
+import { TimeService } from '../';
 
 const DAMAGE_MSG = 'DAMAGE';
 
@@ -27,8 +28,6 @@ const MELEE_HP_MAGNIFIER = 5;
 const RANGE_DAMAGE_MAGNIFIER = 4;
 const RANGE_HP_MAGNIFIER = 2;
 
-const TIME_OF_DAY_KEY = 'timeOfDay';
-
 export class EnemySpawner extends System {
   constructor(options) {
     super();
@@ -37,8 +36,8 @@ export class EnemySpawner extends System {
       components: [ AI ],
     });
     this._gameObjectSpawner = options.gameObjectSpawner;
-    this._store = options.store;
     this.messageBus = options.messageBus;
+    this.timeService = options.sceneContext.getService(TimeService);
 
     this._islandSize = {
       minX: -200,
@@ -101,9 +100,8 @@ export class EnemySpawner extends System {
   update(options) {
     const { deltaTime } = options;
 
-    const time = this._store.get(TIME_OF_DAY_KEY);
-    const hour = time.getHours();
-    const days = time.getDays() - 1;
+    const hour = this.timeService.getHours();
+    const days = this.timeService.getDays() - 1;
 
     this._spawnMeleeEnemies(deltaTime, hour, days);
     this._spawnRangeEnemies(deltaTime, hour, days);

@@ -1,13 +1,12 @@
 import { MathOps, Transform, ColliderContainer } from 'remiz';
 
 import { Weapon } from '../../../components';
+import { PLAYER_ID } from '../../../../consts/game-objects';
 
 import { AIStrategy } from './ai-strategy';
 
 const ATTACK_MSG = 'ATTACK';
 const MOVEMENT_MSG = 'MOVEMENT';
-
-const PLAYER_KEY = 'player';
 
 const COOLDOWN = 1000;
 const WAYPOINT_ERROR = 1;
@@ -15,11 +14,11 @@ const MELEE_RADIUS = 50;
 const RETREAT_DISTANCE = 100;
 
 export class RangeEnemyAIStrategy extends AIStrategy{
-  constructor(player, store, messageBus) {
+  constructor(player, gameObjectObserver, messageBus) {
     super();
 
     this._player = player;
-    this._store = store;
+    this.gameObjectObserver = gameObjectObserver;
     this.messageBus = messageBus;
 
     this._playerId = this._player.getId();
@@ -51,7 +50,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
   }
 
   _updateDistances() {
-    const enemy = this._store.get(PLAYER_KEY);
+    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -64,7 +63,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
   }
 
   _updateMeleeEnemies() {
-    const enemy = this._store.get(PLAYER_KEY);
+    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -74,14 +73,14 @@ export class RangeEnemyAIStrategy extends AIStrategy{
   }
 
   _updateTargetEnemy() {
-    const enemy = this._store.get(PLAYER_KEY);
+    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
 
     if (!enemy) {
       this._enemy = null;
       return;
     }
 
-    this._enemy = this._store.get(PLAYER_KEY);
+    this._enemy = this.gameObjectObserver.getById(PLAYER_ID);
   }
 
   _findWayToRetreat() {
@@ -89,7 +88,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
 
     const { minX, maxX, minY, maxY } = this._getMovementBoundaries();
     const { offsetX, offsetY } = this._player.getComponent(Transform);
-    const enemy = this._store.get(PLAYER_KEY);
+    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
 
     if (!this._meleeEnemy || !enemy) {
       return;

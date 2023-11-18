@@ -1,9 +1,9 @@
 import { System } from 'remiz';
 
+import { CollectService } from '../';
+
 const USE_ITEM_MSG = 'USE_ITEM';
 const ADD_EFFECT_MSG = 'ADD_EFFECT';
-
-const INVENTORY_KEY = 'inventory';
 
 const HEAL_EFFECT = {
   effectId: 'a1510c63-6925-459c-9442-10902ed829f0',
@@ -30,7 +30,7 @@ export class ItemsActivator extends System {
     super();
 
     this._gameObjectObserver = options.createGameObjectObserver({});
-    this._store = options.store;
+    this.collectService = options.sceneContext.getService(CollectService);
     this.messageBus = options.messageBus;
   }
 
@@ -42,7 +42,7 @@ export class ItemsActivator extends System {
 
       messages.forEach((message) => {
         const { item } = message;
-        const inventory = this._store.get(INVENTORY_KEY);
+        const inventory = this.collectService.getInventory();
 
         if (!inventory[item]) {
           return;

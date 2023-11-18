@@ -13,25 +13,12 @@ import { Loader } from './pages/loader';
 let root;
 
 export function onInit(options) {
-  const {
-    sceneContext,
-    messageBusObserver,
-    storeObserver,
-    pushMessage,
-    pushAction,
-    gameObjects,
-  } = options;
+  const { sceneContext } = options;
 
   root = createRoot(document.getElementById('ui-root'));
 
   root.render(
-    <GameProvider
-      messageBusObserver={messageBusObserver}
-      storeObserver={storeObserver}
-      pushMessage={pushMessage}
-      pushAction={pushAction}
-      gameObjects={gameObjects}
-    >
+    <GameProvider {...options}>
       <MemoryRouter>
         <SceneSwitcher sceneName={sceneContext.name}>
           <Switch>

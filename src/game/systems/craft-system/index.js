@@ -1,14 +1,14 @@
 import { System } from 'remiz';
 
-const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
+import { CollectService } from '../';
 
-const INVENTORY_KEY = 'inventory';
+const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
 
 export class CraftSystem extends System {
   constructor(options) {
     super();
 
-    this._store = options.store;
+    this.collectService = options.sceneContext.getService(CollectService);
     this.messageBus = options.messageBus;
   }
 
@@ -17,7 +17,7 @@ export class CraftSystem extends System {
 
     craftMessages.forEach((message) => {
       const { recipe } = message;
-      const inventory = this._store.get(INVENTORY_KEY);
+      const inventory = this.collectService.getInventory();
 
       if (!inventory[recipe.resource] || inventory[recipe.resource] < recipe.cost) {
         return;
