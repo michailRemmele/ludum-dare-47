@@ -1,6 +1,7 @@
 import { MathOps, System, Transform } from 'remiz';
 
 import { TimeService } from '../';
+import { Collectable } from '../../components';
 
 const KILL_MSG = 'KILL';
 
@@ -20,7 +21,7 @@ export class GrassSpawner extends System {
     super();
 
     this._gameObjectObserver = options.createGameObjectObserver({
-      type: 'item',
+      components: [ Collectable ],
     });
     this._gameObjectSpawner = options.gameObjectSpawner;
     this.timeService = options.sceneContext.getService(TimeService);

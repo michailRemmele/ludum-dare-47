@@ -1,5 +1,7 @@
 import { System, KeyboardControl } from 'remiz';
 
+import { Health } from '../../components';
+
 const DEATH_MSG = 'DEATH';
 const DEFEAT_MSG = 'DEFEAT';
 
@@ -8,7 +10,7 @@ export class GameOverSystem extends System {
     super();
 
     this._gameObjectObserver = options.createGameObjectObserver({
-      type: 'unit',
+      components: [ Health ],
     });
     this.messageBus = options.messageBus;
 
