@@ -1,7 +1,12 @@
-import { System } from 'remiz';
+import {
+  System,
+  GameObject,
+  GameObjectObserver,
+  AddGameObject,
+  RemoveGameObject,
+} from 'remiz';
 
-const KILL_MSG = 'KILL';
-const DEATH_MSG = 'DEATH';
+import { EventType } from '../../../events';
 
 const GRAVEYARD_CLEAN_FREQUENCY = 1000;
 
@@ -9,8 +14,8 @@ export class Reaper extends System {
   constructor(options) {
     super();
 
+    this.gameObjectObserver = new GameObjectObserver(options.scene);
     this._gameObjectDestroyer = options.gameObjectDestroyer;
-    this.messageBus = options.messageBus;
     this._allowedComponents = options.allowedComponents.reduce((storage, componentName) => {
       storage[componentName] = true;
       return storage;
@@ -21,7 +26,31 @@ export class Reaper extends System {
     this._timeCounter = 0;
   }
 
-  _killEntitiy(gameObject) {
+  mount() {
+    this.gameObjectObserver.forEach(this._handleAddGameObject);
+    this.gameObjectObserver.addEventListener(AddGameObject, this._handleAddGameObject);
+    this.gameObjectObserver.addEventListener(RemoveGameObject, this._handleRemoveGameObject);
+  }
+
+  unmount() {
+    this.gameObjectObserver.forEach(this._handleRemoveGameObject);
+    this.gameObjectObserver.removeEventListener(AddGameObject, this._handleAddGameObject);
+    this.gameObjectObserver.removeEventListener(RemoveGameObject, this._handleRemoveGameObject);
+  }
+
+  _handleAddGameObject = (value) => {
+    const gameObject = value instanceof GameObject ? value : value.gameObject;
+    gameObject.addEventListener(EventType.Kill, this._handleKill);
+  };
+
+  _handleRemoveGameObject = (value) => {
+    const gameObject = value instanceof GameObject ? value : value.gameObject;
+    gameObject.removeEventListener(EventType.Kill, this._handleKill);
+  };
+
+  _handleKill = (value) => {
+    const gameObject = value instanceof GameObject ? value : value.target;
+
     gameObject.getComponents().forEach((component) => {
       if (!this._allowedComponents[component.constructor.componentName]) {
         gameObject.removeComponent(component.constructor);
@@ -33,24 +62,13 @@ export class Reaper extends System {
       lifetime: this._lifetime,
     });
 
-    this.messageBus.send({
-      type: DEATH_MSG,
-      id: gameObject.getId(),
-      gameObject,
-    });
+    gameObject.emit(EventType.Death);
 
-    gameObject.getChildren().forEach((child) => this._killEntitiy(child));
-  }
+    gameObject.getChildren().forEach((child) => this._handleKill(child));
+  };
 
   update(options) {
     const { deltaTime } = options;
-
-    const killMessages = this.messageBus.get(KILL_MSG) || [];
-    killMessages.forEach((message) => {
-      const { gameObject } = message;
-
-      this._killEntitiy(gameObject);
-    });
 
     this._timeCounter += deltaTime;
     if (this._timeCounter >= GRAVEYARD_CLEAN_FREQUENCY) {

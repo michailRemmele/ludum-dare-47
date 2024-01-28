@@ -1,32 +1,17 @@
-import { EFFECT_ADD_MSG, EFFECT_APPLY_MSG, EFFECT_CANCEL_MSG } from './consts';
+import { EventType } from '../../../../events';
 
 export class EffectApplicator {
-  constructor(action, effect, messageBus) {
+  constructor(action, effect) {
     this._action = action;
     this._effect = effect;
-    this._messageBus = messageBus;
-
-    this._messageBus.send({
-      type: EFFECT_ADD_MSG,
-      id: this._effect.getId(),
-      gameObject: this._effect,
-    });
   }
 
   _handleCancel() {
-    this._messageBus.send({
-      type: EFFECT_CANCEL_MSG,
-      id: this._effect.getId(),
-      gameObject: this._effect,
-    });
+    this._effect.emit(EventType.CancelEffect);
   }
 
   _handleApply() {
-    this._messageBus.send({
-      type: EFFECT_APPLY_MSG,
-      id: this._effect.getId(),
-      gameObject: this._effect,
-    });
+    this._effect.emit(EventType.ApplyEffect);
   }
 
   update() {

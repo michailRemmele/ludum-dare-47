@@ -24,8 +24,6 @@ GameProvider.propTypes = {
   children: PropTypes.node,
   gameStateObserver: PropTypes.any,
   gameObjectObserver: PropTypes.any,
-  messageBus: PropTypes.any,
-  sceneContext: PropTypes.any,
-  pushMessage: PropTypes.func,
+  scene: PropTypes.any,
   pushAction: PropTypes.func,
 };

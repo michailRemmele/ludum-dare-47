@@ -10,7 +10,7 @@ import { EventListStyled, ButtonCSS } from './thumb-stick-control.style';
 const events = [
   {
     title: 'components.thumbStickControl.option.positionChange.title',
-    value: 'THUMB_STICK_POSITION_CHANGE',
+    value: 'ThumbStickInput',
   },
 ];
 
@@ -48,7 +48,7 @@ export const ThumbStickControlWidget = ({ path }) => {
 
   const handleAddNewBind = useCallback(() => {
     const inputEvent = availableOptions[0].value;
-    dispatch(commands.addValue(bindingsPath, { event: inputEvent, messageType: '', attrs: []}));
+    dispatch(commands.addValue(bindingsPath, { event: inputEvent, eventType: '', attrs: []}));
   }, [ dispatch, bindingsPath, availableOptions ]);
 
   return (

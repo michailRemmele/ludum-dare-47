@@ -26,7 +26,7 @@ export const InputBind = ({
     () => path.concat('inputEventBindings', `event:${event.value}`), [ path, event ]
   );
   const eventPath = useMemo(() => bindPath.concat('event'), [ bindPath ]);
-  const messageTypePath = useMemo(() => bindPath.concat('messageType'), [ bindPath ]);
+  const eventTypePath = useMemo(() => bindPath.concat('eventType'), [ bindPath ]);
   const attrsPath = useMemo(() => bindPath.concat('attrs'), [ bindPath ]);
 
   const inputEvents = useMemo(() => [ event, ...availableEvents ], [ availableEvents ]);
@@ -48,9 +48,9 @@ export const InputBind = ({
         options={inputEvents}
       />
       <Field
-        path={messageTypePath}
+        path={eventTypePath}
         component={LabelledTextInput}
-        label={t('components.thumbStickControl.bind.messageType.title')}
+        label={t('components.thumbStickControl.bind.eventType.title')}
       />
       <SectionHeaderStyled>
         {t('components.thumbStickControl.bind.attributes.title')}

@@ -1,5 +1,5 @@
 import { ai } from './ai';
-import { aimRadius } from './aim-radius';
+import { autoAim } from './auto-aim';
 import { collectable } from './collectable';
 import { effect } from './effect';
 import { health } from './health';
@@ -12,7 +12,7 @@ import { weapon } from './weapon';
 
 export const componentsSchema = {
   AI: ai,
-  AimRadius: aimRadius,
+  AutoAim: autoAim,
   Collectable: collectable,
   Effect: effect,
   Health: health,

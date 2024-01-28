@@ -8,7 +8,7 @@ export class ThumbStickControl extends Component {
 
     this.inputEventBindings = inputEventBindings.reduce((acc, bind) => {
       acc[bind.event] = {
-        messageType: bind.messageType,
+        eventType: bind.eventType,
         attrs: bind.attrs.reduce((attrs, attr) => {
           attrs[attr.name] = attr.value;
           return attrs;
@@ -23,7 +23,7 @@ export class ThumbStickControl extends Component {
       inputEventBindings: Object.keys(this._inputEventBindings).map(
         (key) => ({
           event: key,
-          messageType: this.inputEventBindings[key].messageType,
+          eventType: this.inputEventBindings[key].eventType,
           attrs: Object.keys(this.inputEventBindings[key].attrs).map(
             (name) => ({ name, value: this.inputEventBindings[key].attrs[name] }),
           ),

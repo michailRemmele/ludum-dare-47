@@ -1,17 +1,17 @@
 import {
+  GameObjectObserver,
   MathOps,
   System,
   Transform,
 } from 'remiz';
 
+import { EventType } from '../../../events';
 import {
   AI,
   Health,
   Weapon,
 } from '../../components';
 import { TimeService } from '../';
-
-const DAMAGE_MSG = 'DAMAGE';
 
 const ENEMY_TEMPLATE_ID = 'bde6add9-dcba-4a38-9829-b3f58eff93cb';
 const RANGE_ENEMY_TEMPLATE_ID = 'e6ad51f9-a964-4830-9ce2-afb09de2a41e';
@@ -32,12 +32,11 @@ export class EnemySpawner extends System {
   constructor(options) {
     super();
 
-    this._gameObjectObserver = options.createGameObjectObserver({
+    this.gameObjectObserver = new GameObjectObserver(options.scene, {
       components: [ AI ],
     });
     this._gameObjectSpawner = options.gameObjectSpawner;
-    this.messageBus = options.messageBus;
-    this.timeService = options.sceneContext.getService(TimeService);
+    this.timeService = options.scene.context.getService(TimeService);
 
     this._islandSize = {
       minX: -200,
@@ -106,14 +105,9 @@ export class EnemySpawner extends System {
     this._spawnMeleeEnemies(deltaTime, hour, days);
     this._spawnRangeEnemies(deltaTime, hour, days);
 
-    if (this._gameObjectObserver.size() && hour >= END_SPAWN_HOUR) {
-      this._gameObjectObserver.forEach((gameObject) => {
-        this.messageBus.send({
-          type: DAMAGE_MSG,
-          id: gameObject.getId(),
-          gameObject: gameObject,
-          value: END_SPAWN_DAMAGE,
-        });
+    if (hour >= END_SPAWN_HOUR) {
+      this.gameObjectObserver.forEach((gameObject) => {
+        gameObject.emit(EventType.Damage, { value: END_SPAWN_DAMAGE });
       });
     }
   }

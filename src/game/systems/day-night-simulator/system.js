@@ -1,4 +1,4 @@
-import { System, Light } from 'remiz';
+import { GameObjectObserver, System, Light } from 'remiz';
 
 import { Time, DAY_LENGTH_MS } from './time';
 import { TimeService } from './service';
@@ -89,20 +89,16 @@ export class DayNightSimulator extends System {
     super();
 
     const {
-      createGameObjectObserver,
-      messageBus,
-      sceneContext,
+      scene,
       dayLength,
       startTime,
       skyId,
     } = options;
 
-    this.messageBus = messageBus;
-
     this._dayLength = dayLength;
     this._startTime = startTime;
 
-    const gameObjectObserver = createGameObjectObserver({
+    const gameObjectObserver = new GameObjectObserver(scene, {
       components: [ Light ],
     });
     this.sky = gameObjectObserver.getById(skyId);
@@ -115,7 +111,7 @@ export class DayNightSimulator extends System {
 
     this._startSegmentIndex = 0;
 
-    sceneContext.registerService(new TimeService({ time: this._time }));
+    scene.context.registerService(new TimeService({ time: this._time }));
   }
 
   _updateDaySegment() {

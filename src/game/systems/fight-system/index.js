@@ -1,91 +1,113 @@
-import { MathOps, System, Transform } from 'remiz';
+import {
+  GameObject,
+  GameObjectObserver,
+  MathOps,
+  System,
+  Transform,
+  AddGameObject,
+  RemoveGameObject,
+} from 'remiz';
 
+import { EventType } from '../../../events';
 import { Weapon } from '../../components';
 
 import { SimpleFighter } from './fighters';
-
-const ATTACK_MSG = 'ATTACK';
 
 export class FightSystem extends System {
   constructor(options) {
     super();
 
-    this._gameObjectObserver = options.createGameObjectObserver({
+    this.gameObjectObserver = new GameObjectObserver(options.scene, {
       components: [ Weapon ],
     });
-    this._gameObjectSpawner = options.gameObjectSpawner;
-    this.messageBus = options.messageBus;
+    this.gameObjectSpawner = options.gameObjectSpawner;
 
     this._fighters = {};
     this._activeAttacks = [];
+
+    this._events = [];
   }
 
   mount() {
-    this._gameObjectObserver.subscribe('onremove', this._handleEntitiyRemove);
+    this.gameObjectObserver.forEach(this._handleAddGameObject);
+    this.gameObjectObserver.addEventListener(AddGameObject, this._handleAddGameObject);
+    this.gameObjectObserver.addEventListener(RemoveGameObject, this._handleRemoveGameObject);
   }
 
   unmount() {
-    this._gameObjectObserver.unsubscribe('onremove', this._handleEntitiyRemove);
+    this.gameObjectObserver.forEach(this._handleRemoveGameObject);
+    this.gameObjectObserver.removeEventListener(AddGameObject, this._handleAddGameObject);
+    this.gameObjectObserver.removeEventListener(RemoveGameObject, this._handleRemoveGameObject);
   }
 
-  _handleEntitiyRemove = (gameObject) => {
-    const gameObjectId = gameObject.getId();
-    this._fighters[gameObjectId] = null;
+  _handleAddGameObject = (value) => {
+    const gameObject = value instanceof GameObject ? value : value.gameObject;
+    gameObject.addEventListener(EventType.Attack, this._handleAttack);
   };
 
-  _processActiveAttacks(deltaTime) {
+  _handleRemoveGameObject = (value) => {
+    const gameObject = value instanceof GameObject ? value : value.gameObject;
+    gameObject.removeEventListener(EventType.Attack, this._handleAttack);
+
+    delete this._fighters[gameObject.id];
+  };
+
+  _handleAttack = (event) => {
+    this._events.push(event);
+  };
+
+  _updateActiveAttacks(deltaTime) {
     this._activeAttacks = this._activeAttacks.filter((attack) => {
       attack.update(deltaTime);
+
+      if (attack.isFinished()) {
+        attack.destroy();
+      }
 
       return !attack.isFinished();
     });
   }
 
-  _attack(gameObject, targetX, targetY) {
-    const gameObjectId = gameObject.getId();
-    const { offsetX, offsetY } = gameObject.getComponent(Transform);
-
-    const fighter = this._fighters[gameObjectId];
-
-    if (!fighter || !fighter.isReady()) {
-      this.messageBus.deleteById(ATTACK_MSG, gameObjectId);
-      return;
-    }
-
-    const radAngle = MathOps.getAngleBetweenTwoPoints(targetX, offsetX, targetY, offsetY);
-
-    const attack = fighter.attack(radAngle);
-
-    this._activeAttacks.push(attack);
-  }
-
-  _processFighters(deltaTime) {
-    this._gameObjectObserver.forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-
-      if (!this._fighters[gameObjectId]) {
-        this._fighters[gameObjectId] = new SimpleFighter(
-          gameObject, this._gameObjectSpawner, this.messageBus
+  _updateFighters(deltaTime) {
+    this.gameObjectObserver.forEach((gameObject) => {
+      if (!this._fighters[gameObject.id]) {
+        this._fighters[gameObject.id] = new SimpleFighter(
+          gameObject, this.gameObjectSpawner
         );
       } else {
-        this._fighters[gameObjectId].update(deltaTime);
+        this._fighters[gameObject.id].update(deltaTime);
       }
     });
+  }
+
+  _updateNewAttacks() {
+    this._events.forEach((event) => {
+      const { x, y, target } = event;
+
+      const { offsetX, offsetY } = target.getComponent(Transform);
+
+      const fighter = this._fighters[target.id];
+
+      if (!fighter || !fighter.isReady()) {
+        return;
+      }
+
+      const radAngle = MathOps.getAngleBetweenTwoPoints(x, offsetX, y, offsetY);
+
+      const attack = fighter.attack(radAngle);
+
+      this._activeAttacks.push(attack);
+    });
+    this._events = [];
   }
 
   update(options) {
     const { deltaTime } = options;
 
-    this._gameObjectObserver.fireEvents();
+    this._updateFighters(deltaTime);
+    this._updateActiveAttacks(deltaTime);
 
-    this._processFighters(deltaTime);
-    this._processActiveAttacks(deltaTime);
-
-    const messages = this.messageBus.get(ATTACK_MSG) || [];
-    messages.forEach((message) => {
-      const { gameObject, x, y } = message;
-      this._attack(gameObject, x, y);
-    });
+    this._updateNewAttacks();
   }
 }
 

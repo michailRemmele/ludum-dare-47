@@ -1,2 +1,2 @@
-export { CollectSystem } from './system';
+export { PlayerScript } from './player';
 export { CollectService } from './service';

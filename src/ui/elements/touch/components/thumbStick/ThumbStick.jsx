@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Vector2 } from 'remiz';
 
+import { EventType } from '../../../../../events';
 import { withGame } from '../../../common';
 
 import './style.css';
-
-const THUMB_STICK_POSITION_CHANGE_MSG = 'THUMB_STICK_POSITION_CHANGE';
 
 export class ThumbStick extends React.Component {
   constructor(props) {
@@ -28,10 +27,14 @@ export class ThumbStick extends React.Component {
   }
 
   componentWillUnmount() {
+    console.log('UNMOUNT');
+
     window.removeEventListener('resize', this.updateArea);
 
-    this.areaRef.current.removeEventListener('pointermove', this.onPointerMove);
+    this.observerRef.current.removeEventListener('pointermove', this.onPointerMove);
     this.onMove(0, 0);
+
+    console.log('UNMOUNT END');
   }
 
   updateArea = () => {
@@ -116,17 +119,13 @@ export class ThumbStick extends React.Component {
 
     this.pointerId = null;
 
-    this.areaRef.current.removeEventListener('pointermove', this.onPointerMove);
+    this.observerRef.current.removeEventListener('pointermove', this.onPointerMove);
 
     this.resetStick();
   }
 
   onMove = (x, y) => {
-    this.props.pushMessage({
-      type: THUMB_STICK_POSITION_CHANGE_MSG,
-      x,
-      y,
-    });
+    this.props.scene.emit(EventType.ThumbStickInput, { x, y });
 
     this.props.onMove(x, y);
   }
@@ -165,7 +164,7 @@ ThumbStick.defaultProps = {
 ThumbStick.propTypes = {
   className: PropTypes.string,
   onMove: PropTypes.func,
-  pushMessage: PropTypes.func,
+  scene: PropTypes.any,
 };
 
 export const ConnectedThumbStick = withGame(ThumbStick);

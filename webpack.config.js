@@ -40,8 +40,8 @@ module.exports = {
       resources: paths.resources,
     },
     modules: [
-      'src',
       'node_modules',
+      'src',
     ],
   },
 

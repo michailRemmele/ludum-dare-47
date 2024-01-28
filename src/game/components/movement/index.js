@@ -6,6 +6,8 @@ export class Movement extends Component {
 
     this.speed = config.speed;
     this.vector = new Vector2(0, 0);
+    this.isMoving = false;
+    this.intension = 1;
     this.penalty = 0;
   }
 

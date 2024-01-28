@@ -13,14 +13,14 @@ import { Loader } from './pages/loader';
 let root;
 
 export function onInit(options) {
-  const { sceneContext } = options;
+  const { scene } = options;
 
   root = createRoot(document.getElementById('ui-root'));
 
   root.render(
     <GameProvider {...options}>
       <MemoryRouter>
-        <SceneSwitcher sceneName={sceneContext.name}>
+        <SceneSwitcher sceneName={scene.context.name}>
           <Switch>
             <Route path='/mainMenu'>
               <MainMenu/>

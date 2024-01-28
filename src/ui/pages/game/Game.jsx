@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LoadScene } from 'remiz';
 
-import { Health } from '../../../game/components';
-import { CollectService, TimeService } from '../../../game/systems';
+import { EventType } from '../../../events';
+import { Health, AutoAim } from '../../../game/components';
+import { TimeService } from '../../../game/systems';
+import { CollectService } from '../../../game/scripts';
 import {
   withGame,
   withDeviceDetection,
@@ -25,14 +28,6 @@ import { PLAYER_ID } from '../../../consts/game-objects';
 
 import './style.css';
 
-const VICTORY_MSG = 'VICTORY';
-const DEFEAT_MSG = 'DEFEAT';
-const TOGGLE_INVENTORY_MSG = 'TOGGLE_INVENTORY';
-const CLOSE_INVENTORY_MSG = 'CLOSE_INVENTORY';
-const LOAD_SCENE_MSG = 'LOAD_SCENE';
-const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
-const GRAB_MSG = 'GRAB';
-const ATTACK_MSG = 'ATTACK';
 const GAME_SCENE_ID = 'a6d997de-cc8d-4d61-9fcb-932179c32142';
 const MAIN_MENU_SCENE_ID = '5d78b760-d3ae-4966-ad0c-7942a54006f2';
 const LOADER_ID = '3c4c020d-bcf7-4644-893f-fa72335b352e';
@@ -92,21 +87,48 @@ export class Game extends React.Component {
 
   componentDidMount() {
     this.props.gameStateObserver.subscribe(this.onGameStateUpdate);
+    this.props.scene.addEventListener(EventType.Victory, this.handleVictory);
+    this.props.scene.addEventListener(EventType.Defeat, this.handleDefeat);
   }
 
   componentWillUnmount() {
     this.props.gameStateObserver.unsubscribe(this.onGameStateUpdate);
+    this.props.scene.removeEventListener(EventType.Victory, this.handleVictory);
+    this.props.scene.removeEventListener(EventType.Defeat, this.handleDefeat);
+    this.state.gameObject?.removeEventListener(EventType.ToggleInventory, this.handleToggleInventory);
+    this.state.gameObject?.removeEventListener(EventType.CloseInventory, this.handleCloseInventory);
+  }
+
+  handleVictory = () => {
+    this.setState({ pageState: PAGE_STATE.VICTORY });
+  }
+
+  handleDefeat = () => {
+    this.setState({ pageState: PAGE_STATE.DEFEAT });
+  }
+
+  handleToggleInventory = () => {
+    if (this.state.pageState === PAGE_STATE.GAME) {
+      this.setState({ pageState: PAGE_STATE.INVENTORY });
+    } else if (this.state.pageState === PAGE_STATE.INVENTORY) {
+      this.setState({ pageState: PAGE_STATE.GAME });
+    }
+  }
+
+  handleCloseInventory = () => {
+    if (this.state.pageState === PAGE_STATE.INVENTORY) {
+      this.setState({ pageState: PAGE_STATE.GAME });
+    }
   }
 
   onGameStateUpdate = () => {
     this.handlePlayerUpdate();
-    this.handleMessagesUpdate();
     this.handleGUIUpdate();
   }
 
   handleGUIUpdate() {
-    const collectService = this.props.sceneContext.getService(CollectService);
-    const timeService = this.props.sceneContext.getService(TimeService);
+    const collectService = this.props.scene.context.getService(CollectService);
+    const timeService = this.props.scene.context.getService(TimeService);
     const collectableItems = collectService.getCollectableItems();
     const inventory = collectService.getInventory();
 
@@ -141,26 +163,6 @@ export class Game extends React.Component {
     }
   }
 
-  handleMessagesUpdate() {
-    if (this.props.messageBus.get(VICTORY_MSG)) {
-      this.setState({ pageState: PAGE_STATE.VICTORY });
-    } else if (this.props.messageBus.get(DEFEAT_MSG)) {
-      this.setState({ pageState: PAGE_STATE.DEFEAT });
-    }
-
-    const pageState = this.state.pageState;
-    const toggleInventoryMessages = this.props.messageBus.get(TOGGLE_INVENTORY_MSG);
-    const closeInventoryMessages = this.props.messageBus.get(CLOSE_INVENTORY_MSG);
-    if (toggleInventoryMessages && pageState === PAGE_STATE.GAME) {
-      this.setState({ pageState: PAGE_STATE.INVENTORY });
-    } else if (
-      (toggleInventoryMessages || closeInventoryMessages) &&
-      pageState === PAGE_STATE.INVENTORY
-    ) {
-      this.setState({ pageState: PAGE_STATE.GAME });
-    }
-  }
-
   handlePlayerUpdate() {
     const gameObject = this.props.gameObjectObserver.getById(PLAYER_ID);
     const health = gameObject?.getComponent(Health);
@@ -180,11 +182,11 @@ export class Game extends React.Component {
       newState.maxHealth = health.maxPoints;
     }
 
-    const gameObjectId = gameObject.getId();
-
-    if (gameObjectId !== this.state.gameObjectId) {
-      newState.gameObjectId = gameObjectId;
+    if (gameObject !== this.state.gameObject) {
       newState.gameObject = gameObject;
+
+      gameObject.addEventListener(EventType.ToggleInventory, this.handleToggleInventory);
+      gameObject.addEventListener(EventType.CloseInventory, this.handleCloseInventory);
     }
 
     if (Object.keys(newState).length) {
@@ -195,11 +197,7 @@ export class Game extends React.Component {
   onCollectItem = (event) => {
     event.stopPropagation();
 
-    this.props.pushMessage({
-      type: GRAB_MSG,
-      id: this.state.gameObjectId,
-      gameObject: this.state.gameObject,
-    });
+    this.state.gameObject.emit(EventType.Grab);
   }
 
   onInventoryToggle = (event) => {
@@ -207,21 +205,15 @@ export class Game extends React.Component {
       event.stopPropagation();
     }
 
-    this.props.pushMessage({
-      type: TOGGLE_INVENTORY_MSG,
-    });
+    this.state.gameObject.emit(EventType.ToggleInventory);
   }
 
   onCraft = (recipe) => {
-    this.props.pushMessage({
-      type: CRAFT_RECIPE_MSG,
-      recipe,
-    });
+    this.state.gameObject.emit(EventType.CraftRecipe, { recipe });
   }
 
   onRestart() {
-    this.props.pushMessage({
-      type: LOAD_SCENE_MSG,
+    this.props.scene.emit(LoadScene, {
       sceneId: GAME_SCENE_ID,
       loaderId: LOADER_ID,
       unloadCurrent: true,
@@ -230,18 +222,21 @@ export class Game extends React.Component {
   }
 
   onMainMenu() {
-    this.props.pushMessage({
-      type: LOAD_SCENE_MSG,
+    this.props.scene.emit(LoadScene, {
       sceneId: MAIN_MENU_SCENE_ID,
       unloadCurrent: true,
     });
   }
 
   onAttack = () => {
-    this.props.pushMessage({
-      type: ATTACK_MSG,
-      id: this.state.gameObjectId,
-      gameObject: this.state.gameObject,
+    const autoAimObject = this.state.gameObject.getChildren().find(
+      (child) => child.getComponent(AutoAim)
+    );
+    const autoAim = autoAimObject.getComponent(AutoAim);
+
+    this.state.gameObject.emit(EventType.Attack, {
+      x: autoAim.targetX,
+      y: autoAim.targetY,
     });
   }
 
@@ -362,9 +357,7 @@ export class Game extends React.Component {
 Game.propTypes = {
   gameStateObserver: PropTypes.any,
   gameObjectObserver: PropTypes.any,
-  messageBus: PropTypes.any,
-  sceneContext: PropTypes.any,
-  pushMessage: PropTypes.func,
+  scene: PropTypes.any,
   touchDevice: PropTypes.bool,
 };
 

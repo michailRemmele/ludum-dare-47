@@ -1,68 +1,95 @@
-import { System } from 'remiz';
+import {
+  GameObject,
+  GameObjectObserver,
+  System,
+  AddGameObject,
+  RemoveGameObject,
+} from 'remiz';
 
+import { EventType } from '../../../events';
 import { ActiveEffects, Effect } from '../../components';
 
 import { effectApplicators } from './effect-applicators';
-
-const ADD_EFFECT_MSG = 'ADD_EFFECT';
-const REMOVE_EFFECT_MSG = 'REMOVE_EFFECT';
-const KILL_MSG = 'KILL';
 
 export class EffectsSystem extends System {
   constructor(options) {
     super();
 
     const {
-      createGameObjectObserver,
       gameObjectSpawner,
-      messageBus,
       resources = {},
+      scene,
     } = options;
 
-    this._gameObjectObserver = createGameObjectObserver({
+    this.gameObjectObserver = new GameObjectObserver(scene);
+    this.activeEffectsObserver = new GameObjectObserver(scene, {
       components: [ ActiveEffects ],
     });
     this._gameObjectSpawner = gameObjectSpawner;
     this._actions = resources;
-    this.messageBus = messageBus;
 
     this._applicatorsMap = {};
   }
 
   mount() {
-    this._gameObjectObserver.subscribe('onremove', this._handleEntitiyRemove);
+    this.gameObjectObserver.forEach(this._handleAddGameObject);
+    this.gameObjectObserver.addEventListener(AddGameObject, this._handleAddGameObject);
+    this.gameObjectObserver.addEventListener(RemoveGameObject, this._handleRemoveGameObject);
+
+    this.activeEffectsObserver.addEventListener(RemoveGameObject, this._handleRemoveAffected);
   }
 
   unmount() {
-    this._gameObjectObserver.unsubscribe('onremove', this._handleEntitiyRemove);
+    this.gameObjectObserver.forEach(this._handleRemoveGameObject);
+    this.gameObjectObserver.removeEventListener(AddGameObject, this._handleAddGameObject);
+    this.gameObjectObserver.removeEventListener(RemoveGameObject, this._handleRemoveGameObject);
+
+    this.activeEffectsObserver.removeEventListener(RemoveGameObject, this._handleRemoveAffected);
   }
 
-  _handleEntitiyRemove = (gameObject) => {
-    const gameObjectId = gameObject.getId();
+  _handleAddGameObject = (value) => {
+    const gameObject = value instanceof GameObject ? value : value.gameObject;
+    gameObject.addEventListener(EventType.AddEffect, this._handleAddEffect);
+    gameObject.addEventListener(EventType.RemoveEffect, this._handleRemoveEffect);
+  };
 
-    const applicatorsNames = Object.keys(this._applicatorsMap[gameObjectId] || {});
+  _handleRemoveGameObject = (value) => {
+    const gameObject = value instanceof GameObject ? value : value.gameObject;
+    gameObject.removeEventListener(EventType.AddEffect, this._handleAddEffect);
+    gameObject.removeEventListener(EventType.RemoveEffect, this._handleRemoveEffect);
+  };
+
+  _handleRemoveAffected = (event) => {
+    const { gameObject } = event;
+
+    const applicatorsNames = Object.keys(this._applicatorsMap[gameObject.id] || {});
     applicatorsNames.forEach((name) => {
-      this._applicatorsMap[gameObjectId][name] = null;
+      this._applicatorsMap[gameObject.id][name] = null;
     });
   };
 
+  _handleAddEffect = (event) => {
+    const { effectId, options, target } = event;
+    this._cancelEffect(effectId, target);
+    this._addEffect(effectId, target, options);
+  };
+
+  _handleRemoveEffect = (event) => {
+    const { effectId, target } = event;
+    this._cancelEffect(effectId, target);
+  };
+
   _killEffect(effect) {
-    this.messageBus.send({
-      type: KILL_MSG,
-      id: effect.getId(),
-      gameObject: effect,
-    });
+    effect.emit(EventType.Kill);
   }
 
   _cancelEffect(effectId, gameObject) {
-    const gameObjectId = gameObject.getId();
-
-    if (!this._applicatorsMap[gameObjectId] || !this._applicatorsMap[gameObjectId][effectId]) {
+    if (!this._applicatorsMap[gameObject.id] || !this._applicatorsMap[gameObject.id][effectId]) {
       return;
     }
 
-    this._applicatorsMap[gameObjectId][effectId].cancel();
-    this._applicatorsMap[gameObjectId][effectId] = null;
+    this._applicatorsMap[gameObject.id][effectId].cancel();
+    this._applicatorsMap[gameObject.id][effectId] = null;
 
     const activeEffects = gameObject.getComponent(ActiveEffects);
 
@@ -80,8 +107,6 @@ export class EffectsSystem extends System {
   }
 
   _addEffect(effectId, gameObject, options) {
-    const gameObjectId = gameObject.getId();
-
     const effect = this._gameObjectSpawner.spawn(effectId);
     gameObject.appendChild(effect);
 
@@ -103,51 +128,22 @@ export class EffectsSystem extends System {
     const EffectApplicator = effectApplicators[type];
 
     const effectApplicator = new EffectApplicator(
-      new EffectAction(gameObject, this.messageBus, { ...constOptions, ...options }),
+      new EffectAction(gameObject, { ...constOptions, ...options }),
       effect,
-      this.messageBus
     );
 
-    this._applicatorsMap[gameObjectId] = this._applicatorsMap[gameObjectId] || {};
-    this._applicatorsMap[gameObjectId][effectId] = effectApplicator;
-  }
-
-  _processNewEffects() {
-    const newEffects = this.messageBus.get(ADD_EFFECT_MSG) || [];
-    newEffects.forEach((message) => {
-      const {
-        effectId,
-        options,
-        gameObject,
-      } = message;
-
-      this._cancelEffect(effectId, gameObject);
-      this._addEffect(effectId, gameObject, options);
-    });
-  }
-
-  _processEffectsCancellation() {
-    const cancelledEffects = this.messageBus.get(REMOVE_EFFECT_MSG) || [];
-    cancelledEffects.forEach((message) => {
-      const { effectId, gameObject } = message;
-      this._cancelEffect(effectId, gameObject);
-    });
+    this._applicatorsMap[gameObject.id] ??= {};
+    this._applicatorsMap[gameObject.id][effectId] = effectApplicator;
   }
 
   update(options) {
     const deltaTime = options.deltaTime;
 
-    this._gameObjectObserver.fireEvents();
-
-    this._processNewEffects();
-    this._processEffectsCancellation();
-
-    this._gameObjectObserver.forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
+    this.activeEffectsObserver.forEach((gameObject) => {
       const activeEffects = gameObject.getComponent(ActiveEffects);
 
       activeEffects.list = activeEffects.list.filter((effectId) => {
-        const effectApplicator = this._applicatorsMap[gameObjectId][effectId];
+        const effectApplicator = this._applicatorsMap[gameObject.id][effectId];
 
         effectApplicator.update(deltaTime);
 
@@ -157,7 +153,7 @@ export class EffectsSystem extends System {
           this._killEffect(activeEffects.map[effectId]);
 
           activeEffects.map[effectId] = null;
-          this._applicatorsMap[gameObjectId][effectId] = null;
+          this._applicatorsMap[gameObject.id][effectId] = null;
 
           return false;
         }

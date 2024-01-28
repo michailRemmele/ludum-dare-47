@@ -1,5 +1,7 @@
-import { Player } from './player';
+import { PlayerScript } from './player';
 
-export const scripts = {
-  player: Player,
-};
+export { CollectService } from './player';
+
+export const scripts = [
+  PlayerScript,
+];

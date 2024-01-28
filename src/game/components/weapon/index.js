@@ -15,6 +15,7 @@ export class Weapon extends Component {
     this.type = config.type;
     this.cooldown = config.cooldown;
     this.cooldownRemaining = 0;
+    this.isActive = false;
 
     if (!weapons[this.type]) {
       throw new Error(`Not found weapon with same type: ${this.type}`);

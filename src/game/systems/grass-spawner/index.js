@@ -1,9 +1,8 @@
-import { MathOps, System, Transform } from 'remiz';
+import { GameObjectObserver, MathOps, System, Transform } from 'remiz';
 
+import { EventType } from '../../../events';
 import { TimeService } from '../';
 import { Collectable } from '../../components';
-
-const KILL_MSG = 'KILL';
 
 const SPAWN_COOLDOWN = 2000;
 const START_SPAWN_HOUR = 9;
@@ -20,12 +19,11 @@ export class GrassSpawner extends System {
   constructor(options) {
     super();
 
-    this._gameObjectObserver = options.createGameObjectObserver({
+    this.gameObjectObserver = new GameObjectObserver(options.scene, {
       components: [ Collectable ],
     });
-    this._gameObjectSpawner = options.gameObjectSpawner;
-    this.timeService = options.sceneContext.getService(TimeService);
-    this.messageBus = options.messageBus;
+    this.gameObjectSpawner = options.gameObjectSpawner;
+    this.timeService = options.scene.context.getService(TimeService);
 
     this._islandSize = {
       minX: -180,
@@ -48,7 +46,7 @@ export class GrassSpawner extends System {
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
       const templateIndex = MathOps.random(0, GRASS_TEMPLATES.length - 1);
-      const grass = this._gameObjectSpawner.spawn(GRASS_TEMPLATES[templateIndex]);
+      const grass = this.gameObjectSpawner.spawn(GRASS_TEMPLATES[templateIndex]);
       const grassTransform = grass.getComponent(Transform);
 
       grassTransform.offsetX = MathOps.random(this._islandSize.minX, this._islandSize.maxX);
@@ -57,15 +55,9 @@ export class GrassSpawner extends System {
       this._cooldown = SPAWN_COOLDOWN;
     }
 
-    const grassCount = this._gameObjectObserver.size();
-
-    if (grassCount && hour >= KILL_GRASS_HOUR && hour < START_SPAWN_HOUR) {
-      this._gameObjectObserver.forEach((gameObject) => {
-        this.messageBus.send({
-          type: KILL_MSG,
-          id: gameObject.getId(),
-          gameObject: gameObject,
-        });
+    if (hour >= KILL_GRASS_HOUR && hour < START_SPAWN_HOUR) {
+      this.gameObjectObserver.forEach((gameObject) => {
+        gameObject.emit(EventType.Kill);
       });
     }
   }

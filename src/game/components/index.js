@@ -1,4 +1,4 @@
-export { AimRadius } from './aim-radius';
+export { AutoAim } from './auto-aim';
 export { Effect } from './effect';
 export { ActiveEffects } from './active-effects';
 export { Health } from './health';

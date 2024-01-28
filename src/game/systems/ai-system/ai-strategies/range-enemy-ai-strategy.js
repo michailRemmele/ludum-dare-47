@@ -1,12 +1,10 @@
 import { MathOps, Transform, ColliderContainer } from 'remiz';
 
+import { EventType } from '../../../../events';
 import { Weapon } from '../../../components';
 import { PLAYER_ID } from '../../../../consts/game-objects';
 
 import { AIStrategy } from './ai-strategy';
-
-const ATTACK_MSG = 'ATTACK';
-const MOVEMENT_MSG = 'MOVEMENT';
 
 const COOLDOWN = 1000;
 const WAYPOINT_ERROR = 1;
@@ -14,12 +12,11 @@ const MELEE_RADIUS = 50;
 const RETREAT_DISTANCE = 100;
 
 export class RangeEnemyAIStrategy extends AIStrategy{
-  constructor(player, gameObjectObserver, messageBus) {
+  constructor(player, gameObjectObserver) {
     super();
 
     this._player = player;
     this.gameObjectObserver = gameObjectObserver;
-    this.messageBus = messageBus;
 
     this._playerId = this._player.getId();
     this._cooldown = MathOps.random(0, COOLDOWN);
@@ -127,10 +124,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
 
     const { offsetX: enemyX, offsetY: enemyY } = this._enemy.getComponent(Transform);
 
-    this.messageBus.send({
-      gameObject: this._player,
-      id: this._player.getId(),
-      type: ATTACK_MSG,
+    this._player.emit(EventType.Attack, {
       x: enemyX,
       y: enemyY,
     });
@@ -156,12 +150,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
       offsetY
     ));
 
-    this.messageBus.send({
-      type: MOVEMENT_MSG,
-      gameObject: this._player,
-      id: this._player.getId(),
-      angle: movementAngle,
-    });
+    this._player.emit(EventType.Movement, { angle: movementAngle });
   }
 
   update(deltaTime) {

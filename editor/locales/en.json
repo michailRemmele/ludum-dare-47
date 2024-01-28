@@ -4,7 +4,7 @@
   "components.ai.strategies.enemy.title": "enemy",
   "components.ai.strategies.rangeEnemy.title": "rangeEnemy",
 
-  "components.aimRadius.title": "Aim Radius",
+  "components.autoAim.title": "Auto Aim",
   
   "components.collectable.title": "Collectable",
   "components.collectable.name.title": "Name",
@@ -40,7 +40,7 @@
   "components.thumbStickControl.title": "Thumb Stick Control",
   "components.thumbStickControl.bind.title": "Event Bind {{index}}",
   "components.thumbStickControl.bind.event.title": "Event",
-  "components.thumbStickControl.bind.messageType.title": "Message Type",
+  "components.thumbStickControl.bind.eventType.title": "Event Type",
   "components.thumbStickControl.bind.attributes.title": "Attributes",
   "components.thumbStickControl.bind.addNew.title": "Add New Bind",
   "components.thumbStickControl.option.positionChange.title": "Position Change",
@@ -67,12 +67,6 @@
 
   "systems.aiSystem.title": "AI System",
 
-  "systems.autoAimingSystem.title": "Auto Aiming System",
-
-  "systems.collectSystem.title": "Collect System",
-
-  "systems.craftSystem.title": "Craft System",
-
   "systems.damageSystem.title": "Damage System",
 
   "systems.dayNightSimulator.title": "Day Night Simulator",
@@ -82,17 +76,11 @@
 
   "systems.effectsSystem.title": "Effects System",
 
-  "systems.enemiesDetector.title": "Enemies Detector",
-
   "systems.enemySpawner.title": "Enemy Spawner",
 
   "systems.fightSystem.title": "Fight System",
 
-  "systems.gameOverSystem.title": "Game Over System",
-
   "systems.grassSpawner.title": "Grass Spawner",
-
-  "systems.itemsActivator.title": "Items Activator",
 
   "systems.movementSystem.title": "Movement System",
 
@@ -102,8 +90,6 @@
 
   "systems.thumbStickController.title": "Thumb Stick Controller",
 
-  "systems.touchDeviceJammer.title": "Touch Device Jammer",
-
-  "resources.scriptSystem.options.skyId.title": "Sky Object Id",
-  "resources.scriptSystem.options.threshold.title": "Threshold"
+  "resources.scriptSystem.player.skyId.title": "Sky Object Id",
+  "resources.scriptSystem.player.threshold.title": "Threshold"
 }

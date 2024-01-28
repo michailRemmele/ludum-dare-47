@@ -3,24 +3,21 @@ import {
   VectorOps,
   Transform,
   ColliderContainer,
+  CollisionEnter,
+  AddImpulse,
 } from 'remiz';
 
+import { EventType } from '../../../../events';
 import { Weapon, Health, HitBox } from '../../../components';
 
 import { Attack } from './attack';
 
-const DAMAGE_MSG = 'DAMAGE';
-const COLLISION_ENTER_MSG = 'COLLISION_ENTER';
-const ADD_EFFECT_MSG = 'ADD_EFFECT';
-const ADD_IMPULSE_MSG = 'ADD_IMPULSE';
-
 export class RangeAttack extends Attack {
-  constructor(gameObject, spawner, messageBus, angle) {
+  constructor(gameObject, spawner, angle) {
     super();
 
     this._gameObject = gameObject;
     this._spawner = spawner;
-    this._messageBus = messageBus;
     this._angle = angle;
 
     this._weapon = this._gameObject.getComponent(Weapon);
@@ -49,18 +46,47 @@ export class RangeAttack extends Attack {
 
     const flightTime = 1000 * range / projectileSpeed;
 
-    this._messageBus.send({
-      type: ADD_IMPULSE_MSG,
-      id: shot.getId(),
-      gameObject: shot,
-      value: directionVector.clone(),
-    });
-
     this._directionVector = directionVector;
     this._shot = shot;
     this._lifetime = flightTime;
     this._isFinished = false;
+
+    this._shot.emit(AddImpulse, { value: directionVector.clone() });
+
+    this._shot.addEventListener(CollisionEnter, this._handleCollisionEnter);
   }
+
+  destroy() {
+    this._shot.removeEventListener(CollisionEnter, this._handleCollisionEnter);
+  }
+
+  _handleCollisionEnter = (event) => {
+    if (this._lifetime === 0) {
+      return;
+    }
+
+    const { gameObject } = event;
+
+    const { damage } = this._weapon.properties;
+    const hitBox = gameObject.getComponent(HitBox);
+    const target = gameObject.parent;
+
+    if (!hitBox || !target) {
+      return;
+    }
+
+    if (this._gameObject.id === target.id || this._shot.id === target.id) {
+      return;
+    }
+
+    target.emit(EventType.Damage, { value: damage });
+    target.emit(EventType.AddEffect, {
+      effectId: '039f1088-d693-48ab-9305-20a254658666',
+    });
+    target.emit(AddImpulse, { value: this._directionVector.clone() });
+
+    this._lifetime = 0;
+  };
 
   isFinished() {
     return this._isFinished;
@@ -71,7 +97,6 @@ export class RangeAttack extends Attack {
       return;
     }
 
-    const shotId = this._shot.getId();
     const shotHealth = this._shot.getComponent(Health);
 
     if (!shotHealth) {
@@ -79,60 +104,12 @@ export class RangeAttack extends Attack {
       return;
     }
 
-    const { damage } = this._weapon.properties;
-
-    const collisionMessages = this._messageBus.getById(COLLISION_ENTER_MSG, shotId) || [];
-    collisionMessages.some((message) => {
-      const { gameObject2 } = message;
-
-      const hitBox = gameObject2.getComponent(HitBox);
-      const target = gameObject2.parent;
-
-      if (!hitBox || !target) {
-        return false;
-      }
-
-      const targetId = target.getId();
-
-      if (this._gameObject.getId() === targetId || shotId === targetId) {
-        return false;
-      }
-
-      this._messageBus.send({
-        type: DAMAGE_MSG,
-        id: targetId,
-        gameObject: target,
-        value: damage,
-      });
-      this._messageBus.send({
-        type: ADD_EFFECT_MSG,
-        id: targetId,
-        gameObject: target,
-        effectId: '039f1088-d693-48ab-9305-20a254658666',
-      });
-      this._messageBus.send({
-        type: ADD_IMPULSE_MSG,
-        value: this._directionVector.clone(),
-        gameObject: target,
-        id: targetId,
-      });
-
-      this._lifetime = 0;
-
-      return true;
-    });
-
     this._lifetime -= deltaTime;
 
     if (this._lifetime <= 0) {
       const shotHealth = this._shot.getComponent(Health);
 
-      this._messageBus.send({
-        type: DAMAGE_MSG,
-        id: shotId,
-        gameObject: this._shot,
-        value: shotHealth.points,
-      });
+      this._shot.emit(EventType.Damage, { value: shotHealth.points });
 
       this._isFinished = true;
     }

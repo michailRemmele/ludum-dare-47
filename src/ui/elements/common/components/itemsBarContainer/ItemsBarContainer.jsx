@@ -1,19 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { CollectService } from '../../../../../game/systems';
+import { EventType } from '../../../../../events';
+import { CollectService } from '../../../../../game/scripts';
 import { withGame, withDeviceDetection } from '../../../common';
 import { ItemsBar as ItemsBarDesktop } from '../../../desktop';
 import { ItemsBar as ItemsBarTouch } from '../../../touch';
 
-const USE_ITEM_MSG = 'USE_ITEM';
-
 export const ItemsBarContainer = ({
   className,
   user,
-  pushMessage,
   gameStateObserver,
-  sceneContext,
+  scene,
   touchDevice,
 }) => {
   const [ items, setItems ] = useState({});
@@ -21,17 +19,12 @@ export const ItemsBarContainer = ({
   const handleUseItem = useCallback((event, item) => {
     event.stopPropagation();
 
-    pushMessage({
-      type: USE_ITEM_MSG,
-      id: user.getId(),
-      gameObject: user,
-      item,
-    });
-  }, [ user, pushMessage ]);
+    user.emit(EventType.UseItem, { item });
+  }, [ user ]);
 
   useEffect(() => {
     const handleGameStateUpdate = () => {
-      const collectService = sceneContext.getService(CollectService);
+      const collectService = scene.context.getService(CollectService);
       const { healPotion, powerPotion } = collectService.getInventory();
 
       if (healPotion !== items.healPotion || powerPotion !== items.powerPotion) {
@@ -42,7 +35,7 @@ export const ItemsBarContainer = ({
     gameStateObserver.subscribe(handleGameStateUpdate);
 
     return () => gameStateObserver.unsubscribe(handleGameStateUpdate);
-  }, [ items, gameStateObserver, sceneContext ]);
+  }, [ items, gameStateObserver, scene ]);
 
   const ItemsBar = touchDevice ? ItemsBarTouch : ItemsBarDesktop;
 
@@ -63,8 +56,7 @@ ItemsBarContainer.propTypes = {
   className: PropTypes.string,
   user: PropTypes.object,
   gameStateObserver: PropTypes.any,
-  sceneContext: PropTypes.any,
-  pushMessage: PropTypes.func,
+  scene: PropTypes.any,
   touchDevice: PropTypes.bool,
 };
 

@@ -1,4 +1,11 @@
-import { System, ColliderContainer } from 'remiz';
+import {
+  System,
+  ColliderContainer,
+  GameObject,
+  GameObjectObserver,
+  AddGameObject,
+  RemoveGameObject,
+} from 'remiz';
 
 import { AI } from '../../components';
 
@@ -8,43 +15,50 @@ export class AISystem extends System {
   constructor(options) {
     super();
 
-    this.aiUnitsObserver = options.createGameObjectObserver({
+    this.aiUnitsObserver = new GameObjectObserver(options.scene, {
       components: [
         AI,
         ColliderContainer,
       ],
     });
-    this.gameObjectObserver = options.createGameObjectObserver({});
-    this.messageBus = options.messageBus;
+    this.gameObjectObserver = new GameObjectObserver(options.scene);
 
     this.playersStrategies = {};
   }
 
   mount() {
-    this.aiUnitsObserver.subscribe('onadd', this._handleEntitiyAdd);
+    this.aiUnitsObserver.forEach(this._handleAddGameObject);
+    this.aiUnitsObserver.addEventListener(AddGameObject, this._handleAddGameObject);
+    this.aiUnitsObserver.addEventListener(RemoveGameObject, this._handleRemoveGameObject);
   }
 
   unmount() {
-    this.aiUnitsObserver.unsubscribe('onadd', this._handleEntitiyAdd);
+    this.aiUnitsObserver.forEach(this._handleRemoveGameObject);
+    this.aiUnitsObserver.removeEventListener(AddGameObject, this._handleAddGameObject);
+    this.aiUnitsObserver.removeEventListener(RemoveGameObject, this._handleRemoveGameObject);
   }
 
-  _handleEntitiyAdd = (gameObject) => {
-    const gameObjectId = gameObject.getId();
+  _handleAddGameObject = (value) => {
+    const gameObject = value instanceof GameObject ? value : value.gameObject;
+
     const ai = gameObject.getComponent(AI);
 
-    this.playersStrategies[gameObjectId] = new strategies[ai.strategy](
-      gameObject, this.gameObjectObserver, this.messageBus
+    this.playersStrategies[gameObject.id] = new strategies[ai.strategy](
+      gameObject, this.gameObjectObserver
     );
+  };
+
+  _handleRemoveGameObject = (value) => {
+    const gameObject = value instanceof GameObject ? value : value.gameObject;
+
+    delete this.playersStrategies[gameObject.id];
   };
 
   update(options) {
     const { deltaTime } = options;
 
-    this.aiUnitsObserver.fireEvents();
-
     this.aiUnitsObserver.forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-      this.playersStrategies[gameObjectId].update(deltaTime);
+      this.playersStrategies[gameObject.id].update(deltaTime);
     });
   }
 }

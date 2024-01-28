@@ -2,7 +2,7 @@ import { Effect } from '../systems/effects-system';
 import { Weapon } from '../components';
 
 class Heal extends Effect {
-  constructor(gameObject, _messageBus, options) {
+  constructor(gameObject, options) {
     super();
 
     this._gameObject = gameObject;
