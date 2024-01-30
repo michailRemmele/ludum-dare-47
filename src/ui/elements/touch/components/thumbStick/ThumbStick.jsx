@@ -27,14 +27,10 @@ export class ThumbStick extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('UNMOUNT');
-
     window.removeEventListener('resize', this.updateArea);
 
     this.observerRef.current.removeEventListener('pointermove', this.onPointerMove);
     this.onMove(0, 0);
-
-    console.log('UNMOUNT END');
   }
 
   updateArea = () => {
