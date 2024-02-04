@@ -23,7 +23,7 @@ export class GrassSpawner extends System {
       components: [ Collectable ],
     });
     this.gameObjectSpawner = options.gameObjectSpawner;
-    this.timeService = options.scene.context.getService(TimeService);
+    this.timeService = options.scene.getService(TimeService);
 
     this._islandSize = {
       minX: -180,

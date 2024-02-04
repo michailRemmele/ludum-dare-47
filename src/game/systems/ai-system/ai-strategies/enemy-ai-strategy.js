@@ -12,11 +12,11 @@ const PREPARE_TO_ATTACK_COOLDOWN = 500;
 const MELEE_RADIUS = 20;
 
 export class EnemyAIStrategy extends AIStrategy{
-  constructor(player, gameObjectObserver) {
+  constructor(player, scene) {
     super();
 
     this._player = player;
-    this.gameObjectObserver = gameObjectObserver;
+    this.scene = scene;
 
     this._playerId = this._player.getId();
     this._cooldown = SPAWN_COOLDOWN;
@@ -31,7 +31,7 @@ export class EnemyAIStrategy extends AIStrategy{
       return;
     }
 
-    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
+    const enemy = this.scene.getGameObject(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -69,7 +69,7 @@ export class EnemyAIStrategy extends AIStrategy{
       return;
     }
 
-    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
+    const enemy = this.scene.getGameObject(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -90,7 +90,7 @@ export class EnemyAIStrategy extends AIStrategy{
       return;
     }
 
-    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
+    const enemy = this.scene.getGameObject(PLAYER_ID);
 
     if (!enemy) {
       return;

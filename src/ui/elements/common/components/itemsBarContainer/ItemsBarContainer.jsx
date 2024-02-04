@@ -24,7 +24,7 @@ export const ItemsBarContainer = ({
 
   useEffect(() => {
     const handleGameStateUpdate = () => {
-      const collectService = scene.context.getService(CollectService);
+      const collectService = scene.getService(CollectService);
       const { healPotion, powerPotion } = collectService.getInventory();
 
       if (healPotion !== items.healPotion || powerPotion !== items.powerPotion) {

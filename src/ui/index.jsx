@@ -20,7 +20,7 @@ export function onInit(options) {
   root.render(
     <GameProvider {...options}>
       <MemoryRouter>
-        <SceneSwitcher sceneName={scene.context.name}>
+        <SceneSwitcher sceneName={scene.name}>
           <Switch>
             <Route path='/mainMenu'>
               <MainMenu/>

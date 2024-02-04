@@ -36,7 +36,7 @@ export class EnemySpawner extends System {
       components: [ AI ],
     });
     this._gameObjectSpawner = options.gameObjectSpawner;
-    this.timeService = options.scene.context.getService(TimeService);
+    this.timeService = options.scene.getService(TimeService);
 
     this._islandSize = {
       minX: -200,

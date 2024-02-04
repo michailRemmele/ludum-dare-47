@@ -12,11 +12,11 @@ const MELEE_RADIUS = 50;
 const RETREAT_DISTANCE = 100;
 
 export class RangeEnemyAIStrategy extends AIStrategy{
-  constructor(player, gameObjectObserver) {
+  constructor(player, scene) {
     super();
 
     this._player = player;
-    this.gameObjectObserver = gameObjectObserver;
+    this.scene = scene;
 
     this._playerId = this._player.getId();
     this._cooldown = MathOps.random(0, COOLDOWN);
@@ -47,7 +47,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
   }
 
   _updateDistances() {
-    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
+    const enemy = this.scene.getGameObject(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -60,7 +60,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
   }
 
   _updateMeleeEnemies() {
-    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
+    const enemy = this.scene.getGameObject(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -70,14 +70,14 @@ export class RangeEnemyAIStrategy extends AIStrategy{
   }
 
   _updateTargetEnemy() {
-    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
+    const enemy = this.scene.getGameObject(PLAYER_ID);
 
     if (!enemy) {
       this._enemy = null;
       return;
     }
 
-    this._enemy = this.gameObjectObserver.getById(PLAYER_ID);
+    this._enemy = this.scene.getGameObject(PLAYER_ID);
   }
 
   _findWayToRetreat() {
@@ -85,7 +85,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
 
     const { minX, maxX, minY, maxY } = this._getMovementBoundaries();
     const { offsetX, offsetY } = this._player.getComponent(Transform);
-    const enemy = this.gameObjectObserver.getById(PLAYER_ID);
+    const enemy = this.scene.getGameObject(PLAYER_ID);
 
     if (!this._meleeEnemy || !enemy) {
       return;

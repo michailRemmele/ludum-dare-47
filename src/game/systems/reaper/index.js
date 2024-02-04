@@ -15,7 +15,6 @@ export class Reaper extends System {
     super();
 
     this.gameObjectObserver = new GameObjectObserver(options.scene);
-    this._gameObjectDestroyer = options.gameObjectDestroyer;
     this._allowedComponents = options.allowedComponents.reduce((storage, componentName) => {
       storage[componentName] = true;
       return storage;
@@ -76,7 +75,7 @@ export class Reaper extends System {
         entry.lifetime -= this._timeCounter;
 
         if (entry.lifetime <= 0) {
-          this._gameObjectDestroyer.destroy(entry.gameObject);
+          entry.gameObject.destroy();
 
           return false;
         }

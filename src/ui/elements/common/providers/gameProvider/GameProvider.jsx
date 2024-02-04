@@ -23,7 +23,6 @@ export class GameProvider extends React.Component {
 GameProvider.propTypes = {
   children: PropTypes.node,
   gameStateObserver: PropTypes.any,
-  gameObjectObserver: PropTypes.any,
   scene: PropTypes.any,
   pushAction: PropTypes.func,
 };

@@ -111,7 +111,7 @@ export class DayNightSimulator extends System {
 
     this._startSegmentIndex = 0;
 
-    scene.context.registerService(new TimeService({ time: this._time }));
+    scene.addService(new TimeService({ time: this._time }));
   }
 
   _updateDaySegment() {

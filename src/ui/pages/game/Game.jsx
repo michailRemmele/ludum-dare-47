@@ -127,8 +127,8 @@ export class Game extends React.Component {
   }
 
   handleGUIUpdate() {
-    const collectService = this.props.scene.context.getService(CollectService);
-    const timeService = this.props.scene.context.getService(TimeService);
+    const collectService = this.props.scene.getService(CollectService);
+    const timeService = this.props.scene.getService(TimeService);
     const collectableItems = collectService.getCollectableItems();
     const inventory = collectService.getInventory();
 
@@ -164,7 +164,7 @@ export class Game extends React.Component {
   }
 
   handlePlayerUpdate() {
-    const gameObject = this.props.gameObjectObserver.getById(PLAYER_ID);
+    const gameObject = this.props.scene.getGameObject(PLAYER_ID);
     const health = gameObject?.getComponent(Health);
 
     if (!gameObject || !health) {
@@ -356,7 +356,6 @@ export class Game extends React.Component {
 
 Game.propTypes = {
   gameStateObserver: PropTypes.any,
-  gameObjectObserver: PropTypes.any,
   scene: PropTypes.any,
   touchDevice: PropTypes.bool,
 };

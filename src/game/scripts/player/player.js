@@ -43,7 +43,6 @@ export class PlayerScript extends Script {
   constructor({
     scene,
     gameObject,
-    gameObjectObserver,
     skyId,
     threshold,
   }) {
@@ -54,11 +53,11 @@ export class PlayerScript extends Script {
     this.autoAimObject = gameObject.getChildren().find(
       (child) => child.getComponent(AutoAim)
     );
-    this.sky = gameObjectObserver.getById(skyId);
+    this.sky = scene.getGameObject(skyId);
     this.threshold = threshold;
 
     this.collectService = new CollectService();
-    scene.context.registerService(this.collectService);
+    scene.addService(this.collectService);
 
     this.gameObject.addEventListener(CollisionEnter, this._handleCollisionEnter);
     this.gameObject.addEventListener(CollisionLeave, this._handleCollisionLeave);

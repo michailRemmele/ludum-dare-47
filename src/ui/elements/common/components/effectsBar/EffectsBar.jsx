@@ -9,14 +9,14 @@ import './style.css';
 
 export const EffectsBar = ({
   className,
+  scene,
   gameStateObserver,
-  gameObjectObserver,
 }) => {
   const [ effects, setEffects ] = useState([]);
 
   useEffect(() => {
     const handleGameStateUpdate = () => {
-      const gameObject = gameObjectObserver.getById(PLAYER_ID);
+      const gameObject = scene.getGameObject(PLAYER_ID);
 
       if (!gameObject || !gameObject.getComponent(ActiveEffects)) {
         return;
@@ -57,7 +57,7 @@ export const EffectsBar = ({
     gameStateObserver.subscribe(handleGameStateUpdate);
 
     return () => gameStateObserver.unsubscribe(handleGameStateUpdate);
-  }, [ effects, gameObjectObserver, gameStateObserver ]);
+  }, [ effects, scene, gameStateObserver ]);
 
   if (!effects.length) {
     return null;
@@ -80,13 +80,13 @@ export const EffectsBar = ({
 EffectsBar.defaultProps = {
   className: '',
   gameStateObserver: void 0,
-  gameObjectObserver: void 0,
+  scene: void 0,
 };
 
 EffectsBar.propTypes = {
   className: PropTypes.string,
   gameStateObserver: PropTypes.any,
-  gameObjectObserver: PropTypes.any,
+  scene: PropTypes.any,
 };
 
 export const EffectsBarWithGame = withGame(EffectsBar);

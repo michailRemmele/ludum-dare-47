@@ -15,13 +15,13 @@ export class AISystem extends System {
   constructor(options) {
     super();
 
+    this.scene = options.scene;
     this.aiUnitsObserver = new GameObjectObserver(options.scene, {
       components: [
         AI,
         ColliderContainer,
       ],
     });
-    this.gameObjectObserver = new GameObjectObserver(options.scene);
 
     this.playersStrategies = {};
   }
@@ -44,7 +44,7 @@ export class AISystem extends System {
     const ai = gameObject.getComponent(AI);
 
     this.playersStrategies[gameObject.id] = new strategies[ai.strategy](
-      gameObject, this.gameObjectObserver
+      gameObject, this.scene,
     );
   };
 
