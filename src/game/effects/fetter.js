@@ -2,14 +2,14 @@ import { Effect } from '../systems/effects-system';
 import { Movement } from '../components';
 
 class Fetter extends Effect {
-  constructor(gameObject) {
+  constructor(actor) {
     super();
 
-    this._gameObject = gameObject;
+    this._actor = actor;
   }
 
   apply() {
-    const movement = this._gameObject.getComponent(Movement);
+    const movement = this._actor.getComponent(Movement);
 
     if (!movement) {
       return;
@@ -19,7 +19,7 @@ class Fetter extends Effect {
   }
 
   onCancel() {
-    const movement = this._gameObject.getComponent(Movement);
+    const movement = this._actor.getComponent(Movement);
 
     if (!movement) {
       return;

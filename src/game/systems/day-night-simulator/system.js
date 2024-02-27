@@ -1,4 +1,4 @@
-import { GameObjectObserver, System, Light } from 'remiz';
+import { ActorCollection, System, Light } from 'remiz';
 
 import { Time, DAY_LENGTH_MS } from './time';
 import { TimeService } from './service';
@@ -98,10 +98,10 @@ export class DayNightSimulator extends System {
     this._dayLength = dayLength;
     this._startTime = startTime;
 
-    const gameObjectObserver = new GameObjectObserver(scene, {
+    const actorCollection = new ActorCollection(scene, {
       components: [ Light ],
     });
-    this.sky = gameObjectObserver.getById(skyId);
+    this.sky = actorCollection.getById(skyId);
 
     if (!this.sky) {
       throw new Error(`Could not find sky game object with id ${skyId}`);

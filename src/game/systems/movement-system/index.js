@@ -1,12 +1,9 @@
 import {
-  GameObject,
-  GameObjectObserver,
+  ActorCollection,
   MathOps,
   VectorOps,
   System,
   Transform,
-  AddGameObject,
-  RemoveGameObject,
 } from 'remiz';
 
 import { EventType } from '../../../events';
@@ -20,7 +17,8 @@ export class MovementSystem extends System {
   constructor(options) {
     super();
 
-    this.gameObjectObserver = new GameObjectObserver(options.scene, {
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene, {
       components: [
         Movement,
         Transform,
@@ -29,26 +27,12 @@ export class MovementSystem extends System {
   }
 
   mount() {
-    this.gameObjectObserver.forEach(this._handleAddGameObject);
-    this.gameObjectObserver.addEventListener(AddGameObject, this._handleAddGameObject);
-    this.gameObjectObserver.addEventListener(RemoveGameObject, this._handleRemoveGameObject);
+    this.scene.addEventListener(EventType.Movement, this._handleMovement);
   }
 
   unmount() {
-    this.gameObjectObserver.forEach(this._handleRemoveGameObject);
-    this.gameObjectObserver.removeEventListener(AddGameObject, this._handleAddGameObject);
-    this.gameObjectObserver.removeEventListener(RemoveGameObject, this._handleRemoveGameObject);
+    this.scene.removeEventListener(EventType.Movement, this._handleMovement);
   }
-
-  _handleAddGameObject = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.gameObject;
-    gameObject.addEventListener(EventType.Movement, this._handleMovement);
-  };
-
-  _handleRemoveGameObject = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.gameObject;
-    gameObject.removeEventListener(EventType.Movement, this._handleMovement);
-  };
 
   _handleMovement = (event) => {
     const { target, angle, x, y } = event;
@@ -73,8 +57,8 @@ export class MovementSystem extends System {
   update(options) {
     const deltaTimeInSeconds = options.deltaTime / 1000;
 
-    this.gameObjectObserver.forEach((gameObject) => {
-      const movement = gameObject.getComponent(Movement);
+    this.actorCollection.forEach((actor) => {
+      const movement = actor.getComponent(Movement);
       const { vector, speed, penalty, isMoving, intension } = movement;
 
       if (!isMoving || (vector.x === 0 && vector.y === 0)) {
@@ -82,7 +66,7 @@ export class MovementSystem extends System {
         return;
       }
 
-      const transform = gameObject.getComponent(Transform);
+      const transform = actor.getComponent(Transform);
       const resultingSpeed = penalty < speed ? speed - penalty : 0;
 
       vector.multiplyNumber(
@@ -92,7 +76,7 @@ export class MovementSystem extends System {
       transform.offsetX = transform.offsetX + vector.x;
       transform.offsetY = transform.offsetY + vector.y;
 
-      const viewDirection = gameObject.getComponent(ViewDirection);
+      const viewDirection = actor.getComponent(ViewDirection);
 
       viewDirection.x = vector.x;
       viewDirection.y = vector.y;

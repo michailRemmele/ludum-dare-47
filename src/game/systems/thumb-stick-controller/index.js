@@ -1,4 +1,4 @@
-import { GameObjectObserver, MathOps, System } from 'remiz';
+import { ActorCollection, MathOps, System } from 'remiz';
 
 import { EventType } from '../../../events';
 import { ThumbStickControl } from '../../components';
@@ -7,7 +7,7 @@ export class ThumbStickController extends System {
   constructor(options) {
     super();
 
-    this.gameObjectObserver = new GameObjectObserver(options.scene, {
+    this.actorCollection = new ActorCollection(options.scene, {
       components: [ ThumbStickControl ],
     });
     this.scene = options.scene;
@@ -40,8 +40,8 @@ export class ThumbStickController extends System {
       return;
     }
 
-    this.gameObjectObserver.forEach((gameObject) => {
-      const control = gameObject.getComponent(ThumbStickControl);
+    this.actorCollection.forEach((actor) => {
+      const control = actor.getComponent(ThumbStickControl);
       const eventBinding = control.inputEventBindings[EventType.ThumbStickInput];
 
       if (eventBinding) {
@@ -51,7 +51,7 @@ export class ThumbStickController extends System {
           );
         }
 
-        gameObject.emit(eventBinding.eventType, {
+        actor.emit(eventBinding.eventType, {
           ...eventBinding.attrs,
           x: this._currentX,
           y: this._currentY,

@@ -2,15 +2,15 @@ import { Effect } from '../systems/effects-system';
 import { Health } from '../components';
 
 class Heal extends Effect {
-  constructor(gameObject, options) {
+  constructor(actor, options) {
     super();
 
-    this._gameObject = gameObject;
+    this._actor = actor;
     this._value = options.value;
   }
 
   apply() {
-    const health = this._gameObject.getComponent(Health);
+    const health = this._actor.getComponent(Health);
 
     if (!health) {
       return;

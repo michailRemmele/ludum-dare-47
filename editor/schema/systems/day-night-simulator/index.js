@@ -17,7 +17,7 @@ export const dayNightSimulator = {
       name: 'skyId',
       title: 'systems.dayNightSimulator.skyId.title',
       type: 'select',
-      referenceId: 'gameObjects',
+      referenceId: 'actors',
     },
   ],
   view: DayNightSimulatorWidget,

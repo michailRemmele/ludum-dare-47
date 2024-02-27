@@ -1,11 +1,9 @@
 import {
-  GameObject,
-  GameObjectObserver,
+  ActorCollection,
   MathOps,
   System,
   Transform,
-  AddGameObject,
-  RemoveGameObject,
+  RemoveActor,
 } from 'remiz';
 
 import { EventType } from '../../../events';
@@ -17,10 +15,11 @@ export class FightSystem extends System {
   constructor(options) {
     super();
 
-    this.gameObjectObserver = new GameObjectObserver(options.scene, {
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene, {
       components: [ Weapon ],
     });
-    this.gameObjectSpawner = options.gameObjectSpawner;
+    this.actorSpawner = options.actorSpawner;
 
     this._fighters = {};
     this._activeAttacks = [];
@@ -29,27 +28,17 @@ export class FightSystem extends System {
   }
 
   mount() {
-    this.gameObjectObserver.forEach(this._handleAddGameObject);
-    this.gameObjectObserver.addEventListener(AddGameObject, this._handleAddGameObject);
-    this.gameObjectObserver.addEventListener(RemoveGameObject, this._handleRemoveGameObject);
+    this.scene.addEventListener(EventType.Attack, this._handleAttack);
+    this.actorCollection.addEventListener(RemoveActor, this._handleRemoveActor);
   }
 
   unmount() {
-    this.gameObjectObserver.forEach(this._handleRemoveGameObject);
-    this.gameObjectObserver.removeEventListener(AddGameObject, this._handleAddGameObject);
-    this.gameObjectObserver.removeEventListener(RemoveGameObject, this._handleRemoveGameObject);
+    this.scene.removeEventListener(EventType.Attack, this._handleAttack);
+    this.actorCollection.removeEventListener(RemoveActor, this._handleRemoveActor);
   }
 
-  _handleAddGameObject = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.gameObject;
-    gameObject.addEventListener(EventType.Attack, this._handleAttack);
-  };
-
-  _handleRemoveGameObject = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.gameObject;
-    gameObject.removeEventListener(EventType.Attack, this._handleAttack);
-
-    delete this._fighters[gameObject.id];
+  _handleRemoveActor = (event) => {
+    delete this._fighters[event.actor.id];
   };
 
   _handleAttack = (event) => {
@@ -69,13 +58,13 @@ export class FightSystem extends System {
   }
 
   _updateFighters(deltaTime) {
-    this.gameObjectObserver.forEach((gameObject) => {
-      if (!this._fighters[gameObject.id]) {
-        this._fighters[gameObject.id] = new SimpleFighter(
-          gameObject, this.gameObjectSpawner
+    this.actorCollection.forEach((actor) => {
+      if (!this._fighters[actor.id]) {
+        this._fighters[actor.id] = new SimpleFighter(
+          actor, this.actorSpawner, this.scene
         );
       } else {
-        this._fighters[gameObject.id].update(deltaTime);
+        this._fighters[actor.id].update(deltaTime);
       }
     });
   }

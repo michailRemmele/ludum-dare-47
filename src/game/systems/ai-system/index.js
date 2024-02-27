@@ -1,10 +1,10 @@
 import {
   System,
   ColliderContainer,
-  GameObject,
-  GameObjectObserver,
-  AddGameObject,
-  RemoveGameObject,
+  Actor,
+  ActorCollection,
+  AddActor,
+  RemoveActor,
 } from 'remiz';
 
 import { AI } from '../../components';
@@ -16,7 +16,7 @@ export class AISystem extends System {
     super();
 
     this.scene = options.scene;
-    this.aiUnitsObserver = new GameObjectObserver(options.scene, {
+    this.aiUnitsCollection = new ActorCollection(options.scene, {
       components: [
         AI,
         ColliderContainer,
@@ -27,38 +27,38 @@ export class AISystem extends System {
   }
 
   mount() {
-    this.aiUnitsObserver.forEach(this._handleAddGameObject);
-    this.aiUnitsObserver.addEventListener(AddGameObject, this._handleAddGameObject);
-    this.aiUnitsObserver.addEventListener(RemoveGameObject, this._handleRemoveGameObject);
+    this.aiUnitsCollection.forEach(this._handleAddActor);
+    this.aiUnitsCollection.addEventListener(AddActor, this._handleAddActor);
+    this.aiUnitsCollection.addEventListener(RemoveActor, this._handleRemoveActor);
   }
 
   unmount() {
-    this.aiUnitsObserver.forEach(this._handleRemoveGameObject);
-    this.aiUnitsObserver.removeEventListener(AddGameObject, this._handleAddGameObject);
-    this.aiUnitsObserver.removeEventListener(RemoveGameObject, this._handleRemoveGameObject);
+    this.aiUnitsCollection.forEach(this._handleRemoveActor);
+    this.aiUnitsCollection.removeEventListener(AddActor, this._handleAddActor);
+    this.aiUnitsCollection.removeEventListener(RemoveActor, this._handleRemoveActor);
   }
 
-  _handleAddGameObject = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.gameObject;
+  _handleAddActor = (value) => {
+    const actor = value instanceof Actor ? value : value.actor;
 
-    const ai = gameObject.getComponent(AI);
+    const ai = actor.getComponent(AI);
 
-    this.playersStrategies[gameObject.id] = new strategies[ai.strategy](
-      gameObject, this.scene,
+    this.playersStrategies[actor.id] = new strategies[ai.strategy](
+      actor, this.scene,
     );
   };
 
-  _handleRemoveGameObject = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.gameObject;
+  _handleRemoveActor = (value) => {
+    const actor = value instanceof Actor ? value : value.actor;
 
-    delete this.playersStrategies[gameObject.id];
+    delete this.playersStrategies[actor.id];
   };
 
   update(options) {
     const { deltaTime } = options;
 
-    this.aiUnitsObserver.forEach((gameObject) => {
-      this.playersStrategies[gameObject.id].update(deltaTime);
+    this.aiUnitsCollection.forEach((actor) => {
+      this.playersStrategies[actor.id].update(deltaTime);
     });
   }
 }

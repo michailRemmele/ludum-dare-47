@@ -2,16 +2,16 @@ import { Effect } from '../systems/effects-system';
 import { Weapon } from '../components';
 
 class Heal extends Effect {
-  constructor(gameObject, options) {
+  constructor(actor, options) {
     super();
 
-    this._gameObject = gameObject;
+    this._actor = actor;
     this._damage = options.damage;
     this._range = options.range;
   }
 
   apply() {
-    const weapon = this._gameObject.getComponent(Weapon);
+    const weapon = this._actor.getComponent(Weapon);
 
     if (!weapon) {
       return;
@@ -22,7 +22,7 @@ class Heal extends Effect {
   }
 
   onCancel() {
-    const weapon = this._gameObject.getComponent(Weapon);
+    const weapon = this._actor.getComponent(Weapon);
 
     if (!weapon) {
       return;

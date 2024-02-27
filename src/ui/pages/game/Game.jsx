@@ -24,7 +24,7 @@ import {
 import {
   ActionBar,
 } from '../../elements/desktop';
-import { PLAYER_ID } from '../../../consts/game-objects';
+import { PLAYER_ID } from '../../../consts/actors';
 
 import './style.css';
 
@@ -89,14 +89,16 @@ export class Game extends React.Component {
     this.props.gameStateObserver.subscribe(this.onGameStateUpdate);
     this.props.scene.addEventListener(EventType.Victory, this.handleVictory);
     this.props.scene.addEventListener(EventType.Defeat, this.handleDefeat);
+    this.props.scene.addEventListener(EventType.ToggleInventory, this.handleToggleInventory);
+    this.props.scene.addEventListener(EventType.CloseInventory, this.handleCloseInventory);
   }
 
   componentWillUnmount() {
     this.props.gameStateObserver.unsubscribe(this.onGameStateUpdate);
     this.props.scene.removeEventListener(EventType.Victory, this.handleVictory);
     this.props.scene.removeEventListener(EventType.Defeat, this.handleDefeat);
-    this.state.gameObject?.removeEventListener(EventType.ToggleInventory, this.handleToggleInventory);
-    this.state.gameObject?.removeEventListener(EventType.CloseInventory, this.handleCloseInventory);
+    this.props.scene.removeEventListener(EventType.ToggleInventory, this.handleToggleInventory);
+    this.props.scene.removeEventListener(EventType.CloseInventory, this.handleCloseInventory);
   }
 
   handleVictory = () => {
@@ -164,10 +166,10 @@ export class Game extends React.Component {
   }
 
   handlePlayerUpdate() {
-    const gameObject = this.props.scene.getGameObject(PLAYER_ID);
-    const health = gameObject?.getComponent(Health);
+    const actor = this.props.scene.getEntityById(PLAYER_ID);
+    const health = actor?.getComponent(Health);
 
-    if (!gameObject || !health) {
+    if (!actor || !health) {
       this.setState({
         health: 0,
         maxHealth: 0,
@@ -182,11 +184,8 @@ export class Game extends React.Component {
       newState.maxHealth = health.maxPoints;
     }
 
-    if (gameObject !== this.state.gameObject) {
-      newState.gameObject = gameObject;
-
-      gameObject.addEventListener(EventType.ToggleInventory, this.handleToggleInventory);
-      gameObject.addEventListener(EventType.CloseInventory, this.handleCloseInventory);
+    if (actor !== this.state.actor) {
+      newState.actor = actor;
     }
 
     if (Object.keys(newState).length) {
@@ -197,7 +196,7 @@ export class Game extends React.Component {
   onCollectItem = (event) => {
     event.stopPropagation();
 
-    this.state.gameObject.emit(EventType.Grab);
+    this.state.actor.emit(EventType.Grab);
   }
 
   onInventoryToggle = (event) => {
@@ -205,11 +204,11 @@ export class Game extends React.Component {
       event.stopPropagation();
     }
 
-    this.state.gameObject.emit(EventType.ToggleInventory);
+    this.state.actor.emit(EventType.ToggleInventory);
   }
 
   onCraft = (recipe) => {
-    this.state.gameObject.emit(EventType.CraftRecipe, { recipe });
+    this.state.actor.emit(EventType.CraftRecipe, { recipe });
   }
 
   onRestart() {
@@ -229,12 +228,12 @@ export class Game extends React.Component {
   }
 
   onAttack = () => {
-    const autoAimObject = this.state.gameObject.getChildren().find(
+    const autoAimObject = this.state.actor.children.find(
       (child) => child.getComponent(AutoAim)
     );
     const autoAim = autoAimObject.getComponent(AutoAim);
 
-    this.state.gameObject.emit(EventType.Attack, {
+    this.state.actor.emit(EventType.Attack, {
       x: autoAim.targetX,
       y: autoAim.targetY,
     });
@@ -294,7 +293,7 @@ export class Game extends React.Component {
           </header>
           <div className='game__main'>
             <ItemsBarContainer
-              user={this.state.gameObject}
+              user={this.state.actor}
             />
           </div>
           <footer className='game__footer game__footer_touch'>
@@ -335,7 +334,7 @@ export class Game extends React.Component {
           <footer className='game__footer'>
             <div className='game__bars'>
               <ItemsBarContainer
-                user={this.state.gameObject}
+                user={this.state.actor}
               />
               {this.renderActionBar()}
             </div>

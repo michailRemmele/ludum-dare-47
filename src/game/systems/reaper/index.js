@@ -1,9 +1,7 @@
 import {
+  Actor,
   System,
-  GameObject,
-  GameObjectObserver,
-  AddGameObject,
-  RemoveGameObject,
+  ActorCollection,
 } from 'remiz';
 
 import { EventType } from '../../../events';
@@ -14,7 +12,8 @@ export class Reaper extends System {
   constructor(options) {
     super();
 
-    this.gameObjectObserver = new GameObjectObserver(options.scene);
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene);
     this._allowedComponents = options.allowedComponents.reduce((storage, componentName) => {
       storage[componentName] = true;
       return storage;
@@ -26,44 +25,30 @@ export class Reaper extends System {
   }
 
   mount() {
-    this.gameObjectObserver.forEach(this._handleAddGameObject);
-    this.gameObjectObserver.addEventListener(AddGameObject, this._handleAddGameObject);
-    this.gameObjectObserver.addEventListener(RemoveGameObject, this._handleRemoveGameObject);
+    this.scene.addEventListener(EventType.Kill, this._handleKill);
   }
 
   unmount() {
-    this.gameObjectObserver.forEach(this._handleRemoveGameObject);
-    this.gameObjectObserver.removeEventListener(AddGameObject, this._handleAddGameObject);
-    this.gameObjectObserver.removeEventListener(RemoveGameObject, this._handleRemoveGameObject);
+    this.scene.removeEventListener(EventType.Kill, this._handleKill);
   }
 
-  _handleAddGameObject = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.gameObject;
-    gameObject.addEventListener(EventType.Kill, this._handleKill);
-  };
-
-  _handleRemoveGameObject = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.gameObject;
-    gameObject.removeEventListener(EventType.Kill, this._handleKill);
-  };
-
   _handleKill = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.target;
+    const actor = value instanceof Actor ? value : value.target;
 
-    gameObject.getComponents().forEach((component) => {
+    actor.getComponents().forEach((component) => {
       if (!this._allowedComponents[component.constructor.componentName]) {
-        gameObject.removeComponent(component.constructor);
+        actor.removeComponent(component.constructor);
       }
     });
 
     this._graveyard.push({
-      gameObject,
+      actor,
       lifetime: this._lifetime,
     });
 
-    gameObject.emit(EventType.Death);
+    actor.emit(EventType.Death);
 
-    gameObject.getChildren().forEach((child) => this._handleKill(child));
+    actor.children.forEach((child) => this._handleKill(child));
   };
 
   update(options) {
@@ -75,7 +60,7 @@ export class Reaper extends System {
         entry.lifetime -= this._timeCounter;
 
         if (entry.lifetime <= 0) {
-          entry.gameObject.destroy();
+          entry.actor.remove();
 
           return false;
         }

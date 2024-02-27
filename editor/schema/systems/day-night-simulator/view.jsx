@@ -8,16 +8,16 @@ import {
 const SCENE_PATH_LENGTH = 2;
 
 const getItems = (
-  gameObjects,
+  actors,
   parent,
-) => gameObjects.reduce((acc, gameObject) => {
+) => actors.reduce((acc, actor) => {
   acc.push({
-    title: parent ? `${parent.name}.${gameObject.name}` : gameObject.name,
-    value: gameObject.id,
+    title: parent ? `${parent.name}.${actor.name}` : actor.name,
+    value: actor.id,
   });
 
-  if (gameObject.children?.length) {
-    acc.push(...getItems(gameObject.children, gameObject));
+  if (actor.children?.length) {
+    acc.push(...getItems(actor.children, actor));
   }
 
   return acc;
@@ -28,13 +28,13 @@ export const DayNightSimulatorWidget = ({ fields, path, references }) => {
   const level = useConfig(
     typeof scene.levelId === 'string' ? [ 'levels', `id:${scene.levelId}` ] : void 0
   );
-  const gameObjects = level?.gameObjects || [];
+  const actors = level?.actors || [];
 
-  const items = useMemo(() => getItems(gameObjects), [ gameObjects ]);
+  const items = useMemo(() => getItems(actors), [ actors ]);
 
   const extReferences = useMemo(() => ({
     ...references,
-    gameObjects: {
+    actors: {
       items,
     },
   }), [ references ]);

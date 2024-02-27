@@ -42,32 +42,32 @@ const ITEM_EFFECTS = {
 export class PlayerScript extends Script {
   constructor({
     scene,
-    gameObject,
+    actor,
     skyId,
     threshold,
   }) {
     super();
 
     this.scene = scene;
-    this.gameObject = gameObject;
-    this.autoAimObject = gameObject.getChildren().find(
+    this.actor = actor;
+    this.autoAimObject = actor.children.find(
       (child) => child.getComponent(AutoAim)
     );
-    this.sky = scene.getGameObject(skyId);
+    this.sky = scene.getEntityById(skyId);
     this.threshold = threshold;
 
     this.collectService = new CollectService();
     scene.addService(this.collectService);
 
-    this.gameObject.addEventListener(CollisionEnter, this._handleCollisionEnter);
-    this.gameObject.addEventListener(CollisionLeave, this._handleCollisionLeave);
-    this.gameObject.addEventListener(EventType.Grab, this._handleGrabItem);
-    this.gameObject.addEventListener(EventType.UseItem, this._handleUseItem);
-    this.gameObject.addEventListener(EventType.CraftRecipe, this._handleCraftItem);
+    this.actor.addEventListener(CollisionEnter, this._handleCollisionEnter);
+    this.actor.addEventListener(CollisionLeave, this._handleCollisionLeave);
+    this.actor.addEventListener(EventType.Grab, this._handleGrabItem);
+    this.actor.addEventListener(EventType.UseItem, this._handleUseItem);
+    this.actor.addEventListener(EventType.CraftRecipe, this._handleCraftItem);
 
     // Ignore mouse events for touch devices and enable auto aim
     if (isTouchDevice()) {
-      this.gameObject.removeComponent(MouseInput);
+      this.actor.removeComponent(MouseInput);
       this.autoAimObject.addEventListener(CollisionStay, this._handleCollisionStay);
     }
 
@@ -75,11 +75,11 @@ export class PlayerScript extends Script {
   }
 
   destroy() {
-    this.gameObject.removeEventListener(CollisionEnter, this._handleCollisionEnter);
-    this.gameObject.removeEventListener(CollisionLeave, this._handleCollisionLeave);
-    this.gameObject.removeEventListener(EventType.Grab, this._handleGrabItem);
-    this.gameObject.removeEventListener(EventType.UseItem, this._handleUseItem);
-    this.gameObject.removeEventListener(EventType.CraftRecipe, this._handleCraftItem);
+    this.actor.removeEventListener(CollisionEnter, this._handleCollisionEnter);
+    this.actor.removeEventListener(CollisionLeave, this._handleCollisionLeave);
+    this.actor.removeEventListener(EventType.Grab, this._handleGrabItem);
+    this.actor.removeEventListener(EventType.UseItem, this._handleUseItem);
+    this.actor.removeEventListener(EventType.CraftRecipe, this._handleCraftItem);
 
     this.autoAimObject.removeEventListener(CollisionStay, this._handleCollisionStay);
 
@@ -87,44 +87,44 @@ export class PlayerScript extends Script {
   }
 
   _handleCollisionEnter = (event) => {
-    const { gameObject } = event;
+    const { actor, target } = event;
 
     const collectableItems = this.collectService.getCollectableItems();
-    const collectable = gameObject.getComponent(Collectable);
+    const collectable = actor.getComponent(Collectable);
 
-    if (!collectable) {
+    if (target !== this.actor || !collectable) {
       return;
     }
 
-    collectableItems.add(gameObject);
+    collectableItems.add(actor);
   };
 
   _handleCollisionLeave = (event) => {
-    const { gameObject } = event;
+    const { actor, target } = event;
 
     const collectableItems = this.collectService.getCollectableItems();
 
-    if (collectableItems.has(gameObject)) {
-      collectableItems.delete(gameObject);
+    if (target !== this.actor || collectableItems.has(actor)) {
+      collectableItems.delete(actor);
     }
   };
 
   _handleCollisionStay = (event) => {
-    const { gameObject } = event;
+    const { actor, target } = event;
 
-    const hitBox = gameObject.getComponent(HitBox);
-    const targetParent = gameObject.parent;
+    const hitBox = actor.getComponent(HitBox);
+    const targetParent = actor.parent;
 
-    if (!hitBox || this.gameObject.id === targetParent.id) {
+    if (target !== this.actor || !hitBox || this.actor.id === targetParent.id) {
       return;
     }
 
-    const { offsetX, offsetY } = this.gameObject.getComponent(Transform);
+    const { offsetX, offsetY } = this.actor.getComponent(Transform);
 
     const {
       offsetX: targetX,
       offsetY: targetY,
-    } = gameObject.getComponent(Transform);
+    } = actor.getComponent(Transform);
 
     const distance = MathOps.getDistanceBetweenTwoPoints(offsetX, targetX, offsetY, targetY);
 
@@ -173,7 +173,7 @@ export class PlayerScript extends Script {
 
     inventory[item] -= 1;
 
-    this.gameObject.emit(EventType.AddEffect, ITEM_EFFECTS[item]);
+    this.actor.emit(EventType.AddEffect, ITEM_EFFECTS[item]);
   };
 
   _handleCraftItem = (event) => {
@@ -191,7 +191,7 @@ export class PlayerScript extends Script {
 
   _updateLight() {
     const skyLight = this.sky.getComponent(Light);
-    const playerLight = this.gameObject.getComponent(Light);
+    const playerLight = this.actor.getComponent(Light);
 
     playerLight.options.intensity = MathOps.clamp(
       this.threshold - skyLight.options.intensity,

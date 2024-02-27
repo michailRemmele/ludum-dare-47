@@ -8,13 +8,14 @@ import { Fighter } from './fighter';
 const TIME_TO_ATTACK = 250;
 
 export class SimpleFighter extends Fighter {
-  constructor(gameObject, spawner) {
+  constructor(actor, spawner, scene) {
     super();
 
-    this._gameObject = gameObject;
+    this._actor = actor;
     this._spawner = spawner;
+    this._scene = scene;
 
-    this._weapon = this._gameObject.getComponent(Weapon);
+    this._weapon = this._actor.getComponent(Weapon);
     this._weapon.cooldownRemaining = 0;
 
     this._viewDirection = null;
@@ -44,7 +45,7 @@ export class SimpleFighter extends Fighter {
     this._viewDirection = VectorOps.getVectorByAngle(angle);
     this._viewTimer = TIME_TO_ATTACK;
 
-    return new Attack(this._gameObject, this._spawner, angle);
+    return new Attack(this._actor, this._spawner, this._scene, angle);
   }
 
   update(deltaTime) {
@@ -54,7 +55,7 @@ export class SimpleFighter extends Fighter {
     if (this._viewTimer > 0) {
       this._viewTimer -= deltaTime;
 
-      const viewDirection = this._gameObject.getComponent(ViewDirection);
+      const viewDirection = this._actor.getComponent(ViewDirection);
 
       viewDirection.x = this._viewDirection.x;
       viewDirection.y = this._viewDirection.y;

@@ -3,7 +3,7 @@ import { MathOps, Transform } from 'remiz';
 
 import { EventType } from '../../../../events';
 import { Weapon } from '../../../components';
-import { PLAYER_ID } from '../../../../consts/game-objects';
+import { PLAYER_ID } from '../../../../consts/actors';
 
 import { AIStrategy } from './ai-strategy';
 
@@ -18,7 +18,7 @@ export class EnemyAIStrategy extends AIStrategy{
     this._player = player;
     this.scene = scene;
 
-    this._playerId = this._player.getId();
+    this._playerId = this._player.id;
     this._cooldown = SPAWN_COOLDOWN;
 
     this._distance = null;
@@ -31,7 +31,7 @@ export class EnemyAIStrategy extends AIStrategy{
       return;
     }
 
-    const enemy = this.scene.getGameObject(PLAYER_ID);
+    const enemy = this.scene.getEntityById(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -69,7 +69,7 @@ export class EnemyAIStrategy extends AIStrategy{
       return;
     }
 
-    const enemy = this.scene.getGameObject(PLAYER_ID);
+    const enemy = this.scene.getEntityById(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -90,7 +90,7 @@ export class EnemyAIStrategy extends AIStrategy{
       return;
     }
 
-    const enemy = this.scene.getGameObject(PLAYER_ID);
+    const enemy = this.scene.getEntityById(PLAYER_ID);
 
     if (!enemy) {
       return;

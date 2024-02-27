@@ -13,16 +13,17 @@ import { Weapon, Health, HitBox } from '../../../components';
 import { Attack } from './attack';
 
 export class RangeAttack extends Attack {
-  constructor(gameObject, spawner, angle) {
+  constructor(actor, spawner, scene, angle) {
     super();
 
-    this._gameObject = gameObject;
+    this._actor = actor;
     this._spawner = spawner;
+    this._scene = scene;
     this._angle = angle;
 
-    this._weapon = this._gameObject.getComponent(Weapon);
+    this._weapon = this._actor.getComponent(Weapon);
 
-    const { offsetX, offsetY } = this._gameObject.getComponent(Transform);
+    const { offsetX, offsetY } = this._actor.getComponent(Transform);
     const {
       range,
       projectileSpeed,
@@ -39,6 +40,8 @@ export class RangeAttack extends Attack {
     shotTransform.offsetX = offsetX;
     shotTransform.offsetY = offsetY;
     shotTransform.rotation = MathOps.radToDeg(this._angle);
+
+    this._scene.appendChild(shot);
 
     const directionVector = VectorOps.getVectorByAngle(this._angle);
 
@@ -65,17 +68,17 @@ export class RangeAttack extends Attack {
       return;
     }
 
-    const { gameObject } = event;
+    const { actor } = event;
 
     const { damage } = this._weapon.properties;
-    const hitBox = gameObject.getComponent(HitBox);
-    const target = gameObject.parent;
+    const hitBox = actor.getComponent(HitBox);
+    const target = actor.parent;
 
     if (!hitBox || !target) {
       return;
     }
 
-    if (this._gameObject.id === target.id || this._shot.id === target.id) {
+    if (this._actor.id === target.id || this._shot.id === target.id) {
       return;
     }
 

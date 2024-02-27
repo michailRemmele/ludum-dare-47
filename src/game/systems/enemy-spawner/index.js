@@ -1,5 +1,5 @@
 import {
-  GameObjectObserver,
+  ActorCollection,
   MathOps,
   System,
   Transform,
@@ -32,10 +32,11 @@ export class EnemySpawner extends System {
   constructor(options) {
     super();
 
-    this.gameObjectObserver = new GameObjectObserver(options.scene, {
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene, {
       components: [ AI ],
     });
-    this._gameObjectSpawner = options.gameObjectSpawner;
+    this._actorSpawner = options.actorSpawner;
     this.timeService = options.scene.getService(TimeService);
 
     this._islandSize = {
@@ -55,7 +56,7 @@ export class EnemySpawner extends System {
     }
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const enemy = this._gameObjectSpawner.spawn(ENEMY_TEMPLATE_ID);
+      const enemy = this._actorSpawner.spawn(ENEMY_TEMPLATE_ID);
       const enemyTransform = enemy.getComponent(Transform);
       const enemyWeapon = enemy.getComponent(Weapon);
       const enemyHealth = enemy.getComponent(Health);
@@ -69,6 +70,8 @@ export class EnemySpawner extends System {
       enemyTransform.offsetY = MathOps.random(this._islandSize.minY, this._islandSize.maxY);
 
       this._enemyCooldown = ENEMY_SPAWN_COOLDOWN;
+
+      this.scene.appendChild(enemy);
     }
   }
 
@@ -79,7 +82,7 @@ export class EnemySpawner extends System {
     }
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const enemy = this._gameObjectSpawner.spawn(RANGE_ENEMY_TEMPLATE_ID);
+      const enemy = this._actorSpawner.spawn(RANGE_ENEMY_TEMPLATE_ID);
       const enemyTransform = enemy.getComponent(Transform);
       const enemyWeapon = enemy.getComponent(Weapon);
       const enemyHealth = enemy.getComponent(Health);
@@ -93,6 +96,8 @@ export class EnemySpawner extends System {
       enemyTransform.offsetY = MathOps.random(this._islandSize.minY, this._islandSize.maxY);
 
       this._rangeEnemyCooldown = RANGE_ENEMY_SPAWN_COOLDOWN;
+
+      this.scene.appendChild(enemy);
     }
   }
 
@@ -106,8 +111,8 @@ export class EnemySpawner extends System {
     this._spawnRangeEnemies(deltaTime, hour, days);
 
     if (hour >= END_SPAWN_HOUR) {
-      this.gameObjectObserver.forEach((gameObject) => {
-        gameObject.emit(EventType.Damage, { value: END_SPAWN_DAMAGE });
+      this.actorCollection.forEach((actor) => {
+        actor.emit(EventType.Damage, { value: END_SPAWN_DAMAGE });
       });
     }
   }

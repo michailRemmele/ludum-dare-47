@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { ActiveEffects, Effect, UI } from '../../../../../game/components';
 import { withGame } from '../../../common';
-import { PLAYER_ID } from '../../../../../consts/game-objects';
+import { PLAYER_ID } from '../../../../../consts/actors';
 
 import './style.css';
 
@@ -16,13 +16,13 @@ export const EffectsBar = ({
 
   useEffect(() => {
     const handleGameStateUpdate = () => {
-      const gameObject = scene.getGameObject(PLAYER_ID);
+      const actor = scene.getEntityById(PLAYER_ID);
 
-      if (!gameObject || !gameObject.getComponent(ActiveEffects)) {
+      if (!actor || !actor.getComponent(ActiveEffects)) {
         return;
       }
 
-      const activeEffects = gameObject.getComponent(ActiveEffects);
+      const activeEffects = actor.getComponent(ActiveEffects);
 
       const newEffects = activeEffects.list.reduce((acc, effectName) => {
         const effectObject = activeEffects.map[effectName];

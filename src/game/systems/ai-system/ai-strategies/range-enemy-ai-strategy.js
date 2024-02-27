@@ -2,7 +2,7 @@ import { MathOps, Transform, ColliderContainer } from 'remiz';
 
 import { EventType } from '../../../../events';
 import { Weapon } from '../../../components';
-import { PLAYER_ID } from '../../../../consts/game-objects';
+import { PLAYER_ID } from '../../../../consts/actors';
 
 import { AIStrategy } from './ai-strategy';
 
@@ -18,7 +18,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
     this._player = player;
     this.scene = scene;
 
-    this._playerId = this._player.getId();
+    this._playerId = this._player.id;
     this._cooldown = MathOps.random(0, COOLDOWN);
     this._waypoint = null;
     this._enemy = null;
@@ -47,7 +47,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
   }
 
   _updateDistances() {
-    const enemy = this.scene.getGameObject(PLAYER_ID);
+    const enemy = this.scene.getEntityById(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -60,7 +60,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
   }
 
   _updateMeleeEnemies() {
-    const enemy = this.scene.getGameObject(PLAYER_ID);
+    const enemy = this.scene.getEntityById(PLAYER_ID);
 
     if (!enemy) {
       return;
@@ -70,14 +70,14 @@ export class RangeEnemyAIStrategy extends AIStrategy{
   }
 
   _updateTargetEnemy() {
-    const enemy = this.scene.getGameObject(PLAYER_ID);
+    const enemy = this.scene.getEntityById(PLAYER_ID);
 
     if (!enemy) {
       this._enemy = null;
       return;
     }
 
-    this._enemy = this.scene.getGameObject(PLAYER_ID);
+    this._enemy = this.scene.getEntityById(PLAYER_ID);
   }
 
   _findWayToRetreat() {
@@ -85,7 +85,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
 
     const { minX, maxX, minY, maxY } = this._getMovementBoundaries();
     const { offsetX, offsetY } = this._player.getComponent(Transform);
-    const enemy = this.scene.getGameObject(PLAYER_ID);
+    const enemy = this.scene.getEntityById(PLAYER_ID);
 
     if (!this._meleeEnemy || !enemy) {
       return;

@@ -1,9 +1,6 @@
 import {
   System,
-  GameObject,
-  GameObjectObserver,
-  AddGameObject,
-  RemoveGameObject,
+  ActorCollection,
 } from 'remiz';
 
 import { EventType } from '../../../events';
@@ -13,7 +10,8 @@ export class DamageSystem extends System {
   constructor(options) {
     super();
 
-    this.gameObjectObserver = new GameObjectObserver(options.scene, {
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene, {
       components: [
         Health,
       ],
@@ -21,25 +19,11 @@ export class DamageSystem extends System {
   }
 
   mount() {
-    this.gameObjectObserver.forEach(this.handleAddGameObject);
-    this.gameObjectObserver.addEventListener(AddGameObject, this.handleAddGameObject);
-    this.gameObjectObserver.addEventListener(RemoveGameObject, this.handleRemoveGameObject);
+    this.scene.addEventListener(EventType.Damage, this.handleDamage);
   }
 
   unmount() {
-    this.gameObjectObserver.forEach(this.handleRemoveGameObject);
-    this.gameObjectObserver.removeEventListener(AddGameObject, this.handleAddGameObject);
-    this.gameObjectObserver.removeEventListener(RemoveGameObject, this.handleRemoveGameObject);
-  }
-
-  handleAddGameObject = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.gameObject;
-    gameObject.addEventListener(EventType.Damage, this.handleDamage);
-  }
-
-  handleRemoveGameObject = (value) => {
-    const gameObject = value instanceof GameObject ? value : value.gameObject;
-    gameObject.removeEventListener(EventType.Damage, this.handleDamage);
+    this.scene.removeEventListener(EventType.Damage, this.handleDamage);
   }
 
   handleDamage = (event) => {

@@ -1,4 +1,4 @@
-import { GameObjectObserver, MathOps, System, Transform } from 'remiz';
+import { ActorCollection, MathOps, System, Transform } from 'remiz';
 
 import { EventType } from '../../../events';
 import { TimeService } from '../';
@@ -19,10 +19,11 @@ export class GrassSpawner extends System {
   constructor(options) {
     super();
 
-    this.gameObjectObserver = new GameObjectObserver(options.scene, {
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene, {
       components: [ Collectable ],
     });
-    this.gameObjectSpawner = options.gameObjectSpawner;
+    this.actorSpawner = options.actorSpawner;
     this.timeService = options.scene.getService(TimeService);
 
     this._islandSize = {
@@ -46,18 +47,20 @@ export class GrassSpawner extends System {
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
       const templateIndex = MathOps.random(0, GRASS_TEMPLATES.length - 1);
-      const grass = this.gameObjectSpawner.spawn(GRASS_TEMPLATES[templateIndex]);
+      const grass = this.actorSpawner.spawn(GRASS_TEMPLATES[templateIndex]);
       const grassTransform = grass.getComponent(Transform);
 
       grassTransform.offsetX = MathOps.random(this._islandSize.minX, this._islandSize.maxX);
       grassTransform.offsetY = MathOps.random(this._islandSize.minY, this._islandSize.maxY);
 
       this._cooldown = SPAWN_COOLDOWN;
+
+      this.scene.appendChild(grass);
     }
 
     if (hour >= KILL_GRASS_HOUR && hour < START_SPAWN_HOUR) {
-      this.gameObjectObserver.forEach((gameObject) => {
-        gameObject.emit(EventType.Kill);
+      this.actorCollection.forEach((actor) => {
+        actor.emit(EventType.Kill);
       });
     }
   }

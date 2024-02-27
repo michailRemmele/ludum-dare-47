@@ -28,7 +28,7 @@ export const GameStatsMeter = ({
   const chartValues = useRef([]);
 
   const [ fps, setFps ] = useState(0);
-  const [ gameObjectsCount, setGameObjectsCount ] = useState(0);
+  const [ actorsCount, setActorsCount ] = useState(0);
 
   const updateChart = useCallback((currentFps) => {
     const ctx = chartCtxRef.current;
@@ -66,7 +66,7 @@ export const GameStatsMeter = ({
     const handleGameStateUpdate = (event) => {
       const currentFps = Math.round(event.fps);
 
-      setGameObjectsCount(event.gameObjectsCount);
+      setActorsCount(event.actorsCount);
 
       setFps(currentFps);
       updateChart(currentFps);
@@ -90,7 +90,7 @@ export const GameStatsMeter = ({
 
         <div className='game-stats-meter__load'>
           <span className='game-stats-meter__additional'>
-            {`Game objects: ${gameObjectsCount}`}
+            {`Game objects: ${actorsCount}`}
           </span>
         </div>
       </div>

@@ -22,16 +22,17 @@ const HIT_LIFETIME = 100;
 const PUSH_IMPULSE = 200;
 
 export class MeleeAttack extends Attack {
-  constructor(gameObject, spawner, angle) {
+  constructor(actor, spawner, scene, angle) {
     super();
 
-    this._gameObject = gameObject;
+    this._actor = actor;
     this._spawner = spawner;
+    this._scene = scene;
     this._angle = angle;
 
-    this._weapon = this._gameObject.getComponent(Weapon);
+    this._weapon = this._actor.getComponent(Weapon);
 
-    const { offsetX, offsetY } = this._gameObject.getComponent(Transform);
+    const { offsetX, offsetY } = this._actor.getComponent(Transform);
     const { range } = this._weapon.properties;
 
     const degAngle = MathOps.radToDeg(this._angle);
@@ -49,6 +50,8 @@ export class MeleeAttack extends Attack {
     hitTransform.offsetX = hitCenter.x;
     hitTransform.offsetY = hitCenter.y;
 
+    this._scene.appendChild(hit);
+
     const directionVector = VectorOps.getVectorByAngle(this._angle);
     directionVector.multiplyNumber(PUSH_IMPULSE);
 
@@ -65,17 +68,17 @@ export class MeleeAttack extends Attack {
   }
 
   _handleCollisionEnter = (event) => {
-    const { gameObject } = event;
+    const { actor } = event;
 
     const { damage } = this._weapon.properties;
-    const hitBox = gameObject.getComponent(HitBox);
-    const target = gameObject.parent;
+    const hitBox = actor.getComponent(HitBox);
+    const target = actor.parent;
 
     if (!hitBox || !target) {
       return;
     }
 
-    if (this._gameObject.id === target.id || this._hit.id === target.id) {
+    if (this._actor.id === target.id || this._hit.id === target.id) {
       return;
     }
 
