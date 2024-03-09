@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { GameStatsUpdate } from 'remiz';
+import { GameStatsUpdate } from 'remiz/events';
 
 import { withGame } from '../../../common';
 

@@ -51,7 +51,7 @@ export class ThumbStickController extends System {
           );
         }
 
-        actor.emit(eventBinding.eventType, {
+        actor.dispatchEvent(eventBinding.eventType, {
           ...eventBinding.attrs,
           x: this._currentX,
           y: this._currentY,

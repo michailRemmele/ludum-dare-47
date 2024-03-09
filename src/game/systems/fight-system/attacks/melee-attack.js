@@ -3,9 +3,8 @@ import {
   VectorOps,
   Transform,
   ColliderContainer,
-  CollisionEnter,
-  AddImpulse,
 } from 'remiz';
+import { CollisionEnter, AddImpulse } from 'remiz/events';
 
 import { EventType } from '../../../../events';
 import {
@@ -82,11 +81,11 @@ export class MeleeAttack extends Attack {
       return;
     }
 
-    target.emit(EventType.Damage, { value: damage });
-    target.emit(EventType.AddEffect, {
+    target.dispatchEvent(EventType.Damage, { value: damage });
+    target.dispatchEvent(EventType.AddEffect, {
       effectId: '039f1088-d693-48ab-9305-20a254658666',
     });
-    target.emit(AddImpulse, { value: this._directionVector.clone() });
+    target.dispatchEvent(AddImpulse, { value: this._directionVector.clone() });
   };
 
   isFinished() {
@@ -103,7 +102,7 @@ export class MeleeAttack extends Attack {
     if (this._lifetime <= 0) {
       const hitHealth = this._hit.getComponent(Health);
 
-      this._hit.emit(EventType.Damage, { value: hitHealth.points });
+      this._hit.dispatchEvent(EventType.Damage, { value: hitHealth.points });
 
       this._isFinished = true;
     }

@@ -10,7 +10,7 @@ class Damage extends Effect {
   }
 
   apply() {
-    this._actor.emit(EventType.Damage, { value: this._value });
+    this._actor.dispatchEvent(EventType.Damage, { value: this._value });
   }
 }
 

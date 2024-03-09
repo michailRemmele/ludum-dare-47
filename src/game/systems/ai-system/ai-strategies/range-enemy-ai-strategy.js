@@ -124,7 +124,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
 
     const { offsetX: enemyX, offsetY: enemyY } = this._enemy.getComponent(Transform);
 
-    this._player.emit(EventType.Attack, {
+    this._player.dispatchEvent(EventType.Attack, {
       x: enemyX,
       y: enemyY,
     });
@@ -150,7 +150,7 @@ export class RangeEnemyAIStrategy extends AIStrategy{
       offsetY
     ));
 
-    this._player.emit(EventType.Movement, { angle: movementAngle });
+    this._player.dispatchEvent(EventType.Movement, { angle: movementAngle });
   }
 
   update(deltaTime) {

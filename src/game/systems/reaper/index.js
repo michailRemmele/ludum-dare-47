@@ -46,7 +46,7 @@ export class Reaper extends System {
       lifetime: this._lifetime,
     });
 
-    actor.emit(EventType.Death);
+    actor.dispatchEvent(EventType.Death);
 
     actor.children.forEach((child) => this._handleKill(child));
   };

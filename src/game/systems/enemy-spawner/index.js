@@ -112,7 +112,7 @@ export class EnemySpawner extends System {
 
     if (hour >= END_SPAWN_HOUR) {
       this.actorCollection.forEach((actor) => {
-        actor.emit(EventType.Damage, { value: END_SPAWN_DAMAGE });
+        actor.dispatchEvent(EventType.Damage, { value: END_SPAWN_DAMAGE });
       });
     }
   }

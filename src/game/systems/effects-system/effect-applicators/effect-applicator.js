@@ -7,11 +7,11 @@ export class EffectApplicator {
   }
 
   _handleCancel() {
-    this._effect.emit(EventType.CancelEffect);
+    this._effect.dispatchEvent(EventType.CancelEffect);
   }
 
   _handleApply() {
-    this._effect.emit(EventType.ApplyEffect);
+    this._effect.dispatchEvent(EventType.ApplyEffect);
   }
 
   update() {

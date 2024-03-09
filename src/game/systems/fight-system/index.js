@@ -3,8 +3,8 @@ import {
   MathOps,
   System,
   Transform,
-  RemoveActor,
 } from 'remiz';
+import { RemoveActor } from 'remiz/events';
 
 import { EventType } from '../../../events';
 import { Weapon } from '../../components';

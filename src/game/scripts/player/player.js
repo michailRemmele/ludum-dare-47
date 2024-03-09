@@ -3,11 +3,9 @@ import {
   Script,
   MathOps,
   Light,
-  MouseInput,
-  CollisionEnter,
-  CollisionStay,
-  CollisionLeave,
+  MouseControl,
 } from 'remiz';
+import { CollisionEnter, CollisionStay, CollisionLeave } from 'remiz/events';
 
 import {
   HitBox,
@@ -67,7 +65,7 @@ export class PlayerScript extends Script {
 
     // Ignore mouse events for touch devices and enable auto aim
     if (isTouchDevice()) {
-      this.actor.removeComponent(MouseInput);
+      this.actor.removeComponent(MouseControl);
       this.autoAimObject.addEventListener(CollisionStay, this._handleCollisionStay);
     }
 
@@ -83,7 +81,7 @@ export class PlayerScript extends Script {
 
     this.autoAimObject.removeEventListener(CollisionStay, this._handleCollisionStay);
 
-    this.scene.emit(EventType.Defeat);
+    this.scene.dispatchEvent(EventType.Defeat);
   }
 
   _handleCollisionEnter = (event) => {
@@ -160,7 +158,7 @@ export class PlayerScript extends Script {
 
     collectableItems.delete(item);
 
-    item.emit(EventType.Kill);
+    item.dispatchEvent(EventType.Kill);
   };
 
   _handleUseItem = (event) => {
@@ -173,7 +171,7 @@ export class PlayerScript extends Script {
 
     inventory[item] -= 1;
 
-    this.actor.emit(EventType.AddEffect, ITEM_EFFECTS[item]);
+    this.actor.dispatchEvent(EventType.AddEffect, ITEM_EFFECTS[item]);
   };
 
   _handleCraftItem = (event) => {

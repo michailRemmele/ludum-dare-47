@@ -60,7 +60,7 @@ export class GrassSpawner extends System {
 
     if (hour >= KILL_GRASS_HOUR && hour < START_SPAWN_HOUR) {
       this.actorCollection.forEach((actor) => {
-        actor.emit(EventType.Kill);
+        actor.dispatchEvent(EventType.Kill);
       });
     }
   }

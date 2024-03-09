@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LoadScene } from 'remiz';
+import { LoadScene } from 'remiz/events';
 
 import {
   withGame,
@@ -19,7 +19,7 @@ const LOADER_ID = '3c4c020d-bcf7-4644-893f-fa72335b352e';
 
 export class MainMenu extends React.Component {
   onPlay() {
-    this.props.scene.emit(LoadScene, {
+    this.props.scene.dispatchEvent(LoadScene, {
       sceneId: GAME_SCENE_ID,
       loaderId: LOADER_ID,
       clean: true,

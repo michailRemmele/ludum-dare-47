@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LoadScene } from 'remiz';
+import { LoadScene } from 'remiz/events';
 
 import { EventType } from '../../../events';
 import { Health, AutoAim } from '../../../game/components';
@@ -196,7 +196,7 @@ export class Game extends React.Component {
   onCollectItem = (event) => {
     event.stopPropagation();
 
-    this.state.actor.emit(EventType.Grab);
+    this.state.actor.dispatchEvent(EventType.Grab);
   }
 
   onInventoryToggle = (event) => {
@@ -204,15 +204,15 @@ export class Game extends React.Component {
       event.stopPropagation();
     }
 
-    this.state.actor.emit(EventType.ToggleInventory);
+    this.state.actor.dispatchEvent(EventType.ToggleInventory);
   }
 
   onCraft = (recipe) => {
-    this.state.actor.emit(EventType.CraftRecipe, { recipe });
+    this.state.actor.dispatchEvent(EventType.CraftRecipe, { recipe });
   }
 
   onRestart() {
-    this.props.scene.emit(LoadScene, {
+    this.props.scene.dispatchEvent(LoadScene, {
       sceneId: GAME_SCENE_ID,
       loaderId: LOADER_ID,
       unloadCurrent: true,
@@ -221,7 +221,7 @@ export class Game extends React.Component {
   }
 
   onMainMenu() {
-    this.props.scene.emit(LoadScene, {
+    this.props.scene.dispatchEvent(LoadScene, {
       sceneId: MAIN_MENU_SCENE_ID,
       unloadCurrent: true,
     });
@@ -233,7 +233,7 @@ export class Game extends React.Component {
     );
     const autoAim = autoAimObject.getComponent(AutoAim);
 
-    this.state.actor.emit(EventType.Attack, {
+    this.state.actor.dispatchEvent(EventType.Attack, {
       x: autoAim.targetX,
       y: autoAim.targetY,
     });

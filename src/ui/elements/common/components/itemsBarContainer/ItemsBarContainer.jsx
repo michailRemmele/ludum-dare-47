@@ -19,7 +19,7 @@ export const ItemsBarContainer = ({
   const handleUseItem = useCallback((event, item) => {
     event.stopPropagation();
 
-    user.emit(EventType.UseItem, { item });
+    user.dispatchEvent(EventType.UseItem, { item });
   }, [ user ]);
 
   useEffect(() => {

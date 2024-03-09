@@ -121,7 +121,7 @@ export class ThumbStick extends React.Component {
   }
 
   onMove = (x, y) => {
-    this.props.scene.emit(EventType.ThumbStickInput, { x, y });
+    this.props.scene.dispatchEvent(EventType.ThumbStickInput, { x, y });
 
     this.props.onMove(x, y);
   }

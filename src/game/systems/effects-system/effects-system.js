@@ -1,8 +1,5 @@
-import {
-  ActorCollection,
-  System,
-  RemoveActor,
-} from 'remiz';
+import { ActorCollection, System } from 'remiz';
+import { RemoveActor } from 'remiz/events';
 
 import { EventType } from '../../../events';
 import { ActiveEffects, Effect } from '../../components';
@@ -65,7 +62,7 @@ export class EffectsSystem extends System {
   };
 
   _killEffect(effect) {
-    effect.emit(EventType.Kill);
+    effect.dispatchEvent(EventType.Kill);
   }
 
   _cancelEffect(effectId, actor) {

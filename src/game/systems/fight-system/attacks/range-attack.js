@@ -3,9 +3,8 @@ import {
   VectorOps,
   Transform,
   ColliderContainer,
-  CollisionEnter,
-  AddImpulse,
 } from 'remiz';
+import { CollisionEnter, AddImpulse } from 'remiz/events';
 
 import { EventType } from '../../../../events';
 import { Weapon, Health, HitBox } from '../../../components';
@@ -54,7 +53,7 @@ export class RangeAttack extends Attack {
     this._lifetime = flightTime;
     this._isFinished = false;
 
-    this._shot.emit(AddImpulse, { value: directionVector.clone() });
+    this._shot.dispatchEvent(AddImpulse, { value: directionVector.clone() });
 
     this._shot.addEventListener(CollisionEnter, this._handleCollisionEnter);
   }
@@ -82,11 +81,11 @@ export class RangeAttack extends Attack {
       return;
     }
 
-    target.emit(EventType.Damage, { value: damage });
-    target.emit(EventType.AddEffect, {
+    target.dispatchEvent(EventType.Damage, { value: damage });
+    target.dispatchEvent(EventType.AddEffect, {
       effectId: '039f1088-d693-48ab-9305-20a254658666',
     });
-    target.emit(AddImpulse, { value: this._directionVector.clone() });
+    target.dispatchEvent(AddImpulse, { value: this._directionVector.clone() });
 
     this._lifetime = 0;
   };
@@ -112,7 +111,7 @@ export class RangeAttack extends Attack {
     if (this._lifetime <= 0) {
       const shotHealth = this._shot.getComponent(Health);
 
-      this._shot.emit(EventType.Damage, { value: shotHealth.points });
+      this._shot.dispatchEvent(EventType.Damage, { value: shotHealth.points });
 
       this._isFinished = true;
     }
