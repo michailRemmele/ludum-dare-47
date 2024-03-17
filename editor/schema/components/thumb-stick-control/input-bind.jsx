@@ -8,6 +8,7 @@ import {
   MultiField,
   Panel,
   useCommander,
+  useExtension,
   commands,
 } from 'remiz-editor';
 
@@ -21,6 +22,7 @@ export const InputBind = ({
 }) => {
   const { t } = useTranslation();
   const { dispatch } = useCommander();
+  const { globalReferences } = useExtension();
 
   const bindPath = useMemo(
     () => path.concat('inputEventBindings', `event:${event.value}`), [ path, event ]
@@ -29,6 +31,7 @@ export const InputBind = ({
   const eventTypePath = useMemo(() => bindPath.concat('eventType'), [ bindPath ]);
   const attrsPath = useMemo(() => bindPath.concat('attrs'), [ bindPath ]);
 
+  const controlEvents = globalReferences.controlEvents?.items;
   const inputEvents = useMemo(() => [ event, ...availableEvents ], [ availableEvents ]);
 
   const handleDeleteBind = useCallback(() => {
@@ -49,8 +52,9 @@ export const InputBind = ({
       />
       <Field
         path={eventTypePath}
-        component={LabelledTextInput}
+        component={controlEvents ? LabelledSelect : LabelledTextInput}
         label={t('components.thumbStickControl.bind.eventType.title')}
+        options={controlEvents}
       />
       <SectionHeaderStyled>
         {t('components.thumbStickControl.bind.attributes.title')}
