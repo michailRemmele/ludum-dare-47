@@ -1,23 +1,16 @@
+import { EventType } from '../../events';
 import { Effect } from '../systems/effects-system';
 
-const DAMAGE_MSG = 'DAMAGE';
-
 class Damage extends Effect {
-  constructor(gameObject, messageBus, options) {
+  constructor(actor, options) {
     super();
 
-    this._gameObject = gameObject;
-    this._messageBus = messageBus;
+    this._actor = actor;
     this._value = options.value;
   }
 
   apply() {
-    this._messageBus.send({
-      type: DAMAGE_MSG,
-      id: this._gameObject.getId(),
-      gameObject: this._gameObject,
-      value: this._value,
-    });
+    this._actor.dispatchEvent(EventType.Damage, { value: this._value });
   }
 }
 

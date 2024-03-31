@@ -1,13 +1,59 @@
 import {
   Engine,
-  contribSystems,
-  contribComponents,
+
+  Animator,
+  CameraSystem,
+  GameStatsMeter,
+  KeyboardInputSystem,
+  KeyboardControlSystem,
+  MouseControlSystem,
+  MouseInputSystem,
+  PhysicsSystem,
+  ScriptSystem,
+  SpriteRenderer,
+  UiBridge,
+
+  Camera,
+  KeyboardControl,
+  ColliderContainer,
+  RigidBody,
+  Animatable,
+  Sprite,
+  Transform,
+  MouseControl,
+  ScriptBundle,
+  Light,
 } from 'remiz';
 
 import config from 'resources/config.json';
-import { systems as gameSystems } from './game/systems';
-import gameComponents from 'game/components';
-import helpers from './helpers';
+import {
+  AISystem,
+  DamageSystem,
+  DayNightSimulator,
+  EffectsSystem,
+  EnemySpawner,
+  FightSystem,
+  GrassSpawner,
+  MovementSystem,
+  Reaper,
+  ThumbStickController,
+} from './game/systems';
+import {
+  ActiveEffects,
+  AI,
+  AutoAim,
+  Collectable,
+  Effect,
+  Health,
+  HitBox,
+  Movement,
+  ThumbStickControl,
+  UI,
+  ViewDirection,
+  Weapon,
+} from 'game/components';
+import { scripts } from 'game/scripts';
+import { effects } from 'game/effects';
 import {
   isIosSafari,
   isIos,
@@ -17,21 +63,64 @@ import {
 
 const options = {
   config,
-  systems: {
-    ...contribSystems,
-    ...gameSystems,
-  },
-  components: {
-    ...contribComponents,
-    ...gameComponents,
-  },
-  helpers: {
-    ...helpers,
+  systems: [
+    Animator,
+    CameraSystem,
+    GameStatsMeter,
+    KeyboardInputSystem,
+    KeyboardControlSystem,
+    MouseControlSystem,
+    MouseInputSystem,
+    PhysicsSystem,
+    ScriptSystem,
+    SpriteRenderer,
+    UiBridge,
+    AISystem,
+    DamageSystem,
+    DayNightSimulator,
+    EffectsSystem,
+    EnemySpawner,
+    FightSystem,
+    GrassSpawner,
+    MovementSystem,
+    Reaper,
+    ThumbStickController,
+  ],
+  components: [
+    Camera,
+    KeyboardControl,
+    ColliderContainer,
+    RigidBody,
+    Animatable,
+    Sprite,
+    Transform,
+    MouseControl,
+    ScriptBundle,
+    Light,
+    ActiveEffects,
+    AI,
+    AutoAim,
+    Collectable,
+    Effect,
+    Health,
+    HitBox,
+    Movement,
+    ThumbStickControl,
+    UI,
+    ViewDirection,
+    Weapon,
+  ],
+  resources: {
+    [ScriptSystem.systemName]: scripts,
+    [EffectsSystem.systemName]: effects,
+    [UiBridge.systemName]: {
+      loadUiApp: () => import('ui'),
+    },
   },
 };
 
 const engine = new Engine(options);
-engine.start();
+engine.play();
 
 console.log('Hello! You can contact the author via email: mikhail.remmele@gmail.com');
 

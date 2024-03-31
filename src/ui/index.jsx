@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { MemoryRouter, Switch, Route } from 'react-router';
 
 import {
@@ -10,26 +10,17 @@ import { MainMenu } from './pages/mainMenu';
 import { Game } from './pages/game';
 import { Loader } from './pages/loader';
 
-export function onInit(options) {
-  const {
-    sceneName,
-    messageBusObserver,
-    storeObserver,
-    pushMessage,
-    pushAction,
-    gameObjects,
-  } = options;
+let root;
 
-  ReactDOM.render(
-    <GameProvider
-      messageBusObserver={messageBusObserver}
-      storeObserver={storeObserver}
-      pushMessage={pushMessage}
-      pushAction={pushAction}
-      gameObjects={gameObjects}
-    >
+export function onInit(options) {
+  const { scene } = options;
+
+  root = createRoot(document.getElementById('ui-root'));
+
+  root.render(
+    <GameProvider {...options}>
       <MemoryRouter>
-        <SceneSwitcher sceneName={sceneName}>
+        <SceneSwitcher sceneName={scene.name}>
           <Switch>
             <Route path='/mainMenu'>
               <MainMenu/>
@@ -43,13 +34,13 @@ export function onInit(options) {
           </Switch>
         </SceneSwitcher>
       </MemoryRouter>
-    </GameProvider>,
-    document.getElementById('ui-root')
+    </GameProvider>
   );
 }
 
 export function onDestroy() {
-  ReactDOM.unmountComponentAtNode(
-    document.getElementById('ui-root')
-  );
+  if (root) {
+    root.unmount();
+    root = void 0;
+  }
 }

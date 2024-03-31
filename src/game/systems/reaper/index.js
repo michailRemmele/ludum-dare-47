@@ -1,12 +1,19 @@
-const KILL_MSG = 'KILL';
-const DEATH_MSG = 'DEATH';
+import {
+  Actor,
+  System,
+  ActorCollection,
+} from 'remiz';
+
+import { EventType } from '../../../events';
 
 const GRAVEYARD_CLEAN_FREQUENCY = 1000;
 
-export class Reaper {
+export class Reaper extends System {
   constructor(options) {
-    this._gameObjectDestroyer = options.gameObjectDestroyer;
-    this.messageBus = options.messageBus;
+    super();
+
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene);
     this._allowedComponents = options.allowedComponents.reduce((storage, componentName) => {
       storage[componentName] = true;
       return storage;
@@ -17,36 +24,35 @@ export class Reaper {
     this._timeCounter = 0;
   }
 
-  _killEntitiy(gameObject) {
-    gameObject.getComponentNamesList().forEach((componentName) => {
-      if (!this._allowedComponents[componentName]) {
-        gameObject.removeComponent(componentName);
+  mount() {
+    this.scene.addEventListener(EventType.Kill, this._handleKill);
+  }
+
+  unmount() {
+    this.scene.removeEventListener(EventType.Kill, this._handleKill);
+  }
+
+  _handleKill = (value) => {
+    const actor = value instanceof Actor ? value : value.target;
+
+    actor.getComponents().forEach((component) => {
+      if (!this._allowedComponents[component.constructor.componentName]) {
+        actor.removeComponent(component.constructor);
       }
     });
 
     this._graveyard.push({
-      gameObject,
+      actor,
       lifetime: this._lifetime,
     });
 
-    this.messageBus.send({
-      type: DEATH_MSG,
-      id: gameObject.getId(),
-      gameObject,
-    });
+    actor.dispatchEvent(EventType.Death);
 
-    gameObject.getChildren().forEach((child) => this._killEntitiy(child));
-  }
+    actor.children.forEach((child) => this._handleKill(child));
+  };
 
   update(options) {
     const { deltaTime } = options;
-
-    const killMessages = this.messageBus.get(KILL_MSG) || [];
-    killMessages.forEach((message) => {
-      const { gameObject } = message;
-
-      this._killEntitiy(gameObject);
-    });
 
     this._timeCounter += deltaTime;
     if (this._timeCounter >= GRAVEYARD_CLEAN_FREQUENCY) {
@@ -54,7 +60,7 @@ export class Reaper {
         entry.lifetime -= this._timeCounter;
 
         if (entry.lifetime <= 0) {
-          this._gameObjectDestroyer.destroy(entry.gameObject);
+          entry.actor.remove();
 
           return false;
         }
@@ -66,3 +72,5 @@ export class Reaper {
     }
   }
 }
+
+Reaper.systemName = 'Reaper';

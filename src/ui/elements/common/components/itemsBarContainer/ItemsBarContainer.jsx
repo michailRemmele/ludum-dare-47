@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
+import { EventType } from '../../../../../events';
+import { CollectService } from '../../../../../game/scripts';
 import { withGame, withDeviceDetection } from '../../../common';
 import { ItemsBar as ItemsBarDesktop } from '../../../desktop';
 import { ItemsBar as ItemsBarTouch } from '../../../touch';
 
-const INVENTORY_KEY = 'inventory';
-const USE_ITEM_MSG = 'USE_ITEM';
-
 export const ItemsBarContainer = ({
   className,
   user,
-  pushMessage,
-  storeObserver,
+  gameStateObserver,
+  scene,
   touchDevice,
 }) => {
   const [ items, setItems ] = useState({});
@@ -20,27 +19,23 @@ export const ItemsBarContainer = ({
   const handleUseItem = useCallback((event, item) => {
     event.stopPropagation();
 
-    pushMessage({
-      type: USE_ITEM_MSG,
-      id: user.getId(),
-      gameObject: user,
-      item,
-    });
-  }, [ user, pushMessage ]);
+    user.dispatchEvent(EventType.UseItem, { item });
+  }, [ user ]);
 
   useEffect(() => {
-    const handleStoreUpdate = (store) => {
-      const { healPotion, powerPotion } = store.get(INVENTORY_KEY);
+    const handleGameStateUpdate = () => {
+      const collectService = scene.getService(CollectService);
+      const { healPotion, powerPotion } = collectService.getInventory();
 
       if (healPotion !== items.healPotion || powerPotion !== items.powerPotion) {
         setItems({ healPotion, powerPotion });
       }
     };
 
-    storeObserver.subscribe(handleStoreUpdate);
+    gameStateObserver.subscribe(handleGameStateUpdate);
 
-    return () => storeObserver.unsubscribe(handleStoreUpdate);
-  }, [ items ]);
+    return () => gameStateObserver.unsubscribe(handleGameStateUpdate);
+  }, [ items, gameStateObserver, scene ]);
 
   const ItemsBar = touchDevice ? ItemsBarTouch : ItemsBarDesktop;
 
@@ -60,8 +55,8 @@ ItemsBarContainer.defaultProps = {
 ItemsBarContainer.propTypes = {
   className: PropTypes.string,
   user: PropTypes.object,
-  storeObserver: PropTypes.any,
-  pushMessage: PropTypes.func,
+  gameStateObserver: PropTypes.any,
+  scene: PropTypes.any,
   touchDevice: PropTypes.bool,
 };
 

@@ -1,1 +1,1 @@
-export { default as SimpleFighter } from './simpleFighter';
+export { SimpleFighter } from './simple-fighter';

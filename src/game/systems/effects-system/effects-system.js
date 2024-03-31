@@ -1,162 +1,141 @@
-import { ActiveEffects } from '../../components/activeEffects';
+import { ActorCollection, System } from 'remiz';
+import { RemoveActor } from 'remiz/events';
 
-import effectApplicators from './effectApplicators';
-import { ACTIVE_EFFECTS_COMPONENT_NAME, EFFECT_COMPONENT_NAME } from './consts';
+import { EventType } from '../../../events';
+import { ActiveEffects, Effect } from '../../components';
 
-const ADD_EFFECT_MSG = 'ADD_EFFECT';
-const REMOVE_EFFECT_MSG = 'REMOVE_EFFECT';
-const KILL_MSG = 'KILL';
+import { effectApplicators } from './effect-applicators';
 
-export class EffectsSystem {
+export class EffectsSystem extends System {
   constructor(options) {
-    this._gameObjectObserver = options.createGameObjectObserver({
-      components: [
-        ACTIVE_EFFECTS_COMPONENT_NAME,
-      ],
+    super();
+
+    const {
+      actorSpawner,
+      resources = {},
+      scene,
+    } = options;
+
+    this.scene = scene;
+    this.actorCollection = new ActorCollection(scene);
+    this.activeEffectsCollection = new ActorCollection(scene, {
+      components: [ ActiveEffects ],
     });
-    this._gameObjectSpawner = options.gameObjectSpawner;
-    this._actions = options.effects;
-    this.messageBus = options.messageBus;
-    this.helpers = options.helpers;
+    this._actorSpawner = actorSpawner;
+    this._actions = resources;
 
     this._applicatorsMap = {};
   }
 
   mount() {
-    this._gameObjectObserver.subscribe('onremove', this._handleEntitiyRemove);
+    this.scene.addEventListener(EventType.AddEffect, this._handleAddEffect);
+    this.scene.addEventListener(EventType.RemoveEffect, this._handleRemoveEffect);
+
+    this.activeEffectsCollection.addEventListener(RemoveActor, this._handleRemoveAffected);
   }
 
   unmount() {
-    this._gameObjectObserver.unsubscribe('onremove', this._handleEntitiyRemove);
+    this.scene.removeEventListener(EventType.AddEffect, this._handleAddEffect);
+    this.scene.removeEventListener(EventType.RemoveEffect, this._handleRemoveEffect);
+
+    this.activeEffectsCollection.removeEventListener(RemoveActor, this._handleRemoveAffected);
   }
 
-  async load() {
-    const { effects } = await this.helpers.loadEffects();
+  _handleRemoveAffected = (event) => {
+    const { actor } = event;
 
-    this._actions = effects;
-  }
-
-  _handleEntitiyRemove = (gameObject) => {
-    const gameObjectId = gameObject.getId();
-
-    const applicatorsNames = Object.keys(this._applicatorsMap[gameObjectId] || {});
+    const applicatorsNames = Object.keys(this._applicatorsMap[actor.id] || {});
     applicatorsNames.forEach((name) => {
-      this._applicatorsMap[gameObjectId][name] = null;
+      this._applicatorsMap[actor.id][name] = null;
     });
   };
 
+  _handleAddEffect = (event) => {
+    const { effectId, options, target } = event;
+    this._cancelEffect(effectId, target);
+    this._addEffect(effectId, target, options);
+  };
+
+  _handleRemoveEffect = (event) => {
+    const { effectId, target } = event;
+    this._cancelEffect(effectId, target);
+  };
+
   _killEffect(effect) {
-    this.messageBus.send({
-      type: KILL_MSG,
-      id: effect.getId(),
-      gameObject: effect,
-    });
+    effect.dispatchEvent(EventType.Kill);
   }
 
-  _cancelEffect(name, gameObject) {
-    const gameObjectId = gameObject.getId();
-
-    if (!this._applicatorsMap[gameObjectId] || !this._applicatorsMap[gameObjectId][name]) {
+  _cancelEffect(effectId, actor) {
+    if (!this._applicatorsMap[actor.id] || !this._applicatorsMap[actor.id][effectId]) {
       return;
     }
 
-    this._applicatorsMap[gameObjectId][name].cancel();
-    this._applicatorsMap[gameObjectId][name] = null;
+    this._applicatorsMap[actor.id][effectId].cancel();
+    this._applicatorsMap[actor.id][effectId] = null;
 
-    const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
+    const activeEffects = actor.getComponent(ActiveEffects);
 
-    activeEffects.list = activeEffects.list.filter((activeEffectName) => {
-      if (name !== activeEffectName) {
+    activeEffects.list = activeEffects.list.filter((activeEffectId) => {
+      if (effectId !== activeEffectId) {
         return true;
       }
 
-      this._killEffect(activeEffects.map[activeEffectName]);
+      this._killEffect(activeEffects.map[activeEffectId]);
 
-      activeEffects.map[activeEffectName] = null;
+      activeEffects.map[activeEffectId] = null;
 
       return false;
     });
   }
 
-  _addEffect(name, gameObject, options) {
-    const gameObjectId = gameObject.getId();
-
-    const effect = this._gameObjectSpawner.spawn(name);
-    gameObject.appendChild(effect);
+  _addEffect(effectId, actor, options) {
+    const effect = this._actorSpawner.spawn(effectId);
+    actor.appendChild(effect);
 
     const {
       action,
       type,
       options: constOptions,
-    } = effect.getComponent(EFFECT_COMPONENT_NAME);
+    } = effect.getComponent(Effect);
 
-    if (!gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME)) {
-      gameObject.setComponent(ACTIVE_EFFECTS_COMPONENT_NAME, new ActiveEffects());
+    if (!actor.getComponent(ActiveEffects)) {
+      actor.setComponent(new ActiveEffects());
     }
 
-    const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
-    activeEffects.list.push(name);
-    activeEffects.map[name] = effect;
+    const activeEffects = actor.getComponent(ActiveEffects);
+    activeEffects.list.push(effectId);
+    activeEffects.map[effectId] = effect;
 
     const EffectAction = this._actions[action];
     const EffectApplicator = effectApplicators[type];
 
     const effectApplicator = new EffectApplicator(
-      new EffectAction(gameObject, this.messageBus, { ...constOptions, ...options }),
+      new EffectAction(actor, { ...constOptions, ...options }),
       effect,
-      this.messageBus
     );
 
-    this._applicatorsMap[gameObjectId] = this._applicatorsMap[gameObjectId] || {};
-    this._applicatorsMap[gameObjectId][name] = effectApplicator;
-  }
-
-  _processNewEffects() {
-    const newEffects = this.messageBus.get(ADD_EFFECT_MSG) || [];
-    newEffects.forEach((message) => {
-      const {
-        name,
-        options,
-        gameObject,
-      } = message;
-
-      this._cancelEffect(name, gameObject);
-      this._addEffect(name, gameObject, options);
-    });
-  }
-
-  _processEffectsCancellation() {
-    const cancelledEffects = this.messageBus.get(REMOVE_EFFECT_MSG) || [];
-    cancelledEffects.forEach((message) => {
-      const { name, gameObject } = message;
-      this._cancelEffect(name, gameObject);
-    });
+    this._applicatorsMap[actor.id] ??= {};
+    this._applicatorsMap[actor.id][effectId] = effectApplicator;
   }
 
   update(options) {
     const deltaTime = options.deltaTime;
 
-    this._gameObjectObserver.fireEvents();
+    this.activeEffectsCollection.forEach((actor) => {
+      const activeEffects = actor.getComponent(ActiveEffects);
 
-    this._processNewEffects();
-    this._processEffectsCancellation();
-
-    this._gameObjectObserver.forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-      const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
-
-      activeEffects.list = activeEffects.list.filter((name) => {
-        const effectApplicator = this._applicatorsMap[gameObjectId][name];
+      activeEffects.list = activeEffects.list.filter((effectId) => {
+        const effectApplicator = this._applicatorsMap[actor.id][effectId];
 
         effectApplicator.update(deltaTime);
 
         if (effectApplicator.isFinished()) {
           effectApplicator.cancel();
 
-          this._killEffect(activeEffects.map[name]);
+          this._killEffect(activeEffects.map[effectId]);
 
-          activeEffects.map[name] = null;
-          this._applicatorsMap[gameObjectId][name] = null;
+          activeEffects.map[effectId] = null;
+          this._applicatorsMap[actor.id][effectId] = null;
 
           return false;
         }
@@ -166,3 +145,5 @@ export class EffectsSystem {
     });
   }
 }
+
+EffectsSystem.systemName = 'EffectsSystem';

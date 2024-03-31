@@ -20,9 +20,12 @@ const TouchButton = ({
     }
 
     const handleTouchStart = (event) => event.preventDefault();
+    const buttonInstance = buttonRef.current;
 
-    buttonRef.current.addEventListener('touchstart', handleTouchStart, { passive: false });
-    return () => buttonRef.current.removeEventListener('touchstart', handleTouchStart);
+    buttonInstance.addEventListener('touchstart', handleTouchStart, { passive: false });
+    return () => {
+      buttonInstance.removeEventListener('touchstart', handleTouchStart);
+    };
   }, [ buttonRef ]);
 
   const handlePointerUp = useCallback((event) => {

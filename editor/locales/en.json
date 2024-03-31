@@ -1,0 +1,95 @@
+{
+  "components.ai.title": "AI",
+  "components.ai.strategy.title": "Strategy",
+  "components.ai.strategies.enemy.title": "enemy",
+  "components.ai.strategies.rangeEnemy.title": "rangeEnemy",
+
+  "components.autoAim.title": "Auto Aim",
+  
+  "components.collectable.title": "Collectable",
+  "components.collectable.name.title": "Name",
+  "components.collectable.names.healGrass.title": "healGrass",
+  "components.collectable.names.ogreGrass.title": "ogreGrass",
+  "components.collectable.names.boomGrass.title": "boomGrass",
+
+  "components.effect.title": "Effect",
+  "components.effect.action.title": "Action",
+  "components.effect.actions.damage.title": "damage",
+  "components.effect.actions.fetter.title": "fetter",
+  "components.effect.actions.heal.title": "heal",
+  "components.effect.actions.power.title": "power",
+  "components.effect.type.title": "Type",
+  "components.effect.types.instant.title": "Instant",
+  "components.effect.types.delayed.title": "Delayed",
+  "components.effect.types.periodical.title": "Periodical",
+  "components.effect.types.continuous.title": "Continuous",
+  "components.effect.types.timeLimited.title": "Time Limited",
+  "components.applicatorOptions.timer.title": "Timer",
+  "components.applicatorOptions.frequency.title": "Frequency",
+  "components.applicatorOptions.duration.title": "Duration",
+  "components.applicatorOptions.cooldown.title": "Cooldown",
+
+  "components.health.title": "Health",
+  "components.health.points.title": "Points",
+
+  "components.hitBox.title": "Hit Box",
+
+  "components.movement.title": "Movement",
+  "components.movement.speed.title": "Speed",
+
+  "components.thumbStickControl.title": "Thumb Stick Control",
+  "components.thumbStickControl.bind.title": "Event Bind {{index}}",
+  "components.thumbStickControl.bind.event.title": "Event",
+  "components.thumbStickControl.bind.eventType.title": "Event Type",
+  "components.thumbStickControl.bind.attributes.title": "Attributes",
+  "components.thumbStickControl.bind.addNew.title": "Add New Bind",
+  "components.thumbStickControl.option.positionChange.title": "Position Change",
+
+  "components.ui.title": "UI",
+  "components.ui.title.title": "Title",
+  "components.ui.icon.title": "Icon",
+  
+  "components.viewDirection.title": "View Direction",
+  "components.viewDirection.x.title": "X",
+  "components.viewDirection.y.title": "Y",
+
+  "components.weapon.title": "Weapon",
+  "components.weapon.type.title": "Type",
+  "components.weapon.types.melee.title": "Melee",
+  "components.weapon.types.range.title": "Range",
+  "components.weapon.cooldown.title": "Cooldown",
+  "components.weapon.properties.damage.title": "Damage",
+  "components.weapon.properties.range.title": "Range",
+  "components.weapon.properties.projectileSpeed.title": "Projectile Speed",
+  "components.weapon.properties.projectileRadius.title": "Projectile Radius",
+  "components.weapon.properties.projectileModel.title": "Projectile Model",
+
+
+  "systems.aiSystem.title": "AI System",
+
+  "systems.damageSystem.title": "Damage System",
+
+  "systems.dayNightSimulator.title": "Day Night Simulator",
+  "systems.dayNightSimulator.dayLength.title": "Day Length",
+  "systems.dayNightSimulator.startTime.title": "Start Time",
+  "systems.dayNightSimulator.skyId.title": "Sky Object",
+
+  "systems.effectsSystem.title": "Effects System",
+
+  "systems.enemySpawner.title": "Enemy Spawner",
+
+  "systems.fightSystem.title": "Fight System",
+
+  "systems.grassSpawner.title": "Grass Spawner",
+
+  "systems.movementSystem.title": "Movement System",
+
+  "systems.reaper.title": "Reaper",
+  "systems.reaper.lifetime.title": "Lifetime",
+  "systems.reaper.allowedComponents.title": "Allowed Components",
+
+  "systems.thumbStickController.title": "Thumb Stick Controller",
+
+  "resources.scriptSystem.player.skyId.title": "Sky Object Id",
+  "resources.scriptSystem.player.threshold.title": "Threshold"
+}

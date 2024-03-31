@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LoadScene } from 'remiz/events';
 
+import { EventType } from '../../../events';
+import { Health, AutoAim } from '../../../game/components';
+import { TimeService } from '../../../game/systems';
+import { CollectService } from '../../../game/scripts';
 import {
   withGame,
   withDeviceDetection,
@@ -19,26 +24,13 @@ import {
 import {
   ActionBar,
 } from '../../elements/desktop';
-import { PLAYER_ID } from '../../consts';
+import { PLAYER_ID } from '../../../consts/actors';
 
 import './style.css';
 
-const VICTORY_MSG = 'VICTORY';
-const DEFEAT_MSG = 'DEFEAT';
-const TOGGLE_INVENTORY_MSG = 'TOGGLE_INVENTORY';
-const CLOSE_INVENTORY_MSG = 'CLOSE_INVENTORY';
-const LOAD_SCENE_MSG = 'LOAD_SCENE';
-const CRAFT_RECIPE_MSG = 'CRAFT_RECIPE';
-const GRAB_MSG = 'GRAB';
-const ATTACK_MSG = 'ATTACK';
-const GAME_SCENE_NAME = 'game';
-const MAIN_MENU_SCENE_NAME = 'mainMenu';
-
-const CAN_GRAB_KEY = 'canGrab';
-const INVENTORY_KEY = 'inventory';
-const TIME_OF_DAY_KEY = 'timeOfDay';
-
-const HEALTH_COMPONENT_NAME = 'health';
+const GAME_SCENE_ID = 'a6d997de-cc8d-4d61-9fcb-932179c32142';
+const MAIN_MENU_SCENE_ID = '5d78b760-d3ae-4966-ad0c-7942a54006f2';
+const LOADER_ID = '3c4c020d-bcf7-4644-893f-fa72335b352e';
 
 const DEV_MODE = 'development';
 
@@ -91,35 +83,66 @@ export class Game extends React.Component {
         </>
       ),
     };
-    this.messageBusSubscription = this.onMessageBusUpdate.bind(this);
-    this.storeSubscription = this.onStoreUpdate.bind(this);
-    this.playerSubscription = this.onPlayerUpdate.bind(this);
   }
 
   componentDidMount() {
-    this.props.messageBusObserver.subscribe(this.messageBusSubscription);
-    this.props.storeObserver.subscribe(this.storeSubscription);
-    this.props.gameObjects.subscribe(this.playerSubscription, PLAYER_ID);
+    this.props.gameStateObserver.subscribe(this.onGameStateUpdate);
+    this.props.scene.addEventListener(EventType.Victory, this.handleVictory);
+    this.props.scene.addEventListener(EventType.Defeat, this.handleDefeat);
+    this.props.scene.addEventListener(EventType.ToggleInventory, this.handleToggleInventory);
+    this.props.scene.addEventListener(EventType.CloseInventory, this.handleCloseInventory);
   }
 
   componentWillUnmount() {
-    this.props.messageBusObserver.unsubscribe(this.messageBusSubscription);
-    this.props.storeObserver.unsubscribe(this.storeSubscription);
-    this.props.gameObjects.unsubscribe(this.playerSubscription, PLAYER_ID);
+    this.props.gameStateObserver.unsubscribe(this.onGameStateUpdate);
+    this.props.scene.removeEventListener(EventType.Victory, this.handleVictory);
+    this.props.scene.removeEventListener(EventType.Defeat, this.handleDefeat);
+    this.props.scene.removeEventListener(EventType.ToggleInventory, this.handleToggleInventory);
+    this.props.scene.removeEventListener(EventType.CloseInventory, this.handleCloseInventory);
   }
 
-  onStoreUpdate(store) {
-    const canGrabSet = store.get(CAN_GRAB_KEY);
+  handleVictory = () => {
+    this.setState({ pageState: PAGE_STATE.VICTORY });
+  }
 
-    const canGrab = !!canGrabSet.size;
+  handleDefeat = () => {
+    this.setState({ pageState: PAGE_STATE.DEFEAT });
+  }
+
+  handleToggleInventory = () => {
+    if (this.state.pageState === PAGE_STATE.GAME) {
+      this.setState({ pageState: PAGE_STATE.INVENTORY });
+    } else if (this.state.pageState === PAGE_STATE.INVENTORY) {
+      this.setState({ pageState: PAGE_STATE.GAME });
+    }
+  }
+
+  handleCloseInventory = () => {
+    if (this.state.pageState === PAGE_STATE.INVENTORY) {
+      this.setState({ pageState: PAGE_STATE.GAME });
+    }
+  }
+
+  onGameStateUpdate = () => {
+    this.handlePlayerUpdate();
+    this.handleGUIUpdate();
+  }
+
+  handleGUIUpdate() {
+    const collectService = this.props.scene.getService(CollectService);
+    const timeService = this.props.scene.getService(TimeService);
+    const collectableItems = collectService.getCollectableItems();
+    const inventory = collectService.getInventory();
+
+    const canGrab = !!collectableItems.size;
 
     if (canGrab !== this.state.canGrab) {
       this.setState({
-        canGrab: !!canGrabSet.size,
+        canGrab: !!collectableItems.size,
       });
     }
 
-    const { healGrass, ogreGrass, boomGrass } = store.get(INVENTORY_KEY);
+    const { healGrass, ogreGrass, boomGrass } = inventory;
 
     if (
       healGrass !== this.state.healGrass
@@ -133,8 +156,7 @@ export class Game extends React.Component {
       });
     }
 
-    const time = store.get(TIME_OF_DAY_KEY);
-    const days = time.getDays();
+    const days = timeService.getDays();
 
     if (days !== this.state.days) {
       this.setState({
@@ -143,34 +165,17 @@ export class Game extends React.Component {
     }
   }
 
-  onMessageBusUpdate(messageBus) {
-    if (messageBus.get(VICTORY_MSG)) {
-      this.setState({ pageState: PAGE_STATE.VICTORY });
-    } else if (messageBus.get(DEFEAT_MSG)) {
-      this.setState({ pageState: PAGE_STATE.DEFEAT });
-    }
+  handlePlayerUpdate() {
+    const actor = this.props.scene.getEntityById(PLAYER_ID);
+    const health = actor?.getComponent(Health);
 
-    const pageState = this.state.pageState;
-    if (messageBus.get(TOGGLE_INVENTORY_MSG) && pageState === PAGE_STATE.GAME) {
-      this.setState({ pageState: PAGE_STATE.INVENTORY });
-    } else if (
-      (messageBus.get(TOGGLE_INVENTORY_MSG) || messageBus.get(CLOSE_INVENTORY_MSG)) &&
-      pageState === PAGE_STATE.INVENTORY
-    ) {
-      this.setState({ pageState: PAGE_STATE.GAME });
-    }
-  }
-
-  onPlayerUpdate(gameObject) {
-    if (!gameObject) {
+    if (!actor || !health) {
       this.setState({
         health: 0,
         maxHealth: 0,
       });
       return;
     }
-
-    const health = gameObject.getComponent(HEALTH_COMPONENT_NAME);
 
     const newState = {};
 
@@ -179,11 +184,8 @@ export class Game extends React.Component {
       newState.maxHealth = health.maxPoints;
     }
 
-    const gameObjectId = gameObject.getId();
-
-    if (gameObjectId !== this.state.gameObjectId) {
-      newState.gameObjectId = gameObjectId;
-      newState.gameObject = gameObject;
+    if (actor !== this.state.actor) {
+      newState.actor = actor;
     }
 
     if (Object.keys(newState).length) {
@@ -194,11 +196,7 @@ export class Game extends React.Component {
   onCollectItem = (event) => {
     event.stopPropagation();
 
-    this.props.pushMessage({
-      type: GRAB_MSG,
-      id: this.state.gameObjectId,
-      gameObject: this.state.gameObject,
-    });
+    this.state.actor.dispatchEvent(EventType.Grab);
   }
 
   onInventoryToggle = (event) => {
@@ -206,41 +204,38 @@ export class Game extends React.Component {
       event.stopPropagation();
     }
 
-    this.props.pushMessage({
-      type: TOGGLE_INVENTORY_MSG,
-    });
+    this.state.actor.dispatchEvent(EventType.ToggleInventory);
   }
 
   onCraft = (recipe) => {
-    this.props.pushMessage({
-      type: CRAFT_RECIPE_MSG,
-      recipe,
-    });
+    this.state.actor.dispatchEvent(EventType.CraftRecipe, { recipe });
   }
 
   onRestart() {
-    this.props.pushMessage({
-      type: LOAD_SCENE_MSG,
-      name: GAME_SCENE_NAME,
-      loader: 'loader',
+    this.props.scene.dispatchEvent(LoadScene, {
+      sceneId: GAME_SCENE_ID,
+      loaderId: LOADER_ID,
       unloadCurrent: true,
       clean: true,
     });
   }
 
   onMainMenu() {
-    this.props.pushMessage({
-      type: LOAD_SCENE_MSG,
-      name: MAIN_MENU_SCENE_NAME,
+    this.props.scene.dispatchEvent(LoadScene, {
+      sceneId: MAIN_MENU_SCENE_ID,
       unloadCurrent: true,
     });
   }
 
   onAttack = () => {
-    this.props.pushMessage({
-      type: ATTACK_MSG,
-      id: this.state.gameObjectId,
-      gameObject: this.state.gameObject,
+    const autoAimObject = this.state.actor.children.find(
+      (child) => child.getComponent(AutoAim)
+    );
+    const autoAim = autoAimObject.getComponent(AutoAim);
+
+    this.state.actor.dispatchEvent(EventType.Attack, {
+      x: autoAim.targetX,
+      y: autoAim.targetY,
     });
   }
 
@@ -290,13 +285,15 @@ export class Game extends React.Component {
             <div className='game__left-bar'>
               <HealthBar health={this.state.health} maxHealth={this.state.maxHealth}/>
               <EffectsBar className='game__effects-bar' />
-              {NODE_ENV === DEV_MODE && <GameStatsMeter className='game__game-stats-meter'/>}
+              {process.env.NODE_ENV === DEV_MODE && (
+                <GameStatsMeter className='game__game-stats-meter'/>
+              )}
             </div>
             <MenuButton icon='./media/images/inventory-icon.png' onClick={this.onInventoryToggle} />
           </header>
           <div className='game__main'>
             <ItemsBarContainer
-              user={this.state.gameObject}
+              user={this.state.actor}
             />
           </div>
           <footer className='game__footer game__footer_touch'>
@@ -326,7 +323,7 @@ export class Game extends React.Component {
             <div className='game__left-bar'>
               <HealthBar health={this.state.health}/>
               <EffectsBar className='game__effects-bar' />
-              {NODE_ENV === DEV_MODE && <GameStatsMeter className='game__game-stats-meter'/>}
+              {process.env.NODE_ENV === DEV_MODE && <GameStatsMeter className='game__game-stats-meter'/>}
             </div>
             <ActionBar
               onClick={this.onInventoryToggle}
@@ -337,7 +334,7 @@ export class Game extends React.Component {
           <footer className='game__footer'>
             <div className='game__bars'>
               <ItemsBarContainer
-                user={this.state.gameObject}
+                user={this.state.actor}
               />
               {this.renderActionBar()}
             </div>
@@ -357,10 +354,8 @@ export class Game extends React.Component {
 }
 
 Game.propTypes = {
-  messageBusObserver: PropTypes.any,
-  storeObserver: PropTypes.any,
-  pushMessage: PropTypes.func,
-  gameObjects: PropTypes.any,
+  gameStateObserver: PropTypes.any,
+  scene: PropTypes.any,
   touchDevice: PropTypes.bool,
 };
 

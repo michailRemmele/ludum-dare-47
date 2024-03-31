@@ -1,91 +1,103 @@
-import { MathOps } from 'remiz';
+import {
+  ActorCollection,
+  MathOps,
+  System,
+  Transform,
+} from 'remiz';
+import { RemoveActor } from 'remiz/events';
+
+import { EventType } from '../../../events';
+import { Weapon } from '../../components';
 
 import { SimpleFighter } from './fighters';
 
-const ATTACK_MSG = 'ATTACK';
-
-const WEAPON_COMPONENT_NAME = 'weapon';
-const TRANSFORM_COMPONENT_NAME = 'transform';
-
-export class FightSystem {
+export class FightSystem extends System {
   constructor(options) {
-    this._gameObjectObserver = options.createGameObjectObserver({
-      components: [
-        WEAPON_COMPONENT_NAME,
-      ],
+    super();
+
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene, {
+      components: [ Weapon ],
     });
-    this._gameObjectSpawner = options.gameObjectSpawner;
-    this.messageBus = options.messageBus;
+    this.actorSpawner = options.actorSpawner;
 
     this._fighters = {};
     this._activeAttacks = [];
+
+    this._events = [];
   }
 
   mount() {
-    this._gameObjectObserver.subscribe('onremove', this._handleEntitiyRemove);
+    this.scene.addEventListener(EventType.Attack, this._handleAttack);
+    this.actorCollection.addEventListener(RemoveActor, this._handleRemoveActor);
   }
 
   unmount() {
-    this._gameObjectObserver.unsubscribe('onremove', this._handleEntitiyRemove);
+    this.scene.removeEventListener(EventType.Attack, this._handleAttack);
+    this.actorCollection.removeEventListener(RemoveActor, this._handleRemoveActor);
   }
 
-  _handleEntitiyRemove = (gameObject) => {
-    const gameObjectId = gameObject.getId();
-    this._fighters[gameObjectId] = null;
+  _handleRemoveActor = (event) => {
+    delete this._fighters[event.actor.id];
   };
 
-  _processActiveAttacks(deltaTime) {
+  _handleAttack = (event) => {
+    this._events.push(event);
+  };
+
+  _updateActiveAttacks(deltaTime) {
     this._activeAttacks = this._activeAttacks.filter((attack) => {
       attack.update(deltaTime);
+
+      if (attack.isFinished()) {
+        attack.destroy();
+      }
 
       return !attack.isFinished();
     });
   }
 
-  _attack(gameObject, targetX, targetY) {
-    const gameObjectId = gameObject.getId();
-    const { offsetX, offsetY } = gameObject.getComponent(TRANSFORM_COMPONENT_NAME);
-
-    const fighter = this._fighters[gameObjectId];
-
-    if (!fighter || !fighter.isReady()) {
-      this.messageBus.deleteById(ATTACK_MSG, gameObjectId);
-      return;
-    }
-
-    const radAngle = MathOps.getAngleBetweenTwoPoints(targetX, offsetX, targetY, offsetY);
-
-    const attack = fighter.attack(radAngle);
-
-    this._activeAttacks.push(attack);
-  }
-
-  _processFighters(deltaTime) {
-    this._gameObjectObserver.forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-
-      if (!this._fighters[gameObjectId]) {
-        this._fighters[gameObjectId] = new SimpleFighter(
-          gameObject, this._gameObjectSpawner, this.messageBus
+  _updateFighters(deltaTime) {
+    this.actorCollection.forEach((actor) => {
+      if (!this._fighters[actor.id]) {
+        this._fighters[actor.id] = new SimpleFighter(
+          actor, this.actorSpawner, this.scene
         );
       } else {
-        this._fighters[gameObjectId].update(deltaTime);
+        this._fighters[actor.id].update(deltaTime);
       }
     });
+  }
+
+  _updateNewAttacks() {
+    this._events.forEach((event) => {
+      const { x, y, target } = event;
+
+      const { offsetX, offsetY } = target.getComponent(Transform);
+
+      const fighter = this._fighters[target.id];
+
+      if (!fighter || !fighter.isReady()) {
+        return;
+      }
+
+      const radAngle = MathOps.getAngleBetweenTwoPoints(x, offsetX, y, offsetY);
+
+      const attack = fighter.attack(radAngle);
+
+      this._activeAttacks.push(attack);
+    });
+    this._events = [];
   }
 
   update(options) {
     const { deltaTime } = options;
 
-    this._gameObjectObserver.fireEvents();
+    this._updateFighters(deltaTime);
+    this._updateActiveAttacks(deltaTime);
 
-    this._processFighters(deltaTime);
-    this._processActiveAttacks(deltaTime);
-
-    const messages = this.messageBus.get(ATTACK_MSG) || [];
-    messages.forEach((message) => {
-      const { gameObject, x, y } = message;
-      this._attack(gameObject, x, y);
-    });
+    this._updateNewAttacks();
   }
 }
+
+FightSystem.systemName = 'FightSystem';

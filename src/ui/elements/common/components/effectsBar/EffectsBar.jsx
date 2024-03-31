@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { ActiveEffects, Effect, UI } from '../../../../../game/components';
 import { withGame } from '../../../common';
-import { PLAYER_ID } from '../../../../consts';
+import { PLAYER_ID } from '../../../../../consts/actors';
 
 import './style.css';
 
-export const ACTIVE_EFFECTS_COMPONENT_NAME = 'activeEffects';
-export const EFFECT_COMPONENT_NAME = 'effect';
-export const UI_COMPONENT_NAME = 'ui';
-
-export const EffectsBar = ({ className, gameObjects }) => {
+export const EffectsBar = ({
+  className,
+  scene,
+  gameStateObserver,
+}) => {
   const [ effects, setEffects ] = useState([]);
 
   useEffect(() => {
-    const handlePlayerUpdate = (gameObject) => {
-      if (!gameObject || !gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME)) {
+    const handleGameStateUpdate = () => {
+      const actor = scene.getEntityById(PLAYER_ID);
+
+      if (!actor || !actor.getComponent(ActiveEffects)) {
         return;
       }
 
-      const activeEffects = gameObject.getComponent(ACTIVE_EFFECTS_COMPONENT_NAME);
+      const activeEffects = actor.getComponent(ActiveEffects);
 
       const newEffects = activeEffects.list.reduce((acc, effectName) => {
         const effectObject = activeEffects.map[effectName];
 
-        const effect = effectObject.getComponent(EFFECT_COMPONENT_NAME);
-        const ui = effectObject.getComponent(UI_COMPONENT_NAME);
+        const effect = effectObject.getComponent(Effect);
+        const ui = effectObject.getComponent(UI);
 
         if (effect && ui) {
           acc.push({
@@ -51,10 +54,10 @@ export const EffectsBar = ({ className, gameObjects }) => {
       }
     };
 
-    gameObjects.subscribe(handlePlayerUpdate, PLAYER_ID);
+    gameStateObserver.subscribe(handleGameStateUpdate);
 
-    return () => gameObjects.unsubscribe(handlePlayerUpdate, PLAYER_ID);
-  }, [ effects ]);
+    return () => gameStateObserver.unsubscribe(handleGameStateUpdate);
+  }, [ effects, scene, gameStateObserver ]);
 
   if (!effects.length) {
     return null;
@@ -76,12 +79,14 @@ export const EffectsBar = ({ className, gameObjects }) => {
 
 EffectsBar.defaultProps = {
   className: '',
-  gameObjects: void 0,
+  gameStateObserver: void 0,
+  scene: void 0,
 };
 
 EffectsBar.propTypes = {
   className: PropTypes.string,
-  gameObjects: PropTypes.any,
+  gameStateObserver: PropTypes.any,
+  scene: PropTypes.any,
 };
 
 export const EffectsBarWithGame = withGame(EffectsBar);

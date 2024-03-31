@@ -1,3 +1,0 @@
-export const EFFECT_ADD_MSG = 'EFFECT_ADD';
-export const EFFECT_APPLY_MSG = 'EFFECT_APPLY';
-export const EFFECT_CANCEL_MSG = 'EFFECT_CANCEL';

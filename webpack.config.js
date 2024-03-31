@@ -2,11 +2,10 @@ const webpack = require('webpack');
 const paths = require('./paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const SpriteSmithWebpackPlugin = require('./etc/webpack/plugins/spritesmith-webpack-plugin');
-const DirWatchWebpackPlugin = require('./etc/webpack/plugins/dir-watch-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -18,12 +17,11 @@ module.exports = {
   },
 
   devServer: isDev ? {
-    contentBase: paths.public,
-    watchContentBase: true,
-    inline: true,
+    hot: true,
     open: true,
-    historyApiFallback: true,
-    host: '0.0.0.0',
+    static: {
+      directory: paths.public,
+    },
   } : undefined,
 
   output: {
@@ -34,9 +32,7 @@ module.exports = {
     publicPath: isDev ? '/' : undefined,
   },
 
-  watch: isDev,
-
-  devtool: isDev ? 'cheap-module-eval-source-map' : false,
+  devtool: isDev ? 'eval' : false,
 
   resolve: {
     extensions: [ '.js', '.jsx' ],
@@ -44,17 +40,22 @@ module.exports = {
       resources: paths.resources,
     },
     modules: [
-      'src',
       'node_modules',
+      'src',
     ],
+  },
+
+  optimization: {
+    minimize: true,
+    minimizer: [ new TerserPlugin() ],
   },
 
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
-    isDev ? null : new CleanWebpackPlugin([ paths.build ]),
+    isDev ? null : new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.indexHtml,
@@ -62,29 +63,21 @@ module.exports = {
     isDev ? null : new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
     }),
-    isDev ? null : new UglifyJsPlugin(),
-    isDev ? null : new CopyWebpackPlugin([
+    isDev ? null : new CopyWebpackPlugin(
       {
-        from: paths.public,
-        to: paths.build,
-        ignore: [ paths.indexHtml, paths.graphicResources ],
-      },
-    ]),
-    new SpriteSmithWebpackPlugin({
-      input: {
-        path: paths.graphicResources,
-        pattern: '**/*.png',
-      },
-      output: {
-        path: paths.build,
-        spriteFilename: 'resources/textureAtlas.png',
-        sourceMapFilename: 'resources/textureAtlasMap.json',
-      },
-      padding: 2,
+        patterns: [
+          {
+            from: paths.public,
+            globOptions: {
+              ignore: [ paths.indexHtml, paths.graphicResources ],
+            },
+          },
+        ],
+      }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: false,
     }),
-    isDev ? new DirWatchWebpackPlugin({
-      path: paths.resources,
-    }) : null,
   ].filter(Boolean),
 
   module: {
@@ -95,6 +88,12 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+              ],
+            },
           },
         ],
       },

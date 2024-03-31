@@ -1,35 +1,47 @@
-const DAMAGE_MSG = 'DAMAGE';
-const KILL_MSG = 'KILL';
+import {
+  System,
+  ActorCollection,
+} from 'remiz';
 
-const HEALTH_COMPONENT_NAME = 'health';
+import { EventType } from '../../../events';
+import { Health } from '../../components';
 
-export class DamageSystem {
+export class DamageSystem extends System {
   constructor(options) {
-    this.messageBus = options.messageBus;
-  }
+    super();
 
-  update() {
-    const damageMessages = this.messageBus.get(DAMAGE_MSG) || [];
-    damageMessages.forEach((message) => {
-      const { gameObject, value } = message;
-
-      const health = gameObject.getComponent(HEALTH_COMPONENT_NAME);
-
-      if (!health) {
-        return;
-      }
-
-      health.points -= Math.round(value);
-
-      if (health.points <= 0) {
-        health.points = 0;
-
-        this.messageBus.send({
-          type: KILL_MSG,
-          id: gameObject.getId(),
-          gameObject: gameObject,
-        });
-      }
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene, {
+      components: [
+        Health,
+      ],
     });
   }
+
+  mount() {
+    this.scene.addEventListener(EventType.Damage, this.handleDamage);
+  }
+
+  unmount() {
+    this.scene.removeEventListener(EventType.Damage, this.handleDamage);
+  }
+
+  handleDamage = (event) => {
+    const { target, value } = event;
+
+    const health = target.getComponent(Health);
+
+    if (!health) {
+      return;
+    }
+
+    health.points -= Math.round(value);
+
+    if (health.points <= 0) {
+      health.points = 0;
+      target.dispatchEvent(EventType.Kill);
+    }
+  }
 }
+
+DamageSystem.systemName = 'DamageSystem';

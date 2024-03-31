@@ -1,13 +1,20 @@
-import { MathOps } from 'remiz';
+import {
+  ActorCollection,
+  MathOps,
+  System,
+  Transform,
+} from 'remiz';
 
-const DAMAGE_MSG = 'DAMAGE';
+import { EventType } from '../../../events';
+import {
+  AI,
+  Health,
+  Weapon,
+} from '../../components';
+import { TimeService } from '../';
 
-const ENEMY_TEMPLATE_NAME = 'enemy';
-const RANGE_ENEMY_TEMPLATE_NAME = 'rangeEnemy';
-const TRANSFORM_COMPONENT_NAME = 'transform';
-const WEAPON_COMPONENT_NAME = 'weapon';
-const HEALTH_COMPONENT_NAME = 'health';
-const AI_COMPONENT_NAME = 'ai';
+const ENEMY_TEMPLATE_ID = 'bde6add9-dcba-4a38-9829-b3f58eff93cb';
+const RANGE_ENEMY_TEMPLATE_ID = 'e6ad51f9-a964-4830-9ce2-afb09de2a41e';
 
 const ENEMY_SPAWN_COOLDOWN = 2000;
 const RANGE_ENEMY_SPAWN_COOLDOWN = 4000;
@@ -21,18 +28,16 @@ const MELEE_HP_MAGNIFIER = 5;
 const RANGE_DAMAGE_MAGNIFIER = 4;
 const RANGE_HP_MAGNIFIER = 2;
 
-const TIME_OF_DAY_KEY = 'timeOfDay';
-
-export class EnemySpawner {
+export class EnemySpawner extends System {
   constructor(options) {
-    this._gameObjectObserver = options.createGameObjectObserver({
-      components: [
-        AI_COMPONENT_NAME,
-      ],
+    super();
+
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene, {
+      components: [ AI ],
     });
-    this._gameObjectSpawner = options.gameObjectSpawner;
-    this._store = options.store;
-    this.messageBus = options.messageBus;
+    this._actorSpawner = options.actorSpawner;
+    this.timeService = options.scene.getService(TimeService);
 
     this._islandSize = {
       minX: -200,
@@ -51,10 +56,10 @@ export class EnemySpawner {
     }
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const enemy = this._gameObjectSpawner.spawn(ENEMY_TEMPLATE_NAME);
-      const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
-      const enemyWeapon = enemy.getComponent(WEAPON_COMPONENT_NAME);
-      const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
+      const enemy = this._actorSpawner.spawn(ENEMY_TEMPLATE_ID);
+      const enemyTransform = enemy.getComponent(Transform);
+      const enemyWeapon = enemy.getComponent(Weapon);
+      const enemyHealth = enemy.getComponent(Health);
 
       enemyWeapon.properties.damage += days * MELEE_DAMAGE_MAGNIFIER;
 
@@ -65,6 +70,8 @@ export class EnemySpawner {
       enemyTransform.offsetY = MathOps.random(this._islandSize.minY, this._islandSize.maxY);
 
       this._enemyCooldown = ENEMY_SPAWN_COOLDOWN;
+
+      this.scene.appendChild(enemy);
     }
   }
 
@@ -75,10 +82,10 @@ export class EnemySpawner {
     }
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const enemy = this._gameObjectSpawner.spawn(RANGE_ENEMY_TEMPLATE_NAME);
-      const enemyTransform = enemy.getComponent(TRANSFORM_COMPONENT_NAME);
-      const enemyWeapon = enemy.getComponent(WEAPON_COMPONENT_NAME);
-      const enemyHealth = enemy.getComponent(HEALTH_COMPONENT_NAME);
+      const enemy = this._actorSpawner.spawn(RANGE_ENEMY_TEMPLATE_ID);
+      const enemyTransform = enemy.getComponent(Transform);
+      const enemyWeapon = enemy.getComponent(Weapon);
+      const enemyHealth = enemy.getComponent(Health);
 
       enemyWeapon.properties.damage += days * RANGE_DAMAGE_MAGNIFIER;
 
@@ -89,28 +96,26 @@ export class EnemySpawner {
       enemyTransform.offsetY = MathOps.random(this._islandSize.minY, this._islandSize.maxY);
 
       this._rangeEnemyCooldown = RANGE_ENEMY_SPAWN_COOLDOWN;
+
+      this.scene.appendChild(enemy);
     }
   }
 
   update(options) {
     const { deltaTime } = options;
 
-    const time = this._store.get(TIME_OF_DAY_KEY);
-    const hour = time.getHours();
-    const days = time.getDays() - 1;
+    const hour = this.timeService.getHours();
+    const days = this.timeService.getDays() - 1;
 
     this._spawnMeleeEnemies(deltaTime, hour, days);
     this._spawnRangeEnemies(deltaTime, hour, days);
 
-    if (this._gameObjectObserver.size() && hour >= END_SPAWN_HOUR) {
-      this._gameObjectObserver.forEach((gameObject) => {
-        this.messageBus.send({
-          type: DAMAGE_MSG,
-          id: gameObject.getId(),
-          gameObject: gameObject,
-          value: END_SPAWN_DAMAGE,
-        });
+    if (hour >= END_SPAWN_HOUR) {
+      this.actorCollection.forEach((actor) => {
+        actor.dispatchEvent(EventType.Damage, { value: END_SPAWN_DAMAGE });
       });
     }
   }
 }
+
+EnemySpawner.systemName = 'EnemySpawner';

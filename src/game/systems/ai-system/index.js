@@ -1,47 +1,56 @@
-import aiStrategies from './aiStrategies';
+import {
+  System,
+  ColliderContainer,
+  ActorCollection,
+} from 'remiz';
+import { RemoveActor } from 'remiz/events';
 
-const AI_COMPONENT_NAME = 'ai';
-const COLLIDER_CONTAINER_COMPONENT_NAME = 'colliderContainer';
+import { AI } from '../../components';
 
-export class AISystem {
+import { strategies } from './ai-strategies';
+
+export class AISystem extends System {
   constructor(options) {
-    this._gameObjectObserver = options.createGameObjectObserver({
+    super();
+
+    this.scene = options.scene;
+    this.aiUnitsCollection = new ActorCollection(options.scene, {
       components: [
-        AI_COMPONENT_NAME,
-        COLLIDER_CONTAINER_COMPONENT_NAME,
+        AI,
+        ColliderContainer,
       ],
     });
-    this._store = options.store;
-    this.messageBus = options.messageBus;
 
     this.playersStrategies = {};
   }
 
   mount() {
-    this._gameObjectObserver.subscribe('onadd', this._handleEntitiyAdd);
+    this.scene.addEventListener(RemoveActor, this._handleRemoveActor);
   }
 
   unmount() {
-    this._gameObjectObserver.unsubscribe('onadd', this._handleEntitiyAdd);
+    this.scene.removeEventListener(RemoveActor, this._handleRemoveActor);
   }
 
-  _handleEntitiyAdd = (gameObject) => {
-    const gameObjectId = gameObject.getId();
-    const ai = gameObject.getComponent(AI_COMPONENT_NAME);
-
-    this.playersStrategies[gameObjectId] = new aiStrategies[ai.strategy](
-      gameObject, this._store, this.messageBus
-    );
+  _handleRemoveActor = (event) => {
+    delete this.playersStrategies[event.actor.id];
   };
 
   update(options) {
     const { deltaTime } = options;
 
-    this._gameObjectObserver.fireEvents();
+    this.aiUnitsCollection.forEach((actor) => {
+      if (!this.playersStrategies[actor.id]) {
+        const ai = actor.getComponent(AI);
 
-    this._gameObjectObserver.forEach((gameObject) => {
-      const gameObjectId = gameObject.getId();
-      this.playersStrategies[gameObjectId].update(deltaTime);
+        this.playersStrategies[actor.id] = new strategies[ai.strategy](
+          actor, this.scene,
+        );
+      }
+
+      this.playersStrategies[actor.id].update(deltaTime);
     });
   }
 }
+
+AISystem.systemName = 'AISystem';

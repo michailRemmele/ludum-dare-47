@@ -2,6 +2,7 @@
 /.idea
 
 /build
+/build-editor
 stats.json
 
 .DS_Store

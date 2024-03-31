@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { GameStatsUpdate } from 'remiz/events';
 
 import { withGame } from '../../../common';
 
 import './style.css';
-
-const GAME_STATS_UPDATE_MSG = 'GAME_STATS_UPDATE';
 
 const CHART_MAX_VALUES = 10;
 const CHART_LINE_WIDTH = 8;
@@ -22,15 +21,14 @@ const getPointY = (value, max) => {
 
 export const GameStatsMeter = ({
   className,
-  messageBusObserver,
+  scene,
 }) => {
   const chartRef = useRef(null);
   const chartCtxRef = useRef(null);
   const chartValues = useRef([]);
 
   const [ fps, setFps ] = useState(0);
-  const [ gameObjectsCount, setGameObjectsCount ] = useState(0);
-  const [ messagesCount, setMessagesCount ] = useState(0);
+  const [ actorsCount, setActorsCount ] = useState(0);
 
   const updateChart = useCallback((currentFps) => {
     const ctx = chartCtxRef.current;
@@ -64,25 +62,20 @@ export const GameStatsMeter = ({
     ctx.stroke();
   }, []);
 
-  const onMessageBusUpdate = useCallback((messageBus) => {
-    const messages = messageBus.get(GAME_STATS_UPDATE_MSG);
+  useEffect(() => {
+    const handleGameStateUpdate = (event) => {
+      const currentFps = Math.round(event.fps);
 
-    if (messages) {
-      const currentFps = Math.round(messages[0].fps);
-
-      setGameObjectsCount(messages[0].gameObjectsCount);
-      setMessagesCount(Math.round(messages[0].messagesCount));
+      setActorsCount(event.actorsCount);
 
       setFps(currentFps);
       updateChart(currentFps);
-    }
-  }, []);
+    };
 
-  useEffect(() => {
-    messageBusObserver.subscribe(onMessageBusUpdate);
+    scene.addEventListener(GameStatsUpdate, handleGameStateUpdate);
 
-    return () => messageBusObserver.unsubscribe(onMessageBusUpdate);
-  }, []);
+    return () => scene.removeEventListener(GameStatsUpdate, handleGameStateUpdate);
+  }, [ scene ]);
 
   useEffect(() => {
     chartCtxRef.current = chartRef.current.getContext('2d');
@@ -97,10 +90,7 @@ export const GameStatsMeter = ({
 
         <div className='game-stats-meter__load'>
           <span className='game-stats-meter__additional'>
-            {`Game objects: ${gameObjectsCount}`}
-          </span>
-          <span className='game-stats-meter__additional'>
-            {`Messages: ${messagesCount}`}
+            {`Game objects: ${actorsCount}`}
           </span>
         </div>
       </div>
@@ -121,7 +111,7 @@ GameStatsMeter.defaultProps = {
 
 GameStatsMeter.propTypes = {
   className: PropTypes.string,
-  messageBusObserver: PropTypes.any,
+  scene: PropTypes.any,
 };
 
 export const WrappedGameStatsMeter = withGame(GameStatsMeter);

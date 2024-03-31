@@ -1,7 +1,7 @@
-import MeleeAttack from './meleeAttack';
-import RangeAttack from './rangeAttack';
+import { MeleeAttack } from './melee-attack';
+import { RangeAttack } from './range-attack';
 
-export default {
+export const attacks = {
   melee: MeleeAttack,
   range: RangeAttack,
 };

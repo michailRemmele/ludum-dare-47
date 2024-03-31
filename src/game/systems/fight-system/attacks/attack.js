@@ -1,5 +1,9 @@
-class Attack {
+export class Attack {
   isFinished() {
+    throw new Error('You should override this function');
+  }
+
+  destroy() {
     throw new Error('You should override this function');
   }
 
@@ -7,5 +11,3 @@ class Attack {
     throw new Error('You should override this function');
   }
 }
-
-export default Attack;

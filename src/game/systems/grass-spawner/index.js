@@ -1,8 +1,8 @@
-import { MathOps } from 'remiz';
+import { ActorCollection, MathOps, System, Transform } from 'remiz';
 
-const TRANSFORM_COMPONENT_NAME = 'transform';
-
-const KILL_MSG = 'KILL';
+import { EventType } from '../../../events';
+import { TimeService } from '../';
+import { Collectable } from '../../components';
 
 const SPAWN_COOLDOWN = 2000;
 const START_SPAWN_HOUR = 9;
@@ -10,21 +10,21 @@ const END_SPAWN_HOUR = 18;
 const KILL_GRASS_HOUR = 0;
 
 const GRASS_TEMPLATES = [
-  'healGrass',
-  'ogreGrass',
-  'boomGrass',
+  '8fcc3d22-c360-41cb-aa7b-0ac39b74db95',
+  '2aa2d307-1a4f-4fe4-ac4c-2a4e6900ed16',
+  '2241aceb-0112-4ad4-9c0c-9c05f6d4ba47',
 ];
 
-const TIME_OF_DAY_KEY = 'timeOfDay';
-
-export class GrassSpawner {
+export class GrassSpawner extends System {
   constructor(options) {
-    this._gameObjectObserver = options.createGameObjectObserver({
-      type: 'item',
+    super();
+
+    this.scene = options.scene;
+    this.actorCollection = new ActorCollection(options.scene, {
+      components: [ Collectable ],
     });
-    this._gameObjectSpawner = options.gameObjectSpawner;
-    this._store = options.store;
-    this.messageBus = options.messageBus;
+    this.actorSpawner = options.actorSpawner;
+    this.timeService = options.scene.getService(TimeService);
 
     this._islandSize = {
       minX: -180,
@@ -43,30 +43,27 @@ export class GrassSpawner {
       return;
     }
 
-    const time = this._store.get(TIME_OF_DAY_KEY);
-    const hour = time.getHours();
+    const hour = this.timeService.getHours();
 
     if (hour >= START_SPAWN_HOUR && hour < END_SPAWN_HOUR) {
-      const templateName = MathOps.random(0, GRASS_TEMPLATES.length - 1);
-      const grass = this._gameObjectSpawner.spawn(GRASS_TEMPLATES[templateName]);
-      const grassTransform = grass.getComponent(TRANSFORM_COMPONENT_NAME);
+      const templateIndex = MathOps.random(0, GRASS_TEMPLATES.length - 1);
+      const grass = this.actorSpawner.spawn(GRASS_TEMPLATES[templateIndex]);
+      const grassTransform = grass.getComponent(Transform);
 
       grassTransform.offsetX = MathOps.random(this._islandSize.minX, this._islandSize.maxX);
       grassTransform.offsetY = MathOps.random(this._islandSize.minY, this._islandSize.maxY);
 
       this._cooldown = SPAWN_COOLDOWN;
+
+      this.scene.appendChild(grass);
     }
 
-    const grassCount = this._gameObjectObserver.size();
-
-    if (grassCount && hour >= KILL_GRASS_HOUR && hour < START_SPAWN_HOUR) {
-      this._gameObjectObserver.forEach((gameObject) => {
-        this.messageBus.send({
-          type: KILL_MSG,
-          id: gameObject.getId(),
-          gameObject: gameObject,
-        });
+    if (hour >= KILL_GRASS_HOUR && hour < START_SPAWN_HOUR) {
+      this.actorCollection.forEach((actor) => {
+        actor.dispatchEvent(EventType.Kill);
       });
     }
   }
 }
+
+GrassSpawner.systemName = 'GrassSpawner';
